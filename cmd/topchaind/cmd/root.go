@@ -29,7 +29,7 @@ import (
 
 // NewRootCmd creates a new root command for topchaind. It is called once in the main function.
 func NewRootCmd() *cobra.Command {
-    initSDKConfig()
+	initSDKConfig()
 
 	var (
 		txConfigOpts       tx.ConfigOptions
@@ -57,8 +57,8 @@ func NewRootCmd() *cobra.Command {
 	}
 
 	rootCmd := &cobra.Command{
-		Use:   app.Name + "d",
-		Short: "Start topchain node",
+		Use:           app.Name + "d",
+		Short:         "Start topchain node",
 		SilenceErrors: true,
 		PersistentPreRunE: func(cmd *cobra.Command, _ []string) error {
 			// set the default command outputs
@@ -99,7 +99,6 @@ func NewRootCmd() *cobra.Command {
 			return server.InterceptConfigsPreRunHandler(cmd, customAppTemplate, customAppConfig, customCMTConfig)
 		},
 	}
-
 
 	// Since the IBC modules don't support dependency injection, we need to
 	// manually register the modules on the client side.

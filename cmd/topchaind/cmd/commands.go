@@ -14,8 +14,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/pruning"
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/client/snapshot"
-	"github.com/cosmos/cosmos-sdk/codec"
-	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/server"
 	servertypes "github.com/cosmos/cosmos-sdk/server/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
@@ -26,6 +24,9 @@ import (
 	"github.com/spf13/viper"
 
 	"topchain/app"
+
+	rollserv "github.com/rollkit/cosmos-sdk-starter/server"
+	rollconf "github.com/rollkit/rollkit/config"
 )
 
 func initRootCmd(
@@ -41,7 +42,17 @@ func initRootCmd(
 		snapshot.Cmd(newApp),
 	)
 
-	server.AddCommands(rootCmd, app.DefaultNodeHome, newApp, appExport, addModuleInitFlags)
+	server.AddCommandsWithStartCmdOptions(
+		rootCmd,
+		app.DefaultNodeHome,
+		newApp, appExport,
+		server.StartCmdOptions{
+			AddFlags: func(cmd *cobra.Command) {
+				rollconf.AddFlags(cmd)
+				addModuleInitFlags(cmd)
+			},
+			StartCommandHandler: rollserv.StartHandler[servertypes.Application],
+		})
 
 	// add keybase, auxiliary RPC, query, genesis, and tx child commands
 	rootCmd.AddCommand(
