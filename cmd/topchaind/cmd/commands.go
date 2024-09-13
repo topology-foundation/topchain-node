@@ -24,9 +24,6 @@ import (
 	"github.com/spf13/viper"
 
 	"topchain/app"
-
-	rollserv "github.com/rollkit/cosmos-sdk-starter/server"
-	rollconf "github.com/rollkit/rollkit/config"
 )
 
 func initRootCmd(
@@ -41,18 +38,6 @@ func initRootCmd(
 		pruning.Cmd(newApp, app.DefaultNodeHome),
 		snapshot.Cmd(newApp),
 	)
-
-	server.AddCommandsWithStartCmdOptions(
-		rootCmd,
-		app.DefaultNodeHome,
-		newApp, appExport,
-		server.StartCmdOptions{
-			AddFlags: func(cmd *cobra.Command) {
-				rollconf.AddFlags(cmd)
-				addModuleInitFlags(cmd)
-			},
-			StartCommandHandler: rollserv.StartHandler[servertypes.Application],
-		})
 
 	// add keybase, auxiliary RPC, query, genesis, and tx child commands
 	rootCmd.AddCommand(
