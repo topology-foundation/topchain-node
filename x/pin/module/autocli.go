@@ -17,6 +17,17 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Use:       "params",
 					Short:     "Shows the parameters of the module",
 				},
+				{
+					RpcMethod: "PinRequestAll",
+					Use:       "list-pin-request",
+					Short:     "List all pin-request",
+				},
+				{
+					RpcMethod:      "PinRequest",
+					Use:            "show-pin-request [id]",
+					Short:          "Shows a pin-request",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "index"}},
+				},
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},

@@ -20,7 +20,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Query_Params_FullMethodName = "/topchain.pin.Query/Params"
+	Query_Params_FullMethodName        = "/topchain.pin.Query/Params"
+	Query_PinRequest_FullMethodName    = "/topchain.pin.Query/PinRequest"
+	Query_PinRequestAll_FullMethodName = "/topchain.pin.Query/PinRequestAll"
 )
 
 // QueryClient is the client API for Query service.
@@ -29,6 +31,9 @@ const (
 type QueryClient interface {
 	// Parameters queries the parameters of the module.
 	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
+	// Queries a list of PinRequest items.
+	PinRequest(ctx context.Context, in *QueryGetPinRequestRequest, opts ...grpc.CallOption) (*QueryGetPinRequestResponse, error)
+	PinRequestAll(ctx context.Context, in *QueryAllPinRequestRequest, opts ...grpc.CallOption) (*QueryAllPinRequestResponse, error)
 }
 
 type queryClient struct {
@@ -48,12 +53,33 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 	return out, nil
 }
 
+func (c *queryClient) PinRequest(ctx context.Context, in *QueryGetPinRequestRequest, opts ...grpc.CallOption) (*QueryGetPinRequestResponse, error) {
+	out := new(QueryGetPinRequestResponse)
+	err := c.cc.Invoke(ctx, Query_PinRequest_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) PinRequestAll(ctx context.Context, in *QueryAllPinRequestRequest, opts ...grpc.CallOption) (*QueryAllPinRequestResponse, error) {
+	out := new(QueryAllPinRequestResponse)
+	err := c.cc.Invoke(ctx, Query_PinRequestAll_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
 	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
+	// Queries a list of PinRequest items.
+	PinRequest(context.Context, *QueryGetPinRequestRequest) (*QueryGetPinRequestResponse, error)
+	PinRequestAll(context.Context, *QueryAllPinRequestRequest) (*QueryAllPinRequestResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -63,6 +89,12 @@ type UnimplementedQueryServer struct {
 
 func (UnimplementedQueryServer) Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
+}
+func (UnimplementedQueryServer) PinRequest(context.Context, *QueryGetPinRequestRequest) (*QueryGetPinRequestResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PinRequest not implemented")
+}
+func (UnimplementedQueryServer) PinRequestAll(context.Context, *QueryAllPinRequestRequest) (*QueryAllPinRequestResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PinRequestAll not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -95,6 +127,42 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_PinRequest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetPinRequestRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).PinRequest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_PinRequest_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).PinRequest(ctx, req.(*QueryGetPinRequestRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_PinRequestAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllPinRequestRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).PinRequestAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_PinRequestAll_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).PinRequestAll(ctx, req.(*QueryAllPinRequestRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -105,6 +173,14 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Params",
 			Handler:    _Query_Params_Handler,
+		},
+		{
+			MethodName: "PinRequest",
+			Handler:    _Query_PinRequest_Handler,
+		},
+		{
+			MethodName: "PinRequestAll",
+			Handler:    _Query_PinRequestAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
