@@ -1,0 +1,11 @@
+syntax = "proto3";
+package topchain.requester;
+
+option go_package = "topchain/x/requester/types";
+
+message Subscription {
+  
+  string croid = 1; 
+  string ammount = 2; 
+  string duration = 3; 
+}
