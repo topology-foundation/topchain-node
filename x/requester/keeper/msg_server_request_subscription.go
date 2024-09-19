@@ -15,6 +15,7 @@ func (k msgServer) RequestSubscription(goCtx context.Context, msg *types.MsgRequ
 		Croid:    msg.Croid,
 		Ammount:  msg.Ammount,
 		Duration: msg.Duration,
+		Creator:  msg.Creator,
 	}
 	hash := k.AddSubscription(ctx, subscription)
 

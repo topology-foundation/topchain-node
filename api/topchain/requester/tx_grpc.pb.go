@@ -8,7 +8,6 @@ package requester
 
 import (
 	context "context"
-
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -22,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	Msg_UpdateParams_FullMethodName        = "/topchain.requester.Msg/UpdateParams"
 	Msg_RequestSubscription_FullMethodName = "/topchain.requester.Msg/RequestSubscription"
+	Msg_CancelSubscription_FullMethodName  = "/topchain.requester.Msg/CancelSubscription"
 )
 
 // MsgClient is the client API for Msg service.
@@ -32,6 +32,7 @@ type MsgClient interface {
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 	RequestSubscription(ctx context.Context, in *MsgRequestSubscription, opts ...grpc.CallOption) (*MsgRequestSubscriptionResponse, error)
+	CancelSubscription(ctx context.Context, in *MsgCancelSubscription, opts ...grpc.CallOption) (*MsgCancelSubscriptionResponse, error)
 }
 
 type msgClient struct {
@@ -60,6 +61,15 @@ func (c *msgClient) RequestSubscription(ctx context.Context, in *MsgRequestSubsc
 	return out, nil
 }
 
+func (c *msgClient) CancelSubscription(ctx context.Context, in *MsgCancelSubscription, opts ...grpc.CallOption) (*MsgCancelSubscriptionResponse, error) {
+	out := new(MsgCancelSubscriptionResponse)
+	err := c.cc.Invoke(ctx, Msg_CancelSubscription_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -68,6 +78,7 @@ type MsgServer interface {
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 	RequestSubscription(context.Context, *MsgRequestSubscription) (*MsgRequestSubscriptionResponse, error)
+	CancelSubscription(context.Context, *MsgCancelSubscription) (*MsgCancelSubscriptionResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -80,6 +91,9 @@ func (UnimplementedMsgServer) UpdateParams(context.Context, *MsgUpdateParams) (*
 }
 func (UnimplementedMsgServer) RequestSubscription(context.Context, *MsgRequestSubscription) (*MsgRequestSubscriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RequestSubscription not implemented")
+}
+func (UnimplementedMsgServer) CancelSubscription(context.Context, *MsgCancelSubscription) (*MsgCancelSubscriptionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CancelSubscription not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -130,6 +144,24 @@ func _Msg_RequestSubscription_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_CancelSubscription_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCancelSubscription)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CancelSubscription(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CancelSubscription_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CancelSubscription(ctx, req.(*MsgCancelSubscription))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -144,6 +176,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RequestSubscription",
 			Handler:    _Msg_RequestSubscription_Handler,
+		},
+		{
+			MethodName: "CancelSubscription",
+			Handler:    _Msg_CancelSubscription_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -8,4 +8,5 @@ message Subscription {
   string croid = 1; 
   string ammount = 2; 
   string duration = 3; 
+  string creator = 4;
 }
