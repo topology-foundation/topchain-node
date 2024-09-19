@@ -3,6 +3,14 @@ package app
 import (
 	"time"
 
+	providermodulev1 "topchain/api/topchain/provider/module"
+	_ "topchain/x/provider/module" // import for side-effects
+	providermoduletypes "topchain/x/provider/types"
+
+	requestermodulev1 "topchain/api/topchain/requester/module"
+	_ "topchain/x/requester/module" // import for side-effects
+	requestermoduletypes "topchain/x/requester/types"
+
 	runtimev1alpha1 "cosmossdk.io/api/cosmos/app/runtime/v1alpha1"
 	appv1alpha1 "cosmossdk.io/api/cosmos/app/v1alpha1"
 	authmodulev1 "cosmossdk.io/api/cosmos/auth/module/v1"
@@ -89,6 +97,8 @@ var (
 		consensustypes.ModuleName,
 		circuittypes.ModuleName,
 		// chain modules
+		providermoduletypes.ModuleName,
+		requestermoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 
@@ -113,6 +123,8 @@ var (
 		icatypes.ModuleName,
 		ibcfeetypes.ModuleName,
 		// chain modules
+		providermoduletypes.ModuleName,
+		requestermoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	}
 
@@ -131,6 +143,8 @@ var (
 		icatypes.ModuleName,
 		ibcfeetypes.ModuleName,
 		// chain modules
+		providermoduletypes.ModuleName,
+		requestermoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
 
@@ -285,6 +299,14 @@ var (
 			{
 				Name:   circuittypes.ModuleName,
 				Config: appconfig.WrapAny(&circuitmodulev1.Module{}),
+			},
+			{
+				Name:   providermoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&providermodulev1.Module{}),
+			},
+			{
+				Name:   requestermoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&requestermodulev1.Module{}),
 			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},

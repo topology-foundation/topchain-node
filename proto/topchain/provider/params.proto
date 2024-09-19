@@ -1,0 +1,15 @@
+syntax = "proto3";
+package topchain.provider;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "topchain/x/provider/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "topchain/x/provider/Params";
+  option (gogoproto.equal) = true;
+
+  
+}

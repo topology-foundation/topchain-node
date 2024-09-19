@@ -1,0 +1,17 @@
+syntax = "proto3";
+package topchain.provider;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "topchain/provider/params.proto";
+
+option go_package = "topchain/x/provider/types";
+
+// GenesisState defines the provider module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
