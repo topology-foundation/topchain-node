@@ -7,6 +7,7 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "topchain/subscription/params.proto";
+import "topchain/subscription/offer.proto";
 import "topchain/subscription/subscription.proto";
 
 option go_package = "topchain/x/subscription/types";
@@ -17,21 +18,14 @@ service Query {
   // Parameters queries the parameters of the module.
   rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/topchain/subscription/params";
-
-  }
-
-  // Queries a list of ListSubscription items.
-  rpc ListSubscription (QueryListSubscriptionRequest) returns (QueryListSubscriptionResponse) {
-    option (google.api.http).get = "/topchain/subscription/list_subscription";
-
   }
 }
+
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
-
   // params holds all the parameters of this module.
   Params params = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
 }
@@ -41,7 +35,7 @@ message QueryOfferRequest {
 }
 
 message QueryOfferResponse {
-  Offer offer = 1 [(gogoproto.nullable) = false];
+  topchain.subscription.Offer offer = 1 [(gogoproto.nullable) = false];
 }
 
 message QuerySubscriptionRequest {
@@ -49,5 +43,5 @@ message QuerySubscriptionRequest {
 }
 
 message QuerySubscriptionResponse {
-  Subscription subscription = 1 [(gogoproto.nullable) = false];
+  topchain.subscription.Subscription subscription = 1 [(gogoproto.nullable) = false];
 }

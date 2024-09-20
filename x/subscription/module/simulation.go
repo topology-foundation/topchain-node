@@ -54,52 +54,12 @@ func (am AppModule) RegisterStoreDecoder(_ simtypes.StoreDecoderRegistry) {}
 func (am AppModule) WeightedOperations(simState module.SimulationState) []simtypes.WeightedOperation {
 	operations := make([]simtypes.WeightedOperation, 0)
 
-	var weightMsgRequestSubscription int
-	simState.AppParams.GetOrGenerate(opWeightMsgRequestSubscription, &weightMsgRequestSubscription, nil,
-		func(_ *rand.Rand) {
-			weightMsgRequestSubscription = defaultWeightMsgRequestSubscription
-		},
-	)
-	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgRequestSubscription,
-		subscriptionsimulation.SimulateMsgRequestSubscription(am.accountKeeper, am.bankKeeper, am.keeper),
-	))
-
-	var weightMsgCancelSubscription int
-	simState.AppParams.GetOrGenerate(opWeightMsgCancelSubscription, &weightMsgCancelSubscription, nil,
-		func(_ *rand.Rand) {
-			weightMsgCancelSubscription = defaultWeightMsgCancelSubscription
-		},
-	)
-	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgCancelSubscription,
-		subscriptionsimulation.SimulateMsgCancelSubscription(am.accountKeeper, am.bankKeeper, am.keeper),
-	))
-
-	// this line is used by starport scaffolding # simapp/module/operation
-
 	return operations
 }
 
 // ProposalMsgs returns msgs used for governance proposals for simulations.
 func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.WeightedProposalMsg {
 	return []simtypes.WeightedProposalMsg{
-		simulation.NewWeightedProposalMsg(
-			opWeightMsgRequestSubscription,
-			defaultWeightMsgRequestSubscription,
-			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
-				subscriptionsimulation.SimulateMsgRequestSubscription(am.accountKeeper, am.bankKeeper, am.keeper)
-				return nil
-			},
-		),
-		simulation.NewWeightedProposalMsg(
-			opWeightMsgCancelSubscription,
-			defaultWeightMsgCancelSubscription,
-			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
-				subscriptionsimulation.SimulateMsgCancelSubscription(am.accountKeeper, am.bankKeeper, am.keeper)
-				return nil
-			},
-		),
 		// this line is used by starport scaffolding # simapp/module/OpMsg
 	}
 }
