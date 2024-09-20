@@ -6,6 +6,7 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "topchain/provider/params.proto";
+import "topchain/requester/subscription.proto";
 
 option go_package = "topchain/x/provider/types";
 
@@ -27,4 +28,22 @@ message QueryParamsResponse {
     (gogoproto.nullable) = false,
     (amino.dont_omitempty) = true
   ];
+}
+
+message QuerySubscriptionStatusRequest {
+  string subscription_id = 1;
+}
+
+message QuerySubscriptionStatusResponse {
+  string subscription_id = 1;
+}
+
+message QuerySubscriptionsRequest {
+  string provider = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QuerySubscriptionsResponse {
+  repeated topchain.requester.Subscription subscriptions = 1;
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
