@@ -36,11 +36,18 @@ message QueryParamsResponse {
   Params params = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
 }
 
-message QueryListSubscriptionRequest {
-  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+message QueryOfferRequest {
+  string id = 1;
 }
 
-message QueryListSubscriptionResponse {
-  repeated Subscription subscription = 1 [(gogoproto.nullable) = false];
-  cosmos.base.query.v1beta1.PageResponse pagination   = 2;
+message QueryOfferResponse {
+  Offer offer = 1 [(gogoproto.nullable) = false];
+}
+
+message QuerySubscriptionRequest {
+  string id = 1;
+}
+
+message QuerySubscriptionResponse {
+  Subscription subscription = 1 [(gogoproto.nullable) = false];
 }

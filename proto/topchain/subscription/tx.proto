@@ -17,8 +17,9 @@ service Msg {
   // UpdateParams defines a (governance) operation for updating the module
   // parameters. The authority defaults to the x/gov module account.
   rpc UpdateParams        (MsgUpdateParams       ) returns (MsgUpdateParamsResponse       );
-  rpc RequestSubscription (MsgRequestSubscription) returns (MsgRequestSubscriptionResponse);
-  rpc CancelSubscription  (MsgCancelSubscription ) returns (MsgCancelSubscriptionResponse );
+  rpc CreateOffer         (MsgCreateOffer        ) returns (MsgCreateOfferResponse        );
+  rpc CancelOffer         (MsgCancelOffer        ) returns (MsgCancelOfferResponse        );
+  rpc UpdateOffer         (MsgUpdateOffer        ) returns (MsgUpdateOfferResponse        );
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
@@ -38,22 +39,34 @@ message MsgUpdateParams {
 // MsgUpdateParams message.
 message MsgUpdateParamsResponse {}
 
-message MsgRequestSubscription {
-  option (cosmos.msg.v1.signer) = "creator";
-  string creator  = 1;
+message MsgCreateOffer {
+  option (cosmos.msg.v1.signer) = "requester";
+  string requester  = 1;
   string cro_id    = 2;
   uint64 amount  = 3;
-  int32 duration = 4;
+  uint64 start_block = 4;
+  uint64 end_block = 5;
 }
 
-message MsgRequestSubscriptionResponse {
-  string subscription_id = 1;
+message MsgCreateOfferResponse {
+  string offer_id = 1;
 }
 
-message MsgCancelSubscription {
-  option (cosmos.msg.v1.signer) = "creator";
-  string creator        = 1;
-  string subscription_id = 2;
+message MsgCancelOffer {
+  option (cosmos.msg.v1.signer) = "requester";
+  string requester  = 1;
+  string offer_id = 2;
 }
 
-message MsgCancelSubscriptionResponse {}
+message MsgCancelOfferResponse {}
+
+message MsgUpdateOffer {
+  option (cosmos.msg.v1.signer) = "requester";
+  string requester  = 1;
+  string offer_id = 2;
+  optional uint64 amount  = 3;
+  optional uint64 start_block = 4;
+  optional uint64 end_block = 5;
+}
+
+message MsgUpdateOfferResponse {}
