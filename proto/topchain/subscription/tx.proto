@@ -19,7 +19,7 @@ service Msg {
   rpc UpdateParams (MsgUpdateParams ) returns (MsgUpdateParamsResponse );
 
   // rpc CreateDeal (MsgCreateDeal ) returns (MsgCreateDealResponse );
-  // rpc FinishDeal (MsgFinishDeal ) returns (MsgFinishDealResponse );
+  // rpc CancelDeal (MsgCancelDeal ) returns (MsgCancelDealResponse );
   // rpc UpdateDeal (MsgUpdateDeal ) returns (MsgUpdateDealResponse );
   // rpc JoinDeal (MsgJoinDeal ) returns (MsgJoinDealResponse );
   // rpc LeaveDeal (MsgLeaveDeal ) returns (MsgLeaveDealResponse );
@@ -55,13 +55,13 @@ message MsgCreateDealResponse {
   string deal_id = 1;
 }
 
-message MsgFinishDeal {
+message MsgCancelDeal {
   option (cosmos.msg.v1.signer) = "requester";
   string requester  = 1;
   string deal_id = 2;
 }
 
-message MsgFinishDealResponse {}
+message MsgCancelDealResponse {}
 
 message MsgUpdateDeal {
   option (cosmos.msg.v1.signer) = "requester";
