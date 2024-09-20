@@ -10,6 +10,4 @@ option go_package = "topchain/x/subscription/types";
 message Params {
   option (amino.name) = "topchain/x/subscription/Params";
   option (gogoproto.equal) = true;
-
-
 }

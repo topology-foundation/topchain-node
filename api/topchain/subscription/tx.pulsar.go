@@ -872,33 +872,33 @@ func (x *fastReflection_MsgUpdateParamsResponse) ProtoMethods() *protoiface.Meth
 }
 
 var (
-	md_MsgCreateOffer             protoreflect.MessageDescriptor
-	fd_MsgCreateOffer_requester   protoreflect.FieldDescriptor
-	fd_MsgCreateOffer_cro_id      protoreflect.FieldDescriptor
-	fd_MsgCreateOffer_amount      protoreflect.FieldDescriptor
-	fd_MsgCreateOffer_start_block protoreflect.FieldDescriptor
-	fd_MsgCreateOffer_end_block   protoreflect.FieldDescriptor
+	md_MsgCreateDeal             protoreflect.MessageDescriptor
+	fd_MsgCreateDeal_requester   protoreflect.FieldDescriptor
+	fd_MsgCreateDeal_cro_id      protoreflect.FieldDescriptor
+	fd_MsgCreateDeal_amount      protoreflect.FieldDescriptor
+	fd_MsgCreateDeal_start_block protoreflect.FieldDescriptor
+	fd_MsgCreateDeal_end_block   protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_topchain_subscription_tx_proto_init()
-	md_MsgCreateOffer = File_topchain_subscription_tx_proto.Messages().ByName("MsgCreateOffer")
-	fd_MsgCreateOffer_requester = md_MsgCreateOffer.Fields().ByName("requester")
-	fd_MsgCreateOffer_cro_id = md_MsgCreateOffer.Fields().ByName("cro_id")
-	fd_MsgCreateOffer_amount = md_MsgCreateOffer.Fields().ByName("amount")
-	fd_MsgCreateOffer_start_block = md_MsgCreateOffer.Fields().ByName("start_block")
-	fd_MsgCreateOffer_end_block = md_MsgCreateOffer.Fields().ByName("end_block")
+	md_MsgCreateDeal = File_topchain_subscription_tx_proto.Messages().ByName("MsgCreateDeal")
+	fd_MsgCreateDeal_requester = md_MsgCreateDeal.Fields().ByName("requester")
+	fd_MsgCreateDeal_cro_id = md_MsgCreateDeal.Fields().ByName("cro_id")
+	fd_MsgCreateDeal_amount = md_MsgCreateDeal.Fields().ByName("amount")
+	fd_MsgCreateDeal_start_block = md_MsgCreateDeal.Fields().ByName("start_block")
+	fd_MsgCreateDeal_end_block = md_MsgCreateDeal.Fields().ByName("end_block")
 }
 
-var _ protoreflect.Message = (*fastReflection_MsgCreateOffer)(nil)
+var _ protoreflect.Message = (*fastReflection_MsgCreateDeal)(nil)
 
-type fastReflection_MsgCreateOffer MsgCreateOffer
+type fastReflection_MsgCreateDeal MsgCreateDeal
 
-func (x *MsgCreateOffer) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgCreateOffer)(x)
+func (x *MsgCreateDeal) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgCreateDeal)(x)
 }
 
-func (x *MsgCreateOffer) slowProtoReflect() protoreflect.Message {
+func (x *MsgCreateDeal) slowProtoReflect() protoreflect.Message {
 	mi := &file_topchain_subscription_tx_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -910,43 +910,43 @@ func (x *MsgCreateOffer) slowProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_MsgCreateOffer_messageType fastReflection_MsgCreateOffer_messageType
-var _ protoreflect.MessageType = fastReflection_MsgCreateOffer_messageType{}
+var _fastReflection_MsgCreateDeal_messageType fastReflection_MsgCreateDeal_messageType
+var _ protoreflect.MessageType = fastReflection_MsgCreateDeal_messageType{}
 
-type fastReflection_MsgCreateOffer_messageType struct{}
+type fastReflection_MsgCreateDeal_messageType struct{}
 
-func (x fastReflection_MsgCreateOffer_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgCreateOffer)(nil)
+func (x fastReflection_MsgCreateDeal_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgCreateDeal)(nil)
 }
-func (x fastReflection_MsgCreateOffer_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgCreateOffer)
+func (x fastReflection_MsgCreateDeal_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgCreateDeal)
 }
-func (x fastReflection_MsgCreateOffer_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgCreateOffer
+func (x fastReflection_MsgCreateDeal_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgCreateDeal
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_MsgCreateOffer) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgCreateOffer
+func (x *fastReflection_MsgCreateDeal) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgCreateDeal
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgCreateOffer) Type() protoreflect.MessageType {
-	return _fastReflection_MsgCreateOffer_messageType
+func (x *fastReflection_MsgCreateDeal) Type() protoreflect.MessageType {
+	return _fastReflection_MsgCreateDeal_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgCreateOffer) New() protoreflect.Message {
-	return new(fastReflection_MsgCreateOffer)
+func (x *fastReflection_MsgCreateDeal) New() protoreflect.Message {
+	return new(fastReflection_MsgCreateDeal)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgCreateOffer) Interface() protoreflect.ProtoMessage {
-	return (*MsgCreateOffer)(x)
+func (x *fastReflection_MsgCreateDeal) Interface() protoreflect.ProtoMessage {
+	return (*MsgCreateDeal)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -954,34 +954,34 @@ func (x *fastReflection_MsgCreateOffer) Interface() protoreflect.ProtoMessage {
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_MsgCreateOffer) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+func (x *fastReflection_MsgCreateDeal) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 	if x.Requester != "" {
 		value := protoreflect.ValueOfString(x.Requester)
-		if !f(fd_MsgCreateOffer_requester, value) {
+		if !f(fd_MsgCreateDeal_requester, value) {
 			return
 		}
 	}
 	if x.CroId != "" {
 		value := protoreflect.ValueOfString(x.CroId)
-		if !f(fd_MsgCreateOffer_cro_id, value) {
+		if !f(fd_MsgCreateDeal_cro_id, value) {
 			return
 		}
 	}
 	if x.Amount != uint64(0) {
 		value := protoreflect.ValueOfUint64(x.Amount)
-		if !f(fd_MsgCreateOffer_amount, value) {
+		if !f(fd_MsgCreateDeal_amount, value) {
 			return
 		}
 	}
 	if x.StartBlock != uint64(0) {
 		value := protoreflect.ValueOfUint64(x.StartBlock)
-		if !f(fd_MsgCreateOffer_start_block, value) {
+		if !f(fd_MsgCreateDeal_start_block, value) {
 			return
 		}
 	}
 	if x.EndBlock != uint64(0) {
 		value := protoreflect.ValueOfUint64(x.EndBlock)
-		if !f(fd_MsgCreateOffer_end_block, value) {
+		if !f(fd_MsgCreateDeal_end_block, value) {
 			return
 		}
 	}
@@ -998,23 +998,23 @@ func (x *fastReflection_MsgCreateOffer) Range(f func(protoreflect.FieldDescripto
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgCreateOffer) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_MsgCreateDeal) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCreateOffer.requester":
+	case "topchain.subscription.MsgCreateDeal.requester":
 		return x.Requester != ""
-	case "topchain.subscription.MsgCreateOffer.cro_id":
+	case "topchain.subscription.MsgCreateDeal.cro_id":
 		return x.CroId != ""
-	case "topchain.subscription.MsgCreateOffer.amount":
+	case "topchain.subscription.MsgCreateDeal.amount":
 		return x.Amount != uint64(0)
-	case "topchain.subscription.MsgCreateOffer.start_block":
+	case "topchain.subscription.MsgCreateDeal.start_block":
 		return x.StartBlock != uint64(0)
-	case "topchain.subscription.MsgCreateOffer.end_block":
+	case "topchain.subscription.MsgCreateDeal.end_block":
 		return x.EndBlock != uint64(0)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateOffer"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCreateOffer does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgCreateDeal does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1024,23 +1024,23 @@ func (x *fastReflection_MsgCreateOffer) Has(fd protoreflect.FieldDescriptor) boo
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCreateOffer) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_MsgCreateDeal) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCreateOffer.requester":
+	case "topchain.subscription.MsgCreateDeal.requester":
 		x.Requester = ""
-	case "topchain.subscription.MsgCreateOffer.cro_id":
+	case "topchain.subscription.MsgCreateDeal.cro_id":
 		x.CroId = ""
-	case "topchain.subscription.MsgCreateOffer.amount":
+	case "topchain.subscription.MsgCreateDeal.amount":
 		x.Amount = uint64(0)
-	case "topchain.subscription.MsgCreateOffer.start_block":
+	case "topchain.subscription.MsgCreateDeal.start_block":
 		x.StartBlock = uint64(0)
-	case "topchain.subscription.MsgCreateOffer.end_block":
+	case "topchain.subscription.MsgCreateDeal.end_block":
 		x.EndBlock = uint64(0)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateOffer"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCreateOffer does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgCreateDeal does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1050,28 +1050,28 @@ func (x *fastReflection_MsgCreateOffer) Clear(fd protoreflect.FieldDescriptor) {
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgCreateOffer) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgCreateDeal) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "topchain.subscription.MsgCreateOffer.requester":
+	case "topchain.subscription.MsgCreateDeal.requester":
 		value := x.Requester
 		return protoreflect.ValueOfString(value)
-	case "topchain.subscription.MsgCreateOffer.cro_id":
+	case "topchain.subscription.MsgCreateDeal.cro_id":
 		value := x.CroId
 		return protoreflect.ValueOfString(value)
-	case "topchain.subscription.MsgCreateOffer.amount":
+	case "topchain.subscription.MsgCreateDeal.amount":
 		value := x.Amount
 		return protoreflect.ValueOfUint64(value)
-	case "topchain.subscription.MsgCreateOffer.start_block":
+	case "topchain.subscription.MsgCreateDeal.start_block":
 		value := x.StartBlock
 		return protoreflect.ValueOfUint64(value)
-	case "topchain.subscription.MsgCreateOffer.end_block":
+	case "topchain.subscription.MsgCreateDeal.end_block":
 		value := x.EndBlock
 		return protoreflect.ValueOfUint64(value)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateOffer"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCreateOffer does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgCreateDeal does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -1085,23 +1085,23 @@ func (x *fastReflection_MsgCreateOffer) Get(descriptor protoreflect.FieldDescrip
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCreateOffer) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_MsgCreateDeal) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCreateOffer.requester":
+	case "topchain.subscription.MsgCreateDeal.requester":
 		x.Requester = value.Interface().(string)
-	case "topchain.subscription.MsgCreateOffer.cro_id":
+	case "topchain.subscription.MsgCreateDeal.cro_id":
 		x.CroId = value.Interface().(string)
-	case "topchain.subscription.MsgCreateOffer.amount":
+	case "topchain.subscription.MsgCreateDeal.amount":
 		x.Amount = value.Uint()
-	case "topchain.subscription.MsgCreateOffer.start_block":
+	case "topchain.subscription.MsgCreateDeal.start_block":
 		x.StartBlock = value.Uint()
-	case "topchain.subscription.MsgCreateOffer.end_block":
+	case "topchain.subscription.MsgCreateDeal.end_block":
 		x.EndBlock = value.Uint()
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateOffer"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCreateOffer does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgCreateDeal does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1115,56 +1115,56 @@ func (x *fastReflection_MsgCreateOffer) Set(fd protoreflect.FieldDescriptor, val
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCreateOffer) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgCreateDeal) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCreateOffer.requester":
-		panic(fmt.Errorf("field requester of message topchain.subscription.MsgCreateOffer is not mutable"))
-	case "topchain.subscription.MsgCreateOffer.cro_id":
-		panic(fmt.Errorf("field cro_id of message topchain.subscription.MsgCreateOffer is not mutable"))
-	case "topchain.subscription.MsgCreateOffer.amount":
-		panic(fmt.Errorf("field amount of message topchain.subscription.MsgCreateOffer is not mutable"))
-	case "topchain.subscription.MsgCreateOffer.start_block":
-		panic(fmt.Errorf("field start_block of message topchain.subscription.MsgCreateOffer is not mutable"))
-	case "topchain.subscription.MsgCreateOffer.end_block":
-		panic(fmt.Errorf("field end_block of message topchain.subscription.MsgCreateOffer is not mutable"))
+	case "topchain.subscription.MsgCreateDeal.requester":
+		panic(fmt.Errorf("field requester of message topchain.subscription.MsgCreateDeal is not mutable"))
+	case "topchain.subscription.MsgCreateDeal.cro_id":
+		panic(fmt.Errorf("field cro_id of message topchain.subscription.MsgCreateDeal is not mutable"))
+	case "topchain.subscription.MsgCreateDeal.amount":
+		panic(fmt.Errorf("field amount of message topchain.subscription.MsgCreateDeal is not mutable"))
+	case "topchain.subscription.MsgCreateDeal.start_block":
+		panic(fmt.Errorf("field start_block of message topchain.subscription.MsgCreateDeal is not mutable"))
+	case "topchain.subscription.MsgCreateDeal.end_block":
+		panic(fmt.Errorf("field end_block of message topchain.subscription.MsgCreateDeal is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateOffer"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCreateOffer does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgCreateDeal does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgCreateOffer) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgCreateDeal) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCreateOffer.requester":
+	case "topchain.subscription.MsgCreateDeal.requester":
 		return protoreflect.ValueOfString("")
-	case "topchain.subscription.MsgCreateOffer.cro_id":
+	case "topchain.subscription.MsgCreateDeal.cro_id":
 		return protoreflect.ValueOfString("")
-	case "topchain.subscription.MsgCreateOffer.amount":
+	case "topchain.subscription.MsgCreateDeal.amount":
 		return protoreflect.ValueOfUint64(uint64(0))
-	case "topchain.subscription.MsgCreateOffer.start_block":
+	case "topchain.subscription.MsgCreateDeal.start_block":
 		return protoreflect.ValueOfUint64(uint64(0))
-	case "topchain.subscription.MsgCreateOffer.end_block":
+	case "topchain.subscription.MsgCreateDeal.end_block":
 		return protoreflect.ValueOfUint64(uint64(0))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateOffer"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCreateOffer does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgCreateDeal does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgCreateOffer) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_MsgCreateDeal) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgCreateOffer", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgCreateDeal", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -1172,7 +1172,7 @@ func (x *fastReflection_MsgCreateOffer) WhichOneof(d protoreflect.OneofDescripto
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgCreateOffer) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_MsgCreateDeal) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -1183,7 +1183,7 @@ func (x *fastReflection_MsgCreateOffer) GetUnknown() protoreflect.RawFields {
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCreateOffer) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_MsgCreateDeal) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -1195,7 +1195,7 @@ func (x *fastReflection_MsgCreateOffer) SetUnknown(fields protoreflect.RawFields
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_MsgCreateOffer) IsValid() bool {
+func (x *fastReflection_MsgCreateDeal) IsValid() bool {
 	return x != nil
 }
 
@@ -1205,9 +1205,9 @@ func (x *fastReflection_MsgCreateOffer) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgCreateOffer) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_MsgCreateDeal) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgCreateOffer)
+		x := input.Message.Interface().(*MsgCreateDeal)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -1246,7 +1246,7 @@ func (x *fastReflection_MsgCreateOffer) ProtoMethods() *protoiface.Methods {
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgCreateOffer)
+		x := input.Message.Interface().(*MsgCreateDeal)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -1305,7 +1305,7 @@ func (x *fastReflection_MsgCreateOffer) ProtoMethods() *protoiface.Methods {
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgCreateOffer)
+		x := input.Message.Interface().(*MsgCreateDeal)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -1337,10 +1337,10 @@ func (x *fastReflection_MsgCreateOffer) ProtoMethods() *protoiface.Methods {
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCreateOffer: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCreateDeal: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCreateOffer: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCreateDeal: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			case 1:
@@ -1500,25 +1500,25 @@ func (x *fastReflection_MsgCreateOffer) ProtoMethods() *protoiface.Methods {
 }
 
 var (
-	md_MsgCreateOfferResponse          protoreflect.MessageDescriptor
-	fd_MsgCreateOfferResponse_offer_id protoreflect.FieldDescriptor
+	md_MsgCreateDealResponse         protoreflect.MessageDescriptor
+	fd_MsgCreateDealResponse_deal_id protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_topchain_subscription_tx_proto_init()
-	md_MsgCreateOfferResponse = File_topchain_subscription_tx_proto.Messages().ByName("MsgCreateOfferResponse")
-	fd_MsgCreateOfferResponse_offer_id = md_MsgCreateOfferResponse.Fields().ByName("offer_id")
+	md_MsgCreateDealResponse = File_topchain_subscription_tx_proto.Messages().ByName("MsgCreateDealResponse")
+	fd_MsgCreateDealResponse_deal_id = md_MsgCreateDealResponse.Fields().ByName("deal_id")
 }
 
-var _ protoreflect.Message = (*fastReflection_MsgCreateOfferResponse)(nil)
+var _ protoreflect.Message = (*fastReflection_MsgCreateDealResponse)(nil)
 
-type fastReflection_MsgCreateOfferResponse MsgCreateOfferResponse
+type fastReflection_MsgCreateDealResponse MsgCreateDealResponse
 
-func (x *MsgCreateOfferResponse) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgCreateOfferResponse)(x)
+func (x *MsgCreateDealResponse) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgCreateDealResponse)(x)
 }
 
-func (x *MsgCreateOfferResponse) slowProtoReflect() protoreflect.Message {
+func (x *MsgCreateDealResponse) slowProtoReflect() protoreflect.Message {
 	mi := &file_topchain_subscription_tx_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1530,43 +1530,43 @@ func (x *MsgCreateOfferResponse) slowProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_MsgCreateOfferResponse_messageType fastReflection_MsgCreateOfferResponse_messageType
-var _ protoreflect.MessageType = fastReflection_MsgCreateOfferResponse_messageType{}
+var _fastReflection_MsgCreateDealResponse_messageType fastReflection_MsgCreateDealResponse_messageType
+var _ protoreflect.MessageType = fastReflection_MsgCreateDealResponse_messageType{}
 
-type fastReflection_MsgCreateOfferResponse_messageType struct{}
+type fastReflection_MsgCreateDealResponse_messageType struct{}
 
-func (x fastReflection_MsgCreateOfferResponse_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgCreateOfferResponse)(nil)
+func (x fastReflection_MsgCreateDealResponse_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgCreateDealResponse)(nil)
 }
-func (x fastReflection_MsgCreateOfferResponse_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgCreateOfferResponse)
+func (x fastReflection_MsgCreateDealResponse_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgCreateDealResponse)
 }
-func (x fastReflection_MsgCreateOfferResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgCreateOfferResponse
+func (x fastReflection_MsgCreateDealResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgCreateDealResponse
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_MsgCreateOfferResponse) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgCreateOfferResponse
+func (x *fastReflection_MsgCreateDealResponse) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgCreateDealResponse
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgCreateOfferResponse) Type() protoreflect.MessageType {
-	return _fastReflection_MsgCreateOfferResponse_messageType
+func (x *fastReflection_MsgCreateDealResponse) Type() protoreflect.MessageType {
+	return _fastReflection_MsgCreateDealResponse_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgCreateOfferResponse) New() protoreflect.Message {
-	return new(fastReflection_MsgCreateOfferResponse)
+func (x *fastReflection_MsgCreateDealResponse) New() protoreflect.Message {
+	return new(fastReflection_MsgCreateDealResponse)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgCreateOfferResponse) Interface() protoreflect.ProtoMessage {
-	return (*MsgCreateOfferResponse)(x)
+func (x *fastReflection_MsgCreateDealResponse) Interface() protoreflect.ProtoMessage {
+	return (*MsgCreateDealResponse)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -1574,10 +1574,10 @@ func (x *fastReflection_MsgCreateOfferResponse) Interface() protoreflect.ProtoMe
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_MsgCreateOfferResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
-	if x.OfferId != "" {
-		value := protoreflect.ValueOfString(x.OfferId)
-		if !f(fd_MsgCreateOfferResponse_offer_id, value) {
+func (x *fastReflection_MsgCreateDealResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if x.DealId != "" {
+		value := protoreflect.ValueOfString(x.DealId)
+		if !f(fd_MsgCreateDealResponse_deal_id, value) {
 			return
 		}
 	}
@@ -1594,15 +1594,15 @@ func (x *fastReflection_MsgCreateOfferResponse) Range(f func(protoreflect.FieldD
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgCreateOfferResponse) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_MsgCreateDealResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCreateOfferResponse.offer_id":
-		return x.OfferId != ""
+	case "topchain.subscription.MsgCreateDealResponse.deal_id":
+		return x.DealId != ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateOfferResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCreateOfferResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgCreateDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1612,15 +1612,15 @@ func (x *fastReflection_MsgCreateOfferResponse) Has(fd protoreflect.FieldDescrip
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCreateOfferResponse) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_MsgCreateDealResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCreateOfferResponse.offer_id":
-		x.OfferId = ""
+	case "topchain.subscription.MsgCreateDealResponse.deal_id":
+		x.DealId = ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateOfferResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCreateOfferResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgCreateDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1630,16 +1630,16 @@ func (x *fastReflection_MsgCreateOfferResponse) Clear(fd protoreflect.FieldDescr
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgCreateOfferResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgCreateDealResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "topchain.subscription.MsgCreateOfferResponse.offer_id":
-		value := x.OfferId
+	case "topchain.subscription.MsgCreateDealResponse.deal_id":
+		value := x.DealId
 		return protoreflect.ValueOfString(value)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateOfferResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCreateOfferResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgCreateDealResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -1653,15 +1653,15 @@ func (x *fastReflection_MsgCreateOfferResponse) Get(descriptor protoreflect.Fiel
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCreateOfferResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_MsgCreateDealResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCreateOfferResponse.offer_id":
-		x.OfferId = value.Interface().(string)
+	case "topchain.subscription.MsgCreateDealResponse.deal_id":
+		x.DealId = value.Interface().(string)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateOfferResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCreateOfferResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgCreateDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1675,40 +1675,40 @@ func (x *fastReflection_MsgCreateOfferResponse) Set(fd protoreflect.FieldDescrip
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCreateOfferResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgCreateDealResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCreateOfferResponse.offer_id":
-		panic(fmt.Errorf("field offer_id of message topchain.subscription.MsgCreateOfferResponse is not mutable"))
+	case "topchain.subscription.MsgCreateDealResponse.deal_id":
+		panic(fmt.Errorf("field deal_id of message topchain.subscription.MsgCreateDealResponse is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateOfferResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCreateOfferResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgCreateDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgCreateOfferResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgCreateDealResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCreateOfferResponse.offer_id":
+	case "topchain.subscription.MsgCreateDealResponse.deal_id":
 		return protoreflect.ValueOfString("")
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateOfferResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCreateOfferResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgCreateDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgCreateOfferResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_MsgCreateDealResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgCreateOfferResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgCreateDealResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -1716,7 +1716,7 @@ func (x *fastReflection_MsgCreateOfferResponse) WhichOneof(d protoreflect.OneofD
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgCreateOfferResponse) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_MsgCreateDealResponse) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -1727,7 +1727,7 @@ func (x *fastReflection_MsgCreateOfferResponse) GetUnknown() protoreflect.RawFie
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCreateOfferResponse) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_MsgCreateDealResponse) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -1739,7 +1739,7 @@ func (x *fastReflection_MsgCreateOfferResponse) SetUnknown(fields protoreflect.R
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_MsgCreateOfferResponse) IsValid() bool {
+func (x *fastReflection_MsgCreateDealResponse) IsValid() bool {
 	return x != nil
 }
 
@@ -1749,9 +1749,9 @@ func (x *fastReflection_MsgCreateOfferResponse) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgCreateOfferResponse) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_MsgCreateDealResponse) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgCreateOfferResponse)
+		x := input.Message.Interface().(*MsgCreateDealResponse)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -1763,7 +1763,7 @@ func (x *fastReflection_MsgCreateOfferResponse) ProtoMethods() *protoiface.Metho
 		var n int
 		var l int
 		_ = l
-		l = len(x.OfferId)
+		l = len(x.DealId)
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
@@ -1777,7 +1777,7 @@ func (x *fastReflection_MsgCreateOfferResponse) ProtoMethods() *protoiface.Metho
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgCreateOfferResponse)
+		x := input.Message.Interface().(*MsgCreateDealResponse)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -1796,10 +1796,10 @@ func (x *fastReflection_MsgCreateOfferResponse) ProtoMethods() *protoiface.Metho
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
 		}
-		if len(x.OfferId) > 0 {
-			i -= len(x.OfferId)
-			copy(dAtA[i:], x.OfferId)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.OfferId)))
+		if len(x.DealId) > 0 {
+			i -= len(x.DealId)
+			copy(dAtA[i:], x.DealId)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.DealId)))
 			i--
 			dAtA[i] = 0xa
 		}
@@ -1814,7 +1814,7 @@ func (x *fastReflection_MsgCreateOfferResponse) ProtoMethods() *protoiface.Metho
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgCreateOfferResponse)
+		x := input.Message.Interface().(*MsgCreateDealResponse)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -1846,15 +1846,15 @@ func (x *fastReflection_MsgCreateOfferResponse) ProtoMethods() *protoiface.Metho
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCreateOfferResponse: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCreateDealResponse: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCreateOfferResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCreateDealResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			case 1:
 				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field OfferId", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field DealId", wireType)
 				}
 				var stringLen uint64
 				for shift := uint(0); ; shift += 7 {
@@ -1882,7 +1882,7 @@ func (x *fastReflection_MsgCreateOfferResponse) ProtoMethods() *protoiface.Metho
 				if postIndex > l {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
-				x.OfferId = string(dAtA[iNdEx:postIndex])
+				x.DealId = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
 			default:
 				iNdEx = preIndex
@@ -1920,27 +1920,27 @@ func (x *fastReflection_MsgCreateOfferResponse) ProtoMethods() *protoiface.Metho
 }
 
 var (
-	md_MsgCancelOffer           protoreflect.MessageDescriptor
-	fd_MsgCancelOffer_requester protoreflect.FieldDescriptor
-	fd_MsgCancelOffer_offer_id  protoreflect.FieldDescriptor
+	md_MsgFinishDeal           protoreflect.MessageDescriptor
+	fd_MsgFinishDeal_requester protoreflect.FieldDescriptor
+	fd_MsgFinishDeal_deal_id   protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_topchain_subscription_tx_proto_init()
-	md_MsgCancelOffer = File_topchain_subscription_tx_proto.Messages().ByName("MsgCancelOffer")
-	fd_MsgCancelOffer_requester = md_MsgCancelOffer.Fields().ByName("requester")
-	fd_MsgCancelOffer_offer_id = md_MsgCancelOffer.Fields().ByName("offer_id")
+	md_MsgFinishDeal = File_topchain_subscription_tx_proto.Messages().ByName("MsgFinishDeal")
+	fd_MsgFinishDeal_requester = md_MsgFinishDeal.Fields().ByName("requester")
+	fd_MsgFinishDeal_deal_id = md_MsgFinishDeal.Fields().ByName("deal_id")
 }
 
-var _ protoreflect.Message = (*fastReflection_MsgCancelOffer)(nil)
+var _ protoreflect.Message = (*fastReflection_MsgFinishDeal)(nil)
 
-type fastReflection_MsgCancelOffer MsgCancelOffer
+type fastReflection_MsgFinishDeal MsgFinishDeal
 
-func (x *MsgCancelOffer) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgCancelOffer)(x)
+func (x *MsgFinishDeal) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgFinishDeal)(x)
 }
 
-func (x *MsgCancelOffer) slowProtoReflect() protoreflect.Message {
+func (x *MsgFinishDeal) slowProtoReflect() protoreflect.Message {
 	mi := &file_topchain_subscription_tx_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1952,43 +1952,43 @@ func (x *MsgCancelOffer) slowProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_MsgCancelOffer_messageType fastReflection_MsgCancelOffer_messageType
-var _ protoreflect.MessageType = fastReflection_MsgCancelOffer_messageType{}
+var _fastReflection_MsgFinishDeal_messageType fastReflection_MsgFinishDeal_messageType
+var _ protoreflect.MessageType = fastReflection_MsgFinishDeal_messageType{}
 
-type fastReflection_MsgCancelOffer_messageType struct{}
+type fastReflection_MsgFinishDeal_messageType struct{}
 
-func (x fastReflection_MsgCancelOffer_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgCancelOffer)(nil)
+func (x fastReflection_MsgFinishDeal_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgFinishDeal)(nil)
 }
-func (x fastReflection_MsgCancelOffer_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgCancelOffer)
+func (x fastReflection_MsgFinishDeal_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgFinishDeal)
 }
-func (x fastReflection_MsgCancelOffer_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgCancelOffer
+func (x fastReflection_MsgFinishDeal_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgFinishDeal
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_MsgCancelOffer) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgCancelOffer
+func (x *fastReflection_MsgFinishDeal) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgFinishDeal
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgCancelOffer) Type() protoreflect.MessageType {
-	return _fastReflection_MsgCancelOffer_messageType
+func (x *fastReflection_MsgFinishDeal) Type() protoreflect.MessageType {
+	return _fastReflection_MsgFinishDeal_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgCancelOffer) New() protoreflect.Message {
-	return new(fastReflection_MsgCancelOffer)
+func (x *fastReflection_MsgFinishDeal) New() protoreflect.Message {
+	return new(fastReflection_MsgFinishDeal)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgCancelOffer) Interface() protoreflect.ProtoMessage {
-	return (*MsgCancelOffer)(x)
+func (x *fastReflection_MsgFinishDeal) Interface() protoreflect.ProtoMessage {
+	return (*MsgFinishDeal)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -1996,16 +1996,16 @@ func (x *fastReflection_MsgCancelOffer) Interface() protoreflect.ProtoMessage {
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_MsgCancelOffer) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+func (x *fastReflection_MsgFinishDeal) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 	if x.Requester != "" {
 		value := protoreflect.ValueOfString(x.Requester)
-		if !f(fd_MsgCancelOffer_requester, value) {
+		if !f(fd_MsgFinishDeal_requester, value) {
 			return
 		}
 	}
-	if x.OfferId != "" {
-		value := protoreflect.ValueOfString(x.OfferId)
-		if !f(fd_MsgCancelOffer_offer_id, value) {
+	if x.DealId != "" {
+		value := protoreflect.ValueOfString(x.DealId)
+		if !f(fd_MsgFinishDeal_deal_id, value) {
 			return
 		}
 	}
@@ -2022,17 +2022,17 @@ func (x *fastReflection_MsgCancelOffer) Range(f func(protoreflect.FieldDescripto
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgCancelOffer) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_MsgFinishDeal) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCancelOffer.requester":
+	case "topchain.subscription.MsgFinishDeal.requester":
 		return x.Requester != ""
-	case "topchain.subscription.MsgCancelOffer.offer_id":
-		return x.OfferId != ""
+	case "topchain.subscription.MsgFinishDeal.deal_id":
+		return x.DealId != ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelOffer"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgFinishDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelOffer does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgFinishDeal does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2042,17 +2042,17 @@ func (x *fastReflection_MsgCancelOffer) Has(fd protoreflect.FieldDescriptor) boo
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCancelOffer) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_MsgFinishDeal) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCancelOffer.requester":
+	case "topchain.subscription.MsgFinishDeal.requester":
 		x.Requester = ""
-	case "topchain.subscription.MsgCancelOffer.offer_id":
-		x.OfferId = ""
+	case "topchain.subscription.MsgFinishDeal.deal_id":
+		x.DealId = ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelOffer"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgFinishDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelOffer does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgFinishDeal does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2062,19 +2062,19 @@ func (x *fastReflection_MsgCancelOffer) Clear(fd protoreflect.FieldDescriptor) {
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgCancelOffer) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgFinishDeal) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "topchain.subscription.MsgCancelOffer.requester":
+	case "topchain.subscription.MsgFinishDeal.requester":
 		value := x.Requester
 		return protoreflect.ValueOfString(value)
-	case "topchain.subscription.MsgCancelOffer.offer_id":
-		value := x.OfferId
+	case "topchain.subscription.MsgFinishDeal.deal_id":
+		value := x.DealId
 		return protoreflect.ValueOfString(value)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelOffer"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgFinishDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelOffer does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgFinishDeal does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -2088,17 +2088,17 @@ func (x *fastReflection_MsgCancelOffer) Get(descriptor protoreflect.FieldDescrip
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCancelOffer) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_MsgFinishDeal) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCancelOffer.requester":
+	case "topchain.subscription.MsgFinishDeal.requester":
 		x.Requester = value.Interface().(string)
-	case "topchain.subscription.MsgCancelOffer.offer_id":
-		x.OfferId = value.Interface().(string)
+	case "topchain.subscription.MsgFinishDeal.deal_id":
+		x.DealId = value.Interface().(string)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelOffer"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgFinishDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelOffer does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgFinishDeal does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2112,44 +2112,44 @@ func (x *fastReflection_MsgCancelOffer) Set(fd protoreflect.FieldDescriptor, val
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCancelOffer) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgFinishDeal) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCancelOffer.requester":
-		panic(fmt.Errorf("field requester of message topchain.subscription.MsgCancelOffer is not mutable"))
-	case "topchain.subscription.MsgCancelOffer.offer_id":
-		panic(fmt.Errorf("field offer_id of message topchain.subscription.MsgCancelOffer is not mutable"))
+	case "topchain.subscription.MsgFinishDeal.requester":
+		panic(fmt.Errorf("field requester of message topchain.subscription.MsgFinishDeal is not mutable"))
+	case "topchain.subscription.MsgFinishDeal.deal_id":
+		panic(fmt.Errorf("field deal_id of message topchain.subscription.MsgFinishDeal is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelOffer"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgFinishDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelOffer does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgFinishDeal does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgCancelOffer) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgFinishDeal) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCancelOffer.requester":
+	case "topchain.subscription.MsgFinishDeal.requester":
 		return protoreflect.ValueOfString("")
-	case "topchain.subscription.MsgCancelOffer.offer_id":
+	case "topchain.subscription.MsgFinishDeal.deal_id":
 		return protoreflect.ValueOfString("")
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelOffer"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgFinishDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelOffer does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgFinishDeal does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgCancelOffer) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_MsgFinishDeal) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgCancelOffer", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgFinishDeal", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -2157,7 +2157,7 @@ func (x *fastReflection_MsgCancelOffer) WhichOneof(d protoreflect.OneofDescripto
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgCancelOffer) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_MsgFinishDeal) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -2168,7 +2168,7 @@ func (x *fastReflection_MsgCancelOffer) GetUnknown() protoreflect.RawFields {
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCancelOffer) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_MsgFinishDeal) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -2180,7 +2180,7 @@ func (x *fastReflection_MsgCancelOffer) SetUnknown(fields protoreflect.RawFields
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_MsgCancelOffer) IsValid() bool {
+func (x *fastReflection_MsgFinishDeal) IsValid() bool {
 	return x != nil
 }
 
@@ -2190,9 +2190,9 @@ func (x *fastReflection_MsgCancelOffer) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgCancelOffer) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_MsgFinishDeal) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgCancelOffer)
+		x := input.Message.Interface().(*MsgFinishDeal)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -2208,7 +2208,7 @@ func (x *fastReflection_MsgCancelOffer) ProtoMethods() *protoiface.Methods {
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
-		l = len(x.OfferId)
+		l = len(x.DealId)
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
@@ -2222,7 +2222,7 @@ func (x *fastReflection_MsgCancelOffer) ProtoMethods() *protoiface.Methods {
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgCancelOffer)
+		x := input.Message.Interface().(*MsgFinishDeal)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -2241,10 +2241,10 @@ func (x *fastReflection_MsgCancelOffer) ProtoMethods() *protoiface.Methods {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
 		}
-		if len(x.OfferId) > 0 {
-			i -= len(x.OfferId)
-			copy(dAtA[i:], x.OfferId)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.OfferId)))
+		if len(x.DealId) > 0 {
+			i -= len(x.DealId)
+			copy(dAtA[i:], x.DealId)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.DealId)))
 			i--
 			dAtA[i] = 0x12
 		}
@@ -2266,7 +2266,7 @@ func (x *fastReflection_MsgCancelOffer) ProtoMethods() *protoiface.Methods {
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgCancelOffer)
+		x := input.Message.Interface().(*MsgFinishDeal)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -2298,10 +2298,10 @@ func (x *fastReflection_MsgCancelOffer) ProtoMethods() *protoiface.Methods {
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCancelOffer: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgFinishDeal: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCancelOffer: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgFinishDeal: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			case 1:
@@ -2338,7 +2338,7 @@ func (x *fastReflection_MsgCancelOffer) ProtoMethods() *protoiface.Methods {
 				iNdEx = postIndex
 			case 2:
 				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field OfferId", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field DealId", wireType)
 				}
 				var stringLen uint64
 				for shift := uint(0); ; shift += 7 {
@@ -2366,7 +2366,7 @@ func (x *fastReflection_MsgCancelOffer) ProtoMethods() *protoiface.Methods {
 				if postIndex > l {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
-				x.OfferId = string(dAtA[iNdEx:postIndex])
+				x.DealId = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
 			default:
 				iNdEx = preIndex
@@ -2404,23 +2404,23 @@ func (x *fastReflection_MsgCancelOffer) ProtoMethods() *protoiface.Methods {
 }
 
 var (
-	md_MsgCancelOfferResponse protoreflect.MessageDescriptor
+	md_MsgFinishDealResponse protoreflect.MessageDescriptor
 )
 
 func init() {
 	file_topchain_subscription_tx_proto_init()
-	md_MsgCancelOfferResponse = File_topchain_subscription_tx_proto.Messages().ByName("MsgCancelOfferResponse")
+	md_MsgFinishDealResponse = File_topchain_subscription_tx_proto.Messages().ByName("MsgFinishDealResponse")
 }
 
-var _ protoreflect.Message = (*fastReflection_MsgCancelOfferResponse)(nil)
+var _ protoreflect.Message = (*fastReflection_MsgFinishDealResponse)(nil)
 
-type fastReflection_MsgCancelOfferResponse MsgCancelOfferResponse
+type fastReflection_MsgFinishDealResponse MsgFinishDealResponse
 
-func (x *MsgCancelOfferResponse) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgCancelOfferResponse)(x)
+func (x *MsgFinishDealResponse) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgFinishDealResponse)(x)
 }
 
-func (x *MsgCancelOfferResponse) slowProtoReflect() protoreflect.Message {
+func (x *MsgFinishDealResponse) slowProtoReflect() protoreflect.Message {
 	mi := &file_topchain_subscription_tx_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2432,43 +2432,43 @@ func (x *MsgCancelOfferResponse) slowProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_MsgCancelOfferResponse_messageType fastReflection_MsgCancelOfferResponse_messageType
-var _ protoreflect.MessageType = fastReflection_MsgCancelOfferResponse_messageType{}
+var _fastReflection_MsgFinishDealResponse_messageType fastReflection_MsgFinishDealResponse_messageType
+var _ protoreflect.MessageType = fastReflection_MsgFinishDealResponse_messageType{}
 
-type fastReflection_MsgCancelOfferResponse_messageType struct{}
+type fastReflection_MsgFinishDealResponse_messageType struct{}
 
-func (x fastReflection_MsgCancelOfferResponse_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgCancelOfferResponse)(nil)
+func (x fastReflection_MsgFinishDealResponse_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgFinishDealResponse)(nil)
 }
-func (x fastReflection_MsgCancelOfferResponse_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgCancelOfferResponse)
+func (x fastReflection_MsgFinishDealResponse_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgFinishDealResponse)
 }
-func (x fastReflection_MsgCancelOfferResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgCancelOfferResponse
+func (x fastReflection_MsgFinishDealResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgFinishDealResponse
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_MsgCancelOfferResponse) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgCancelOfferResponse
+func (x *fastReflection_MsgFinishDealResponse) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgFinishDealResponse
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgCancelOfferResponse) Type() protoreflect.MessageType {
-	return _fastReflection_MsgCancelOfferResponse_messageType
+func (x *fastReflection_MsgFinishDealResponse) Type() protoreflect.MessageType {
+	return _fastReflection_MsgFinishDealResponse_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgCancelOfferResponse) New() protoreflect.Message {
-	return new(fastReflection_MsgCancelOfferResponse)
+func (x *fastReflection_MsgFinishDealResponse) New() protoreflect.Message {
+	return new(fastReflection_MsgFinishDealResponse)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgCancelOfferResponse) Interface() protoreflect.ProtoMessage {
-	return (*MsgCancelOfferResponse)(x)
+func (x *fastReflection_MsgFinishDealResponse) Interface() protoreflect.ProtoMessage {
+	return (*MsgFinishDealResponse)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -2476,7 +2476,7 @@ func (x *fastReflection_MsgCancelOfferResponse) Interface() protoreflect.ProtoMe
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_MsgCancelOfferResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+func (x *fastReflection_MsgFinishDealResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 }
 
 // Has reports whether a field is populated.
@@ -2490,13 +2490,13 @@ func (x *fastReflection_MsgCancelOfferResponse) Range(f func(protoreflect.FieldD
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgCancelOfferResponse) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_MsgFinishDealResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelOfferResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgFinishDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelOfferResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgFinishDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2506,13 +2506,13 @@ func (x *fastReflection_MsgCancelOfferResponse) Has(fd protoreflect.FieldDescrip
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCancelOfferResponse) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_MsgFinishDealResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelOfferResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgFinishDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelOfferResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgFinishDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2522,13 +2522,13 @@ func (x *fastReflection_MsgCancelOfferResponse) Clear(fd protoreflect.FieldDescr
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgCancelOfferResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgFinishDealResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelOfferResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgFinishDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelOfferResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgFinishDealResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -2542,13 +2542,13 @@ func (x *fastReflection_MsgCancelOfferResponse) Get(descriptor protoreflect.Fiel
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCancelOfferResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_MsgFinishDealResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelOfferResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgFinishDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelOfferResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgFinishDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2562,36 +2562,36 @@ func (x *fastReflection_MsgCancelOfferResponse) Set(fd protoreflect.FieldDescrip
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCancelOfferResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgFinishDealResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelOfferResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgFinishDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelOfferResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgFinishDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgCancelOfferResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgFinishDealResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelOfferResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgFinishDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelOfferResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgFinishDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgCancelOfferResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_MsgFinishDealResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgCancelOfferResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgFinishDealResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -2599,7 +2599,7 @@ func (x *fastReflection_MsgCancelOfferResponse) WhichOneof(d protoreflect.OneofD
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgCancelOfferResponse) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_MsgFinishDealResponse) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -2610,7 +2610,7 @@ func (x *fastReflection_MsgCancelOfferResponse) GetUnknown() protoreflect.RawFie
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCancelOfferResponse) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_MsgFinishDealResponse) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -2622,7 +2622,7 @@ func (x *fastReflection_MsgCancelOfferResponse) SetUnknown(fields protoreflect.R
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_MsgCancelOfferResponse) IsValid() bool {
+func (x *fastReflection_MsgFinishDealResponse) IsValid() bool {
 	return x != nil
 }
 
@@ -2632,9 +2632,9 @@ func (x *fastReflection_MsgCancelOfferResponse) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgCancelOfferResponse) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_MsgFinishDealResponse) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgCancelOfferResponse)
+		x := input.Message.Interface().(*MsgFinishDealResponse)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -2656,7 +2656,7 @@ func (x *fastReflection_MsgCancelOfferResponse) ProtoMethods() *protoiface.Metho
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgCancelOfferResponse)
+		x := input.Message.Interface().(*MsgFinishDealResponse)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -2686,7 +2686,7 @@ func (x *fastReflection_MsgCancelOfferResponse) ProtoMethods() *protoiface.Metho
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgCancelOfferResponse)
+		x := input.Message.Interface().(*MsgFinishDealResponse)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -2718,10 +2718,10 @@ func (x *fastReflection_MsgCancelOfferResponse) ProtoMethods() *protoiface.Metho
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCancelOfferResponse: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgFinishDealResponse: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCancelOfferResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgFinishDealResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			default:
@@ -2760,33 +2760,33 @@ func (x *fastReflection_MsgCancelOfferResponse) ProtoMethods() *protoiface.Metho
 }
 
 var (
-	md_MsgUpdateOffer             protoreflect.MessageDescriptor
-	fd_MsgUpdateOffer_requester   protoreflect.FieldDescriptor
-	fd_MsgUpdateOffer_offer_id    protoreflect.FieldDescriptor
-	fd_MsgUpdateOffer_amount      protoreflect.FieldDescriptor
-	fd_MsgUpdateOffer_start_block protoreflect.FieldDescriptor
-	fd_MsgUpdateOffer_end_block   protoreflect.FieldDescriptor
+	md_MsgUpdateDeal             protoreflect.MessageDescriptor
+	fd_MsgUpdateDeal_requester   protoreflect.FieldDescriptor
+	fd_MsgUpdateDeal_deal_id     protoreflect.FieldDescriptor
+	fd_MsgUpdateDeal_amount      protoreflect.FieldDescriptor
+	fd_MsgUpdateDeal_start_block protoreflect.FieldDescriptor
+	fd_MsgUpdateDeal_end_block   protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_topchain_subscription_tx_proto_init()
-	md_MsgUpdateOffer = File_topchain_subscription_tx_proto.Messages().ByName("MsgUpdateOffer")
-	fd_MsgUpdateOffer_requester = md_MsgUpdateOffer.Fields().ByName("requester")
-	fd_MsgUpdateOffer_offer_id = md_MsgUpdateOffer.Fields().ByName("offer_id")
-	fd_MsgUpdateOffer_amount = md_MsgUpdateOffer.Fields().ByName("amount")
-	fd_MsgUpdateOffer_start_block = md_MsgUpdateOffer.Fields().ByName("start_block")
-	fd_MsgUpdateOffer_end_block = md_MsgUpdateOffer.Fields().ByName("end_block")
+	md_MsgUpdateDeal = File_topchain_subscription_tx_proto.Messages().ByName("MsgUpdateDeal")
+	fd_MsgUpdateDeal_requester = md_MsgUpdateDeal.Fields().ByName("requester")
+	fd_MsgUpdateDeal_deal_id = md_MsgUpdateDeal.Fields().ByName("deal_id")
+	fd_MsgUpdateDeal_amount = md_MsgUpdateDeal.Fields().ByName("amount")
+	fd_MsgUpdateDeal_start_block = md_MsgUpdateDeal.Fields().ByName("start_block")
+	fd_MsgUpdateDeal_end_block = md_MsgUpdateDeal.Fields().ByName("end_block")
 }
 
-var _ protoreflect.Message = (*fastReflection_MsgUpdateOffer)(nil)
+var _ protoreflect.Message = (*fastReflection_MsgUpdateDeal)(nil)
 
-type fastReflection_MsgUpdateOffer MsgUpdateOffer
+type fastReflection_MsgUpdateDeal MsgUpdateDeal
 
-func (x *MsgUpdateOffer) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgUpdateOffer)(x)
+func (x *MsgUpdateDeal) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgUpdateDeal)(x)
 }
 
-func (x *MsgUpdateOffer) slowProtoReflect() protoreflect.Message {
+func (x *MsgUpdateDeal) slowProtoReflect() protoreflect.Message {
 	mi := &file_topchain_subscription_tx_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2798,43 +2798,43 @@ func (x *MsgUpdateOffer) slowProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_MsgUpdateOffer_messageType fastReflection_MsgUpdateOffer_messageType
-var _ protoreflect.MessageType = fastReflection_MsgUpdateOffer_messageType{}
+var _fastReflection_MsgUpdateDeal_messageType fastReflection_MsgUpdateDeal_messageType
+var _ protoreflect.MessageType = fastReflection_MsgUpdateDeal_messageType{}
 
-type fastReflection_MsgUpdateOffer_messageType struct{}
+type fastReflection_MsgUpdateDeal_messageType struct{}
 
-func (x fastReflection_MsgUpdateOffer_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgUpdateOffer)(nil)
+func (x fastReflection_MsgUpdateDeal_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgUpdateDeal)(nil)
 }
-func (x fastReflection_MsgUpdateOffer_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgUpdateOffer)
+func (x fastReflection_MsgUpdateDeal_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgUpdateDeal)
 }
-func (x fastReflection_MsgUpdateOffer_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgUpdateOffer
+func (x fastReflection_MsgUpdateDeal_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgUpdateDeal
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_MsgUpdateOffer) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgUpdateOffer
+func (x *fastReflection_MsgUpdateDeal) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgUpdateDeal
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgUpdateOffer) Type() protoreflect.MessageType {
-	return _fastReflection_MsgUpdateOffer_messageType
+func (x *fastReflection_MsgUpdateDeal) Type() protoreflect.MessageType {
+	return _fastReflection_MsgUpdateDeal_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgUpdateOffer) New() protoreflect.Message {
-	return new(fastReflection_MsgUpdateOffer)
+func (x *fastReflection_MsgUpdateDeal) New() protoreflect.Message {
+	return new(fastReflection_MsgUpdateDeal)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgUpdateOffer) Interface() protoreflect.ProtoMessage {
-	return (*MsgUpdateOffer)(x)
+func (x *fastReflection_MsgUpdateDeal) Interface() protoreflect.ProtoMessage {
+	return (*MsgUpdateDeal)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -2842,34 +2842,34 @@ func (x *fastReflection_MsgUpdateOffer) Interface() protoreflect.ProtoMessage {
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_MsgUpdateOffer) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+func (x *fastReflection_MsgUpdateDeal) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 	if x.Requester != "" {
 		value := protoreflect.ValueOfString(x.Requester)
-		if !f(fd_MsgUpdateOffer_requester, value) {
+		if !f(fd_MsgUpdateDeal_requester, value) {
 			return
 		}
 	}
-	if x.OfferId != "" {
-		value := protoreflect.ValueOfString(x.OfferId)
-		if !f(fd_MsgUpdateOffer_offer_id, value) {
+	if x.DealId != "" {
+		value := protoreflect.ValueOfString(x.DealId)
+		if !f(fd_MsgUpdateDeal_deal_id, value) {
 			return
 		}
 	}
 	if x.Amount != uint64(0) {
 		value := protoreflect.ValueOfUint64(x.Amount)
-		if !f(fd_MsgUpdateOffer_amount, value) {
+		if !f(fd_MsgUpdateDeal_amount, value) {
 			return
 		}
 	}
 	if x.StartBlock != uint64(0) {
 		value := protoreflect.ValueOfUint64(x.StartBlock)
-		if !f(fd_MsgUpdateOffer_start_block, value) {
+		if !f(fd_MsgUpdateDeal_start_block, value) {
 			return
 		}
 	}
 	if x.EndBlock != uint64(0) {
 		value := protoreflect.ValueOfUint64(x.EndBlock)
-		if !f(fd_MsgUpdateOffer_end_block, value) {
+		if !f(fd_MsgUpdateDeal_end_block, value) {
 			return
 		}
 	}
@@ -2886,23 +2886,23 @@ func (x *fastReflection_MsgUpdateOffer) Range(f func(protoreflect.FieldDescripto
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgUpdateOffer) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_MsgUpdateDeal) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgUpdateOffer.requester":
+	case "topchain.subscription.MsgUpdateDeal.requester":
 		return x.Requester != ""
-	case "topchain.subscription.MsgUpdateOffer.offer_id":
-		return x.OfferId != ""
-	case "topchain.subscription.MsgUpdateOffer.amount":
+	case "topchain.subscription.MsgUpdateDeal.deal_id":
+		return x.DealId != ""
+	case "topchain.subscription.MsgUpdateDeal.amount":
 		return x.Amount != uint64(0)
-	case "topchain.subscription.MsgUpdateOffer.start_block":
+	case "topchain.subscription.MsgUpdateDeal.start_block":
 		return x.StartBlock != uint64(0)
-	case "topchain.subscription.MsgUpdateOffer.end_block":
+	case "topchain.subscription.MsgUpdateDeal.end_block":
 		return x.EndBlock != uint64(0)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateOffer"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgUpdateOffer does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgUpdateDeal does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2912,23 +2912,23 @@ func (x *fastReflection_MsgUpdateOffer) Has(fd protoreflect.FieldDescriptor) boo
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgUpdateOffer) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_MsgUpdateDeal) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgUpdateOffer.requester":
+	case "topchain.subscription.MsgUpdateDeal.requester":
 		x.Requester = ""
-	case "topchain.subscription.MsgUpdateOffer.offer_id":
-		x.OfferId = ""
-	case "topchain.subscription.MsgUpdateOffer.amount":
+	case "topchain.subscription.MsgUpdateDeal.deal_id":
+		x.DealId = ""
+	case "topchain.subscription.MsgUpdateDeal.amount":
 		x.Amount = uint64(0)
-	case "topchain.subscription.MsgUpdateOffer.start_block":
+	case "topchain.subscription.MsgUpdateDeal.start_block":
 		x.StartBlock = uint64(0)
-	case "topchain.subscription.MsgUpdateOffer.end_block":
+	case "topchain.subscription.MsgUpdateDeal.end_block":
 		x.EndBlock = uint64(0)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateOffer"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgUpdateOffer does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgUpdateDeal does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2938,28 +2938,28 @@ func (x *fastReflection_MsgUpdateOffer) Clear(fd protoreflect.FieldDescriptor) {
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgUpdateOffer) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgUpdateDeal) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "topchain.subscription.MsgUpdateOffer.requester":
+	case "topchain.subscription.MsgUpdateDeal.requester":
 		value := x.Requester
 		return protoreflect.ValueOfString(value)
-	case "topchain.subscription.MsgUpdateOffer.offer_id":
-		value := x.OfferId
+	case "topchain.subscription.MsgUpdateDeal.deal_id":
+		value := x.DealId
 		return protoreflect.ValueOfString(value)
-	case "topchain.subscription.MsgUpdateOffer.amount":
+	case "topchain.subscription.MsgUpdateDeal.amount":
 		value := x.Amount
 		return protoreflect.ValueOfUint64(value)
-	case "topchain.subscription.MsgUpdateOffer.start_block":
+	case "topchain.subscription.MsgUpdateDeal.start_block":
 		value := x.StartBlock
 		return protoreflect.ValueOfUint64(value)
-	case "topchain.subscription.MsgUpdateOffer.end_block":
+	case "topchain.subscription.MsgUpdateDeal.end_block":
 		value := x.EndBlock
 		return protoreflect.ValueOfUint64(value)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateOffer"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgUpdateOffer does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgUpdateDeal does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -2973,23 +2973,23 @@ func (x *fastReflection_MsgUpdateOffer) Get(descriptor protoreflect.FieldDescrip
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgUpdateOffer) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_MsgUpdateDeal) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgUpdateOffer.requester":
+	case "topchain.subscription.MsgUpdateDeal.requester":
 		x.Requester = value.Interface().(string)
-	case "topchain.subscription.MsgUpdateOffer.offer_id":
-		x.OfferId = value.Interface().(string)
-	case "topchain.subscription.MsgUpdateOffer.amount":
+	case "topchain.subscription.MsgUpdateDeal.deal_id":
+		x.DealId = value.Interface().(string)
+	case "topchain.subscription.MsgUpdateDeal.amount":
 		x.Amount = value.Uint()
-	case "topchain.subscription.MsgUpdateOffer.start_block":
+	case "topchain.subscription.MsgUpdateDeal.start_block":
 		x.StartBlock = value.Uint()
-	case "topchain.subscription.MsgUpdateOffer.end_block":
+	case "topchain.subscription.MsgUpdateDeal.end_block":
 		x.EndBlock = value.Uint()
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateOffer"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgUpdateOffer does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgUpdateDeal does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3003,56 +3003,56 @@ func (x *fastReflection_MsgUpdateOffer) Set(fd protoreflect.FieldDescriptor, val
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgUpdateOffer) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgUpdateDeal) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgUpdateOffer.requester":
-		panic(fmt.Errorf("field requester of message topchain.subscription.MsgUpdateOffer is not mutable"))
-	case "topchain.subscription.MsgUpdateOffer.offer_id":
-		panic(fmt.Errorf("field offer_id of message topchain.subscription.MsgUpdateOffer is not mutable"))
-	case "topchain.subscription.MsgUpdateOffer.amount":
-		panic(fmt.Errorf("field amount of message topchain.subscription.MsgUpdateOffer is not mutable"))
-	case "topchain.subscription.MsgUpdateOffer.start_block":
-		panic(fmt.Errorf("field start_block of message topchain.subscription.MsgUpdateOffer is not mutable"))
-	case "topchain.subscription.MsgUpdateOffer.end_block":
-		panic(fmt.Errorf("field end_block of message topchain.subscription.MsgUpdateOffer is not mutable"))
+	case "topchain.subscription.MsgUpdateDeal.requester":
+		panic(fmt.Errorf("field requester of message topchain.subscription.MsgUpdateDeal is not mutable"))
+	case "topchain.subscription.MsgUpdateDeal.deal_id":
+		panic(fmt.Errorf("field deal_id of message topchain.subscription.MsgUpdateDeal is not mutable"))
+	case "topchain.subscription.MsgUpdateDeal.amount":
+		panic(fmt.Errorf("field amount of message topchain.subscription.MsgUpdateDeal is not mutable"))
+	case "topchain.subscription.MsgUpdateDeal.start_block":
+		panic(fmt.Errorf("field start_block of message topchain.subscription.MsgUpdateDeal is not mutable"))
+	case "topchain.subscription.MsgUpdateDeal.end_block":
+		panic(fmt.Errorf("field end_block of message topchain.subscription.MsgUpdateDeal is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateOffer"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgUpdateOffer does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgUpdateDeal does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgUpdateOffer) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgUpdateDeal) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgUpdateOffer.requester":
+	case "topchain.subscription.MsgUpdateDeal.requester":
 		return protoreflect.ValueOfString("")
-	case "topchain.subscription.MsgUpdateOffer.offer_id":
+	case "topchain.subscription.MsgUpdateDeal.deal_id":
 		return protoreflect.ValueOfString("")
-	case "topchain.subscription.MsgUpdateOffer.amount":
+	case "topchain.subscription.MsgUpdateDeal.amount":
 		return protoreflect.ValueOfUint64(uint64(0))
-	case "topchain.subscription.MsgUpdateOffer.start_block":
+	case "topchain.subscription.MsgUpdateDeal.start_block":
 		return protoreflect.ValueOfUint64(uint64(0))
-	case "topchain.subscription.MsgUpdateOffer.end_block":
+	case "topchain.subscription.MsgUpdateDeal.end_block":
 		return protoreflect.ValueOfUint64(uint64(0))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateOffer"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgUpdateOffer does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgUpdateDeal does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgUpdateOffer) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_MsgUpdateDeal) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgUpdateOffer", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgUpdateDeal", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -3060,7 +3060,7 @@ func (x *fastReflection_MsgUpdateOffer) WhichOneof(d protoreflect.OneofDescripto
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgUpdateOffer) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_MsgUpdateDeal) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -3071,7 +3071,7 @@ func (x *fastReflection_MsgUpdateOffer) GetUnknown() protoreflect.RawFields {
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgUpdateOffer) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_MsgUpdateDeal) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -3083,7 +3083,7 @@ func (x *fastReflection_MsgUpdateOffer) SetUnknown(fields protoreflect.RawFields
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_MsgUpdateOffer) IsValid() bool {
+func (x *fastReflection_MsgUpdateDeal) IsValid() bool {
 	return x != nil
 }
 
@@ -3093,9 +3093,9 @@ func (x *fastReflection_MsgUpdateOffer) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgUpdateOffer) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_MsgUpdateDeal) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgUpdateOffer)
+		x := input.Message.Interface().(*MsgUpdateDeal)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3111,7 +3111,7 @@ func (x *fastReflection_MsgUpdateOffer) ProtoMethods() *protoiface.Methods {
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
-		l = len(x.OfferId)
+		l = len(x.DealId)
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
@@ -3134,7 +3134,7 @@ func (x *fastReflection_MsgUpdateOffer) ProtoMethods() *protoiface.Methods {
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgUpdateOffer)
+		x := input.Message.Interface().(*MsgUpdateDeal)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3168,10 +3168,10 @@ func (x *fastReflection_MsgUpdateOffer) ProtoMethods() *protoiface.Methods {
 			i--
 			dAtA[i] = 0x18
 		}
-		if len(x.OfferId) > 0 {
-			i -= len(x.OfferId)
-			copy(dAtA[i:], x.OfferId)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.OfferId)))
+		if len(x.DealId) > 0 {
+			i -= len(x.DealId)
+			copy(dAtA[i:], x.DealId)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.DealId)))
 			i--
 			dAtA[i] = 0x12
 		}
@@ -3193,7 +3193,7 @@ func (x *fastReflection_MsgUpdateOffer) ProtoMethods() *protoiface.Methods {
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgUpdateOffer)
+		x := input.Message.Interface().(*MsgUpdateDeal)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3225,10 +3225,10 @@ func (x *fastReflection_MsgUpdateOffer) ProtoMethods() *protoiface.Methods {
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgUpdateOffer: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgUpdateDeal: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgUpdateOffer: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgUpdateDeal: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			case 1:
@@ -3265,7 +3265,7 @@ func (x *fastReflection_MsgUpdateOffer) ProtoMethods() *protoiface.Methods {
 				iNdEx = postIndex
 			case 2:
 				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field OfferId", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field DealId", wireType)
 				}
 				var stringLen uint64
 				for shift := uint(0); ; shift += 7 {
@@ -3293,7 +3293,7 @@ func (x *fastReflection_MsgUpdateOffer) ProtoMethods() *protoiface.Methods {
 				if postIndex > l {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
-				x.OfferId = string(dAtA[iNdEx:postIndex])
+				x.DealId = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
 			case 3:
 				if wireType != 0 {
@@ -3388,23 +3388,23 @@ func (x *fastReflection_MsgUpdateOffer) ProtoMethods() *protoiface.Methods {
 }
 
 var (
-	md_MsgUpdateOfferResponse protoreflect.MessageDescriptor
+	md_MsgUpdateDealResponse protoreflect.MessageDescriptor
 )
 
 func init() {
 	file_topchain_subscription_tx_proto_init()
-	md_MsgUpdateOfferResponse = File_topchain_subscription_tx_proto.Messages().ByName("MsgUpdateOfferResponse")
+	md_MsgUpdateDealResponse = File_topchain_subscription_tx_proto.Messages().ByName("MsgUpdateDealResponse")
 }
 
-var _ protoreflect.Message = (*fastReflection_MsgUpdateOfferResponse)(nil)
+var _ protoreflect.Message = (*fastReflection_MsgUpdateDealResponse)(nil)
 
-type fastReflection_MsgUpdateOfferResponse MsgUpdateOfferResponse
+type fastReflection_MsgUpdateDealResponse MsgUpdateDealResponse
 
-func (x *MsgUpdateOfferResponse) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgUpdateOfferResponse)(x)
+func (x *MsgUpdateDealResponse) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgUpdateDealResponse)(x)
 }
 
-func (x *MsgUpdateOfferResponse) slowProtoReflect() protoreflect.Message {
+func (x *MsgUpdateDealResponse) slowProtoReflect() protoreflect.Message {
 	mi := &file_topchain_subscription_tx_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -3416,43 +3416,43 @@ func (x *MsgUpdateOfferResponse) slowProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_MsgUpdateOfferResponse_messageType fastReflection_MsgUpdateOfferResponse_messageType
-var _ protoreflect.MessageType = fastReflection_MsgUpdateOfferResponse_messageType{}
+var _fastReflection_MsgUpdateDealResponse_messageType fastReflection_MsgUpdateDealResponse_messageType
+var _ protoreflect.MessageType = fastReflection_MsgUpdateDealResponse_messageType{}
 
-type fastReflection_MsgUpdateOfferResponse_messageType struct{}
+type fastReflection_MsgUpdateDealResponse_messageType struct{}
 
-func (x fastReflection_MsgUpdateOfferResponse_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgUpdateOfferResponse)(nil)
+func (x fastReflection_MsgUpdateDealResponse_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgUpdateDealResponse)(nil)
 }
-func (x fastReflection_MsgUpdateOfferResponse_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgUpdateOfferResponse)
+func (x fastReflection_MsgUpdateDealResponse_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgUpdateDealResponse)
 }
-func (x fastReflection_MsgUpdateOfferResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgUpdateOfferResponse
+func (x fastReflection_MsgUpdateDealResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgUpdateDealResponse
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_MsgUpdateOfferResponse) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgUpdateOfferResponse
+func (x *fastReflection_MsgUpdateDealResponse) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgUpdateDealResponse
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgUpdateOfferResponse) Type() protoreflect.MessageType {
-	return _fastReflection_MsgUpdateOfferResponse_messageType
+func (x *fastReflection_MsgUpdateDealResponse) Type() protoreflect.MessageType {
+	return _fastReflection_MsgUpdateDealResponse_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgUpdateOfferResponse) New() protoreflect.Message {
-	return new(fastReflection_MsgUpdateOfferResponse)
+func (x *fastReflection_MsgUpdateDealResponse) New() protoreflect.Message {
+	return new(fastReflection_MsgUpdateDealResponse)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgUpdateOfferResponse) Interface() protoreflect.ProtoMessage {
-	return (*MsgUpdateOfferResponse)(x)
+func (x *fastReflection_MsgUpdateDealResponse) Interface() protoreflect.ProtoMessage {
+	return (*MsgUpdateDealResponse)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -3460,7 +3460,7 @@ func (x *fastReflection_MsgUpdateOfferResponse) Interface() protoreflect.ProtoMe
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_MsgUpdateOfferResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+func (x *fastReflection_MsgUpdateDealResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 }
 
 // Has reports whether a field is populated.
@@ -3474,13 +3474,13 @@ func (x *fastReflection_MsgUpdateOfferResponse) Range(f func(protoreflect.FieldD
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgUpdateOfferResponse) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_MsgUpdateDealResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateOfferResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgUpdateOfferResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgUpdateDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3490,13 +3490,13 @@ func (x *fastReflection_MsgUpdateOfferResponse) Has(fd protoreflect.FieldDescrip
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgUpdateOfferResponse) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_MsgUpdateDealResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateOfferResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgUpdateOfferResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgUpdateDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3506,13 +3506,13 @@ func (x *fastReflection_MsgUpdateOfferResponse) Clear(fd protoreflect.FieldDescr
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgUpdateOfferResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgUpdateDealResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateOfferResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgUpdateOfferResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgUpdateDealResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -3526,13 +3526,13 @@ func (x *fastReflection_MsgUpdateOfferResponse) Get(descriptor protoreflect.Fiel
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgUpdateOfferResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_MsgUpdateDealResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateOfferResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgUpdateOfferResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgUpdateDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3546,36 +3546,36 @@ func (x *fastReflection_MsgUpdateOfferResponse) Set(fd protoreflect.FieldDescrip
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgUpdateOfferResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgUpdateDealResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateOfferResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgUpdateOfferResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgUpdateDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgUpdateOfferResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgUpdateDealResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateOfferResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgUpdateOfferResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgUpdateDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgUpdateOfferResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_MsgUpdateDealResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgUpdateOfferResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgUpdateDealResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -3583,7 +3583,7 @@ func (x *fastReflection_MsgUpdateOfferResponse) WhichOneof(d protoreflect.OneofD
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgUpdateOfferResponse) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_MsgUpdateDealResponse) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -3594,7 +3594,7 @@ func (x *fastReflection_MsgUpdateOfferResponse) GetUnknown() protoreflect.RawFie
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgUpdateOfferResponse) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_MsgUpdateDealResponse) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -3606,7 +3606,7 @@ func (x *fastReflection_MsgUpdateOfferResponse) SetUnknown(fields protoreflect.R
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_MsgUpdateOfferResponse) IsValid() bool {
+func (x *fastReflection_MsgUpdateDealResponse) IsValid() bool {
 	return x != nil
 }
 
@@ -3616,9 +3616,9 @@ func (x *fastReflection_MsgUpdateOfferResponse) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgUpdateOfferResponse) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_MsgUpdateDealResponse) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgUpdateOfferResponse)
+		x := input.Message.Interface().(*MsgUpdateDealResponse)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3640,7 +3640,7 @@ func (x *fastReflection_MsgUpdateOfferResponse) ProtoMethods() *protoiface.Metho
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgUpdateOfferResponse)
+		x := input.Message.Interface().(*MsgUpdateDealResponse)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3670,7 +3670,7 @@ func (x *fastReflection_MsgUpdateOfferResponse) ProtoMethods() *protoiface.Metho
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgUpdateOfferResponse)
+		x := input.Message.Interface().(*MsgUpdateDealResponse)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3702,10 +3702,10 @@ func (x *fastReflection_MsgUpdateOfferResponse) ProtoMethods() *protoiface.Metho
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgUpdateOfferResponse: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgUpdateDealResponse: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgUpdateOfferResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgUpdateDealResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			default:
@@ -3744,27 +3744,27 @@ func (x *fastReflection_MsgUpdateOfferResponse) ProtoMethods() *protoiface.Metho
 }
 
 var (
-	md_MsgAcceptSubscription                 protoreflect.MessageDescriptor
-	fd_MsgAcceptSubscription_provider        protoreflect.FieldDescriptor
-	fd_MsgAcceptSubscription_subscription_id protoreflect.FieldDescriptor
+	md_MsgJoinDeal                 protoreflect.MessageDescriptor
+	fd_MsgJoinDeal_provider        protoreflect.FieldDescriptor
+	fd_MsgJoinDeal_subscription_id protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_topchain_subscription_tx_proto_init()
-	md_MsgAcceptSubscription = File_topchain_subscription_tx_proto.Messages().ByName("MsgAcceptSubscription")
-	fd_MsgAcceptSubscription_provider = md_MsgAcceptSubscription.Fields().ByName("provider")
-	fd_MsgAcceptSubscription_subscription_id = md_MsgAcceptSubscription.Fields().ByName("subscription_id")
+	md_MsgJoinDeal = File_topchain_subscription_tx_proto.Messages().ByName("MsgJoinDeal")
+	fd_MsgJoinDeal_provider = md_MsgJoinDeal.Fields().ByName("provider")
+	fd_MsgJoinDeal_subscription_id = md_MsgJoinDeal.Fields().ByName("subscription_id")
 }
 
-var _ protoreflect.Message = (*fastReflection_MsgAcceptSubscription)(nil)
+var _ protoreflect.Message = (*fastReflection_MsgJoinDeal)(nil)
 
-type fastReflection_MsgAcceptSubscription MsgAcceptSubscription
+type fastReflection_MsgJoinDeal MsgJoinDeal
 
-func (x *MsgAcceptSubscription) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgAcceptSubscription)(x)
+func (x *MsgJoinDeal) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgJoinDeal)(x)
 }
 
-func (x *MsgAcceptSubscription) slowProtoReflect() protoreflect.Message {
+func (x *MsgJoinDeal) slowProtoReflect() protoreflect.Message {
 	mi := &file_topchain_subscription_tx_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -3776,43 +3776,43 @@ func (x *MsgAcceptSubscription) slowProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_MsgAcceptSubscription_messageType fastReflection_MsgAcceptSubscription_messageType
-var _ protoreflect.MessageType = fastReflection_MsgAcceptSubscription_messageType{}
+var _fastReflection_MsgJoinDeal_messageType fastReflection_MsgJoinDeal_messageType
+var _ protoreflect.MessageType = fastReflection_MsgJoinDeal_messageType{}
 
-type fastReflection_MsgAcceptSubscription_messageType struct{}
+type fastReflection_MsgJoinDeal_messageType struct{}
 
-func (x fastReflection_MsgAcceptSubscription_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgAcceptSubscription)(nil)
+func (x fastReflection_MsgJoinDeal_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgJoinDeal)(nil)
 }
-func (x fastReflection_MsgAcceptSubscription_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgAcceptSubscription)
+func (x fastReflection_MsgJoinDeal_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgJoinDeal)
 }
-func (x fastReflection_MsgAcceptSubscription_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgAcceptSubscription
+func (x fastReflection_MsgJoinDeal_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgJoinDeal
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_MsgAcceptSubscription) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgAcceptSubscription
+func (x *fastReflection_MsgJoinDeal) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgJoinDeal
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgAcceptSubscription) Type() protoreflect.MessageType {
-	return _fastReflection_MsgAcceptSubscription_messageType
+func (x *fastReflection_MsgJoinDeal) Type() protoreflect.MessageType {
+	return _fastReflection_MsgJoinDeal_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgAcceptSubscription) New() protoreflect.Message {
-	return new(fastReflection_MsgAcceptSubscription)
+func (x *fastReflection_MsgJoinDeal) New() protoreflect.Message {
+	return new(fastReflection_MsgJoinDeal)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgAcceptSubscription) Interface() protoreflect.ProtoMessage {
-	return (*MsgAcceptSubscription)(x)
+func (x *fastReflection_MsgJoinDeal) Interface() protoreflect.ProtoMessage {
+	return (*MsgJoinDeal)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -3820,16 +3820,16 @@ func (x *fastReflection_MsgAcceptSubscription) Interface() protoreflect.ProtoMes
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_MsgAcceptSubscription) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+func (x *fastReflection_MsgJoinDeal) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 	if x.Provider != "" {
 		value := protoreflect.ValueOfString(x.Provider)
-		if !f(fd_MsgAcceptSubscription_provider, value) {
+		if !f(fd_MsgJoinDeal_provider, value) {
 			return
 		}
 	}
 	if x.SubscriptionId != "" {
 		value := protoreflect.ValueOfString(x.SubscriptionId)
-		if !f(fd_MsgAcceptSubscription_subscription_id, value) {
+		if !f(fd_MsgJoinDeal_subscription_id, value) {
 			return
 		}
 	}
@@ -3846,17 +3846,17 @@ func (x *fastReflection_MsgAcceptSubscription) Range(f func(protoreflect.FieldDe
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgAcceptSubscription) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_MsgJoinDeal) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgAcceptSubscription.provider":
+	case "topchain.subscription.MsgJoinDeal.provider":
 		return x.Provider != ""
-	case "topchain.subscription.MsgAcceptSubscription.subscription_id":
+	case "topchain.subscription.MsgJoinDeal.subscription_id":
 		return x.SubscriptionId != ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgAcceptSubscription"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgJoinDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgAcceptSubscription does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgJoinDeal does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3866,17 +3866,17 @@ func (x *fastReflection_MsgAcceptSubscription) Has(fd protoreflect.FieldDescript
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgAcceptSubscription) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_MsgJoinDeal) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgAcceptSubscription.provider":
+	case "topchain.subscription.MsgJoinDeal.provider":
 		x.Provider = ""
-	case "topchain.subscription.MsgAcceptSubscription.subscription_id":
+	case "topchain.subscription.MsgJoinDeal.subscription_id":
 		x.SubscriptionId = ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgAcceptSubscription"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgJoinDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgAcceptSubscription does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgJoinDeal does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3886,19 +3886,19 @@ func (x *fastReflection_MsgAcceptSubscription) Clear(fd protoreflect.FieldDescri
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgAcceptSubscription) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgJoinDeal) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "topchain.subscription.MsgAcceptSubscription.provider":
+	case "topchain.subscription.MsgJoinDeal.provider":
 		value := x.Provider
 		return protoreflect.ValueOfString(value)
-	case "topchain.subscription.MsgAcceptSubscription.subscription_id":
+	case "topchain.subscription.MsgJoinDeal.subscription_id":
 		value := x.SubscriptionId
 		return protoreflect.ValueOfString(value)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgAcceptSubscription"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgJoinDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgAcceptSubscription does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgJoinDeal does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -3912,17 +3912,17 @@ func (x *fastReflection_MsgAcceptSubscription) Get(descriptor protoreflect.Field
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgAcceptSubscription) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_MsgJoinDeal) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgAcceptSubscription.provider":
+	case "topchain.subscription.MsgJoinDeal.provider":
 		x.Provider = value.Interface().(string)
-	case "topchain.subscription.MsgAcceptSubscription.subscription_id":
+	case "topchain.subscription.MsgJoinDeal.subscription_id":
 		x.SubscriptionId = value.Interface().(string)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgAcceptSubscription"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgJoinDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgAcceptSubscription does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgJoinDeal does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3936,44 +3936,44 @@ func (x *fastReflection_MsgAcceptSubscription) Set(fd protoreflect.FieldDescript
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgAcceptSubscription) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgJoinDeal) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgAcceptSubscription.provider":
-		panic(fmt.Errorf("field provider of message topchain.subscription.MsgAcceptSubscription is not mutable"))
-	case "topchain.subscription.MsgAcceptSubscription.subscription_id":
-		panic(fmt.Errorf("field subscription_id of message topchain.subscription.MsgAcceptSubscription is not mutable"))
+	case "topchain.subscription.MsgJoinDeal.provider":
+		panic(fmt.Errorf("field provider of message topchain.subscription.MsgJoinDeal is not mutable"))
+	case "topchain.subscription.MsgJoinDeal.subscription_id":
+		panic(fmt.Errorf("field subscription_id of message topchain.subscription.MsgJoinDeal is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgAcceptSubscription"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgJoinDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgAcceptSubscription does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgJoinDeal does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgAcceptSubscription) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgJoinDeal) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgAcceptSubscription.provider":
+	case "topchain.subscription.MsgJoinDeal.provider":
 		return protoreflect.ValueOfString("")
-	case "topchain.subscription.MsgAcceptSubscription.subscription_id":
+	case "topchain.subscription.MsgJoinDeal.subscription_id":
 		return protoreflect.ValueOfString("")
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgAcceptSubscription"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgJoinDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgAcceptSubscription does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgJoinDeal does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgAcceptSubscription) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_MsgJoinDeal) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgAcceptSubscription", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgJoinDeal", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -3981,7 +3981,7 @@ func (x *fastReflection_MsgAcceptSubscription) WhichOneof(d protoreflect.OneofDe
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgAcceptSubscription) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_MsgJoinDeal) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -3992,7 +3992,7 @@ func (x *fastReflection_MsgAcceptSubscription) GetUnknown() protoreflect.RawFiel
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgAcceptSubscription) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_MsgJoinDeal) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -4004,7 +4004,7 @@ func (x *fastReflection_MsgAcceptSubscription) SetUnknown(fields protoreflect.Ra
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_MsgAcceptSubscription) IsValid() bool {
+func (x *fastReflection_MsgJoinDeal) IsValid() bool {
 	return x != nil
 }
 
@@ -4014,9 +4014,9 @@ func (x *fastReflection_MsgAcceptSubscription) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgAcceptSubscription) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_MsgJoinDeal) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgAcceptSubscription)
+		x := input.Message.Interface().(*MsgJoinDeal)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -4046,7 +4046,7 @@ func (x *fastReflection_MsgAcceptSubscription) ProtoMethods() *protoiface.Method
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgAcceptSubscription)
+		x := input.Message.Interface().(*MsgJoinDeal)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -4090,7 +4090,7 @@ func (x *fastReflection_MsgAcceptSubscription) ProtoMethods() *protoiface.Method
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgAcceptSubscription)
+		x := input.Message.Interface().(*MsgJoinDeal)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -4122,10 +4122,10 @@ func (x *fastReflection_MsgAcceptSubscription) ProtoMethods() *protoiface.Method
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgAcceptSubscription: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgJoinDeal: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgAcceptSubscription: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgJoinDeal: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			case 1:
@@ -4228,23 +4228,23 @@ func (x *fastReflection_MsgAcceptSubscription) ProtoMethods() *protoiface.Method
 }
 
 var (
-	md_MsgAcceptSubscriptionResponse protoreflect.MessageDescriptor
+	md_MsgJoinDealResponse protoreflect.MessageDescriptor
 )
 
 func init() {
 	file_topchain_subscription_tx_proto_init()
-	md_MsgAcceptSubscriptionResponse = File_topchain_subscription_tx_proto.Messages().ByName("MsgAcceptSubscriptionResponse")
+	md_MsgJoinDealResponse = File_topchain_subscription_tx_proto.Messages().ByName("MsgJoinDealResponse")
 }
 
-var _ protoreflect.Message = (*fastReflection_MsgAcceptSubscriptionResponse)(nil)
+var _ protoreflect.Message = (*fastReflection_MsgJoinDealResponse)(nil)
 
-type fastReflection_MsgAcceptSubscriptionResponse MsgAcceptSubscriptionResponse
+type fastReflection_MsgJoinDealResponse MsgJoinDealResponse
 
-func (x *MsgAcceptSubscriptionResponse) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgAcceptSubscriptionResponse)(x)
+func (x *MsgJoinDealResponse) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgJoinDealResponse)(x)
 }
 
-func (x *MsgAcceptSubscriptionResponse) slowProtoReflect() protoreflect.Message {
+func (x *MsgJoinDealResponse) slowProtoReflect() protoreflect.Message {
 	mi := &file_topchain_subscription_tx_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -4256,43 +4256,43 @@ func (x *MsgAcceptSubscriptionResponse) slowProtoReflect() protoreflect.Message 
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_MsgAcceptSubscriptionResponse_messageType fastReflection_MsgAcceptSubscriptionResponse_messageType
-var _ protoreflect.MessageType = fastReflection_MsgAcceptSubscriptionResponse_messageType{}
+var _fastReflection_MsgJoinDealResponse_messageType fastReflection_MsgJoinDealResponse_messageType
+var _ protoreflect.MessageType = fastReflection_MsgJoinDealResponse_messageType{}
 
-type fastReflection_MsgAcceptSubscriptionResponse_messageType struct{}
+type fastReflection_MsgJoinDealResponse_messageType struct{}
 
-func (x fastReflection_MsgAcceptSubscriptionResponse_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgAcceptSubscriptionResponse)(nil)
+func (x fastReflection_MsgJoinDealResponse_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgJoinDealResponse)(nil)
 }
-func (x fastReflection_MsgAcceptSubscriptionResponse_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgAcceptSubscriptionResponse)
+func (x fastReflection_MsgJoinDealResponse_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgJoinDealResponse)
 }
-func (x fastReflection_MsgAcceptSubscriptionResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgAcceptSubscriptionResponse
+func (x fastReflection_MsgJoinDealResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgJoinDealResponse
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_MsgAcceptSubscriptionResponse) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgAcceptSubscriptionResponse
+func (x *fastReflection_MsgJoinDealResponse) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgJoinDealResponse
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgAcceptSubscriptionResponse) Type() protoreflect.MessageType {
-	return _fastReflection_MsgAcceptSubscriptionResponse_messageType
+func (x *fastReflection_MsgJoinDealResponse) Type() protoreflect.MessageType {
+	return _fastReflection_MsgJoinDealResponse_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgAcceptSubscriptionResponse) New() protoreflect.Message {
-	return new(fastReflection_MsgAcceptSubscriptionResponse)
+func (x *fastReflection_MsgJoinDealResponse) New() protoreflect.Message {
+	return new(fastReflection_MsgJoinDealResponse)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgAcceptSubscriptionResponse) Interface() protoreflect.ProtoMessage {
-	return (*MsgAcceptSubscriptionResponse)(x)
+func (x *fastReflection_MsgJoinDealResponse) Interface() protoreflect.ProtoMessage {
+	return (*MsgJoinDealResponse)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -4300,7 +4300,7 @@ func (x *fastReflection_MsgAcceptSubscriptionResponse) Interface() protoreflect.
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_MsgAcceptSubscriptionResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+func (x *fastReflection_MsgJoinDealResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 }
 
 // Has reports whether a field is populated.
@@ -4314,13 +4314,13 @@ func (x *fastReflection_MsgAcceptSubscriptionResponse) Range(f func(protoreflect
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgAcceptSubscriptionResponse) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_MsgJoinDealResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgAcceptSubscriptionResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgJoinDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgAcceptSubscriptionResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgJoinDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4330,13 +4330,13 @@ func (x *fastReflection_MsgAcceptSubscriptionResponse) Has(fd protoreflect.Field
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgAcceptSubscriptionResponse) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_MsgJoinDealResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgAcceptSubscriptionResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgJoinDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgAcceptSubscriptionResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgJoinDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4346,13 +4346,13 @@ func (x *fastReflection_MsgAcceptSubscriptionResponse) Clear(fd protoreflect.Fie
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgAcceptSubscriptionResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgJoinDealResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgAcceptSubscriptionResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgJoinDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgAcceptSubscriptionResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgJoinDealResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -4366,13 +4366,13 @@ func (x *fastReflection_MsgAcceptSubscriptionResponse) Get(descriptor protorefle
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgAcceptSubscriptionResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_MsgJoinDealResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgAcceptSubscriptionResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgJoinDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgAcceptSubscriptionResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgJoinDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4386,36 +4386,36 @@ func (x *fastReflection_MsgAcceptSubscriptionResponse) Set(fd protoreflect.Field
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgAcceptSubscriptionResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgJoinDealResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgAcceptSubscriptionResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgJoinDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgAcceptSubscriptionResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgJoinDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgAcceptSubscriptionResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgJoinDealResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgAcceptSubscriptionResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgJoinDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgAcceptSubscriptionResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgJoinDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgAcceptSubscriptionResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_MsgJoinDealResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgAcceptSubscriptionResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgJoinDealResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -4423,7 +4423,7 @@ func (x *fastReflection_MsgAcceptSubscriptionResponse) WhichOneof(d protoreflect
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgAcceptSubscriptionResponse) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_MsgJoinDealResponse) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -4434,7 +4434,7 @@ func (x *fastReflection_MsgAcceptSubscriptionResponse) GetUnknown() protoreflect
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgAcceptSubscriptionResponse) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_MsgJoinDealResponse) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -4446,7 +4446,7 @@ func (x *fastReflection_MsgAcceptSubscriptionResponse) SetUnknown(fields protore
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_MsgAcceptSubscriptionResponse) IsValid() bool {
+func (x *fastReflection_MsgJoinDealResponse) IsValid() bool {
 	return x != nil
 }
 
@@ -4456,9 +4456,9 @@ func (x *fastReflection_MsgAcceptSubscriptionResponse) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgAcceptSubscriptionResponse) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_MsgJoinDealResponse) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgAcceptSubscriptionResponse)
+		x := input.Message.Interface().(*MsgJoinDealResponse)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -4480,7 +4480,7 @@ func (x *fastReflection_MsgAcceptSubscriptionResponse) ProtoMethods() *protoifac
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgAcceptSubscriptionResponse)
+		x := input.Message.Interface().(*MsgJoinDealResponse)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -4510,7 +4510,7 @@ func (x *fastReflection_MsgAcceptSubscriptionResponse) ProtoMethods() *protoifac
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgAcceptSubscriptionResponse)
+		x := input.Message.Interface().(*MsgJoinDealResponse)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -4542,10 +4542,10 @@ func (x *fastReflection_MsgAcceptSubscriptionResponse) ProtoMethods() *protoifac
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgAcceptSubscriptionResponse: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgJoinDealResponse: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgAcceptSubscriptionResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgJoinDealResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			default:
@@ -4584,27 +4584,27 @@ func (x *fastReflection_MsgAcceptSubscriptionResponse) ProtoMethods() *protoifac
 }
 
 var (
-	md_MsgCancelSubscription                 protoreflect.MessageDescriptor
-	fd_MsgCancelSubscription_provider        protoreflect.FieldDescriptor
-	fd_MsgCancelSubscription_subscription_id protoreflect.FieldDescriptor
+	md_MsgLeaveDeal                 protoreflect.MessageDescriptor
+	fd_MsgLeaveDeal_provider        protoreflect.FieldDescriptor
+	fd_MsgLeaveDeal_subscription_id protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_topchain_subscription_tx_proto_init()
-	md_MsgCancelSubscription = File_topchain_subscription_tx_proto.Messages().ByName("MsgCancelSubscription")
-	fd_MsgCancelSubscription_provider = md_MsgCancelSubscription.Fields().ByName("provider")
-	fd_MsgCancelSubscription_subscription_id = md_MsgCancelSubscription.Fields().ByName("subscription_id")
+	md_MsgLeaveDeal = File_topchain_subscription_tx_proto.Messages().ByName("MsgLeaveDeal")
+	fd_MsgLeaveDeal_provider = md_MsgLeaveDeal.Fields().ByName("provider")
+	fd_MsgLeaveDeal_subscription_id = md_MsgLeaveDeal.Fields().ByName("subscription_id")
 }
 
-var _ protoreflect.Message = (*fastReflection_MsgCancelSubscription)(nil)
+var _ protoreflect.Message = (*fastReflection_MsgLeaveDeal)(nil)
 
-type fastReflection_MsgCancelSubscription MsgCancelSubscription
+type fastReflection_MsgLeaveDeal MsgLeaveDeal
 
-func (x *MsgCancelSubscription) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgCancelSubscription)(x)
+func (x *MsgLeaveDeal) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgLeaveDeal)(x)
 }
 
-func (x *MsgCancelSubscription) slowProtoReflect() protoreflect.Message {
+func (x *MsgLeaveDeal) slowProtoReflect() protoreflect.Message {
 	mi := &file_topchain_subscription_tx_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -4616,43 +4616,43 @@ func (x *MsgCancelSubscription) slowProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_MsgCancelSubscription_messageType fastReflection_MsgCancelSubscription_messageType
-var _ protoreflect.MessageType = fastReflection_MsgCancelSubscription_messageType{}
+var _fastReflection_MsgLeaveDeal_messageType fastReflection_MsgLeaveDeal_messageType
+var _ protoreflect.MessageType = fastReflection_MsgLeaveDeal_messageType{}
 
-type fastReflection_MsgCancelSubscription_messageType struct{}
+type fastReflection_MsgLeaveDeal_messageType struct{}
 
-func (x fastReflection_MsgCancelSubscription_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgCancelSubscription)(nil)
+func (x fastReflection_MsgLeaveDeal_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgLeaveDeal)(nil)
 }
-func (x fastReflection_MsgCancelSubscription_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgCancelSubscription)
+func (x fastReflection_MsgLeaveDeal_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgLeaveDeal)
 }
-func (x fastReflection_MsgCancelSubscription_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgCancelSubscription
+func (x fastReflection_MsgLeaveDeal_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgLeaveDeal
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_MsgCancelSubscription) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgCancelSubscription
+func (x *fastReflection_MsgLeaveDeal) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgLeaveDeal
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgCancelSubscription) Type() protoreflect.MessageType {
-	return _fastReflection_MsgCancelSubscription_messageType
+func (x *fastReflection_MsgLeaveDeal) Type() protoreflect.MessageType {
+	return _fastReflection_MsgLeaveDeal_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgCancelSubscription) New() protoreflect.Message {
-	return new(fastReflection_MsgCancelSubscription)
+func (x *fastReflection_MsgLeaveDeal) New() protoreflect.Message {
+	return new(fastReflection_MsgLeaveDeal)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgCancelSubscription) Interface() protoreflect.ProtoMessage {
-	return (*MsgCancelSubscription)(x)
+func (x *fastReflection_MsgLeaveDeal) Interface() protoreflect.ProtoMessage {
+	return (*MsgLeaveDeal)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -4660,16 +4660,16 @@ func (x *fastReflection_MsgCancelSubscription) Interface() protoreflect.ProtoMes
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_MsgCancelSubscription) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+func (x *fastReflection_MsgLeaveDeal) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 	if x.Provider != "" {
 		value := protoreflect.ValueOfString(x.Provider)
-		if !f(fd_MsgCancelSubscription_provider, value) {
+		if !f(fd_MsgLeaveDeal_provider, value) {
 			return
 		}
 	}
 	if x.SubscriptionId != "" {
 		value := protoreflect.ValueOfString(x.SubscriptionId)
-		if !f(fd_MsgCancelSubscription_subscription_id, value) {
+		if !f(fd_MsgLeaveDeal_subscription_id, value) {
 			return
 		}
 	}
@@ -4686,17 +4686,17 @@ func (x *fastReflection_MsgCancelSubscription) Range(f func(protoreflect.FieldDe
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgCancelSubscription) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_MsgLeaveDeal) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCancelSubscription.provider":
+	case "topchain.subscription.MsgLeaveDeal.provider":
 		return x.Provider != ""
-	case "topchain.subscription.MsgCancelSubscription.subscription_id":
+	case "topchain.subscription.MsgLeaveDeal.subscription_id":
 		return x.SubscriptionId != ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelSubscription"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgLeaveDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelSubscription does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgLeaveDeal does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4706,17 +4706,17 @@ func (x *fastReflection_MsgCancelSubscription) Has(fd protoreflect.FieldDescript
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCancelSubscription) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_MsgLeaveDeal) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCancelSubscription.provider":
+	case "topchain.subscription.MsgLeaveDeal.provider":
 		x.Provider = ""
-	case "topchain.subscription.MsgCancelSubscription.subscription_id":
+	case "topchain.subscription.MsgLeaveDeal.subscription_id":
 		x.SubscriptionId = ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelSubscription"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgLeaveDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelSubscription does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgLeaveDeal does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4726,19 +4726,19 @@ func (x *fastReflection_MsgCancelSubscription) Clear(fd protoreflect.FieldDescri
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgCancelSubscription) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgLeaveDeal) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "topchain.subscription.MsgCancelSubscription.provider":
+	case "topchain.subscription.MsgLeaveDeal.provider":
 		value := x.Provider
 		return protoreflect.ValueOfString(value)
-	case "topchain.subscription.MsgCancelSubscription.subscription_id":
+	case "topchain.subscription.MsgLeaveDeal.subscription_id":
 		value := x.SubscriptionId
 		return protoreflect.ValueOfString(value)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelSubscription"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgLeaveDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelSubscription does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgLeaveDeal does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -4752,17 +4752,17 @@ func (x *fastReflection_MsgCancelSubscription) Get(descriptor protoreflect.Field
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCancelSubscription) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_MsgLeaveDeal) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCancelSubscription.provider":
+	case "topchain.subscription.MsgLeaveDeal.provider":
 		x.Provider = value.Interface().(string)
-	case "topchain.subscription.MsgCancelSubscription.subscription_id":
+	case "topchain.subscription.MsgLeaveDeal.subscription_id":
 		x.SubscriptionId = value.Interface().(string)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelSubscription"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgLeaveDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelSubscription does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgLeaveDeal does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4776,44 +4776,44 @@ func (x *fastReflection_MsgCancelSubscription) Set(fd protoreflect.FieldDescript
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCancelSubscription) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgLeaveDeal) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCancelSubscription.provider":
-		panic(fmt.Errorf("field provider of message topchain.subscription.MsgCancelSubscription is not mutable"))
-	case "topchain.subscription.MsgCancelSubscription.subscription_id":
-		panic(fmt.Errorf("field subscription_id of message topchain.subscription.MsgCancelSubscription is not mutable"))
+	case "topchain.subscription.MsgLeaveDeal.provider":
+		panic(fmt.Errorf("field provider of message topchain.subscription.MsgLeaveDeal is not mutable"))
+	case "topchain.subscription.MsgLeaveDeal.subscription_id":
+		panic(fmt.Errorf("field subscription_id of message topchain.subscription.MsgLeaveDeal is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelSubscription"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgLeaveDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelSubscription does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgLeaveDeal does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgCancelSubscription) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgLeaveDeal) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "topchain.subscription.MsgCancelSubscription.provider":
+	case "topchain.subscription.MsgLeaveDeal.provider":
 		return protoreflect.ValueOfString("")
-	case "topchain.subscription.MsgCancelSubscription.subscription_id":
+	case "topchain.subscription.MsgLeaveDeal.subscription_id":
 		return protoreflect.ValueOfString("")
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelSubscription"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgLeaveDeal"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelSubscription does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgLeaveDeal does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgCancelSubscription) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_MsgLeaveDeal) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgCancelSubscription", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgLeaveDeal", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -4821,7 +4821,7 @@ func (x *fastReflection_MsgCancelSubscription) WhichOneof(d protoreflect.OneofDe
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgCancelSubscription) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_MsgLeaveDeal) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -4832,7 +4832,7 @@ func (x *fastReflection_MsgCancelSubscription) GetUnknown() protoreflect.RawFiel
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCancelSubscription) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_MsgLeaveDeal) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -4844,7 +4844,7 @@ func (x *fastReflection_MsgCancelSubscription) SetUnknown(fields protoreflect.Ra
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_MsgCancelSubscription) IsValid() bool {
+func (x *fastReflection_MsgLeaveDeal) IsValid() bool {
 	return x != nil
 }
 
@@ -4854,9 +4854,9 @@ func (x *fastReflection_MsgCancelSubscription) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgCancelSubscription) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_MsgLeaveDeal) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgCancelSubscription)
+		x := input.Message.Interface().(*MsgLeaveDeal)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -4886,7 +4886,7 @@ func (x *fastReflection_MsgCancelSubscription) ProtoMethods() *protoiface.Method
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgCancelSubscription)
+		x := input.Message.Interface().(*MsgLeaveDeal)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -4930,7 +4930,7 @@ func (x *fastReflection_MsgCancelSubscription) ProtoMethods() *protoiface.Method
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgCancelSubscription)
+		x := input.Message.Interface().(*MsgLeaveDeal)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -4962,10 +4962,10 @@ func (x *fastReflection_MsgCancelSubscription) ProtoMethods() *protoiface.Method
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCancelSubscription: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgLeaveDeal: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCancelSubscription: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgLeaveDeal: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			case 1:
@@ -5068,23 +5068,23 @@ func (x *fastReflection_MsgCancelSubscription) ProtoMethods() *protoiface.Method
 }
 
 var (
-	md_MsgCancelSubscriptionResponse protoreflect.MessageDescriptor
+	md_MsgLeaveDealResponse protoreflect.MessageDescriptor
 )
 
 func init() {
 	file_topchain_subscription_tx_proto_init()
-	md_MsgCancelSubscriptionResponse = File_topchain_subscription_tx_proto.Messages().ByName("MsgCancelSubscriptionResponse")
+	md_MsgLeaveDealResponse = File_topchain_subscription_tx_proto.Messages().ByName("MsgLeaveDealResponse")
 }
 
-var _ protoreflect.Message = (*fastReflection_MsgCancelSubscriptionResponse)(nil)
+var _ protoreflect.Message = (*fastReflection_MsgLeaveDealResponse)(nil)
 
-type fastReflection_MsgCancelSubscriptionResponse MsgCancelSubscriptionResponse
+type fastReflection_MsgLeaveDealResponse MsgLeaveDealResponse
 
-func (x *MsgCancelSubscriptionResponse) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgCancelSubscriptionResponse)(x)
+func (x *MsgLeaveDealResponse) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgLeaveDealResponse)(x)
 }
 
-func (x *MsgCancelSubscriptionResponse) slowProtoReflect() protoreflect.Message {
+func (x *MsgLeaveDealResponse) slowProtoReflect() protoreflect.Message {
 	mi := &file_topchain_subscription_tx_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -5096,43 +5096,43 @@ func (x *MsgCancelSubscriptionResponse) slowProtoReflect() protoreflect.Message 
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_MsgCancelSubscriptionResponse_messageType fastReflection_MsgCancelSubscriptionResponse_messageType
-var _ protoreflect.MessageType = fastReflection_MsgCancelSubscriptionResponse_messageType{}
+var _fastReflection_MsgLeaveDealResponse_messageType fastReflection_MsgLeaveDealResponse_messageType
+var _ protoreflect.MessageType = fastReflection_MsgLeaveDealResponse_messageType{}
 
-type fastReflection_MsgCancelSubscriptionResponse_messageType struct{}
+type fastReflection_MsgLeaveDealResponse_messageType struct{}
 
-func (x fastReflection_MsgCancelSubscriptionResponse_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgCancelSubscriptionResponse)(nil)
+func (x fastReflection_MsgLeaveDealResponse_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgLeaveDealResponse)(nil)
 }
-func (x fastReflection_MsgCancelSubscriptionResponse_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgCancelSubscriptionResponse)
+func (x fastReflection_MsgLeaveDealResponse_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgLeaveDealResponse)
 }
-func (x fastReflection_MsgCancelSubscriptionResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgCancelSubscriptionResponse
+func (x fastReflection_MsgLeaveDealResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgLeaveDealResponse
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_MsgCancelSubscriptionResponse) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgCancelSubscriptionResponse
+func (x *fastReflection_MsgLeaveDealResponse) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgLeaveDealResponse
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgCancelSubscriptionResponse) Type() protoreflect.MessageType {
-	return _fastReflection_MsgCancelSubscriptionResponse_messageType
+func (x *fastReflection_MsgLeaveDealResponse) Type() protoreflect.MessageType {
+	return _fastReflection_MsgLeaveDealResponse_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgCancelSubscriptionResponse) New() protoreflect.Message {
-	return new(fastReflection_MsgCancelSubscriptionResponse)
+func (x *fastReflection_MsgLeaveDealResponse) New() protoreflect.Message {
+	return new(fastReflection_MsgLeaveDealResponse)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgCancelSubscriptionResponse) Interface() protoreflect.ProtoMessage {
-	return (*MsgCancelSubscriptionResponse)(x)
+func (x *fastReflection_MsgLeaveDealResponse) Interface() protoreflect.ProtoMessage {
+	return (*MsgLeaveDealResponse)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -5140,7 +5140,7 @@ func (x *fastReflection_MsgCancelSubscriptionResponse) Interface() protoreflect.
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_MsgCancelSubscriptionResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+func (x *fastReflection_MsgLeaveDealResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 }
 
 // Has reports whether a field is populated.
@@ -5154,13 +5154,13 @@ func (x *fastReflection_MsgCancelSubscriptionResponse) Range(f func(protoreflect
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgCancelSubscriptionResponse) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_MsgLeaveDealResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelSubscriptionResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgLeaveDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelSubscriptionResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgLeaveDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -5170,13 +5170,13 @@ func (x *fastReflection_MsgCancelSubscriptionResponse) Has(fd protoreflect.Field
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCancelSubscriptionResponse) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_MsgLeaveDealResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelSubscriptionResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgLeaveDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelSubscriptionResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgLeaveDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -5186,13 +5186,13 @@ func (x *fastReflection_MsgCancelSubscriptionResponse) Clear(fd protoreflect.Fie
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgCancelSubscriptionResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgLeaveDealResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelSubscriptionResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgLeaveDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelSubscriptionResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgLeaveDealResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -5206,13 +5206,13 @@ func (x *fastReflection_MsgCancelSubscriptionResponse) Get(descriptor protorefle
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCancelSubscriptionResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_MsgLeaveDealResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelSubscriptionResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgLeaveDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelSubscriptionResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgLeaveDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -5226,36 +5226,36 @@ func (x *fastReflection_MsgCancelSubscriptionResponse) Set(fd protoreflect.Field
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCancelSubscriptionResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgLeaveDealResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelSubscriptionResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgLeaveDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelSubscriptionResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgLeaveDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgCancelSubscriptionResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgLeaveDealResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCancelSubscriptionResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgLeaveDealResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.MsgCancelSubscriptionResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.MsgLeaveDealResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgCancelSubscriptionResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_MsgLeaveDealResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgCancelSubscriptionResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.MsgLeaveDealResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -5263,7 +5263,7 @@ func (x *fastReflection_MsgCancelSubscriptionResponse) WhichOneof(d protoreflect
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgCancelSubscriptionResponse) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_MsgLeaveDealResponse) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -5274,7 +5274,7 @@ func (x *fastReflection_MsgCancelSubscriptionResponse) GetUnknown() protoreflect
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgCancelSubscriptionResponse) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_MsgLeaveDealResponse) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -5286,7 +5286,7 @@ func (x *fastReflection_MsgCancelSubscriptionResponse) SetUnknown(fields protore
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_MsgCancelSubscriptionResponse) IsValid() bool {
+func (x *fastReflection_MsgLeaveDealResponse) IsValid() bool {
 	return x != nil
 }
 
@@ -5296,9 +5296,9 @@ func (x *fastReflection_MsgCancelSubscriptionResponse) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgCancelSubscriptionResponse) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_MsgLeaveDealResponse) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgCancelSubscriptionResponse)
+		x := input.Message.Interface().(*MsgLeaveDealResponse)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -5320,7 +5320,7 @@ func (x *fastReflection_MsgCancelSubscriptionResponse) ProtoMethods() *protoifac
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgCancelSubscriptionResponse)
+		x := input.Message.Interface().(*MsgLeaveDealResponse)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -5350,7 +5350,7 @@ func (x *fastReflection_MsgCancelSubscriptionResponse) ProtoMethods() *protoifac
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgCancelSubscriptionResponse)
+		x := input.Message.Interface().(*MsgLeaveDealResponse)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -5382,10 +5382,10 @@ func (x *fastReflection_MsgCancelSubscriptionResponse) ProtoMethods() *protoifac
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCancelSubscriptionResponse: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgLeaveDealResponse: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCancelSubscriptionResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgLeaveDealResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			default:
@@ -5510,7 +5510,7 @@ func (*MsgUpdateParamsResponse) Descriptor() ([]byte, []int) {
 	return file_topchain_subscription_tx_proto_rawDescGZIP(), []int{1}
 }
 
-type MsgCreateOffer struct {
+type MsgCreateDeal struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -5522,8 +5522,8 @@ type MsgCreateOffer struct {
 	EndBlock   uint64 `protobuf:"varint,5,opt,name=end_block,json=endBlock,proto3" json:"end_block,omitempty"`
 }
 
-func (x *MsgCreateOffer) Reset() {
-	*x = MsgCreateOffer{}
+func (x *MsgCreateDeal) Reset() {
+	*x = MsgCreateDeal{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_topchain_subscription_tx_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -5531,62 +5531,62 @@ func (x *MsgCreateOffer) Reset() {
 	}
 }
 
-func (x *MsgCreateOffer) String() string {
+func (x *MsgCreateDeal) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MsgCreateOffer) ProtoMessage() {}
+func (*MsgCreateDeal) ProtoMessage() {}
 
-// Deprecated: Use MsgCreateOffer.ProtoReflect.Descriptor instead.
-func (*MsgCreateOffer) Descriptor() ([]byte, []int) {
+// Deprecated: Use MsgCreateDeal.ProtoReflect.Descriptor instead.
+func (*MsgCreateDeal) Descriptor() ([]byte, []int) {
 	return file_topchain_subscription_tx_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *MsgCreateOffer) GetRequester() string {
+func (x *MsgCreateDeal) GetRequester() string {
 	if x != nil {
 		return x.Requester
 	}
 	return ""
 }
 
-func (x *MsgCreateOffer) GetCroId() string {
+func (x *MsgCreateDeal) GetCroId() string {
 	if x != nil {
 		return x.CroId
 	}
 	return ""
 }
 
-func (x *MsgCreateOffer) GetAmount() uint64 {
+func (x *MsgCreateDeal) GetAmount() uint64 {
 	if x != nil {
 		return x.Amount
 	}
 	return 0
 }
 
-func (x *MsgCreateOffer) GetStartBlock() uint64 {
+func (x *MsgCreateDeal) GetStartBlock() uint64 {
 	if x != nil {
 		return x.StartBlock
 	}
 	return 0
 }
 
-func (x *MsgCreateOffer) GetEndBlock() uint64 {
+func (x *MsgCreateDeal) GetEndBlock() uint64 {
 	if x != nil {
 		return x.EndBlock
 	}
 	return 0
 }
 
-type MsgCreateOfferResponse struct {
+type MsgCreateDealResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	OfferId string `protobuf:"bytes,1,opt,name=offer_id,json=offerId,proto3" json:"offer_id,omitempty"`
+	DealId string `protobuf:"bytes,1,opt,name=deal_id,json=dealId,proto3" json:"deal_id,omitempty"`
 }
 
-func (x *MsgCreateOfferResponse) Reset() {
-	*x = MsgCreateOfferResponse{}
+func (x *MsgCreateDealResponse) Reset() {
+	*x = MsgCreateDealResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_topchain_subscription_tx_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -5594,35 +5594,35 @@ func (x *MsgCreateOfferResponse) Reset() {
 	}
 }
 
-func (x *MsgCreateOfferResponse) String() string {
+func (x *MsgCreateDealResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MsgCreateOfferResponse) ProtoMessage() {}
+func (*MsgCreateDealResponse) ProtoMessage() {}
 
-// Deprecated: Use MsgCreateOfferResponse.ProtoReflect.Descriptor instead.
-func (*MsgCreateOfferResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use MsgCreateDealResponse.ProtoReflect.Descriptor instead.
+func (*MsgCreateDealResponse) Descriptor() ([]byte, []int) {
 	return file_topchain_subscription_tx_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *MsgCreateOfferResponse) GetOfferId() string {
+func (x *MsgCreateDealResponse) GetDealId() string {
 	if x != nil {
-		return x.OfferId
+		return x.DealId
 	}
 	return ""
 }
 
-type MsgCancelOffer struct {
+type MsgFinishDeal struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
 	Requester string `protobuf:"bytes,1,opt,name=requester,proto3" json:"requester,omitempty"`
-	OfferId   string `protobuf:"bytes,2,opt,name=offer_id,json=offerId,proto3" json:"offer_id,omitempty"`
+	DealId    string `protobuf:"bytes,2,opt,name=deal_id,json=dealId,proto3" json:"deal_id,omitempty"`
 }
 
-func (x *MsgCancelOffer) Reset() {
-	*x = MsgCancelOffer{}
+func (x *MsgFinishDeal) Reset() {
+	*x = MsgFinishDeal{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_topchain_subscription_tx_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -5630,39 +5630,39 @@ func (x *MsgCancelOffer) Reset() {
 	}
 }
 
-func (x *MsgCancelOffer) String() string {
+func (x *MsgFinishDeal) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MsgCancelOffer) ProtoMessage() {}
+func (*MsgFinishDeal) ProtoMessage() {}
 
-// Deprecated: Use MsgCancelOffer.ProtoReflect.Descriptor instead.
-func (*MsgCancelOffer) Descriptor() ([]byte, []int) {
+// Deprecated: Use MsgFinishDeal.ProtoReflect.Descriptor instead.
+func (*MsgFinishDeal) Descriptor() ([]byte, []int) {
 	return file_topchain_subscription_tx_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *MsgCancelOffer) GetRequester() string {
+func (x *MsgFinishDeal) GetRequester() string {
 	if x != nil {
 		return x.Requester
 	}
 	return ""
 }
 
-func (x *MsgCancelOffer) GetOfferId() string {
+func (x *MsgFinishDeal) GetDealId() string {
 	if x != nil {
-		return x.OfferId
+		return x.DealId
 	}
 	return ""
 }
 
-type MsgCancelOfferResponse struct {
+type MsgFinishDealResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *MsgCancelOfferResponse) Reset() {
-	*x = MsgCancelOfferResponse{}
+func (x *MsgFinishDealResponse) Reset() {
+	*x = MsgFinishDealResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_topchain_subscription_tx_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -5670,32 +5670,32 @@ func (x *MsgCancelOfferResponse) Reset() {
 	}
 }
 
-func (x *MsgCancelOfferResponse) String() string {
+func (x *MsgFinishDealResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MsgCancelOfferResponse) ProtoMessage() {}
+func (*MsgFinishDealResponse) ProtoMessage() {}
 
-// Deprecated: Use MsgCancelOfferResponse.ProtoReflect.Descriptor instead.
-func (*MsgCancelOfferResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use MsgFinishDealResponse.ProtoReflect.Descriptor instead.
+func (*MsgFinishDealResponse) Descriptor() ([]byte, []int) {
 	return file_topchain_subscription_tx_proto_rawDescGZIP(), []int{5}
 }
 
-type MsgUpdateOffer struct {
+type MsgUpdateDeal struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
 	Requester string `protobuf:"bytes,1,opt,name=requester,proto3" json:"requester,omitempty"`
-	OfferId   string `protobuf:"bytes,2,opt,name=offer_id,json=offerId,proto3" json:"offer_id,omitempty"`
+	DealId    string `protobuf:"bytes,2,opt,name=deal_id,json=dealId,proto3" json:"deal_id,omitempty"`
 	// these fields should be optional, errors with pulsar
 	Amount     uint64 `protobuf:"varint,3,opt,name=amount,proto3" json:"amount,omitempty"`
 	StartBlock uint64 `protobuf:"varint,4,opt,name=start_block,json=startBlock,proto3" json:"start_block,omitempty"`
 	EndBlock   uint64 `protobuf:"varint,5,opt,name=end_block,json=endBlock,proto3" json:"end_block,omitempty"`
 }
 
-func (x *MsgUpdateOffer) Reset() {
-	*x = MsgUpdateOffer{}
+func (x *MsgUpdateDeal) Reset() {
+	*x = MsgUpdateDeal{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_topchain_subscription_tx_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -5703,60 +5703,60 @@ func (x *MsgUpdateOffer) Reset() {
 	}
 }
 
-func (x *MsgUpdateOffer) String() string {
+func (x *MsgUpdateDeal) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MsgUpdateOffer) ProtoMessage() {}
+func (*MsgUpdateDeal) ProtoMessage() {}
 
-// Deprecated: Use MsgUpdateOffer.ProtoReflect.Descriptor instead.
-func (*MsgUpdateOffer) Descriptor() ([]byte, []int) {
+// Deprecated: Use MsgUpdateDeal.ProtoReflect.Descriptor instead.
+func (*MsgUpdateDeal) Descriptor() ([]byte, []int) {
 	return file_topchain_subscription_tx_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *MsgUpdateOffer) GetRequester() string {
+func (x *MsgUpdateDeal) GetRequester() string {
 	if x != nil {
 		return x.Requester
 	}
 	return ""
 }
 
-func (x *MsgUpdateOffer) GetOfferId() string {
+func (x *MsgUpdateDeal) GetDealId() string {
 	if x != nil {
-		return x.OfferId
+		return x.DealId
 	}
 	return ""
 }
 
-func (x *MsgUpdateOffer) GetAmount() uint64 {
+func (x *MsgUpdateDeal) GetAmount() uint64 {
 	if x != nil {
 		return x.Amount
 	}
 	return 0
 }
 
-func (x *MsgUpdateOffer) GetStartBlock() uint64 {
+func (x *MsgUpdateDeal) GetStartBlock() uint64 {
 	if x != nil {
 		return x.StartBlock
 	}
 	return 0
 }
 
-func (x *MsgUpdateOffer) GetEndBlock() uint64 {
+func (x *MsgUpdateDeal) GetEndBlock() uint64 {
 	if x != nil {
 		return x.EndBlock
 	}
 	return 0
 }
 
-type MsgUpdateOfferResponse struct {
+type MsgUpdateDealResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *MsgUpdateOfferResponse) Reset() {
-	*x = MsgUpdateOfferResponse{}
+func (x *MsgUpdateDealResponse) Reset() {
+	*x = MsgUpdateDealResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_topchain_subscription_tx_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -5764,18 +5764,18 @@ func (x *MsgUpdateOfferResponse) Reset() {
 	}
 }
 
-func (x *MsgUpdateOfferResponse) String() string {
+func (x *MsgUpdateDealResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MsgUpdateOfferResponse) ProtoMessage() {}
+func (*MsgUpdateDealResponse) ProtoMessage() {}
 
-// Deprecated: Use MsgUpdateOfferResponse.ProtoReflect.Descriptor instead.
-func (*MsgUpdateOfferResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use MsgUpdateDealResponse.ProtoReflect.Descriptor instead.
+func (*MsgUpdateDealResponse) Descriptor() ([]byte, []int) {
 	return file_topchain_subscription_tx_proto_rawDescGZIP(), []int{7}
 }
 
-type MsgAcceptSubscription struct {
+type MsgJoinDeal struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -5784,8 +5784,8 @@ type MsgAcceptSubscription struct {
 	SubscriptionId string `protobuf:"bytes,2,opt,name=subscription_id,json=subscriptionId,proto3" json:"subscription_id,omitempty"`
 }
 
-func (x *MsgAcceptSubscription) Reset() {
-	*x = MsgAcceptSubscription{}
+func (x *MsgJoinDeal) Reset() {
+	*x = MsgJoinDeal{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_topchain_subscription_tx_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -5793,39 +5793,39 @@ func (x *MsgAcceptSubscription) Reset() {
 	}
 }
 
-func (x *MsgAcceptSubscription) String() string {
+func (x *MsgJoinDeal) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MsgAcceptSubscription) ProtoMessage() {}
+func (*MsgJoinDeal) ProtoMessage() {}
 
-// Deprecated: Use MsgAcceptSubscription.ProtoReflect.Descriptor instead.
-func (*MsgAcceptSubscription) Descriptor() ([]byte, []int) {
+// Deprecated: Use MsgJoinDeal.ProtoReflect.Descriptor instead.
+func (*MsgJoinDeal) Descriptor() ([]byte, []int) {
 	return file_topchain_subscription_tx_proto_rawDescGZIP(), []int{8}
 }
 
-func (x *MsgAcceptSubscription) GetProvider() string {
+func (x *MsgJoinDeal) GetProvider() string {
 	if x != nil {
 		return x.Provider
 	}
 	return ""
 }
 
-func (x *MsgAcceptSubscription) GetSubscriptionId() string {
+func (x *MsgJoinDeal) GetSubscriptionId() string {
 	if x != nil {
 		return x.SubscriptionId
 	}
 	return ""
 }
 
-type MsgAcceptSubscriptionResponse struct {
+type MsgJoinDealResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *MsgAcceptSubscriptionResponse) Reset() {
-	*x = MsgAcceptSubscriptionResponse{}
+func (x *MsgJoinDealResponse) Reset() {
+	*x = MsgJoinDealResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_topchain_subscription_tx_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -5833,18 +5833,18 @@ func (x *MsgAcceptSubscriptionResponse) Reset() {
 	}
 }
 
-func (x *MsgAcceptSubscriptionResponse) String() string {
+func (x *MsgJoinDealResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MsgAcceptSubscriptionResponse) ProtoMessage() {}
+func (*MsgJoinDealResponse) ProtoMessage() {}
 
-// Deprecated: Use MsgAcceptSubscriptionResponse.ProtoReflect.Descriptor instead.
-func (*MsgAcceptSubscriptionResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use MsgJoinDealResponse.ProtoReflect.Descriptor instead.
+func (*MsgJoinDealResponse) Descriptor() ([]byte, []int) {
 	return file_topchain_subscription_tx_proto_rawDescGZIP(), []int{9}
 }
 
-type MsgCancelSubscription struct {
+type MsgLeaveDeal struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -5853,8 +5853,8 @@ type MsgCancelSubscription struct {
 	SubscriptionId string `protobuf:"bytes,2,opt,name=subscription_id,json=subscriptionId,proto3" json:"subscription_id,omitempty"`
 }
 
-func (x *MsgCancelSubscription) Reset() {
-	*x = MsgCancelSubscription{}
+func (x *MsgLeaveDeal) Reset() {
+	*x = MsgLeaveDeal{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_topchain_subscription_tx_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -5862,39 +5862,39 @@ func (x *MsgCancelSubscription) Reset() {
 	}
 }
 
-func (x *MsgCancelSubscription) String() string {
+func (x *MsgLeaveDeal) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MsgCancelSubscription) ProtoMessage() {}
+func (*MsgLeaveDeal) ProtoMessage() {}
 
-// Deprecated: Use MsgCancelSubscription.ProtoReflect.Descriptor instead.
-func (*MsgCancelSubscription) Descriptor() ([]byte, []int) {
+// Deprecated: Use MsgLeaveDeal.ProtoReflect.Descriptor instead.
+func (*MsgLeaveDeal) Descriptor() ([]byte, []int) {
 	return file_topchain_subscription_tx_proto_rawDescGZIP(), []int{10}
 }
 
-func (x *MsgCancelSubscription) GetProvider() string {
+func (x *MsgLeaveDeal) GetProvider() string {
 	if x != nil {
 		return x.Provider
 	}
 	return ""
 }
 
-func (x *MsgCancelSubscription) GetSubscriptionId() string {
+func (x *MsgLeaveDeal) GetSubscriptionId() string {
 	if x != nil {
 		return x.SubscriptionId
 	}
 	return ""
 }
 
-type MsgCancelSubscriptionResponse struct {
+type MsgLeaveDealResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *MsgCancelSubscriptionResponse) Reset() {
-	*x = MsgCancelSubscriptionResponse{}
+func (x *MsgLeaveDealResponse) Reset() {
+	*x = MsgLeaveDealResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_topchain_subscription_tx_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -5902,14 +5902,14 @@ func (x *MsgCancelSubscriptionResponse) Reset() {
 	}
 }
 
-func (x *MsgCancelSubscriptionResponse) String() string {
+func (x *MsgLeaveDealResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MsgCancelSubscriptionResponse) ProtoMessage() {}
+func (*MsgLeaveDealResponse) ProtoMessage() {}
 
-// Deprecated: Use MsgCancelSubscriptionResponse.ProtoReflect.Descriptor instead.
-func (*MsgCancelSubscriptionResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use MsgLeaveDealResponse.ProtoReflect.Descriptor instead.
+func (*MsgLeaveDealResponse) Descriptor() ([]byte, []int) {
 	return file_topchain_subscription_tx_proto_rawDescGZIP(), []int{11}
 }
 
@@ -5941,79 +5941,76 @@ var file_topchain_subscription_tx_proto_rawDesc = []byte{
 	0x61, 0x69, 0x6e, 0x2f, 0x78, 0x2f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
 	0x6f, 0x6e, 0x2f, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61,
 	0x6d, 0x73, 0x22, 0x19, 0x0a, 0x17, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50,
-	0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0xab, 0x01,
-	0x0a, 0x0e, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4f, 0x66, 0x66, 0x65, 0x72,
-	0x12, 0x1c, 0x0a, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x09, 0x52, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x12, 0x15,
-	0x0a, 0x06, 0x63, 0x72, 0x6f, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05,
-	0x63, 0x72, 0x6f, 0x49, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x18,
-	0x03, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x1f, 0x0a,
-	0x0b, 0x73, 0x74, 0x61, 0x72, 0x74, 0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x04, 0x20, 0x01,
-	0x28, 0x04, 0x52, 0x0a, 0x73, 0x74, 0x61, 0x72, 0x74, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x12, 0x1b,
-	0x0a, 0x09, 0x65, 0x6e, 0x64, 0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x05, 0x20, 0x01, 0x28,
-	0x04, 0x52, 0x08, 0x65, 0x6e, 0x64, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x3a, 0x0e, 0x82, 0xe7, 0xb0,
-	0x2a, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x22, 0x33, 0x0a, 0x16, 0x4d,
-	0x73, 0x67, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4f, 0x66, 0x66, 0x65, 0x72, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x19, 0x0a, 0x08, 0x6f, 0x66, 0x66, 0x65, 0x72, 0x5f, 0x69,
-	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6f, 0x66, 0x66, 0x65, 0x72, 0x49, 0x64,
-	0x22, 0x59, 0x0a, 0x0e, 0x4d, 0x73, 0x67, 0x43, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x4f, 0x66, 0x66,
-	0x65, 0x72, 0x12, 0x1c, 0x0a, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72,
-	0x12, 0x19, 0x0a, 0x08, 0x6f, 0x66, 0x66, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x07, 0x6f, 0x66, 0x66, 0x65, 0x72, 0x49, 0x64, 0x3a, 0x0e, 0x82, 0xe7, 0xb0,
-	0x2a, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x22, 0x18, 0x0a, 0x16, 0x4d,
-	0x73, 0x67, 0x43, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x4f, 0x66, 0x66, 0x65, 0x72, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0xaf, 0x01, 0x0a, 0x0e, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64,
-	0x61, 0x74, 0x65, 0x4f, 0x66, 0x66, 0x65, 0x72, 0x12, 0x1c, 0x0a, 0x09, 0x72, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x72, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x12, 0x19, 0x0a, 0x08, 0x6f, 0x66, 0x66, 0x65, 0x72, 0x5f,
-	0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6f, 0x66, 0x66, 0x65, 0x72, 0x49,
-	0x64, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28,
-	0x04, 0x52, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x1f, 0x0a, 0x0b, 0x73, 0x74, 0x61,
-	0x72, 0x74, 0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0a,
-	0x73, 0x74, 0x61, 0x72, 0x74, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x12, 0x1b, 0x0a, 0x09, 0x65, 0x6e,
-	0x64, 0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x05, 0x20, 0x01, 0x28, 0x04, 0x52, 0x08, 0x65,
-	0x6e, 0x64, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x3a, 0x0e, 0x82, 0xe7, 0xb0, 0x2a, 0x09, 0x72, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x22, 0x18, 0x0a, 0x16, 0x4d, 0x73, 0x67, 0x55, 0x70,
-	0x64, 0x61, 0x74, 0x65, 0x4f, 0x66, 0x66, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x22, 0x6b, 0x0a, 0x15, 0x4d, 0x73, 0x67, 0x41, 0x63, 0x63, 0x65, 0x70, 0x74, 0x53, 0x75,
-	0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x72,
-	0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x72,
-	0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x12, 0x27, 0x0a, 0x0f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72,
-	0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x0e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x3a,
-	0x0d, 0x82, 0xe7, 0xb0, 0x2a, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x22, 0x1f,
-	0x0a, 0x1d, 0x4d, 0x73, 0x67, 0x41, 0x63, 0x63, 0x65, 0x70, 0x74, 0x53, 0x75, 0x62, 0x73, 0x63,
-	0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22,
-	0x6b, 0x0a, 0x15, 0x4d, 0x73, 0x67, 0x43, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x53, 0x75, 0x62, 0x73,
-	0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x72, 0x6f, 0x76,
-	0x69, 0x64, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x72, 0x6f, 0x76,
-	0x69, 0x64, 0x65, 0x72, 0x12, 0x27, 0x0a, 0x0f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70,
-	0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x73,
-	0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x3a, 0x0d, 0x82,
-	0xe7, 0xb0, 0x2a, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x22, 0x1f, 0x0a, 0x1d,
-	0x4d, 0x73, 0x67, 0x43, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69,
-	0x70, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0x74, 0x0a,
-	0x03, 0x4d, 0x73, 0x67, 0x12, 0x66, 0x0a, 0x0c, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61,
-	0x72, 0x61, 0x6d, 0x73, 0x12, 0x26, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e,
-	0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67,
-	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x1a, 0x2e, 0x2e, 0x74,
-	0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70,
-	0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61,
-	0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x1a, 0x05, 0x80, 0xe7,
-	0xb0, 0x2a, 0x01, 0x42, 0xbd, 0x01, 0x0a, 0x19, 0x63, 0x6f, 0x6d, 0x2e, 0x74, 0x6f, 0x70, 0x63,
-	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
-	0x6e, 0x42, 0x07, 0x54, 0x78, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x22, 0x74, 0x6f,
-	0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x74, 0x6f, 0x70, 0x63, 0x68,
-	0x61, 0x69, 0x6e, 0x2f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e,
-	0xa2, 0x02, 0x03, 0x54, 0x53, 0x58, 0xaa, 0x02, 0x15, 0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69,
-	0x6e, 0x2e, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0xca, 0x02,
-	0x15, 0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72,
-	0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0xe2, 0x02, 0x21, 0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69,
-	0x6e, 0x5c, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x5c, 0x47,
-	0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x16, 0x54, 0x6f, 0x70,
-	0x63, 0x68, 0x61, 0x69, 0x6e, 0x3a, 0x3a, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74,
-	0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0xaa, 0x01,
+	0x0a, 0x0d, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x44, 0x65, 0x61, 0x6c, 0x12,
+	0x1c, 0x0a, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x12, 0x15, 0x0a,
+	0x06, 0x63, 0x72, 0x6f, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x63,
+	0x72, 0x6f, 0x49, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x1f, 0x0a, 0x0b,
+	0x73, 0x74, 0x61, 0x72, 0x74, 0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x04, 0x20, 0x01, 0x28,
+	0x04, 0x52, 0x0a, 0x73, 0x74, 0x61, 0x72, 0x74, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x12, 0x1b, 0x0a,
+	0x09, 0x65, 0x6e, 0x64, 0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x05, 0x20, 0x01, 0x28, 0x04,
+	0x52, 0x08, 0x65, 0x6e, 0x64, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x3a, 0x0e, 0x82, 0xe7, 0xb0, 0x2a,
+	0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x22, 0x30, 0x0a, 0x15, 0x4d, 0x73,
+	0x67, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x44, 0x65, 0x61, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x17, 0x0a, 0x07, 0x64, 0x65, 0x61, 0x6c, 0x5f, 0x69, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x64, 0x65, 0x61, 0x6c, 0x49, 0x64, 0x22, 0x56, 0x0a, 0x0d,
+	0x4d, 0x73, 0x67, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x44, 0x65, 0x61, 0x6c, 0x12, 0x1c, 0x0a,
+	0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x12, 0x17, 0x0a, 0x07, 0x64,
+	0x65, 0x61, 0x6c, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x64, 0x65,
+	0x61, 0x6c, 0x49, 0x64, 0x3a, 0x0e, 0x82, 0xe7, 0xb0, 0x2a, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x65, 0x72, 0x22, 0x17, 0x0a, 0x15, 0x4d, 0x73, 0x67, 0x46, 0x69, 0x6e, 0x69, 0x73,
+	0x68, 0x44, 0x65, 0x61, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0xac, 0x01,
+	0x0a, 0x0d, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x44, 0x65, 0x61, 0x6c, 0x12,
+	0x1c, 0x0a, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x12, 0x17, 0x0a,
+	0x07, 0x64, 0x65, 0x61, 0x6c, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06,
+	0x64, 0x65, 0x61, 0x6c, 0x49, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x1f,
+	0x0a, 0x0b, 0x73, 0x74, 0x61, 0x72, 0x74, 0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x04, 0x20,
+	0x01, 0x28, 0x04, 0x52, 0x0a, 0x73, 0x74, 0x61, 0x72, 0x74, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x12,
+	0x1b, 0x0a, 0x09, 0x65, 0x6e, 0x64, 0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x05, 0x20, 0x01,
+	0x28, 0x04, 0x52, 0x08, 0x65, 0x6e, 0x64, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x3a, 0x0e, 0x82, 0xe7,
+	0xb0, 0x2a, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x22, 0x17, 0x0a, 0x15,
+	0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x44, 0x65, 0x61, 0x6c, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x61, 0x0a, 0x0b, 0x4d, 0x73, 0x67, 0x4a, 0x6f, 0x69, 0x6e,
+	0x44, 0x65, 0x61, 0x6c, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72,
+	0x12, 0x27, 0x0a, 0x0f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e,
+	0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x73, 0x75, 0x62, 0x73, 0x63,
+	0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x3a, 0x0d, 0x82, 0xe7, 0xb0, 0x2a, 0x08,
+	0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x22, 0x15, 0x0a, 0x13, 0x4d, 0x73, 0x67, 0x4a,
+	0x6f, 0x69, 0x6e, 0x44, 0x65, 0x61, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22,
+	0x62, 0x0a, 0x0c, 0x4d, 0x73, 0x67, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x44, 0x65, 0x61, 0x6c, 0x12,
+	0x1a, 0x0a, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x12, 0x27, 0x0a, 0x0f, 0x73,
+	0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
+	0x6f, 0x6e, 0x49, 0x64, 0x3a, 0x0d, 0x82, 0xe7, 0xb0, 0x2a, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69,
+	0x64, 0x65, 0x72, 0x22, 0x16, 0x0a, 0x14, 0x4d, 0x73, 0x67, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x44,
+	0x65, 0x61, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0x74, 0x0a, 0x03, 0x4d,
+	0x73, 0x67, 0x12, 0x66, 0x0a, 0x0c, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61,
+	0x6d, 0x73, 0x12, 0x26, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75,
+	0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70,
+	0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x1a, 0x2e, 0x2e, 0x74, 0x6f, 0x70,
+	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
+	0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61,
+	0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x1a, 0x05, 0x80, 0xe7, 0xb0, 0x2a,
+	0x01, 0x42, 0xbd, 0x01, 0x0a, 0x19, 0x63, 0x6f, 0x6d, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61,
+	0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x42,
+	0x07, 0x54, 0x78, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x22, 0x74, 0x6f, 0x70, 0x63,
+	0x68, 0x61, 0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69,
+	0x6e, 0x2f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0xa2, 0x02,
+	0x03, 0x54, 0x53, 0x58, 0xaa, 0x02, 0x15, 0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e,
+	0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0xca, 0x02, 0x15, 0x54,
+	0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70,
+	0x74, 0x69, 0x6f, 0x6e, 0xe2, 0x02, 0x21, 0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c,
+	0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x5c, 0x47, 0x50, 0x42,
+	0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x16, 0x54, 0x6f, 0x70, 0x63, 0x68,
+	0x61, 0x69, 0x6e, 0x3a, 0x3a, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
+	0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -6030,19 +6027,19 @@ func file_topchain_subscription_tx_proto_rawDescGZIP() []byte {
 
 var file_topchain_subscription_tx_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_topchain_subscription_tx_proto_goTypes = []interface{}{
-	(*MsgUpdateParams)(nil),               // 0: topchain.subscription.MsgUpdateParams
-	(*MsgUpdateParamsResponse)(nil),       // 1: topchain.subscription.MsgUpdateParamsResponse
-	(*MsgCreateOffer)(nil),                // 2: topchain.subscription.MsgCreateOffer
-	(*MsgCreateOfferResponse)(nil),        // 3: topchain.subscription.MsgCreateOfferResponse
-	(*MsgCancelOffer)(nil),                // 4: topchain.subscription.MsgCancelOffer
-	(*MsgCancelOfferResponse)(nil),        // 5: topchain.subscription.MsgCancelOfferResponse
-	(*MsgUpdateOffer)(nil),                // 6: topchain.subscription.MsgUpdateOffer
-	(*MsgUpdateOfferResponse)(nil),        // 7: topchain.subscription.MsgUpdateOfferResponse
-	(*MsgAcceptSubscription)(nil),         // 8: topchain.subscription.MsgAcceptSubscription
-	(*MsgAcceptSubscriptionResponse)(nil), // 9: topchain.subscription.MsgAcceptSubscriptionResponse
-	(*MsgCancelSubscription)(nil),         // 10: topchain.subscription.MsgCancelSubscription
-	(*MsgCancelSubscriptionResponse)(nil), // 11: topchain.subscription.MsgCancelSubscriptionResponse
-	(*Params)(nil),                        // 12: topchain.subscription.Params
+	(*MsgUpdateParams)(nil),         // 0: topchain.subscription.MsgUpdateParams
+	(*MsgUpdateParamsResponse)(nil), // 1: topchain.subscription.MsgUpdateParamsResponse
+	(*MsgCreateDeal)(nil),           // 2: topchain.subscription.MsgCreateDeal
+	(*MsgCreateDealResponse)(nil),   // 3: topchain.subscription.MsgCreateDealResponse
+	(*MsgFinishDeal)(nil),           // 4: topchain.subscription.MsgFinishDeal
+	(*MsgFinishDealResponse)(nil),   // 5: topchain.subscription.MsgFinishDealResponse
+	(*MsgUpdateDeal)(nil),           // 6: topchain.subscription.MsgUpdateDeal
+	(*MsgUpdateDealResponse)(nil),   // 7: topchain.subscription.MsgUpdateDealResponse
+	(*MsgJoinDeal)(nil),             // 8: topchain.subscription.MsgJoinDeal
+	(*MsgJoinDealResponse)(nil),     // 9: topchain.subscription.MsgJoinDealResponse
+	(*MsgLeaveDeal)(nil),            // 10: topchain.subscription.MsgLeaveDeal
+	(*MsgLeaveDealResponse)(nil),    // 11: topchain.subscription.MsgLeaveDealResponse
+	(*Params)(nil),                  // 12: topchain.subscription.Params
 }
 var file_topchain_subscription_tx_proto_depIdxs = []int32{
 	12, // 0: topchain.subscription.MsgUpdateParams.params:type_name -> topchain.subscription.Params
@@ -6087,7 +6084,7 @@ func file_topchain_subscription_tx_proto_init() {
 			}
 		}
 		file_topchain_subscription_tx_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgCreateOffer); i {
+			switch v := v.(*MsgCreateDeal); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6099,7 +6096,7 @@ func file_topchain_subscription_tx_proto_init() {
 			}
 		}
 		file_topchain_subscription_tx_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgCreateOfferResponse); i {
+			switch v := v.(*MsgCreateDealResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6111,7 +6108,7 @@ func file_topchain_subscription_tx_proto_init() {
 			}
 		}
 		file_topchain_subscription_tx_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgCancelOffer); i {
+			switch v := v.(*MsgFinishDeal); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6123,7 +6120,7 @@ func file_topchain_subscription_tx_proto_init() {
 			}
 		}
 		file_topchain_subscription_tx_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgCancelOfferResponse); i {
+			switch v := v.(*MsgFinishDealResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6135,7 +6132,7 @@ func file_topchain_subscription_tx_proto_init() {
 			}
 		}
 		file_topchain_subscription_tx_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgUpdateOffer); i {
+			switch v := v.(*MsgUpdateDeal); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6147,7 +6144,7 @@ func file_topchain_subscription_tx_proto_init() {
 			}
 		}
 		file_topchain_subscription_tx_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgUpdateOfferResponse); i {
+			switch v := v.(*MsgUpdateDealResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6159,7 +6156,7 @@ func file_topchain_subscription_tx_proto_init() {
 			}
 		}
 		file_topchain_subscription_tx_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgAcceptSubscription); i {
+			switch v := v.(*MsgJoinDeal); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6171,7 +6168,7 @@ func file_topchain_subscription_tx_proto_init() {
 			}
 		}
 		file_topchain_subscription_tx_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgAcceptSubscriptionResponse); i {
+			switch v := v.(*MsgJoinDealResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6183,7 +6180,7 @@ func file_topchain_subscription_tx_proto_init() {
 			}
 		}
 		file_topchain_subscription_tx_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgCancelSubscription); i {
+			switch v := v.(*MsgLeaveDeal); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6195,7 +6192,7 @@ func file_topchain_subscription_tx_proto_init() {
 			}
 		}
 		file_topchain_subscription_tx_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgCancelSubscriptionResponse); i {
+			switch v := v.(*MsgLeaveDealResponse); i {
 			case 0:
 				return &v.state
 			case 1:

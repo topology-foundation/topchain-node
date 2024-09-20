@@ -287,7 +287,7 @@ func (m *QueryDealStatusResponse) GetStatus() Deal_Status {
 	if m != nil {
 		return m.Status
 	}
-	return Deal_UNSPECIFIED
+	return Deal_SCHEDULED
 }
 
 type QuerySubscriptionRequest struct {

@@ -18,9 +18,11 @@ service Msg {
   // parameters. The authority defaults to the x/gov module account.
   rpc UpdateParams (MsgUpdateParams ) returns (MsgUpdateParamsResponse );
 
-  // rpc CreateOffer  (MsgCreateOffer  ) returns (MsgCreateOfferResponse  );
-  // rpc CancelOffer  (MsgCancelOffer  ) returns (MsgCancelOfferResponse  );
-  // rpc UpdateOffer  (MsgUpdateOffer  ) returns (MsgUpdateOfferResponse  );
+  // rpc CreateDeal (MsgCreateDeal ) returns (MsgCreateDealResponse );
+  // rpc FinishDeal (MsgFinishDeal ) returns (MsgFinishDealResponse );
+  // rpc UpdateDeal (MsgUpdateDeal ) returns (MsgUpdateDealResponse );
+  // rpc JoinDeal (MsgJoinDeal ) returns (MsgJoinDealResponse );
+  // rpc LeaveDeal (MsgLeaveDeal ) returns (MsgLeaveDealResponse );
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
@@ -40,7 +42,7 @@ message MsgUpdateParams {
 // MsgUpdateParams message.
 message MsgUpdateParamsResponse {}
 
-message MsgCreateOffer {
+message MsgCreateDeal {
   option (cosmos.msg.v1.signer) = "requester";
   string requester  = 1;
   string cro_id    = 2;
@@ -49,42 +51,42 @@ message MsgCreateOffer {
   uint64 end_block = 5;
 }
 
-message MsgCreateOfferResponse {
-  string offer_id = 1;
+message MsgCreateDealResponse {
+  string deal_id = 1;
 }
 
-message MsgCancelOffer {
+message MsgFinishDeal {
   option (cosmos.msg.v1.signer) = "requester";
   string requester  = 1;
-  string offer_id = 2;
+  string deal_id = 2;
 }
 
-message MsgCancelOfferResponse {}
+message MsgFinishDealResponse {}
 
-message MsgUpdateOffer {
+message MsgUpdateDeal {
   option (cosmos.msg.v1.signer) = "requester";
   string requester  = 1;
-  string offer_id = 2;
+  string deal_id = 2;
   // these fields should be optional, errors with pulsar
   uint64 amount  = 3;
   uint64 start_block = 4;
   uint64 end_block = 5;
 }
 
-message MsgUpdateOfferResponse {}
+message MsgUpdateDealResponse {}
 
-message MsgAcceptSubscription {
+message MsgJoinDeal {
   option (cosmos.msg.v1.signer) = "provider";
   string provider        = 1;
   string subscription_id = 2;
 }
 
-message MsgAcceptSubscriptionResponse {}
+message MsgJoinDealResponse {}
 
-message MsgCancelSubscription {
+message MsgLeaveDeal {
   option (cosmos.msg.v1.signer) = "provider";
   string provider        = 1;
   string subscription_id = 2;
 }
 
-message MsgCancelSubscriptionResponse {}
+message MsgLeaveDealResponse {}

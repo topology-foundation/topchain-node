@@ -15,8 +15,8 @@ import (
 var (
 	md_Subscription             protoreflect.MessageDescriptor
 	fd_Subscription_id          protoreflect.FieldDescriptor
-	fd_Subscription_request_id  protoreflect.FieldDescriptor
-	fd_Subscription_subscriber  protoreflect.FieldDescriptor
+	fd_Subscription_deal_id     protoreflect.FieldDescriptor
+	fd_Subscription_provider    protoreflect.FieldDescriptor
 	fd_Subscription_start_block protoreflect.FieldDescriptor
 	fd_Subscription_end_block   protoreflect.FieldDescriptor
 )
@@ -25,8 +25,8 @@ func init() {
 	file_topchain_subscription_subscription_proto_init()
 	md_Subscription = File_topchain_subscription_subscription_proto.Messages().ByName("Subscription")
 	fd_Subscription_id = md_Subscription.Fields().ByName("id")
-	fd_Subscription_request_id = md_Subscription.Fields().ByName("request_id")
-	fd_Subscription_subscriber = md_Subscription.Fields().ByName("subscriber")
+	fd_Subscription_deal_id = md_Subscription.Fields().ByName("deal_id")
+	fd_Subscription_provider = md_Subscription.Fields().ByName("provider")
 	fd_Subscription_start_block = md_Subscription.Fields().ByName("start_block")
 	fd_Subscription_end_block = md_Subscription.Fields().ByName("end_block")
 }
@@ -102,15 +102,15 @@ func (x *fastReflection_Subscription) Range(f func(protoreflect.FieldDescriptor,
 			return
 		}
 	}
-	if x.RequestId != "" {
-		value := protoreflect.ValueOfString(x.RequestId)
-		if !f(fd_Subscription_request_id, value) {
+	if x.DealId != "" {
+		value := protoreflect.ValueOfString(x.DealId)
+		if !f(fd_Subscription_deal_id, value) {
 			return
 		}
 	}
-	if x.Subscriber != "" {
-		value := protoreflect.ValueOfString(x.Subscriber)
-		if !f(fd_Subscription_subscriber, value) {
+	if x.Provider != "" {
+		value := protoreflect.ValueOfString(x.Provider)
+		if !f(fd_Subscription_provider, value) {
 			return
 		}
 	}
@@ -143,10 +143,10 @@ func (x *fastReflection_Subscription) Has(fd protoreflect.FieldDescriptor) bool 
 	switch fd.FullName() {
 	case "topchain.subscription.Subscription.id":
 		return x.Id != ""
-	case "topchain.subscription.Subscription.request_id":
-		return x.RequestId != ""
-	case "topchain.subscription.Subscription.subscriber":
-		return x.Subscriber != ""
+	case "topchain.subscription.Subscription.deal_id":
+		return x.DealId != ""
+	case "topchain.subscription.Subscription.provider":
+		return x.Provider != ""
 	case "topchain.subscription.Subscription.start_block":
 		return x.StartBlock != uint64(0)
 	case "topchain.subscription.Subscription.end_block":
@@ -169,10 +169,10 @@ func (x *fastReflection_Subscription) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	case "topchain.subscription.Subscription.id":
 		x.Id = ""
-	case "topchain.subscription.Subscription.request_id":
-		x.RequestId = ""
-	case "topchain.subscription.Subscription.subscriber":
-		x.Subscriber = ""
+	case "topchain.subscription.Subscription.deal_id":
+		x.DealId = ""
+	case "topchain.subscription.Subscription.provider":
+		x.Provider = ""
 	case "topchain.subscription.Subscription.start_block":
 		x.StartBlock = uint64(0)
 	case "topchain.subscription.Subscription.end_block":
@@ -196,11 +196,11 @@ func (x *fastReflection_Subscription) Get(descriptor protoreflect.FieldDescripto
 	case "topchain.subscription.Subscription.id":
 		value := x.Id
 		return protoreflect.ValueOfString(value)
-	case "topchain.subscription.Subscription.request_id":
-		value := x.RequestId
+	case "topchain.subscription.Subscription.deal_id":
+		value := x.DealId
 		return protoreflect.ValueOfString(value)
-	case "topchain.subscription.Subscription.subscriber":
-		value := x.Subscriber
+	case "topchain.subscription.Subscription.provider":
+		value := x.Provider
 		return protoreflect.ValueOfString(value)
 	case "topchain.subscription.Subscription.start_block":
 		value := x.StartBlock
@@ -230,10 +230,10 @@ func (x *fastReflection_Subscription) Set(fd protoreflect.FieldDescriptor, value
 	switch fd.FullName() {
 	case "topchain.subscription.Subscription.id":
 		x.Id = value.Interface().(string)
-	case "topchain.subscription.Subscription.request_id":
-		x.RequestId = value.Interface().(string)
-	case "topchain.subscription.Subscription.subscriber":
-		x.Subscriber = value.Interface().(string)
+	case "topchain.subscription.Subscription.deal_id":
+		x.DealId = value.Interface().(string)
+	case "topchain.subscription.Subscription.provider":
+		x.Provider = value.Interface().(string)
 	case "topchain.subscription.Subscription.start_block":
 		x.StartBlock = value.Uint()
 	case "topchain.subscription.Subscription.end_block":
@@ -260,10 +260,10 @@ func (x *fastReflection_Subscription) Mutable(fd protoreflect.FieldDescriptor) p
 	switch fd.FullName() {
 	case "topchain.subscription.Subscription.id":
 		panic(fmt.Errorf("field id of message topchain.subscription.Subscription is not mutable"))
-	case "topchain.subscription.Subscription.request_id":
-		panic(fmt.Errorf("field request_id of message topchain.subscription.Subscription is not mutable"))
-	case "topchain.subscription.Subscription.subscriber":
-		panic(fmt.Errorf("field subscriber of message topchain.subscription.Subscription is not mutable"))
+	case "topchain.subscription.Subscription.deal_id":
+		panic(fmt.Errorf("field deal_id of message topchain.subscription.Subscription is not mutable"))
+	case "topchain.subscription.Subscription.provider":
+		panic(fmt.Errorf("field provider of message topchain.subscription.Subscription is not mutable"))
 	case "topchain.subscription.Subscription.start_block":
 		panic(fmt.Errorf("field start_block of message topchain.subscription.Subscription is not mutable"))
 	case "topchain.subscription.Subscription.end_block":
@@ -283,9 +283,9 @@ func (x *fastReflection_Subscription) NewField(fd protoreflect.FieldDescriptor) 
 	switch fd.FullName() {
 	case "topchain.subscription.Subscription.id":
 		return protoreflect.ValueOfString("")
-	case "topchain.subscription.Subscription.request_id":
+	case "topchain.subscription.Subscription.deal_id":
 		return protoreflect.ValueOfString("")
-	case "topchain.subscription.Subscription.subscriber":
+	case "topchain.subscription.Subscription.provider":
 		return protoreflect.ValueOfString("")
 	case "topchain.subscription.Subscription.start_block":
 		return protoreflect.ValueOfUint64(uint64(0))
@@ -364,11 +364,11 @@ func (x *fastReflection_Subscription) ProtoMethods() *protoiface.Methods {
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
-		l = len(x.RequestId)
+		l = len(x.DealId)
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
-		l = len(x.Subscriber)
+		l = len(x.Provider)
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
@@ -417,17 +417,17 @@ func (x *fastReflection_Subscription) ProtoMethods() *protoiface.Methods {
 			i--
 			dAtA[i] = 0x20
 		}
-		if len(x.Subscriber) > 0 {
-			i -= len(x.Subscriber)
-			copy(dAtA[i:], x.Subscriber)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Subscriber)))
+		if len(x.Provider) > 0 {
+			i -= len(x.Provider)
+			copy(dAtA[i:], x.Provider)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Provider)))
 			i--
 			dAtA[i] = 0x1a
 		}
-		if len(x.RequestId) > 0 {
-			i -= len(x.RequestId)
-			copy(dAtA[i:], x.RequestId)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.RequestId)))
+		if len(x.DealId) > 0 {
+			i -= len(x.DealId)
+			copy(dAtA[i:], x.DealId)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.DealId)))
 			i--
 			dAtA[i] = 0x12
 		}
@@ -521,7 +521,7 @@ func (x *fastReflection_Subscription) ProtoMethods() *protoiface.Methods {
 				iNdEx = postIndex
 			case 2:
 				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field RequestId", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field DealId", wireType)
 				}
 				var stringLen uint64
 				for shift := uint(0); ; shift += 7 {
@@ -549,11 +549,11 @@ func (x *fastReflection_Subscription) ProtoMethods() *protoiface.Methods {
 				if postIndex > l {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
-				x.RequestId = string(dAtA[iNdEx:postIndex])
+				x.DealId = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
 			case 3:
 				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Subscriber", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Provider", wireType)
 				}
 				var stringLen uint64
 				for shift := uint(0); ; shift += 7 {
@@ -581,7 +581,7 @@ func (x *fastReflection_Subscription) ProtoMethods() *protoiface.Methods {
 				if postIndex > l {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
-				x.Subscriber = string(dAtA[iNdEx:postIndex])
+				x.Provider = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
 			case 4:
 				if wireType != 0 {
@@ -675,8 +675,8 @@ type Subscription struct {
 	unknownFields protoimpl.UnknownFields
 
 	Id         string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	RequestId  string `protobuf:"bytes,2,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
-	Subscriber string `protobuf:"bytes,3,opt,name=subscriber,proto3" json:"subscriber,omitempty"`
+	DealId     string `protobuf:"bytes,2,opt,name=deal_id,json=dealId,proto3" json:"deal_id,omitempty"`
+	Provider   string `protobuf:"bytes,3,opt,name=provider,proto3" json:"provider,omitempty"`
 	StartBlock uint64 `protobuf:"varint,4,opt,name=start_block,json=startBlock,proto3" json:"start_block,omitempty"`
 	EndBlock   uint64 `protobuf:"varint,5,opt,name=end_block,json=endBlock,proto3" json:"end_block,omitempty"`
 }
@@ -708,16 +708,16 @@ func (x *Subscription) GetId() string {
 	return ""
 }
 
-func (x *Subscription) GetRequestId() string {
+func (x *Subscription) GetDealId() string {
 	if x != nil {
-		return x.RequestId
+		return x.DealId
 	}
 	return ""
 }
 
-func (x *Subscription) GetSubscriber() string {
+func (x *Subscription) GetProvider() string {
 	if x != nil {
-		return x.Subscriber
+		return x.Provider
 	}
 	return ""
 }
@@ -743,30 +743,29 @@ var file_topchain_subscription_subscription_proto_rawDesc = []byte{
 	0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70,
 	0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x15, 0x74, 0x6f, 0x70, 0x63,
 	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
-	0x6e, 0x22, 0x9b, 0x01, 0x0a, 0x0c, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
+	0x6e, 0x22, 0x91, 0x01, 0x0a, 0x0c, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
 	0x6f, 0x6e, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02,
-	0x69, 0x64, 0x12, 0x1d, 0x0a, 0x0a, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x5f, 0x69, 0x64,
-	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x49,
-	0x64, 0x12, 0x1e, 0x0a, 0x0a, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x72, 0x18,
-	0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65,
-	0x72, 0x12, 0x1f, 0x0a, 0x0b, 0x73, 0x74, 0x61, 0x72, 0x74, 0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b,
-	0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0a, 0x73, 0x74, 0x61, 0x72, 0x74, 0x42, 0x6c, 0x6f,
-	0x63, 0x6b, 0x12, 0x1b, 0x0a, 0x09, 0x65, 0x6e, 0x64, 0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18,
-	0x05, 0x20, 0x01, 0x28, 0x04, 0x52, 0x08, 0x65, 0x6e, 0x64, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x42,
-	0xc7, 0x01, 0x0a, 0x19, 0x63, 0x6f, 0x6d, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e,
-	0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x11, 0x53,
-	0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x50, 0x72, 0x6f, 0x74, 0x6f,
-	0x50, 0x01, 0x5a, 0x22, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69,
-	0x2f, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72,
-	0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0xa2, 0x02, 0x03, 0x54, 0x53, 0x58, 0xaa, 0x02, 0x15, 0x54,
-	0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70,
-	0x74, 0x69, 0x6f, 0x6e, 0xca, 0x02, 0x15, 0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c,
-	0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0xe2, 0x02, 0x21, 0x54,
-	0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70,
-	0x74, 0x69, 0x6f, 0x6e, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61,
-	0xea, 0x02, 0x16, 0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x3a, 0x3a, 0x53, 0x75, 0x62,
-	0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x69, 0x64, 0x12, 0x17, 0x0a, 0x07, 0x64, 0x65, 0x61, 0x6c, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x06, 0x64, 0x65, 0x61, 0x6c, 0x49, 0x64, 0x12, 0x1a, 0x0a, 0x08, 0x70,
+	0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70,
+	0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x12, 0x1f, 0x0a, 0x0b, 0x73, 0x74, 0x61, 0x72, 0x74,
+	0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0a, 0x73, 0x74,
+	0x61, 0x72, 0x74, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x12, 0x1b, 0x0a, 0x09, 0x65, 0x6e, 0x64, 0x5f,
+	0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x05, 0x20, 0x01, 0x28, 0x04, 0x52, 0x08, 0x65, 0x6e, 0x64,
+	0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x42, 0xc7, 0x01, 0x0a, 0x19, 0x63, 0x6f, 0x6d, 0x2e, 0x74, 0x6f,
+	0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74,
+	0x69, 0x6f, 0x6e, 0x42, 0x11, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
+	0x6e, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x22, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61,
+	0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f,
+	0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0xa2, 0x02, 0x03, 0x54,
+	0x53, 0x58, 0xaa, 0x02, 0x15, 0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x53, 0x75,
+	0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0xca, 0x02, 0x15, 0x54, 0x6f, 0x70,
+	0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
+	0x6f, 0x6e, 0xe2, 0x02, 0x21, 0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x53, 0x75,
+	0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65,
+	0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x16, 0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69,
+	0x6e, 0x3a, 0x3a, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x62,
+	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (

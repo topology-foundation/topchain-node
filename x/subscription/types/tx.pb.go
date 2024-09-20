@@ -124,7 +124,7 @@ func (m *MsgUpdateParamsResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgUpdateParamsResponse proto.InternalMessageInfo
 
-type MsgCreateOffer struct {
+type MsgCreateDeal struct {
 	Requester  string `protobuf:"bytes,1,opt,name=requester,proto3" json:"requester,omitempty"`
 	CroId      string `protobuf:"bytes,2,opt,name=cro_id,json=croId,proto3" json:"cro_id,omitempty"`
 	Amount     uint64 `protobuf:"varint,3,opt,name=amount,proto3" json:"amount,omitempty"`
@@ -132,18 +132,18 @@ type MsgCreateOffer struct {
 	EndBlock   uint64 `protobuf:"varint,5,opt,name=end_block,json=endBlock,proto3" json:"end_block,omitempty"`
 }
 
-func (m *MsgCreateOffer) Reset()         { *m = MsgCreateOffer{} }
-func (m *MsgCreateOffer) String() string { return proto.CompactTextString(m) }
-func (*MsgCreateOffer) ProtoMessage()    {}
-func (*MsgCreateOffer) Descriptor() ([]byte, []int) {
+func (m *MsgCreateDeal) Reset()         { *m = MsgCreateDeal{} }
+func (m *MsgCreateDeal) String() string { return proto.CompactTextString(m) }
+func (*MsgCreateDeal) ProtoMessage()    {}
+func (*MsgCreateDeal) Descriptor() ([]byte, []int) {
 	return fileDescriptor_7efc119a28a1fb6f, []int{2}
 }
-func (m *MsgCreateOffer) XXX_Unmarshal(b []byte) error {
+func (m *MsgCreateDeal) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgCreateOffer) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgCreateDeal) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgCreateOffer.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgCreateDeal.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -153,69 +153,69 @@ func (m *MsgCreateOffer) XXX_Marshal(b []byte, deterministic bool) ([]byte, erro
 		return b[:n], nil
 	}
 }
-func (m *MsgCreateOffer) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgCreateOffer.Merge(m, src)
+func (m *MsgCreateDeal) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgCreateDeal.Merge(m, src)
 }
-func (m *MsgCreateOffer) XXX_Size() int {
+func (m *MsgCreateDeal) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgCreateOffer) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgCreateOffer.DiscardUnknown(m)
+func (m *MsgCreateDeal) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgCreateDeal.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgCreateOffer proto.InternalMessageInfo
+var xxx_messageInfo_MsgCreateDeal proto.InternalMessageInfo
 
-func (m *MsgCreateOffer) GetRequester() string {
+func (m *MsgCreateDeal) GetRequester() string {
 	if m != nil {
 		return m.Requester
 	}
 	return ""
 }
 
-func (m *MsgCreateOffer) GetCroId() string {
+func (m *MsgCreateDeal) GetCroId() string {
 	if m != nil {
 		return m.CroId
 	}
 	return ""
 }
 
-func (m *MsgCreateOffer) GetAmount() uint64 {
+func (m *MsgCreateDeal) GetAmount() uint64 {
 	if m != nil {
 		return m.Amount
 	}
 	return 0
 }
 
-func (m *MsgCreateOffer) GetStartBlock() uint64 {
+func (m *MsgCreateDeal) GetStartBlock() uint64 {
 	if m != nil {
 		return m.StartBlock
 	}
 	return 0
 }
 
-func (m *MsgCreateOffer) GetEndBlock() uint64 {
+func (m *MsgCreateDeal) GetEndBlock() uint64 {
 	if m != nil {
 		return m.EndBlock
 	}
 	return 0
 }
 
-type MsgCreateOfferResponse struct {
-	OfferId string `protobuf:"bytes,1,opt,name=offer_id,json=offerId,proto3" json:"offer_id,omitempty"`
+type MsgCreateDealResponse struct {
+	DealId string `protobuf:"bytes,1,opt,name=deal_id,json=dealId,proto3" json:"deal_id,omitempty"`
 }
 
-func (m *MsgCreateOfferResponse) Reset()         { *m = MsgCreateOfferResponse{} }
-func (m *MsgCreateOfferResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgCreateOfferResponse) ProtoMessage()    {}
-func (*MsgCreateOfferResponse) Descriptor() ([]byte, []int) {
+func (m *MsgCreateDealResponse) Reset()         { *m = MsgCreateDealResponse{} }
+func (m *MsgCreateDealResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgCreateDealResponse) ProtoMessage()    {}
+func (*MsgCreateDealResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_7efc119a28a1fb6f, []int{3}
 }
-func (m *MsgCreateOfferResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgCreateDealResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgCreateOfferResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgCreateDealResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgCreateOfferResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgCreateDealResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -225,42 +225,42 @@ func (m *MsgCreateOfferResponse) XXX_Marshal(b []byte, deterministic bool) ([]by
 		return b[:n], nil
 	}
 }
-func (m *MsgCreateOfferResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgCreateOfferResponse.Merge(m, src)
+func (m *MsgCreateDealResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgCreateDealResponse.Merge(m, src)
 }
-func (m *MsgCreateOfferResponse) XXX_Size() int {
+func (m *MsgCreateDealResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgCreateOfferResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgCreateOfferResponse.DiscardUnknown(m)
+func (m *MsgCreateDealResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgCreateDealResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgCreateOfferResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgCreateDealResponse proto.InternalMessageInfo
 
-func (m *MsgCreateOfferResponse) GetOfferId() string {
+func (m *MsgCreateDealResponse) GetDealId() string {
 	if m != nil {
-		return m.OfferId
+		return m.DealId
 	}
 	return ""
 }
 
-type MsgCancelOffer struct {
+type MsgFinishDeal struct {
 	Requester string `protobuf:"bytes,1,opt,name=requester,proto3" json:"requester,omitempty"`
-	OfferId   string `protobuf:"bytes,2,opt,name=offer_id,json=offerId,proto3" json:"offer_id,omitempty"`
+	DealId    string `protobuf:"bytes,2,opt,name=deal_id,json=dealId,proto3" json:"deal_id,omitempty"`
 }
 
-func (m *MsgCancelOffer) Reset()         { *m = MsgCancelOffer{} }
-func (m *MsgCancelOffer) String() string { return proto.CompactTextString(m) }
-func (*MsgCancelOffer) ProtoMessage()    {}
-func (*MsgCancelOffer) Descriptor() ([]byte, []int) {
+func (m *MsgFinishDeal) Reset()         { *m = MsgFinishDeal{} }
+func (m *MsgFinishDeal) String() string { return proto.CompactTextString(m) }
+func (*MsgFinishDeal) ProtoMessage()    {}
+func (*MsgFinishDeal) Descriptor() ([]byte, []int) {
 	return fileDescriptor_7efc119a28a1fb6f, []int{4}
 }
-func (m *MsgCancelOffer) XXX_Unmarshal(b []byte) error {
+func (m *MsgFinishDeal) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgCancelOffer) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgFinishDeal) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgCancelOffer.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgFinishDeal.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -270,47 +270,47 @@ func (m *MsgCancelOffer) XXX_Marshal(b []byte, deterministic bool) ([]byte, erro
 		return b[:n], nil
 	}
 }
-func (m *MsgCancelOffer) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgCancelOffer.Merge(m, src)
+func (m *MsgFinishDeal) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgFinishDeal.Merge(m, src)
 }
-func (m *MsgCancelOffer) XXX_Size() int {
+func (m *MsgFinishDeal) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgCancelOffer) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgCancelOffer.DiscardUnknown(m)
+func (m *MsgFinishDeal) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgFinishDeal.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgCancelOffer proto.InternalMessageInfo
+var xxx_messageInfo_MsgFinishDeal proto.InternalMessageInfo
 
-func (m *MsgCancelOffer) GetRequester() string {
+func (m *MsgFinishDeal) GetRequester() string {
 	if m != nil {
 		return m.Requester
 	}
 	return ""
 }
 
-func (m *MsgCancelOffer) GetOfferId() string {
+func (m *MsgFinishDeal) GetDealId() string {
 	if m != nil {
-		return m.OfferId
+		return m.DealId
 	}
 	return ""
 }
 
-type MsgCancelOfferResponse struct {
+type MsgFinishDealResponse struct {
 }
 
-func (m *MsgCancelOfferResponse) Reset()         { *m = MsgCancelOfferResponse{} }
-func (m *MsgCancelOfferResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgCancelOfferResponse) ProtoMessage()    {}
-func (*MsgCancelOfferResponse) Descriptor() ([]byte, []int) {
+func (m *MsgFinishDealResponse) Reset()         { *m = MsgFinishDealResponse{} }
+func (m *MsgFinishDealResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgFinishDealResponse) ProtoMessage()    {}
+func (*MsgFinishDealResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_7efc119a28a1fb6f, []int{5}
 }
-func (m *MsgCancelOfferResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgFinishDealResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgCancelOfferResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgFinishDealResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgCancelOfferResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgFinishDealResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -320,39 +320,39 @@ func (m *MsgCancelOfferResponse) XXX_Marshal(b []byte, deterministic bool) ([]by
 		return b[:n], nil
 	}
 }
-func (m *MsgCancelOfferResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgCancelOfferResponse.Merge(m, src)
+func (m *MsgFinishDealResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgFinishDealResponse.Merge(m, src)
 }
-func (m *MsgCancelOfferResponse) XXX_Size() int {
+func (m *MsgFinishDealResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgCancelOfferResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgCancelOfferResponse.DiscardUnknown(m)
+func (m *MsgFinishDealResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgFinishDealResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgCancelOfferResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgFinishDealResponse proto.InternalMessageInfo
 
-type MsgUpdateOffer struct {
+type MsgUpdateDeal struct {
 	Requester string `protobuf:"bytes,1,opt,name=requester,proto3" json:"requester,omitempty"`
-	OfferId   string `protobuf:"bytes,2,opt,name=offer_id,json=offerId,proto3" json:"offer_id,omitempty"`
+	DealId    string `protobuf:"bytes,2,opt,name=deal_id,json=dealId,proto3" json:"deal_id,omitempty"`
 	// these fields should be optional, errors with pulsar
 	Amount     uint64 `protobuf:"varint,3,opt,name=amount,proto3" json:"amount,omitempty"`
 	StartBlock uint64 `protobuf:"varint,4,opt,name=start_block,json=startBlock,proto3" json:"start_block,omitempty"`
 	EndBlock   uint64 `protobuf:"varint,5,opt,name=end_block,json=endBlock,proto3" json:"end_block,omitempty"`
 }
 
-func (m *MsgUpdateOffer) Reset()         { *m = MsgUpdateOffer{} }
-func (m *MsgUpdateOffer) String() string { return proto.CompactTextString(m) }
-func (*MsgUpdateOffer) ProtoMessage()    {}
-func (*MsgUpdateOffer) Descriptor() ([]byte, []int) {
+func (m *MsgUpdateDeal) Reset()         { *m = MsgUpdateDeal{} }
+func (m *MsgUpdateDeal) String() string { return proto.CompactTextString(m) }
+func (*MsgUpdateDeal) ProtoMessage()    {}
+func (*MsgUpdateDeal) Descriptor() ([]byte, []int) {
 	return fileDescriptor_7efc119a28a1fb6f, []int{6}
 }
-func (m *MsgUpdateOffer) XXX_Unmarshal(b []byte) error {
+func (m *MsgUpdateDeal) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgUpdateOffer) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgUpdateDeal) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgUpdateOffer.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgUpdateDeal.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -362,68 +362,68 @@ func (m *MsgUpdateOffer) XXX_Marshal(b []byte, deterministic bool) ([]byte, erro
 		return b[:n], nil
 	}
 }
-func (m *MsgUpdateOffer) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgUpdateOffer.Merge(m, src)
+func (m *MsgUpdateDeal) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgUpdateDeal.Merge(m, src)
 }
-func (m *MsgUpdateOffer) XXX_Size() int {
+func (m *MsgUpdateDeal) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgUpdateOffer) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgUpdateOffer.DiscardUnknown(m)
+func (m *MsgUpdateDeal) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgUpdateDeal.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgUpdateOffer proto.InternalMessageInfo
+var xxx_messageInfo_MsgUpdateDeal proto.InternalMessageInfo
 
-func (m *MsgUpdateOffer) GetRequester() string {
+func (m *MsgUpdateDeal) GetRequester() string {
 	if m != nil {
 		return m.Requester
 	}
 	return ""
 }
 
-func (m *MsgUpdateOffer) GetOfferId() string {
+func (m *MsgUpdateDeal) GetDealId() string {
 	if m != nil {
-		return m.OfferId
+		return m.DealId
 	}
 	return ""
 }
 
-func (m *MsgUpdateOffer) GetAmount() uint64 {
+func (m *MsgUpdateDeal) GetAmount() uint64 {
 	if m != nil {
 		return m.Amount
 	}
 	return 0
 }
 
-func (m *MsgUpdateOffer) GetStartBlock() uint64 {
+func (m *MsgUpdateDeal) GetStartBlock() uint64 {
 	if m != nil {
 		return m.StartBlock
 	}
 	return 0
 }
 
-func (m *MsgUpdateOffer) GetEndBlock() uint64 {
+func (m *MsgUpdateDeal) GetEndBlock() uint64 {
 	if m != nil {
 		return m.EndBlock
 	}
 	return 0
 }
 
-type MsgUpdateOfferResponse struct {
+type MsgUpdateDealResponse struct {
 }
 
-func (m *MsgUpdateOfferResponse) Reset()         { *m = MsgUpdateOfferResponse{} }
-func (m *MsgUpdateOfferResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgUpdateOfferResponse) ProtoMessage()    {}
-func (*MsgUpdateOfferResponse) Descriptor() ([]byte, []int) {
+func (m *MsgUpdateDealResponse) Reset()         { *m = MsgUpdateDealResponse{} }
+func (m *MsgUpdateDealResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgUpdateDealResponse) ProtoMessage()    {}
+func (*MsgUpdateDealResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_7efc119a28a1fb6f, []int{7}
 }
-func (m *MsgUpdateOfferResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgUpdateDealResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgUpdateOfferResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgUpdateDealResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgUpdateOfferResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgUpdateDealResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -433,35 +433,35 @@ func (m *MsgUpdateOfferResponse) XXX_Marshal(b []byte, deterministic bool) ([]by
 		return b[:n], nil
 	}
 }
-func (m *MsgUpdateOfferResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgUpdateOfferResponse.Merge(m, src)
+func (m *MsgUpdateDealResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgUpdateDealResponse.Merge(m, src)
 }
-func (m *MsgUpdateOfferResponse) XXX_Size() int {
+func (m *MsgUpdateDealResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgUpdateOfferResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgUpdateOfferResponse.DiscardUnknown(m)
+func (m *MsgUpdateDealResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgUpdateDealResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgUpdateOfferResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgUpdateDealResponse proto.InternalMessageInfo
 
-type MsgAcceptSubscription struct {
+type MsgJoinDeal struct {
 	Provider       string `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"`
 	SubscriptionId string `protobuf:"bytes,2,opt,name=subscription_id,json=subscriptionId,proto3" json:"subscription_id,omitempty"`
 }
 
-func (m *MsgAcceptSubscription) Reset()         { *m = MsgAcceptSubscription{} }
-func (m *MsgAcceptSubscription) String() string { return proto.CompactTextString(m) }
-func (*MsgAcceptSubscription) ProtoMessage()    {}
-func (*MsgAcceptSubscription) Descriptor() ([]byte, []int) {
+func (m *MsgJoinDeal) Reset()         { *m = MsgJoinDeal{} }
+func (m *MsgJoinDeal) String() string { return proto.CompactTextString(m) }
+func (*MsgJoinDeal) ProtoMessage()    {}
+func (*MsgJoinDeal) Descriptor() ([]byte, []int) {
 	return fileDescriptor_7efc119a28a1fb6f, []int{8}
 }
-func (m *MsgAcceptSubscription) XXX_Unmarshal(b []byte) error {
+func (m *MsgJoinDeal) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgAcceptSubscription) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgJoinDeal) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgAcceptSubscription.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgJoinDeal.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -471,47 +471,47 @@ func (m *MsgAcceptSubscription) XXX_Marshal(b []byte, deterministic bool) ([]byt
 		return b[:n], nil
 	}
 }
-func (m *MsgAcceptSubscription) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgAcceptSubscription.Merge(m, src)
+func (m *MsgJoinDeal) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgJoinDeal.Merge(m, src)
 }
-func (m *MsgAcceptSubscription) XXX_Size() int {
+func (m *MsgJoinDeal) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgAcceptSubscription) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgAcceptSubscription.DiscardUnknown(m)
+func (m *MsgJoinDeal) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgJoinDeal.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgAcceptSubscription proto.InternalMessageInfo
+var xxx_messageInfo_MsgJoinDeal proto.InternalMessageInfo
 
-func (m *MsgAcceptSubscription) GetProvider() string {
+func (m *MsgJoinDeal) GetProvider() string {
 	if m != nil {
 		return m.Provider
 	}
 	return ""
 }
 
-func (m *MsgAcceptSubscription) GetSubscriptionId() string {
+func (m *MsgJoinDeal) GetSubscriptionId() string {
 	if m != nil {
 		return m.SubscriptionId
 	}
 	return ""
 }
 
-type MsgAcceptSubscriptionResponse struct {
+type MsgJoinDealResponse struct {
 }
 
-func (m *MsgAcceptSubscriptionResponse) Reset()         { *m = MsgAcceptSubscriptionResponse{} }
-func (m *MsgAcceptSubscriptionResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgAcceptSubscriptionResponse) ProtoMessage()    {}
-func (*MsgAcceptSubscriptionResponse) Descriptor() ([]byte, []int) {
+func (m *MsgJoinDealResponse) Reset()         { *m = MsgJoinDealResponse{} }
+func (m *MsgJoinDealResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgJoinDealResponse) ProtoMessage()    {}
+func (*MsgJoinDealResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_7efc119a28a1fb6f, []int{9}
 }
-func (m *MsgAcceptSubscriptionResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgJoinDealResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgAcceptSubscriptionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgJoinDealResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgAcceptSubscriptionResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgJoinDealResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -521,35 +521,35 @@ func (m *MsgAcceptSubscriptionResponse) XXX_Marshal(b []byte, deterministic bool
 		return b[:n], nil
 	}
 }
-func (m *MsgAcceptSubscriptionResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgAcceptSubscriptionResponse.Merge(m, src)
+func (m *MsgJoinDealResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgJoinDealResponse.Merge(m, src)
 }
-func (m *MsgAcceptSubscriptionResponse) XXX_Size() int {
+func (m *MsgJoinDealResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgAcceptSubscriptionResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgAcceptSubscriptionResponse.DiscardUnknown(m)
+func (m *MsgJoinDealResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgJoinDealResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgAcceptSubscriptionResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgJoinDealResponse proto.InternalMessageInfo
 
-type MsgCancelSubscription struct {
+type MsgLeaveDeal struct {
 	Provider       string `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"`
 	SubscriptionId string `protobuf:"bytes,2,opt,name=subscription_id,json=subscriptionId,proto3" json:"subscription_id,omitempty"`
 }
 
-func (m *MsgCancelSubscription) Reset()         { *m = MsgCancelSubscription{} }
-func (m *MsgCancelSubscription) String() string { return proto.CompactTextString(m) }
-func (*MsgCancelSubscription) ProtoMessage()    {}
-func (*MsgCancelSubscription) Descriptor() ([]byte, []int) {
+func (m *MsgLeaveDeal) Reset()         { *m = MsgLeaveDeal{} }
+func (m *MsgLeaveDeal) String() string { return proto.CompactTextString(m) }
+func (*MsgLeaveDeal) ProtoMessage()    {}
+func (*MsgLeaveDeal) Descriptor() ([]byte, []int) {
 	return fileDescriptor_7efc119a28a1fb6f, []int{10}
 }
-func (m *MsgCancelSubscription) XXX_Unmarshal(b []byte) error {
+func (m *MsgLeaveDeal) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgCancelSubscription) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgLeaveDeal) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgCancelSubscription.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgLeaveDeal.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -559,47 +559,47 @@ func (m *MsgCancelSubscription) XXX_Marshal(b []byte, deterministic bool) ([]byt
 		return b[:n], nil
 	}
 }
-func (m *MsgCancelSubscription) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgCancelSubscription.Merge(m, src)
+func (m *MsgLeaveDeal) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgLeaveDeal.Merge(m, src)
 }
-func (m *MsgCancelSubscription) XXX_Size() int {
+func (m *MsgLeaveDeal) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgCancelSubscription) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgCancelSubscription.DiscardUnknown(m)
+func (m *MsgLeaveDeal) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgLeaveDeal.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgCancelSubscription proto.InternalMessageInfo
+var xxx_messageInfo_MsgLeaveDeal proto.InternalMessageInfo
 
-func (m *MsgCancelSubscription) GetProvider() string {
+func (m *MsgLeaveDeal) GetProvider() string {
 	if m != nil {
 		return m.Provider
 	}
 	return ""
 }
 
-func (m *MsgCancelSubscription) GetSubscriptionId() string {
+func (m *MsgLeaveDeal) GetSubscriptionId() string {
 	if m != nil {
 		return m.SubscriptionId
 	}
 	return ""
 }
 
-type MsgCancelSubscriptionResponse struct {
+type MsgLeaveDealResponse struct {
 }
 
-func (m *MsgCancelSubscriptionResponse) Reset()         { *m = MsgCancelSubscriptionResponse{} }
-func (m *MsgCancelSubscriptionResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgCancelSubscriptionResponse) ProtoMessage()    {}
-func (*MsgCancelSubscriptionResponse) Descriptor() ([]byte, []int) {
+func (m *MsgLeaveDealResponse) Reset()         { *m = MsgLeaveDealResponse{} }
+func (m *MsgLeaveDealResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgLeaveDealResponse) ProtoMessage()    {}
+func (*MsgLeaveDealResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_7efc119a28a1fb6f, []int{11}
 }
-func (m *MsgCancelSubscriptionResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgLeaveDealResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgCancelSubscriptionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgLeaveDealResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgCancelSubscriptionResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgLeaveDealResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -609,73 +609,74 @@ func (m *MsgCancelSubscriptionResponse) XXX_Marshal(b []byte, deterministic bool
 		return b[:n], nil
 	}
 }
-func (m *MsgCancelSubscriptionResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgCancelSubscriptionResponse.Merge(m, src)
+func (m *MsgLeaveDealResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgLeaveDealResponse.Merge(m, src)
 }
-func (m *MsgCancelSubscriptionResponse) XXX_Size() int {
+func (m *MsgLeaveDealResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgCancelSubscriptionResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgCancelSubscriptionResponse.DiscardUnknown(m)
+func (m *MsgLeaveDealResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgLeaveDealResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgCancelSubscriptionResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgLeaveDealResponse proto.InternalMessageInfo
 
 func init() {
 	proto.RegisterType((*MsgUpdateParams)(nil), "topchain.subscription.MsgUpdateParams")
 	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "topchain.subscription.MsgUpdateParamsResponse")
-	proto.RegisterType((*MsgCreateOffer)(nil), "topchain.subscription.MsgCreateOffer")
-	proto.RegisterType((*MsgCreateOfferResponse)(nil), "topchain.subscription.MsgCreateOfferResponse")
-	proto.RegisterType((*MsgCancelOffer)(nil), "topchain.subscription.MsgCancelOffer")
-	proto.RegisterType((*MsgCancelOfferResponse)(nil), "topchain.subscription.MsgCancelOfferResponse")
-	proto.RegisterType((*MsgUpdateOffer)(nil), "topchain.subscription.MsgUpdateOffer")
-	proto.RegisterType((*MsgUpdateOfferResponse)(nil), "topchain.subscription.MsgUpdateOfferResponse")
-	proto.RegisterType((*MsgAcceptSubscription)(nil), "topchain.subscription.MsgAcceptSubscription")
-	proto.RegisterType((*MsgAcceptSubscriptionResponse)(nil), "topchain.subscription.MsgAcceptSubscriptionResponse")
-	proto.RegisterType((*MsgCancelSubscription)(nil), "topchain.subscription.MsgCancelSubscription")
-	proto.RegisterType((*MsgCancelSubscriptionResponse)(nil), "topchain.subscription.MsgCancelSubscriptionResponse")
+	proto.RegisterType((*MsgCreateDeal)(nil), "topchain.subscription.MsgCreateDeal")
+	proto.RegisterType((*MsgCreateDealResponse)(nil), "topchain.subscription.MsgCreateDealResponse")
+	proto.RegisterType((*MsgFinishDeal)(nil), "topchain.subscription.MsgFinishDeal")
+	proto.RegisterType((*MsgFinishDealResponse)(nil), "topchain.subscription.MsgFinishDealResponse")
+	proto.RegisterType((*MsgUpdateDeal)(nil), "topchain.subscription.MsgUpdateDeal")
+	proto.RegisterType((*MsgUpdateDealResponse)(nil), "topchain.subscription.MsgUpdateDealResponse")
+	proto.RegisterType((*MsgJoinDeal)(nil), "topchain.subscription.MsgJoinDeal")
+	proto.RegisterType((*MsgJoinDealResponse)(nil), "topchain.subscription.MsgJoinDealResponse")
+	proto.RegisterType((*MsgLeaveDeal)(nil), "topchain.subscription.MsgLeaveDeal")
+	proto.RegisterType((*MsgLeaveDealResponse)(nil), "topchain.subscription.MsgLeaveDealResponse")
 }
 
 func init() { proto.RegisterFile("topchain/subscription/tx.proto", fileDescriptor_7efc119a28a1fb6f) }
 
 var fileDescriptor_7efc119a28a1fb6f = []byte{
-	// 576 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x54, 0x31, 0x6f, 0xd3, 0x40,
-	0x18, 0x8d, 0xdb, 0x26, 0xc4, 0x57, 0x48, 0xc5, 0xa9, 0x69, 0x9d, 0x40, 0x9c, 0xc8, 0x03, 0x8d,
-	0x22, 0x11, 0x8b, 0x56, 0x02, 0x29, 0x13, 0x0d, 0x53, 0x86, 0x08, 0xe4, 0x8a, 0x01, 0x96, 0xc8,
-	0xf1, 0x5d, 0x5c, 0xab, 0x8d, 0xcf, 0xdc, 0x5d, 0xaa, 0x76, 0x43, 0x8c, 0x4c, 0xfc, 0x0c, 0x24,
-	0x06, 0x32, 0xf0, 0x1f, 0xe8, 0x58, 0x31, 0x31, 0x21, 0x94, 0x0c, 0xf9, 0x1b, 0xc8, 0x77, 0x8e,
-	0xed, 0xa4, 0xa9, 0x54, 0x09, 0xa9, 0x4b, 0xe2, 0xef, 0xbd, 0xbb, 0xef, 0xbd, 0xf7, 0xc9, 0xfe,
-	0x80, 0xce, 0x49, 0xe0, 0x1c, 0xdb, 0x9e, 0x6f, 0xb2, 0x51, 0x9f, 0x39, 0xd4, 0x0b, 0xb8, 0x47,
-	0x7c, 0x93, 0x9f, 0x37, 0x03, 0x4a, 0x38, 0x81, 0xc5, 0x39, 0xdf, 0x4c, 0xf3, 0xe5, 0x87, 0xf6,
-	0xd0, 0xf3, 0x89, 0x29, 0x7e, 0xe5, 0xc9, 0xf2, 0xae, 0x43, 0xd8, 0x90, 0x30, 0x73, 0xc8, 0x5c,
-	0xf3, 0xec, 0x59, 0xf8, 0x17, 0x11, 0x25, 0x49, 0xf4, 0x44, 0x65, 0xca, 0x22, 0xa2, 0xb6, 0x5d,
-	0xe2, 0x12, 0x89, 0x87, 0x4f, 0x11, 0x6a, 0xac, 0xf6, 0x14, 0xd8, 0xd4, 0x1e, 0x46, 0x37, 0x8d,
-	0x9f, 0x0a, 0xd8, 0xea, 0x32, 0xf7, 0x6d, 0x80, 0x6c, 0x8e, 0xdf, 0x08, 0x06, 0x3e, 0x07, 0xaa,
-	0x3d, 0xe2, 0xc7, 0x84, 0x7a, 0xfc, 0x42, 0x53, 0x6a, 0x4a, 0x5d, 0x6d, 0x6b, 0xbf, 0x7e, 0x3c,
-	0xdd, 0x8e, 0x24, 0x0f, 0x11, 0xa2, 0x98, 0xb1, 0x23, 0x4e, 0x3d, 0xdf, 0xb5, 0x92, 0xa3, 0xf0,
-	0x25, 0xc8, 0xc9, 0xde, 0xda, 0x5a, 0x4d, 0xa9, 0x6f, 0xee, 0x57, 0x9a, 0x2b, 0x43, 0x37, 0xa5,
-	0x4c, 0x5b, 0xbd, 0xfc, 0x53, 0xcd, 0x7c, 0x9d, 0x8d, 0x1b, 0x8a, 0x15, 0xdd, 0x6b, 0xb5, 0x3e,
-	0xcd, 0xc6, 0x8d, 0xa4, 0xe3, 0xe7, 0xd9, 0xb8, 0xb1, 0x17, 0x87, 0x38, 0x5f, 0x8c, 0xb1, 0xe4,
-	0xda, 0x28, 0x81, 0xdd, 0x25, 0xc8, 0xc2, 0x2c, 0x20, 0x3e, 0xc3, 0xc6, 0x37, 0x05, 0x14, 0xba,
-	0xcc, 0x7d, 0x45, 0xb1, 0xcd, 0xf1, 0xeb, 0xc1, 0x00, 0x53, 0xf8, 0x18, 0xa8, 0x14, 0x7f, 0x18,
-	0x61, 0xc6, 0x31, 0x95, 0x19, 0xad, 0x04, 0x80, 0x45, 0x90, 0x73, 0x28, 0xe9, 0x79, 0x48, 0x24,
-	0x51, 0xad, 0xac, 0x43, 0x49, 0x07, 0xc1, 0x1d, 0x90, 0xb3, 0x87, 0x64, 0xe4, 0x73, 0x6d, 0xbd,
-	0xa6, 0xd4, 0x37, 0xac, 0xa8, 0x82, 0x55, 0xb0, 0xc9, 0xb8, 0x4d, 0x79, 0xaf, 0x7f, 0x4a, 0x9c,
-	0x13, 0x6d, 0x43, 0x90, 0x40, 0x40, 0xed, 0x10, 0x81, 0x8f, 0x80, 0x8a, 0x7d, 0x14, 0xd1, 0x59,
-	0x41, 0xe7, 0xb1, 0x8f, 0x04, 0xd9, 0x2a, 0x88, 0xd0, 0xb1, 0xb8, 0x71, 0x00, 0x76, 0x16, 0xcd,
-	0xce, 0x73, 0xc0, 0x12, 0xc8, 0x93, 0x10, 0x08, 0x8d, 0x49, 0xcf, 0xf7, 0x44, 0xdd, 0x41, 0xc6,
-	0x3b, 0x99, 0xd0, 0xf6, 0x1d, 0x7c, 0x7a, 0x9b, 0x84, 0xe9, 0x56, 0x6b, 0x0b, 0xad, 0xae, 0xf9,
-	0xd1, 0xa4, 0x9f, 0xa4, 0x75, 0x3c, 0xd7, 0xef, 0x72, 0xae, 0x72, 0xe6, 0xff, 0xa7, 0x7a, 0x47,
-	0xb3, 0x95, 0x59, 0x52, 0x86, 0xe3, 0x2c, 0x27, 0xa0, 0xd8, 0x65, 0xee, 0xa1, 0xe3, 0xe0, 0x80,
-	0x1f, 0xa5, 0xde, 0x33, 0x58, 0x06, 0xf9, 0x80, 0x92, 0x33, 0x0f, 0xc5, 0x81, 0xe2, 0x1a, 0xee,
-	0x81, 0xad, 0xf4, 0x3b, 0x99, 0xc4, 0x2a, 0xa4, 0xe1, 0x0e, 0x6a, 0x3d, 0x08, 0x7d, 0xc4, 0xf7,
-	0x8c, 0x2a, 0xa8, 0xac, 0x14, 0x5b, 0x72, 0x23, 0x67, 0x7e, 0x47, 0x6e, 0xae, 0x8b, 0xcd, 0xdd,
-	0xec, 0x73, 0xb0, 0xde, 0x65, 0x2e, 0x1c, 0x80, 0xfb, 0x0b, 0x7b, 0xe2, 0xc9, 0x0d, 0xdf, 0xf7,
-	0xd2, 0x67, 0x58, 0x6e, 0xde, 0xee, 0xdc, 0x5c, 0xae, 0x9c, 0xfd, 0x18, 0x2e, 0x85, 0xf6, 0x8b,
-	0xcb, 0x89, 0xae, 0x5c, 0x4d, 0x74, 0xe5, 0xef, 0x44, 0x57, 0xbe, 0x4c, 0xf5, 0xcc, 0xd5, 0x54,
-	0xcf, 0xfc, 0x9e, 0xea, 0x99, 0xf7, 0x95, 0x9b, 0x76, 0x02, 0xbf, 0x08, 0x30, 0xeb, 0xe7, 0xc4,
-	0x6a, 0x3b, 0xf8, 0x17, 0x00, 0x00, 0xff, 0xff, 0x7c, 0x9e, 0x04, 0x0d, 0x94, 0x05, 0x00, 0x00,
+	// 583 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x54, 0x4f, 0x8b, 0xd3, 0x4e,
+	0x18, 0x6e, 0xf6, 0x4f, 0x7f, 0x9b, 0xb7, 0xfb, 0x87, 0x5f, 0x6c, 0xb7, 0xdd, 0xea, 0x66, 0x4b,
+	0x0e, 0x6e, 0x29, 0xd8, 0xe8, 0x0a, 0x0a, 0x3d, 0x69, 0x15, 0xa1, 0x62, 0x41, 0x22, 0x7a, 0xf0,
+	0x52, 0xa6, 0xc9, 0x98, 0x06, 0xdb, 0x4c, 0x9c, 0x99, 0x96, 0xdd, 0x9b, 0x78, 0xf4, 0xe4, 0xc7,
+	0x10, 0xf1, 0xd0, 0x83, 0xdf, 0xc1, 0x3d, 0x2e, 0x9e, 0x3c, 0x89, 0xb4, 0x87, 0x7e, 0x0d, 0xc9,
+	0x4c, 0x9a, 0xa4, 0x75, 0x17, 0x16, 0x44, 0x2f, 0x6d, 0xde, 0xe7, 0x99, 0x79, 0x9f, 0xe7, 0x79,
+	0xc9, 0x1b, 0xd0, 0x39, 0x09, 0xec, 0x1e, 0xf2, 0x7c, 0x93, 0x0d, 0xbb, 0xcc, 0xa6, 0x5e, 0xc0,
+	0x3d, 0xe2, 0x9b, 0xfc, 0xb8, 0x1e, 0x50, 0xc2, 0x89, 0x56, 0x98, 0xf3, 0xf5, 0x34, 0x5f, 0xfe,
+	0x1f, 0x0d, 0x3c, 0x9f, 0x98, 0xe2, 0x57, 0x9e, 0x2c, 0x17, 0x6d, 0xc2, 0x06, 0x84, 0x99, 0x03,
+	0xe6, 0x9a, 0xa3, 0x5b, 0xe1, 0x5f, 0x44, 0xec, 0x49, 0xa2, 0x23, 0x2a, 0x53, 0x16, 0x11, 0x95,
+	0x77, 0x89, 0x4b, 0x24, 0x1e, 0x3e, 0x45, 0xa8, 0x71, 0xbe, 0xa7, 0x00, 0x51, 0x34, 0x88, 0x6e,
+	0x1a, 0x5f, 0x15, 0xd8, 0x69, 0x33, 0xf7, 0x79, 0xe0, 0x20, 0x8e, 0x9f, 0x0a, 0x46, 0xbb, 0x03,
+	0x2a, 0x1a, 0xf2, 0x1e, 0xa1, 0x1e, 0x3f, 0x29, 0x29, 0x15, 0xa5, 0xaa, 0x36, 0x4b, 0xdf, 0xbe,
+	0xdc, 0xc8, 0x47, 0x92, 0xf7, 0x1d, 0x87, 0x62, 0xc6, 0x9e, 0x71, 0xea, 0xf9, 0xae, 0x95, 0x1c,
+	0xd5, 0xee, 0x41, 0x56, 0xf6, 0x2e, 0xad, 0x54, 0x94, 0x6a, 0xee, 0x68, 0xbf, 0x7e, 0x6e, 0xe8,
+	0xba, 0x94, 0x69, 0xaa, 0xa7, 0x3f, 0x0e, 0x32, 0x1f, 0x67, 0xe3, 0x9a, 0x62, 0x45, 0xf7, 0x1a,
+	0x8d, 0x77, 0xb3, 0x71, 0x2d, 0xe9, 0xf8, 0x7e, 0x36, 0xae, 0x1d, 0xc6, 0x21, 0x8e, 0x17, 0x63,
+	0x2c, 0xb9, 0x36, 0xf6, 0xa0, 0xb8, 0x04, 0x59, 0x98, 0x05, 0xc4, 0x67, 0xd8, 0xf8, 0xa4, 0xc0,
+	0x56, 0x9b, 0xb9, 0x0f, 0x28, 0x46, 0x1c, 0x3f, 0xc4, 0xa8, 0xaf, 0x5d, 0x03, 0x95, 0xe2, 0x37,
+	0x43, 0xcc, 0x38, 0xa6, 0x32, 0xa2, 0x95, 0x00, 0x5a, 0x01, 0xb2, 0x36, 0x25, 0x1d, 0xcf, 0x11,
+	0x41, 0x54, 0x6b, 0xdd, 0xa6, 0xa4, 0xe5, 0x68, 0xbb, 0x90, 0x45, 0x03, 0x32, 0xf4, 0x79, 0x69,
+	0xb5, 0xa2, 0x54, 0xd7, 0xac, 0xa8, 0xd2, 0x0e, 0x20, 0xc7, 0x38, 0xa2, 0xbc, 0xd3, 0xed, 0x13,
+	0xfb, 0x75, 0x69, 0x4d, 0x90, 0x20, 0xa0, 0x66, 0x88, 0x68, 0x57, 0x41, 0xc5, 0xbe, 0x13, 0xd1,
+	0xeb, 0x82, 0xde, 0xc0, 0xbe, 0x23, 0xc8, 0xc6, 0xb6, 0xc8, 0x1c, 0x8b, 0x1b, 0x37, 0xa1, 0xb0,
+	0xe0, 0x75, 0x9e, 0x42, 0x2b, 0xc2, 0x7f, 0x0e, 0x46, 0xfd, 0xd0, 0x96, 0x74, 0x9c, 0x0d, 0xcb,
+	0x96, 0x63, 0xbc, 0x10, 0xe9, 0x1e, 0x79, 0xbe, 0xc7, 0x7a, 0x97, 0x48, 0x97, 0xea, 0xb3, 0x92,
+	0xee, 0xf3, 0x9b, 0x93, 0xa2, 0x70, 0x92, 0xf4, 0x8d, 0xe7, 0xf9, 0x59, 0xce, 0x53, 0xce, 0xfa,
+	0x0f, 0x14, 0xff, 0xd1, 0x44, 0x65, 0x8e, 0xc4, 0x6d, 0x9c, 0x03, 0x41, 0xae, 0xcd, 0xdc, 0xc7,
+	0xc4, 0xf3, 0x45, 0x88, 0x32, 0x6c, 0x04, 0x94, 0x8c, 0x3c, 0x27, 0xce, 0x10, 0xd7, 0xda, 0x21,
+	0xec, 0xa4, 0xdf, 0xbe, 0x24, 0xca, 0x76, 0x1a, 0x6e, 0x39, 0x8d, 0xad, 0x50, 0x3c, 0xbe, 0x67,
+	0x14, 0xe0, 0x4a, 0x4a, 0x22, 0x56, 0xee, 0xc2, 0x66, 0x9b, 0xb9, 0x4f, 0x30, 0x1a, 0xe1, 0xbf,
+	0x26, 0xbd, 0x0b, 0xf9, 0xb4, 0xc6, 0x5c, 0xfb, 0x88, 0xc3, 0x6a, 0x9b, 0xb9, 0xda, 0x2b, 0xd8,
+	0x5c, 0xd8, 0xfa, 0xeb, 0x17, 0x6c, 0xeb, 0xd2, 0x52, 0x95, 0xeb, 0x97, 0x3b, 0x37, 0x97, 0x2b,
+	0xaf, 0xbf, 0x0d, 0x57, 0xbc, 0x79, 0xf7, 0x74, 0xa2, 0x2b, 0x67, 0x13, 0x5d, 0xf9, 0x39, 0xd1,
+	0x95, 0x0f, 0x53, 0x3d, 0x73, 0x36, 0xd5, 0x33, 0xdf, 0xa7, 0x7a, 0xe6, 0xe5, 0xfe, 0x45, 0x1b,
+	0xce, 0x4f, 0x02, 0xcc, 0xba, 0x59, 0xf1, 0xa1, 0xba, 0xfd, 0x2b, 0x00, 0x00, 0xff, 0xff, 0xba,
+	0xba, 0x71, 0x8a, 0x62, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -826,7 +827,7 @@ func (m *MsgUpdateParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgCreateOffer) Marshal() (dAtA []byte, err error) {
+func (m *MsgCreateDeal) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -836,12 +837,12 @@ func (m *MsgCreateOffer) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgCreateOffer) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgCreateDeal) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgCreateOffer) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgCreateDeal) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -878,7 +879,7 @@ func (m *MsgCreateOffer) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgCreateOfferResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgCreateDealResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -888,27 +889,27 @@ func (m *MsgCreateOfferResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgCreateOfferResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgCreateDealResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgCreateOfferResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgCreateDealResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if len(m.OfferId) > 0 {
-		i -= len(m.OfferId)
-		copy(dAtA[i:], m.OfferId)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.OfferId)))
+	if len(m.DealId) > 0 {
+		i -= len(m.DealId)
+		copy(dAtA[i:], m.DealId)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.DealId)))
 		i--
 		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgCancelOffer) Marshal() (dAtA []byte, err error) {
+func (m *MsgFinishDeal) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -918,20 +919,20 @@ func (m *MsgCancelOffer) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgCancelOffer) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgFinishDeal) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgCancelOffer) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgFinishDeal) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if len(m.OfferId) > 0 {
-		i -= len(m.OfferId)
-		copy(dAtA[i:], m.OfferId)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.OfferId)))
+	if len(m.DealId) > 0 {
+		i -= len(m.DealId)
+		copy(dAtA[i:], m.DealId)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.DealId)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -945,7 +946,7 @@ func (m *MsgCancelOffer) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgCancelOfferResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgFinishDealResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -955,12 +956,12 @@ func (m *MsgCancelOfferResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgCancelOfferResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgFinishDealResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgCancelOfferResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgFinishDealResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -968,7 +969,7 @@ func (m *MsgCancelOfferResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) 
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgUpdateOffer) Marshal() (dAtA []byte, err error) {
+func (m *MsgUpdateDeal) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -978,12 +979,12 @@ func (m *MsgUpdateOffer) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgUpdateOffer) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgUpdateDeal) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgUpdateOffer) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgUpdateDeal) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -1003,10 +1004,10 @@ func (m *MsgUpdateOffer) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x18
 	}
-	if len(m.OfferId) > 0 {
-		i -= len(m.OfferId)
-		copy(dAtA[i:], m.OfferId)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.OfferId)))
+	if len(m.DealId) > 0 {
+		i -= len(m.DealId)
+		copy(dAtA[i:], m.DealId)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.DealId)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -1020,7 +1021,7 @@ func (m *MsgUpdateOffer) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgUpdateOfferResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgUpdateDealResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -1030,12 +1031,12 @@ func (m *MsgUpdateOfferResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgUpdateOfferResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgUpdateDealResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgUpdateOfferResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgUpdateDealResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -1043,7 +1044,7 @@ func (m *MsgUpdateOfferResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) 
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgAcceptSubscription) Marshal() (dAtA []byte, err error) {
+func (m *MsgJoinDeal) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -1053,72 +1054,12 @@ func (m *MsgAcceptSubscription) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgAcceptSubscription) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgJoinDeal) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgAcceptSubscription) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if len(m.SubscriptionId) > 0 {
-		i -= len(m.SubscriptionId)
-		copy(dAtA[i:], m.SubscriptionId)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.SubscriptionId)))
-		i--
-		dAtA[i] = 0x12
-	}
-	if len(m.Provider) > 0 {
-		i -= len(m.Provider)
-		copy(dAtA[i:], m.Provider)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Provider)))
-		i--
-		dAtA[i] = 0xa
-	}
-	return len(dAtA) - i, nil
-}
-
-func (m *MsgAcceptSubscriptionResponse) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *MsgAcceptSubscriptionResponse) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *MsgAcceptSubscriptionResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	return len(dAtA) - i, nil
-}
-
-func (m *MsgCancelSubscription) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *MsgCancelSubscription) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *MsgCancelSubscription) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgJoinDeal) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -1140,7 +1081,7 @@ func (m *MsgCancelSubscription) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgCancelSubscriptionResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgJoinDealResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -1150,12 +1091,72 @@ func (m *MsgCancelSubscriptionResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgCancelSubscriptionResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgJoinDealResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgCancelSubscriptionResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgJoinDealResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgLeaveDeal) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgLeaveDeal) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgLeaveDeal) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.SubscriptionId) > 0 {
+		i -= len(m.SubscriptionId)
+		copy(dAtA[i:], m.SubscriptionId)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SubscriptionId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Provider) > 0 {
+		i -= len(m.Provider)
+		copy(dAtA[i:], m.Provider)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Provider)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgLeaveDealResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgLeaveDealResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgLeaveDealResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -1198,7 +1199,7 @@ func (m *MsgUpdateParamsResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgCreateOffer) Size() (n int) {
+func (m *MsgCreateDeal) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1224,20 +1225,20 @@ func (m *MsgCreateOffer) Size() (n int) {
 	return n
 }
 
-func (m *MsgCreateOfferResponse) Size() (n int) {
+func (m *MsgCreateDealResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	l = len(m.OfferId)
+	l = len(m.DealId)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
 	return n
 }
 
-func (m *MsgCancelOffer) Size() (n int) {
+func (m *MsgFinishDeal) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1247,14 +1248,14 @@ func (m *MsgCancelOffer) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.OfferId)
+	l = len(m.DealId)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
 	return n
 }
 
-func (m *MsgCancelOfferResponse) Size() (n int) {
+func (m *MsgFinishDealResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1263,7 +1264,7 @@ func (m *MsgCancelOfferResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgUpdateOffer) Size() (n int) {
+func (m *MsgUpdateDeal) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1273,7 +1274,7 @@ func (m *MsgUpdateOffer) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.OfferId)
+	l = len(m.DealId)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -1289,7 +1290,7 @@ func (m *MsgUpdateOffer) Size() (n int) {
 	return n
 }
 
-func (m *MsgUpdateOfferResponse) Size() (n int) {
+func (m *MsgUpdateDealResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1298,33 +1299,7 @@ func (m *MsgUpdateOfferResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgAcceptSubscription) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	l = len(m.Provider)
-	if l > 0 {
-		n += 1 + l + sovTx(uint64(l))
-	}
-	l = len(m.SubscriptionId)
-	if l > 0 {
-		n += 1 + l + sovTx(uint64(l))
-	}
-	return n
-}
-
-func (m *MsgAcceptSubscriptionResponse) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	return n
-}
-
-func (m *MsgCancelSubscription) Size() (n int) {
+func (m *MsgJoinDeal) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1341,7 +1316,33 @@ func (m *MsgCancelSubscription) Size() (n int) {
 	return n
 }
 
-func (m *MsgCancelSubscriptionResponse) Size() (n int) {
+func (m *MsgJoinDealResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgLeaveDeal) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Provider)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.SubscriptionId)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgLeaveDealResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1521,7 +1522,7 @@ func (m *MsgUpdateParamsResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgCreateOffer) Unmarshal(dAtA []byte) error {
+func (m *MsgCreateDeal) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1544,10 +1545,10 @@ func (m *MsgCreateOffer) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgCreateOffer: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgCreateDeal: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgCreateOffer: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgCreateDeal: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1692,7 +1693,7 @@ func (m *MsgCreateOffer) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgCreateOfferResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgCreateDealResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1715,15 +1716,15 @@ func (m *MsgCreateOfferResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgCreateOfferResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgCreateDealResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgCreateOfferResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgCreateDealResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field OfferId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field DealId", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1751,7 +1752,7 @@ func (m *MsgCreateOfferResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.OfferId = string(dAtA[iNdEx:postIndex])
+			m.DealId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -1774,7 +1775,7 @@ func (m *MsgCreateOfferResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgCancelOffer) Unmarshal(dAtA []byte) error {
+func (m *MsgFinishDeal) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1797,174 +1798,10 @@ func (m *MsgCancelOffer) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgCancelOffer: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgFinishDeal: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgCancelOffer: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Requester", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthTx
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthTx
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Requester = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field OfferId", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthTx
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthTx
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.OfferId = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipTx(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthTx
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *MsgCancelOfferResponse) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowTx
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: MsgCancelOfferResponse: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgCancelOfferResponse: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		default:
-			iNdEx = preIndex
-			skippy, err := skipTx(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthTx
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *MsgUpdateOffer) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowTx
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: MsgUpdateOffer: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgUpdateOffer: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgFinishDeal: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -2001,7 +1838,7 @@ func (m *MsgUpdateOffer) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field OfferId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field DealId", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -2029,7 +1866,171 @@ func (m *MsgUpdateOffer) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.OfferId = string(dAtA[iNdEx:postIndex])
+			m.DealId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgFinishDealResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgFinishDealResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgFinishDealResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgUpdateDeal) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgUpdateDeal: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgUpdateDeal: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Requester", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Requester = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DealId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.DealId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
 			if wireType != 0 {
@@ -2109,7 +2110,7 @@ func (m *MsgUpdateOffer) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgUpdateOfferResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgUpdateDealResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -2132,10 +2133,10 @@ func (m *MsgUpdateOfferResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgUpdateOfferResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgUpdateDealResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgUpdateOfferResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgUpdateDealResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -2159,7 +2160,7 @@ func (m *MsgUpdateOfferResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgAcceptSubscription) Unmarshal(dAtA []byte) error {
+func (m *MsgJoinDeal) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -2182,174 +2183,10 @@ func (m *MsgAcceptSubscription) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgAcceptSubscription: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgJoinDeal: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgAcceptSubscription: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Provider", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthTx
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthTx
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Provider = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field SubscriptionId", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthTx
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthTx
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.SubscriptionId = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipTx(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthTx
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *MsgAcceptSubscriptionResponse) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowTx
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: MsgAcceptSubscriptionResponse: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgAcceptSubscriptionResponse: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		default:
-			iNdEx = preIndex
-			skippy, err := skipTx(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthTx
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *MsgCancelSubscription) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowTx
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: MsgCancelSubscription: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgCancelSubscription: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgJoinDeal: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -2437,7 +2274,7 @@ func (m *MsgCancelSubscription) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgCancelSubscriptionResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgJoinDealResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -2460,10 +2297,174 @@ func (m *MsgCancelSubscriptionResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgCancelSubscriptionResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgJoinDealResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgCancelSubscriptionResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgJoinDealResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgLeaveDeal) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgLeaveDeal: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgLeaveDeal: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Provider", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Provider = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SubscriptionId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SubscriptionId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgLeaveDealResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgLeaveDealResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgLeaveDealResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
