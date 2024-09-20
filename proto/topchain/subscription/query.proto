@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package topchain.subscription;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "topchain/subscription/params.proto";
+import "topchain/subscription/subscription.proto";
+
+option go_package = "topchain/x/subscription/types";
+
+// Query defines the gRPC querier service.
+service Query {
+
+  // Parameters queries the parameters of the module.
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/topchain/subscription/params";
+
+  }
+
+  // Queries a list of ListSubscription items.
+  rpc ListSubscription (QueryListSubscriptionRequest) returns (QueryListSubscriptionResponse) {
+    option (google.api.http).get = "/topchain/subscription/list_subscription";
+
+  }
+}
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
+}
+
+message QueryListSubscriptionRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryListSubscriptionResponse {
+  repeated Subscription subscription = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination   = 2;
+}

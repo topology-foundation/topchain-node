@@ -17,11 +17,11 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	"github.com/stretchr/testify/require"
 
-	"topchain/x/requester/keeper"
-	"topchain/x/requester/types"
+	"topchain/x/subscription/keeper"
+	"topchain/x/subscription/types"
 )
 
-func RequesterKeeper(t testing.TB) (keeper.Keeper, sdk.Context) {
+func SubscriptionKeeper(t testing.TB) (keeper.Keeper, sdk.Context) {
 	storeKey := storetypes.NewKVStoreKey(types.StoreKey)
 
 	db := dbm.NewMemDB()
