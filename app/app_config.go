@@ -3,10 +3,6 @@ package app
 import (
 	"time"
 
-	providermodulev1 "topchain/api/topchain/provider/module"
-	_ "topchain/x/provider/module" // import for side-effects
-	providermoduletypes "topchain/x/provider/types"
-
 	subscriptionmodulev1 "topchain/api/topchain/subscription/module"
 	_ "topchain/x/subscription/module" // import for side-effects
 	subscriptionmoduletypes "topchain/x/subscription/types"
@@ -97,7 +93,6 @@ var (
 		consensustypes.ModuleName,
 		circuittypes.ModuleName,
 		// chain modules
-		providermoduletypes.ModuleName,
 		subscriptionmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
@@ -123,7 +118,6 @@ var (
 		icatypes.ModuleName,
 		ibcfeetypes.ModuleName,
 		// chain modules
-		providermoduletypes.ModuleName,
 		subscriptionmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	}
@@ -143,7 +137,6 @@ var (
 		icatypes.ModuleName,
 		ibcfeetypes.ModuleName,
 		// chain modules
-		providermoduletypes.ModuleName,
 		subscriptionmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
@@ -299,10 +292,6 @@ var (
 			{
 				Name:   circuittypes.ModuleName,
 				Config: appconfig.WrapAny(&circuitmodulev1.Module{}),
-			},
-			{
-				Name:   providermoduletypes.ModuleName,
-				Config: appconfig.WrapAny(&providermodulev1.Module{}),
 			},
 			{
 				Name:   subscriptionmoduletypes.ModuleName,

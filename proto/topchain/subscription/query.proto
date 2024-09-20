@@ -45,3 +45,21 @@ message QuerySubscriptionRequest {
 message QuerySubscriptionResponse {
   topchain.subscription.Subscription subscription = 1 [(gogoproto.nullable) = false];
 }
+
+message QuerySubscriptionStatusRequest {
+  string subscription_id = 1;
+}
+
+message QuerySubscriptionStatusResponse {
+  string subscription_id = 1;
+}
+
+message QuerySubscriptionsRequest {
+  string provider = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QuerySubscriptionsResponse {
+  repeated topchain.subscription.Subscription subscriptions = 1;
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}

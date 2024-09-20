@@ -75,7 +75,6 @@ import (
 	ibctransferkeeper "github.com/cosmos/ibc-go/v8/modules/apps/transfer/keeper"
 	ibckeeper "github.com/cosmos/ibc-go/v8/modules/core/keeper"
 
-	providermodulekeeper "topchain/x/provider/keeper"
 	subscriptionmodulekeeper "topchain/x/subscription/keeper"
 
 	// this line is used by starport scaffolding # stargate/app/moduleImport
@@ -143,7 +142,6 @@ type App struct {
 	ScopedICAHostKeeper       capabilitykeeper.ScopedKeeper
 	ScopedKeepers             map[string]capabilitykeeper.ScopedKeeper
 
-	ProviderKeeper     providermodulekeeper.Keeper
 	SubscriptionKeeper subscriptionmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
@@ -248,7 +246,6 @@ func New(
 		&app.NFTKeeper,
 		&app.GroupKeeper,
 		&app.CircuitBreakerKeeper,
-		&app.ProviderKeeper,
 		&app.SubscriptionKeeper,
 		// this line is used by starport scaffolding # stargate/app/keeperDefinition
 	); err != nil {

@@ -72,3 +72,19 @@ message MsgUpdateOffer {
 }
 
 message MsgUpdateOfferResponse {}
+
+message MsgAcceptSubscription {
+  option (cosmos.msg.v1.signer) = "provider";
+  string provider        = 1;
+  string subscription_id = 2;
+}
+
+message MsgAcceptSubscriptionResponse {}
+
+message MsgCancelSubscription {
+  option (cosmos.msg.v1.signer) = "provider";
+  string provider        = 1;
+  string subscription_id = 2;
+}
+
+message MsgCancelSubscriptionResponse {}
