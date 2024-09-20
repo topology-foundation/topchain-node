@@ -12,12 +12,12 @@ func (k msgServer) RequestSubscription(goCtx context.Context, msg *types.MsgRequ
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var subscription = types.Subscription{
-		Croid:    msg.Croid,
-		Ammount:  msg.Ammount,
-		Duration: msg.Duration,
 		Creator:  msg.Creator,
+		CroId:    msg.CroId,
+		Amount:   msg.Amount,
+		Duration: msg.Duration,
 	}
 	hash := k.AddSubscription(ctx, subscription)
 
-	return &types.MsgRequestSubscriptionResponse{Subscriptionid: hash}, nil
+	return &types.MsgRequestSubscriptionResponse{SubscriptionId: hash}, nil
 }

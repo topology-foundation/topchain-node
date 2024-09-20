@@ -8,11 +8,11 @@ import (
 
 var _ sdk.Msg = &MsgRequestSubscription{}
 
-func NewMsgRequestSubscription(creator string, croid string, ammount string, duration string) *MsgRequestSubscription {
+func NewMsgRequestSubscription(creator string, croid string, amount uint64, duration int32) *MsgRequestSubscription {
 	return &MsgRequestSubscription{
 		Creator:  creator,
-		Croid:    croid,
-		Ammount:  ammount,
+		CroId:    croid,
+		Amount:   amount,
 		Duration: duration,
 	}
 }

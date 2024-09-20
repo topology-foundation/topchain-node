@@ -14,19 +14,19 @@ import (
 
 var (
 	md_Subscription          protoreflect.MessageDescriptor
-	fd_Subscription_croid    protoreflect.FieldDescriptor
-	fd_Subscription_ammount  protoreflect.FieldDescriptor
-	fd_Subscription_duration protoreflect.FieldDescriptor
 	fd_Subscription_creator  protoreflect.FieldDescriptor
+	fd_Subscription_cro_id   protoreflect.FieldDescriptor
+	fd_Subscription_amount   protoreflect.FieldDescriptor
+	fd_Subscription_duration protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_topchain_requester_subscription_proto_init()
 	md_Subscription = File_topchain_requester_subscription_proto.Messages().ByName("Subscription")
-	fd_Subscription_croid = md_Subscription.Fields().ByName("croid")
-	fd_Subscription_ammount = md_Subscription.Fields().ByName("ammount")
-	fd_Subscription_duration = md_Subscription.Fields().ByName("duration")
 	fd_Subscription_creator = md_Subscription.Fields().ByName("creator")
+	fd_Subscription_cro_id = md_Subscription.Fields().ByName("cro_id")
+	fd_Subscription_amount = md_Subscription.Fields().ByName("amount")
+	fd_Subscription_duration = md_Subscription.Fields().ByName("duration")
 }
 
 var _ protoreflect.Message = (*fastReflection_Subscription)(nil)
@@ -94,27 +94,27 @@ func (x *fastReflection_Subscription) Interface() protoreflect.ProtoMessage {
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
 func (x *fastReflection_Subscription) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
-	if x.Croid != "" {
-		value := protoreflect.ValueOfString(x.Croid)
-		if !f(fd_Subscription_croid, value) {
-			return
-		}
-	}
-	if x.Ammount != "" {
-		value := protoreflect.ValueOfString(x.Ammount)
-		if !f(fd_Subscription_ammount, value) {
-			return
-		}
-	}
-	if x.Duration != "" {
-		value := protoreflect.ValueOfString(x.Duration)
-		if !f(fd_Subscription_duration, value) {
-			return
-		}
-	}
 	if x.Creator != "" {
 		value := protoreflect.ValueOfString(x.Creator)
 		if !f(fd_Subscription_creator, value) {
+			return
+		}
+	}
+	if x.CroId != "" {
+		value := protoreflect.ValueOfString(x.CroId)
+		if !f(fd_Subscription_cro_id, value) {
+			return
+		}
+	}
+	if x.Amount != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.Amount)
+		if !f(fd_Subscription_amount, value) {
+			return
+		}
+	}
+	if x.Duration != int32(0) {
+		value := protoreflect.ValueOfInt32(x.Duration)
+		if !f(fd_Subscription_duration, value) {
 			return
 		}
 	}
@@ -133,14 +133,14 @@ func (x *fastReflection_Subscription) Range(f func(protoreflect.FieldDescriptor,
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_Subscription) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "topchain.requester.Subscription.croid":
-		return x.Croid != ""
-	case "topchain.requester.Subscription.ammount":
-		return x.Ammount != ""
-	case "topchain.requester.Subscription.duration":
-		return x.Duration != ""
 	case "topchain.requester.Subscription.creator":
 		return x.Creator != ""
+	case "topchain.requester.Subscription.cro_id":
+		return x.CroId != ""
+	case "topchain.requester.Subscription.amount":
+		return x.Amount != uint64(0)
+	case "topchain.requester.Subscription.duration":
+		return x.Duration != int32(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.requester.Subscription"))
@@ -157,14 +157,14 @@ func (x *fastReflection_Subscription) Has(fd protoreflect.FieldDescriptor) bool 
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_Subscription) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "topchain.requester.Subscription.croid":
-		x.Croid = ""
-	case "topchain.requester.Subscription.ammount":
-		x.Ammount = ""
-	case "topchain.requester.Subscription.duration":
-		x.Duration = ""
 	case "topchain.requester.Subscription.creator":
 		x.Creator = ""
+	case "topchain.requester.Subscription.cro_id":
+		x.CroId = ""
+	case "topchain.requester.Subscription.amount":
+		x.Amount = uint64(0)
+	case "topchain.requester.Subscription.duration":
+		x.Duration = int32(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.requester.Subscription"))
@@ -181,18 +181,18 @@ func (x *fastReflection_Subscription) Clear(fd protoreflect.FieldDescriptor) {
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_Subscription) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "topchain.requester.Subscription.croid":
-		value := x.Croid
-		return protoreflect.ValueOfString(value)
-	case "topchain.requester.Subscription.ammount":
-		value := x.Ammount
-		return protoreflect.ValueOfString(value)
-	case "topchain.requester.Subscription.duration":
-		value := x.Duration
-		return protoreflect.ValueOfString(value)
 	case "topchain.requester.Subscription.creator":
 		value := x.Creator
 		return protoreflect.ValueOfString(value)
+	case "topchain.requester.Subscription.cro_id":
+		value := x.CroId
+		return protoreflect.ValueOfString(value)
+	case "topchain.requester.Subscription.amount":
+		value := x.Amount
+		return protoreflect.ValueOfUint64(value)
+	case "topchain.requester.Subscription.duration":
+		value := x.Duration
+		return protoreflect.ValueOfInt32(value)
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.requester.Subscription"))
@@ -213,14 +213,14 @@ func (x *fastReflection_Subscription) Get(descriptor protoreflect.FieldDescripto
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_Subscription) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "topchain.requester.Subscription.croid":
-		x.Croid = value.Interface().(string)
-	case "topchain.requester.Subscription.ammount":
-		x.Ammount = value.Interface().(string)
-	case "topchain.requester.Subscription.duration":
-		x.Duration = value.Interface().(string)
 	case "topchain.requester.Subscription.creator":
 		x.Creator = value.Interface().(string)
+	case "topchain.requester.Subscription.cro_id":
+		x.CroId = value.Interface().(string)
+	case "topchain.requester.Subscription.amount":
+		x.Amount = value.Uint()
+	case "topchain.requester.Subscription.duration":
+		x.Duration = int32(value.Int())
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.requester.Subscription"))
@@ -241,14 +241,14 @@ func (x *fastReflection_Subscription) Set(fd protoreflect.FieldDescriptor, value
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_Subscription) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "topchain.requester.Subscription.croid":
-		panic(fmt.Errorf("field croid of message topchain.requester.Subscription is not mutable"))
-	case "topchain.requester.Subscription.ammount":
-		panic(fmt.Errorf("field ammount of message topchain.requester.Subscription is not mutable"))
-	case "topchain.requester.Subscription.duration":
-		panic(fmt.Errorf("field duration of message topchain.requester.Subscription is not mutable"))
 	case "topchain.requester.Subscription.creator":
 		panic(fmt.Errorf("field creator of message topchain.requester.Subscription is not mutable"))
+	case "topchain.requester.Subscription.cro_id":
+		panic(fmt.Errorf("field cro_id of message topchain.requester.Subscription is not mutable"))
+	case "topchain.requester.Subscription.amount":
+		panic(fmt.Errorf("field amount of message topchain.requester.Subscription is not mutable"))
+	case "topchain.requester.Subscription.duration":
+		panic(fmt.Errorf("field duration of message topchain.requester.Subscription is not mutable"))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.requester.Subscription"))
@@ -262,14 +262,14 @@ func (x *fastReflection_Subscription) Mutable(fd protoreflect.FieldDescriptor) p
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_Subscription) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "topchain.requester.Subscription.croid":
-		return protoreflect.ValueOfString("")
-	case "topchain.requester.Subscription.ammount":
-		return protoreflect.ValueOfString("")
-	case "topchain.requester.Subscription.duration":
-		return protoreflect.ValueOfString("")
 	case "topchain.requester.Subscription.creator":
 		return protoreflect.ValueOfString("")
+	case "topchain.requester.Subscription.cro_id":
+		return protoreflect.ValueOfString("")
+	case "topchain.requester.Subscription.amount":
+		return protoreflect.ValueOfUint64(uint64(0))
+	case "topchain.requester.Subscription.duration":
+		return protoreflect.ValueOfInt32(int32(0))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.requester.Subscription"))
@@ -339,21 +339,19 @@ func (x *fastReflection_Subscription) ProtoMethods() *protoiface.Methods {
 		var n int
 		var l int
 		_ = l
-		l = len(x.Croid)
-		if l > 0 {
-			n += 1 + l + runtime.Sov(uint64(l))
-		}
-		l = len(x.Ammount)
-		if l > 0 {
-			n += 1 + l + runtime.Sov(uint64(l))
-		}
-		l = len(x.Duration)
-		if l > 0 {
-			n += 1 + l + runtime.Sov(uint64(l))
-		}
 		l = len(x.Creator)
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		l = len(x.CroId)
+		if l > 0 {
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.Amount != 0 {
+			n += 1 + runtime.Sov(uint64(x.Amount))
+		}
+		if x.Duration != 0 {
+			n += 1 + runtime.Sov(uint64(x.Duration))
 		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
@@ -384,31 +382,27 @@ func (x *fastReflection_Subscription) ProtoMethods() *protoiface.Methods {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
 		}
+		if x.Duration != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.Duration))
+			i--
+			dAtA[i] = 0x20
+		}
+		if x.Amount != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.Amount))
+			i--
+			dAtA[i] = 0x18
+		}
+		if len(x.CroId) > 0 {
+			i -= len(x.CroId)
+			copy(dAtA[i:], x.CroId)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.CroId)))
+			i--
+			dAtA[i] = 0x12
+		}
 		if len(x.Creator) > 0 {
 			i -= len(x.Creator)
 			copy(dAtA[i:], x.Creator)
 			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Creator)))
-			i--
-			dAtA[i] = 0x22
-		}
-		if len(x.Duration) > 0 {
-			i -= len(x.Duration)
-			copy(dAtA[i:], x.Duration)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Duration)))
-			i--
-			dAtA[i] = 0x1a
-		}
-		if len(x.Ammount) > 0 {
-			i -= len(x.Ammount)
-			copy(dAtA[i:], x.Ammount)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Ammount)))
-			i--
-			dAtA[i] = 0x12
-		}
-		if len(x.Croid) > 0 {
-			i -= len(x.Croid)
-			copy(dAtA[i:], x.Croid)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Croid)))
 			i--
 			dAtA[i] = 0xa
 		}
@@ -463,102 +457,6 @@ func (x *fastReflection_Subscription) ProtoMethods() *protoiface.Methods {
 			switch fieldNum {
 			case 1:
 				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Croid", wireType)
-				}
-				var stringLen uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
-					}
-					if iNdEx >= l {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					stringLen |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				intStringLen := int(stringLen)
-				if intStringLen < 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
-				}
-				postIndex := iNdEx + intStringLen
-				if postIndex < 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
-				}
-				if postIndex > l {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-				}
-				x.Croid = string(dAtA[iNdEx:postIndex])
-				iNdEx = postIndex
-			case 2:
-				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Ammount", wireType)
-				}
-				var stringLen uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
-					}
-					if iNdEx >= l {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					stringLen |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				intStringLen := int(stringLen)
-				if intStringLen < 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
-				}
-				postIndex := iNdEx + intStringLen
-				if postIndex < 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
-				}
-				if postIndex > l {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-				}
-				x.Ammount = string(dAtA[iNdEx:postIndex])
-				iNdEx = postIndex
-			case 3:
-				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Duration", wireType)
-				}
-				var stringLen uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
-					}
-					if iNdEx >= l {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					stringLen |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				intStringLen := int(stringLen)
-				if intStringLen < 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
-				}
-				postIndex := iNdEx + intStringLen
-				if postIndex < 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
-				}
-				if postIndex > l {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-				}
-				x.Duration = string(dAtA[iNdEx:postIndex])
-				iNdEx = postIndex
-			case 4:
-				if wireType != 2 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
 				}
 				var stringLen uint64
@@ -589,6 +487,76 @@ func (x *fastReflection_Subscription) ProtoMethods() *protoiface.Methods {
 				}
 				x.Creator = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
+			case 2:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field CroId", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.CroId = string(dAtA[iNdEx:postIndex])
+				iNdEx = postIndex
+			case 3:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Amount", wireType)
+				}
+				x.Amount = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.Amount |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 4:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Duration", wireType)
+				}
+				x.Duration = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.Duration |= int32(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
 			default:
 				iNdEx = preIndex
 				skippy, err := runtime.Skip(dAtA[iNdEx:])
@@ -642,10 +610,10 @@ type Subscription struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Croid    string `protobuf:"bytes,1,opt,name=croid,proto3" json:"croid,omitempty"`
-	Ammount  string `protobuf:"bytes,2,opt,name=ammount,proto3" json:"ammount,omitempty"`
-	Duration string `protobuf:"bytes,3,opt,name=duration,proto3" json:"duration,omitempty"`
-	Creator  string `protobuf:"bytes,4,opt,name=creator,proto3" json:"creator,omitempty"`
+	Creator  string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	CroId    string `protobuf:"bytes,2,opt,name=cro_id,json=croId,proto3" json:"cro_id,omitempty"`
+	Amount   uint64 `protobuf:"varint,3,opt,name=amount,proto3" json:"amount,omitempty"`
+	Duration int32  `protobuf:"varint,4,opt,name=duration,proto3" json:"duration,omitempty"`
 }
 
 func (x *Subscription) Reset() {
@@ -668,32 +636,32 @@ func (*Subscription) Descriptor() ([]byte, []int) {
 	return file_topchain_requester_subscription_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Subscription) GetCroid() string {
-	if x != nil {
-		return x.Croid
-	}
-	return ""
-}
-
-func (x *Subscription) GetAmmount() string {
-	if x != nil {
-		return x.Ammount
-	}
-	return ""
-}
-
-func (x *Subscription) GetDuration() string {
-	if x != nil {
-		return x.Duration
-	}
-	return ""
-}
-
 func (x *Subscription) GetCreator() string {
 	if x != nil {
 		return x.Creator
 	}
 	return ""
+}
+
+func (x *Subscription) GetCroId() string {
+	if x != nil {
+		return x.CroId
+	}
+	return ""
+}
+
+func (x *Subscription) GetAmount() uint64 {
+	if x != nil {
+		return x.Amount
+	}
+	return 0
+}
+
+func (x *Subscription) GetDuration() int32 {
+	if x != nil {
+		return x.Duration
+	}
+	return 0
 }
 
 var File_topchain_requester_subscription_proto protoreflect.FileDescriptor
@@ -702,27 +670,26 @@ var file_topchain_requester_subscription_proto_rawDesc = []byte{
 	0x0a, 0x25, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x72, 0x65, 0x71, 0x75, 0x65,
 	0x73, 0x74, 0x65, 0x72, 0x2f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
 	0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x12, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69,
-	0x6e, 0x2e, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x22, 0x74, 0x0a, 0x0c, 0x53,
-	0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x14, 0x0a, 0x05, 0x63,
-	0x72, 0x6f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x63, 0x72, 0x6f, 0x69,
-	0x64, 0x12, 0x18, 0x0a, 0x07, 0x61, 0x6d, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x07, 0x61, 0x6d, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x64,
-	0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x64,
-	0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74,
-	0x6f, 0x72, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f,
-	0x72, 0x42, 0xb5, 0x01, 0x0a, 0x16, 0x63, 0x6f, 0x6d, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61,
-	0x69, 0x6e, 0x2e, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x42, 0x11, 0x53, 0x75,
-	0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50,
-	0x01, 0x5a, 0x1f, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f,
-	0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x65, 0x72, 0xa2, 0x02, 0x03, 0x54, 0x52, 0x58, 0xaa, 0x02, 0x12, 0x54, 0x6f, 0x70, 0x63, 0x68,
-	0x61, 0x69, 0x6e, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0xca, 0x02, 0x12,
-	0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x65, 0x72, 0xe2, 0x02, 0x1e, 0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64,
-	0x61, 0x74, 0x61, 0xea, 0x02, 0x13, 0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x3a, 0x3a,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x6e, 0x2e, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x22, 0x73, 0x0a, 0x0c, 0x53,
+	0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x18, 0x0a, 0x07, 0x63,
+	0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x72,
+	0x65, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x15, 0x0a, 0x06, 0x63, 0x72, 0x6f, 0x5f, 0x69, 0x64, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x63, 0x72, 0x6f, 0x49, 0x64, 0x12, 0x16, 0x0a, 0x06,
+	0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x61, 0x6d,
+	0x6f, 0x75, 0x6e, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x64, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x18, 0x04, 0x20, 0x01, 0x28, 0x05, 0x52, 0x08, 0x64, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x42, 0xb5, 0x01, 0x0a, 0x16, 0x63, 0x6f, 0x6d, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69,
+	0x6e, 0x2e, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x42, 0x11, 0x53, 0x75, 0x62,
+	0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01,
+	0x5a, 0x1f, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x74,
+	0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65,
+	0x72, 0xa2, 0x02, 0x03, 0x54, 0x52, 0x58, 0xaa, 0x02, 0x12, 0x54, 0x6f, 0x70, 0x63, 0x68, 0x61,
+	0x69, 0x6e, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0xca, 0x02, 0x12, 0x54,
+	0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65,
+	0x72, 0xe2, 0x02, 0x1e, 0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61,
+	0x74, 0x61, 0xea, 0x02, 0x13, 0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x3a, 0x3a, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (

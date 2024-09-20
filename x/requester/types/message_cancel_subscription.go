@@ -11,7 +11,7 @@ var _ sdk.Msg = &MsgCancelSubscription{}
 func NewMsgCancelSubscription(creator string, subscriptionid string) *MsgCancelSubscription {
 	return &MsgCancelSubscription{
 		Creator:        creator,
-		Subscriptionid: subscriptionid,
+		SubscriptionId: subscriptionid,
 	}
 }
 

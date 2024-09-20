@@ -23,10 +23,10 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type Subscription struct {
-	Croid    string `protobuf:"bytes,1,opt,name=croid,proto3" json:"croid,omitempty"`
-	Ammount  string `protobuf:"bytes,2,opt,name=ammount,proto3" json:"ammount,omitempty"`
-	Duration string `protobuf:"bytes,3,opt,name=duration,proto3" json:"duration,omitempty"`
-	Creator  string `protobuf:"bytes,4,opt,name=creator,proto3" json:"creator,omitempty"`
+	Creator  string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	CroId    string `protobuf:"bytes,2,opt,name=cro_id,json=croId,proto3" json:"cro_id,omitempty"`
+	Amount   uint64 `protobuf:"varint,3,opt,name=amount,proto3" json:"amount,omitempty"`
+	Duration int32  `protobuf:"varint,4,opt,name=duration,proto3" json:"duration,omitempty"`
 }
 
 func (m *Subscription) Reset()         { *m = Subscription{} }
@@ -62,32 +62,32 @@ func (m *Subscription) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Subscription proto.InternalMessageInfo
 
-func (m *Subscription) GetCroid() string {
-	if m != nil {
-		return m.Croid
-	}
-	return ""
-}
-
-func (m *Subscription) GetAmmount() string {
-	if m != nil {
-		return m.Ammount
-	}
-	return ""
-}
-
-func (m *Subscription) GetDuration() string {
-	if m != nil {
-		return m.Duration
-	}
-	return ""
-}
-
 func (m *Subscription) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
+}
+
+func (m *Subscription) GetCroId() string {
+	if m != nil {
+		return m.CroId
+	}
+	return ""
+}
+
+func (m *Subscription) GetAmount() uint64 {
+	if m != nil {
+		return m.Amount
+	}
+	return 0
+}
+
+func (m *Subscription) GetDuration() int32 {
+	if m != nil {
+		return m.Duration
+	}
+	return 0
 }
 
 func init() {
@@ -99,19 +99,20 @@ func init() {
 }
 
 var fileDescriptor_c97968174205996f = []byte{
-	// 187 bytes of a gzipped FileDescriptorProto
+	// 200 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0x2d, 0xc9, 0x2f, 0x48,
 	0xce, 0x48, 0xcc, 0xcc, 0xd3, 0x2f, 0x4a, 0x2d, 0x2c, 0x4d, 0x2d, 0x2e, 0x49, 0x2d, 0xd2, 0x2f,
 	0x2e, 0x4d, 0x2a, 0x4e, 0x2e, 0xca, 0x2c, 0x28, 0xc9, 0xcc, 0xcf, 0xd3, 0x2b, 0x28, 0xca, 0x2f,
-	0xc9, 0x17, 0x12, 0x82, 0x29, 0xd3, 0x83, 0x2b, 0x53, 0x2a, 0xe1, 0xe2, 0x09, 0x46, 0x52, 0x29,
-	0x24, 0xc2, 0xc5, 0x9a, 0x5c, 0x94, 0x9f, 0x99, 0x22, 0xc1, 0xa8, 0xc0, 0xa8, 0xc1, 0x19, 0x04,
-	0xe1, 0x08, 0x49, 0x70, 0xb1, 0x27, 0xe6, 0xe6, 0xe6, 0x97, 0xe6, 0x95, 0x48, 0x30, 0x81, 0xc5,
-	0x61, 0x5c, 0x21, 0x29, 0x2e, 0x8e, 0x94, 0xd2, 0xa2, 0x44, 0x90, 0x5e, 0x09, 0x66, 0xb0, 0x14,
-	0x9c, 0x0f, 0xd2, 0x95, 0x5c, 0x94, 0x9a, 0x58, 0x92, 0x5f, 0x24, 0xc1, 0x02, 0xd1, 0x05, 0xe5,
-	0x3a, 0x99, 0x9c, 0x78, 0x24, 0xc7, 0x78, 0xe1, 0x91, 0x1c, 0xe3, 0x83, 0x47, 0x72, 0x8c, 0x13,
-	0x1e, 0xcb, 0x31, 0x5c, 0x78, 0x2c, 0xc7, 0x70, 0xe3, 0xb1, 0x1c, 0x43, 0x94, 0x14, 0xdc, 0x2b,
-	0x15, 0x48, 0x9e, 0x29, 0xa9, 0x2c, 0x48, 0x2d, 0x4e, 0x62, 0x03, 0x7b, 0xc3, 0x18, 0x10, 0x00,
-	0x00, 0xff, 0xff, 0x55, 0x9a, 0x92, 0x2a, 0xef, 0x00, 0x00, 0x00,
+	0xc9, 0x17, 0x12, 0x82, 0x29, 0xd3, 0x83, 0x2b, 0x53, 0x2a, 0xe6, 0xe2, 0x09, 0x46, 0x52, 0x29,
+	0x24, 0xc1, 0xc5, 0x9e, 0x5c, 0x94, 0x9a, 0x58, 0x92, 0x5f, 0x24, 0xc1, 0xa8, 0xc0, 0xa8, 0xc1,
+	0x19, 0x04, 0xe3, 0x0a, 0x89, 0x72, 0xb1, 0x25, 0x17, 0xe5, 0xc7, 0x67, 0xa6, 0x48, 0x30, 0x81,
+	0x25, 0x58, 0x93, 0x8b, 0xf2, 0x3d, 0x53, 0x84, 0xc4, 0xb8, 0xd8, 0x12, 0x73, 0xf3, 0x4b, 0xf3,
+	0x4a, 0x24, 0x98, 0x15, 0x18, 0x35, 0x58, 0x82, 0xa0, 0x3c, 0x21, 0x29, 0x2e, 0x8e, 0x94, 0xd2,
+	0xa2, 0x44, 0x90, 0xa1, 0x12, 0x2c, 0x0a, 0x8c, 0x1a, 0xac, 0x41, 0x70, 0xbe, 0x93, 0xc9, 0x89,
+	0x47, 0x72, 0x8c, 0x17, 0x1e, 0xc9, 0x31, 0x3e, 0x78, 0x24, 0xc7, 0x38, 0xe1, 0xb1, 0x1c, 0xc3,
+	0x85, 0xc7, 0x72, 0x0c, 0x37, 0x1e, 0xcb, 0x31, 0x44, 0x49, 0xc1, 0x7d, 0x52, 0x81, 0xe4, 0x97,
+	0x92, 0xca, 0x82, 0xd4, 0xe2, 0x24, 0x36, 0xb0, 0x2f, 0x8c, 0x01, 0x01, 0x00, 0x00, 0xff, 0xff,
+	0xa8, 0xa9, 0x5a, 0x08, 0xee, 0x00, 0x00, 0x00,
 }
 
 func (m *Subscription) Marshal() (dAtA []byte, err error) {
@@ -134,31 +135,27 @@ func (m *Subscription) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if m.Duration != 0 {
+		i = encodeVarintSubscription(dAtA, i, uint64(m.Duration))
+		i--
+		dAtA[i] = 0x20
+	}
+	if m.Amount != 0 {
+		i = encodeVarintSubscription(dAtA, i, uint64(m.Amount))
+		i--
+		dAtA[i] = 0x18
+	}
+	if len(m.CroId) > 0 {
+		i -= len(m.CroId)
+		copy(dAtA[i:], m.CroId)
+		i = encodeVarintSubscription(dAtA, i, uint64(len(m.CroId)))
+		i--
+		dAtA[i] = 0x12
+	}
 	if len(m.Creator) > 0 {
 		i -= len(m.Creator)
 		copy(dAtA[i:], m.Creator)
 		i = encodeVarintSubscription(dAtA, i, uint64(len(m.Creator)))
-		i--
-		dAtA[i] = 0x22
-	}
-	if len(m.Duration) > 0 {
-		i -= len(m.Duration)
-		copy(dAtA[i:], m.Duration)
-		i = encodeVarintSubscription(dAtA, i, uint64(len(m.Duration)))
-		i--
-		dAtA[i] = 0x1a
-	}
-	if len(m.Ammount) > 0 {
-		i -= len(m.Ammount)
-		copy(dAtA[i:], m.Ammount)
-		i = encodeVarintSubscription(dAtA, i, uint64(len(m.Ammount)))
-		i--
-		dAtA[i] = 0x12
-	}
-	if len(m.Croid) > 0 {
-		i -= len(m.Croid)
-		copy(dAtA[i:], m.Croid)
-		i = encodeVarintSubscription(dAtA, i, uint64(len(m.Croid)))
 		i--
 		dAtA[i] = 0xa
 	}
@@ -182,21 +179,19 @@ func (m *Subscription) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.Croid)
-	if l > 0 {
-		n += 1 + l + sovSubscription(uint64(l))
-	}
-	l = len(m.Ammount)
-	if l > 0 {
-		n += 1 + l + sovSubscription(uint64(l))
-	}
-	l = len(m.Duration)
-	if l > 0 {
-		n += 1 + l + sovSubscription(uint64(l))
-	}
 	l = len(m.Creator)
 	if l > 0 {
 		n += 1 + l + sovSubscription(uint64(l))
+	}
+	l = len(m.CroId)
+	if l > 0 {
+		n += 1 + l + sovSubscription(uint64(l))
+	}
+	if m.Amount != 0 {
+		n += 1 + sovSubscription(uint64(m.Amount))
+	}
+	if m.Duration != 0 {
+		n += 1 + sovSubscription(uint64(m.Duration))
 	}
 	return n
 }
@@ -238,102 +233,6 @@ func (m *Subscription) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Croid", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowSubscription
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthSubscription
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthSubscription
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Croid = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Ammount", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowSubscription
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthSubscription
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthSubscription
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Ammount = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 3:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Duration", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowSubscription
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthSubscription
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthSubscription
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Duration = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 4:
-			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
 			}
 			var stringLen uint64
@@ -364,6 +263,76 @@ func (m *Subscription) Unmarshal(dAtA []byte) error {
 			}
 			m.Creator = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CroId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSubscription
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSubscription
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSubscription
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CroId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Amount", wireType)
+			}
+			m.Amount = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSubscription
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Amount |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Duration", wireType)
+			}
+			m.Duration = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSubscription
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Duration |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipSubscription(dAtA[iNdEx:])

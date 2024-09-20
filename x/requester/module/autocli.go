@@ -37,15 +37,15 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				},
 				{
 					RpcMethod:      "RequestSubscription",
-					Use:            "request-subscription [croid] [ammount] [duration]",
+					Use:            "request-subscription [cro_id] [amount] [duration]",
 					Short:          "Send a request-subscription tx",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "croid"}, {ProtoField: "ammount"}, {ProtoField: "duration"}},
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cro_id"}, {ProtoField: "amount"}, {ProtoField: "duration"}},
 				},
 				{
 					RpcMethod:      "CancelSubscription",
-					Use:            "cancel-subscription [subscriptionid]",
+					Use:            "cancel-subscription [subscription_id]",
 					Short:          "Send a cancel-subscription tx",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "subscriptionid"}},
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "subscription_id"}},
 				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},

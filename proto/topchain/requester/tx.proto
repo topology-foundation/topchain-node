@@ -41,19 +41,19 @@ message MsgUpdateParamsResponse {}
 message MsgRequestSubscription {
   option (cosmos.msg.v1.signer) = "creator";
   string creator  = 1;
-  string croid    = 2;
-  string ammount  = 3;
-  string duration = 4;
+  string cro_id    = 2;
+  uint64 amount  = 3;
+  int32 duration = 4;
 }
 
 message MsgRequestSubscriptionResponse {
-  string subscriptionid = 1;
+  string subscription_id = 1;
 }
 
 message MsgCancelSubscription {
   option (cosmos.msg.v1.signer) = "creator";
   string creator        = 1;
-  string subscriptionid = 2;
+  string subscription_id = 2;
 }
 
 message MsgCancelSubscriptionResponse {}

@@ -5,8 +5,8 @@ option go_package = "topchain/x/requester/types";
 
 message Subscription {
   
-  string croid = 1; 
-  string ammount = 2; 
-  string duration = 3; 
-  string creator = 4;
+  string creator = 1;
+  string cro_id = 2;
+  uint64 amount = 3;
+  int32 duration = 4;
 }
