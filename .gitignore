@@ -7,3 +7,4 @@ release/
 *.dot
 *.log
 *.ign
+go.work.sum

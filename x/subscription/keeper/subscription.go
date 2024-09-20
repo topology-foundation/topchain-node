@@ -5,16 +5,16 @@ import (
 	"encoding/hex"
 	"encoding/json"
 
+	"topchain/x/subscription/types"
+
 	"cosmossdk.io/store/prefix"
 	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-
-	"topchain/x/subscription/types"
 )
 
 func (k Keeper) AddSubscription(ctx sdk.Context, subscription types.Subscription) string {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SubscriptionKey))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SubscriptionKeyPrefix))
 	appendedValue := k.cdc.MustMarshal(&subscription)
 	subscriptionStringified, err := json.Marshal(subscription)
 	if err != nil {
@@ -27,19 +27,21 @@ func (k Keeper) AddSubscription(ctx sdk.Context, subscription types.Subscription
 	return hex.EncodeToString(hashed)
 }
 
-func (k Keeper) RemoveSubscription(ctx sdk.Context, subscriptionId string) {
+func (k Keeper) GetSubscription(ctx sdk.Context, subscriptionId string) (subscription types.Subscription, found bool) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SubscriptionKey))
-	store.Delete([]byte(subscriptionId))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SubscriptionKeyPrefix))
+
+	subscriptionBytes := store.Get([]byte(subscriptionId))
+	if subscriptionBytes == nil {
+		return subscription, false
+	}
+
+	k.cdc.MustUnmarshal(subscriptionBytes, &subscription)
+	return subscription, true
 }
 
-func (k Keeper) GetSubscription(ctx sdk.Context, subscriptionId string) (val types.Subscription, found bool) {
+func (k Keeper) RemoveSubscription(ctx sdk.Context, subscriptionId string) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SubscriptionKey))
-	b := store.Get([]byte(subscriptionId))
-	if b == nil {
-		return val, false
-	}
-	k.cdc.MustUnmarshal(b, &val)
-	return val, true
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SubscriptionKeyPrefix))
+	store.Delete([]byte(subscriptionId))
 }
