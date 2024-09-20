@@ -16299,6 +16299,70 @@ paths:
               parameters.
       tags:
         - Msg
+  /topchain/subscription/deal/{id}:
+    get:
+      operationId: TopchainSubscriptionQuery_Deal
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              deal:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  requester:
+                    type: string
+                  cro_id:
+                    type: string
+                  subscription_ids:
+                    type: array
+                    items:
+                      type: string
+                  status:
+                    type: string
+                    enum:
+                      - UNSPECIFIED
+                    default: UNSPECIFIED
+                  initial_amount:
+                    type: string
+                    format: uint64
+                  available_amount:
+                    type: string
+                    format: uint64
+                  start_block:
+                    type: string
+                    format: uint64
+                  end_block:
+                    type: string
+                    format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
   /topchain/subscription/params:
     get:
       summary: Parameters queries the parameters of the module.
@@ -23104,9 +23168,77 @@ definitions:
     description: |-
       Version defines the versioning scheme used to negotiate the IBC verison in
       the connection handshake.
+  topchain.subscription.Deal:
+    type: object
+    properties:
+      id:
+        type: string
+      requester:
+        type: string
+      cro_id:
+        type: string
+      subscription_ids:
+        type: array
+        items:
+          type: string
+      status:
+        type: string
+        enum:
+          - UNSPECIFIED
+        default: UNSPECIFIED
+      initial_amount:
+        type: string
+        format: uint64
+      available_amount:
+        type: string
+        format: uint64
+      start_block:
+        type: string
+        format: uint64
+      end_block:
+        type: string
+        format: uint64
+  topchain.subscription.Deal.Status:
+    type: string
+    enum:
+      - UNSPECIFIED
+    default: UNSPECIFIED
   topchain.subscription.Params:
     type: object
     description: Params defines the parameters for the module.
+  topchain.subscription.QueryDealResponse:
+    type: object
+    properties:
+      deal:
+        type: object
+        properties:
+          id:
+            type: string
+          requester:
+            type: string
+          cro_id:
+            type: string
+          subscription_ids:
+            type: array
+            items:
+              type: string
+          status:
+            type: string
+            enum:
+              - UNSPECIFIED
+            default: UNSPECIFIED
+          initial_amount:
+            type: string
+            format: uint64
+          available_amount:
+            type: string
+            format: uint64
+          start_block:
+            type: string
+            format: uint64
+          end_block:
+            type: string
+            format: uint64
   topchain.subscription.QueryParamsResponse:
     type: object
     properties:

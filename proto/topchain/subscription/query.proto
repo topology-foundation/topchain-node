@@ -7,7 +7,7 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "topchain/subscription/params.proto";
-import "topchain/subscription/offer.proto";
+import "topchain/subscription/deal.proto";
 import "topchain/subscription/subscription.proto";
 
 option go_package = "topchain/x/subscription/types";
@@ -19,6 +19,22 @@ service Query {
   rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/topchain/subscription/params";
   }
+
+  rpc Deal(QueryDealRequest) returns (QueryDealResponse) {
+	option (google.api.http).get = "/topchain/subscription/deal/{id}";
+  }
+
+  // rpc DealStatus(QueryDealStatusRequest) returns (QueryDealStatusResponse) {
+  // 	option (google.api.http).get = "/topchain/subscription/deal_status/{id}";
+  // }
+
+  // rpc Subscription(QuerySubscriptionRequest) returns (QuerySubscriptionResponse) {
+  // 	option (google.api.http).get = "/topchain/subscription/subscription/{id}";
+  // }
+
+  // rpc Subscriptions(QuerySubscriptionsRequest) returns (QuerySubscriptionsResponse) {
+  // 	option (google.api.http).get = "/topchain/subscription/subscriptions/{provider}";
+  // }
 }
 
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -30,12 +46,20 @@ message QueryParamsResponse {
   Params params = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
 }
 
-message QueryOfferRequest {
+message QueryDealRequest {
   string id = 1;
 }
 
-message QueryOfferResponse {
-  topchain.subscription.Offer offer = 1 [(gogoproto.nullable) = false];
+message QueryDealResponse {
+  topchain.subscription.Deal deal = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryDealStatusRequest {
+  string id = 1;
+}
+
+message QueryDealStatusResponse {
+  topchain.subscription.Deal.Status status = 1;
 }
 
 message QuerySubscriptionRequest {
@@ -44,14 +68,6 @@ message QuerySubscriptionRequest {
 
 message QuerySubscriptionResponse {
   topchain.subscription.Subscription subscription = 1 [(gogoproto.nullable) = false];
-}
-
-message QuerySubscriptionStatusRequest {
-  string subscription_id = 1;
-}
-
-message QuerySubscriptionStatusResponse {
-  string subscription_id = 1;
 }
 
 message QuerySubscriptionsRequest {
