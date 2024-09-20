@@ -15,3 +15,11 @@ func (k Keeper) Deal(ctx context.Context, req *types.QueryDealRequest) (*types.Q
 
 	return &types.QueryDealResponse{}, nil
 }
+
+func (k Keeper) DealStatus(ctx context.Context, req *types.QueryDealStatusRequest) (*types.QueryDealStatusResponse, error) {
+	if req == nil {
+		return nil, status.Error(codes.InvalidArgument, "invalid request")
+	}
+
+	return &types.QueryDealStatusResponse{}, nil
+}

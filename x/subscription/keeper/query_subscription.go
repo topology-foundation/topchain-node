@@ -15,3 +15,11 @@ func (k Keeper) Subscription(ctx context.Context, req *types.QuerySubscriptionRe
 
 	return &types.QuerySubscriptionResponse{}, nil
 }
+
+func (k Keeper) Subscriptions(ctx context.Context, req *types.QuerySubscriptionsRequest) (*types.QuerySubscriptionsResponse, error) {
+	if req == nil {
+		return nil, status.Error(codes.InvalidArgument, "invalid request")
+	}
+
+	return &types.QuerySubscriptionsResponse{}, nil
+}
