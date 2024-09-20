@@ -4,9 +4,9 @@ package topchain.subscription;
 option go_package = "topchain/x/subscription/types";
 
 message Subscription {
-
-  string creator = 1;
-  string cro_id = 2;
-  uint64 amount = 3;
-  int32 duration = 4;
+  string id = 1;
+  string request_id = 2;
+  string subscriber = 3;
+  uint64 start_block = 4;
+  uint64 end_block = 5;
 }

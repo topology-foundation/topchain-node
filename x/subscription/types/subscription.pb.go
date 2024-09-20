@@ -23,10 +23,11 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type Subscription struct {
-	Creator  string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	CroId    string `protobuf:"bytes,2,opt,name=cro_id,json=croId,proto3" json:"cro_id,omitempty"`
-	Amount   uint64 `protobuf:"varint,3,opt,name=amount,proto3" json:"amount,omitempty"`
-	Duration int32  `protobuf:"varint,4,opt,name=duration,proto3" json:"duration,omitempty"`
+	Id         string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	RequestId  string `protobuf:"bytes,2,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
+	Subscriber string `protobuf:"bytes,3,opt,name=subscriber,proto3" json:"subscriber,omitempty"`
+	StartBlock uint64 `protobuf:"varint,4,opt,name=start_block,json=startBlock,proto3" json:"start_block,omitempty"`
+	EndBlock   uint64 `protobuf:"varint,5,opt,name=end_block,json=endBlock,proto3" json:"end_block,omitempty"`
 }
 
 func (m *Subscription) Reset()         { *m = Subscription{} }
@@ -62,30 +63,37 @@ func (m *Subscription) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Subscription proto.InternalMessageInfo
 
-func (m *Subscription) GetCreator() string {
+func (m *Subscription) GetId() string {
 	if m != nil {
-		return m.Creator
+		return m.Id
 	}
 	return ""
 }
 
-func (m *Subscription) GetCroId() string {
+func (m *Subscription) GetRequestId() string {
 	if m != nil {
-		return m.CroId
+		return m.RequestId
 	}
 	return ""
 }
 
-func (m *Subscription) GetAmount() uint64 {
+func (m *Subscription) GetSubscriber() string {
 	if m != nil {
-		return m.Amount
+		return m.Subscriber
+	}
+	return ""
+}
+
+func (m *Subscription) GetStartBlock() uint64 {
+	if m != nil {
+		return m.StartBlock
 	}
 	return 0
 }
 
-func (m *Subscription) GetDuration() int32 {
+func (m *Subscription) GetEndBlock() uint64 {
 	if m != nil {
-		return m.Duration
+		return m.EndBlock
 	}
 	return 0
 }
@@ -99,19 +107,21 @@ func init() {
 }
 
 var fileDescriptor_f6aa30eaaa7d0617 = []byte{
-	// 190 bytes of a gzipped FileDescriptorProto
+	// 214 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xd2, 0x28, 0xc9, 0x2f, 0x48,
 	0xce, 0x48, 0xcc, 0xcc, 0xd3, 0x2f, 0x2e, 0x4d, 0x2a, 0x4e, 0x2e, 0xca, 0x2c, 0x28, 0xc9, 0xcc,
 	0x47, 0xe5, 0xe8, 0x15, 0x14, 0xe5, 0x97, 0xe4, 0x0b, 0x89, 0xc2, 0x54, 0xea, 0x21, 0x4b, 0x2a,
-	0x15, 0x73, 0xf1, 0x04, 0x23, 0xf1, 0x85, 0x24, 0xb8, 0xd8, 0x93, 0x8b, 0x52, 0x13, 0x4b, 0xf2,
-	0x8b, 0x24, 0x18, 0x15, 0x18, 0x35, 0x38, 0x83, 0x60, 0x5c, 0x21, 0x51, 0x2e, 0xb6, 0xe4, 0xa2,
-	0xfc, 0xf8, 0xcc, 0x14, 0x09, 0x26, 0xb0, 0x04, 0x6b, 0x72, 0x51, 0xbe, 0x67, 0x8a, 0x90, 0x18,
-	0x17, 0x5b, 0x62, 0x6e, 0x7e, 0x69, 0x5e, 0x89, 0x04, 0xb3, 0x02, 0xa3, 0x06, 0x4b, 0x10, 0x94,
-	0x27, 0x24, 0xc5, 0xc5, 0x91, 0x52, 0x5a, 0x94, 0x08, 0x32, 0x54, 0x82, 0x45, 0x81, 0x51, 0x83,
-	0x35, 0x08, 0xce, 0x77, 0x32, 0x3f, 0xf1, 0x48, 0x8e, 0xf1, 0xc2, 0x23, 0x39, 0xc6, 0x07, 0x8f,
-	0xe4, 0x18, 0x27, 0x3c, 0x96, 0x63, 0xb8, 0xf0, 0x58, 0x8e, 0xe1, 0xc6, 0x63, 0x39, 0x86, 0x28,
-	0x59, 0xb8, 0x7f, 0x2a, 0x50, 0x7d, 0x54, 0x52, 0x59, 0x90, 0x5a, 0x9c, 0xc4, 0x06, 0xf6, 0x8b,
-	0x31, 0x20, 0x00, 0x00, 0xff, 0xff, 0x26, 0x77, 0x99, 0x83, 0xf7, 0x00, 0x00, 0x00,
+	0xcd, 0x66, 0xe4, 0xe2, 0x09, 0x46, 0x12, 0x10, 0xe2, 0xe3, 0x62, 0xca, 0x4c, 0x91, 0x60, 0x54,
+	0x60, 0xd4, 0xe0, 0x0c, 0x62, 0xca, 0x4c, 0x11, 0x92, 0xe5, 0xe2, 0x2a, 0x4a, 0x2d, 0x2c, 0x4d,
+	0x2d, 0x2e, 0x89, 0xcf, 0x4c, 0x91, 0x60, 0x02, 0x8b, 0x73, 0x42, 0x45, 0x3c, 0x53, 0x84, 0xe4,
+	0xb8, 0xb8, 0xa0, 0xe6, 0x25, 0xa5, 0x16, 0x49, 0x30, 0x83, 0xa5, 0x91, 0x44, 0x84, 0xe4, 0xb9,
+	0xb8, 0x8b, 0x4b, 0x12, 0x8b, 0x4a, 0xe2, 0x93, 0x72, 0xf2, 0x93, 0xb3, 0x25, 0x58, 0x14, 0x18,
+	0x35, 0x58, 0x82, 0xb8, 0xc0, 0x42, 0x4e, 0x20, 0x11, 0x21, 0x69, 0x2e, 0xce, 0xd4, 0xbc, 0x14,
+	0xa8, 0x34, 0x2b, 0x58, 0x9a, 0x23, 0x35, 0x2f, 0x05, 0x2c, 0xe9, 0x64, 0x7e, 0xe2, 0x91, 0x1c,
+	0xe3, 0x85, 0x47, 0x72, 0x8c, 0x0f, 0x1e, 0xc9, 0x31, 0x4e, 0x78, 0x2c, 0xc7, 0x70, 0xe1, 0xb1,
+	0x1c, 0xc3, 0x8d, 0xc7, 0x72, 0x0c, 0x51, 0xb2, 0x70, 0x8f, 0x57, 0xa0, 0x7a, 0xbd, 0xa4, 0xb2,
+	0x20, 0xb5, 0x38, 0x89, 0x0d, 0xec, 0x69, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0x8c, 0xd6,
+	0x7e, 0x4e, 0x20, 0x01, 0x00, 0x00,
 }
 
 func (m *Subscription) Marshal() (dAtA []byte, err error) {
@@ -134,27 +144,34 @@ func (m *Subscription) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Duration != 0 {
-		i = encodeVarintSubscription(dAtA, i, uint64(m.Duration))
+	if m.EndBlock != 0 {
+		i = encodeVarintSubscription(dAtA, i, uint64(m.EndBlock))
+		i--
+		dAtA[i] = 0x28
+	}
+	if m.StartBlock != 0 {
+		i = encodeVarintSubscription(dAtA, i, uint64(m.StartBlock))
 		i--
 		dAtA[i] = 0x20
 	}
-	if m.Amount != 0 {
-		i = encodeVarintSubscription(dAtA, i, uint64(m.Amount))
+	if len(m.Subscriber) > 0 {
+		i -= len(m.Subscriber)
+		copy(dAtA[i:], m.Subscriber)
+		i = encodeVarintSubscription(dAtA, i, uint64(len(m.Subscriber)))
 		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x1a
 	}
-	if len(m.CroId) > 0 {
-		i -= len(m.CroId)
-		copy(dAtA[i:], m.CroId)
-		i = encodeVarintSubscription(dAtA, i, uint64(len(m.CroId)))
+	if len(m.RequestId) > 0 {
+		i -= len(m.RequestId)
+		copy(dAtA[i:], m.RequestId)
+		i = encodeVarintSubscription(dAtA, i, uint64(len(m.RequestId)))
 		i--
 		dAtA[i] = 0x12
 	}
-	if len(m.Creator) > 0 {
-		i -= len(m.Creator)
-		copy(dAtA[i:], m.Creator)
-		i = encodeVarintSubscription(dAtA, i, uint64(len(m.Creator)))
+	if len(m.Id) > 0 {
+		i -= len(m.Id)
+		copy(dAtA[i:], m.Id)
+		i = encodeVarintSubscription(dAtA, i, uint64(len(m.Id)))
 		i--
 		dAtA[i] = 0xa
 	}
@@ -178,19 +195,23 @@ func (m *Subscription) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.Creator)
+	l = len(m.Id)
 	if l > 0 {
 		n += 1 + l + sovSubscription(uint64(l))
 	}
-	l = len(m.CroId)
+	l = len(m.RequestId)
 	if l > 0 {
 		n += 1 + l + sovSubscription(uint64(l))
 	}
-	if m.Amount != 0 {
-		n += 1 + sovSubscription(uint64(m.Amount))
+	l = len(m.Subscriber)
+	if l > 0 {
+		n += 1 + l + sovSubscription(uint64(l))
 	}
-	if m.Duration != 0 {
-		n += 1 + sovSubscription(uint64(m.Duration))
+	if m.StartBlock != 0 {
+		n += 1 + sovSubscription(uint64(m.StartBlock))
+	}
+	if m.EndBlock != 0 {
+		n += 1 + sovSubscription(uint64(m.EndBlock))
 	}
 	return n
 }
@@ -232,7 +253,7 @@ func (m *Subscription) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -260,11 +281,11 @@ func (m *Subscription) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Creator = string(dAtA[iNdEx:postIndex])
+			m.Id = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CroId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field RequestId", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -292,13 +313,13 @@ func (m *Subscription) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.CroId = string(dAtA[iNdEx:postIndex])
+			m.RequestId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Amount", wireType)
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Subscriber", wireType)
 			}
-			m.Amount = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowSubscription
@@ -308,16 +329,29 @@ func (m *Subscription) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Amount |= uint64(b&0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSubscription
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSubscription
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Subscriber = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 4:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Duration", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field StartBlock", wireType)
 			}
-			m.Duration = 0
+			m.StartBlock = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowSubscription
@@ -327,7 +361,26 @@ func (m *Subscription) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Duration |= int32(b&0x7F) << shift
+				m.StartBlock |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EndBlock", wireType)
+			}
+			m.EndBlock = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSubscription
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.EndBlock |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}

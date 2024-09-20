@@ -9,15 +9,7 @@ import (
 )
 
 func (k msgServer) RequestSubscription(goCtx context.Context, msg *types.MsgRequestSubscription) (*types.MsgRequestSubscriptionResponse, error) {
-	ctx := sdk.UnwrapSDKContext(goCtx)
+	_ = sdk.UnwrapSDKContext(goCtx)
 
-	var subscription = types.Subscription{
-		Creator:  msg.Creator,
-		CroId:    msg.CroId,
-		Amount:   msg.Amount,
-		Duration: msg.Duration,
-	}
-	hash := k.AddSubscription(ctx, subscription)
-
-	return &types.MsgRequestSubscriptionResponse{SubscriptionId: hash}, nil
+	return nil, nil
 }
