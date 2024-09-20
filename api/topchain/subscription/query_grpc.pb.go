@@ -19,8 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Query_Params_FullMethodName = "/topchain.subscription.Query/Params"
-	Query_Deal_FullMethodName   = "/topchain.subscription.Query/Deal"
+	Query_Params_FullMethodName        = "/topchain.subscription.Query/Params"
+	Query_Deal_FullMethodName          = "/topchain.subscription.Query/Deal"
+	Query_DealStatus_FullMethodName    = "/topchain.subscription.Query/DealStatus"
+	Query_Subscription_FullMethodName  = "/topchain.subscription.Query/Subscription"
+	Query_Subscriptions_FullMethodName = "/topchain.subscription.Query/Subscriptions"
 )
 
 // QueryClient is the client API for Query service.
@@ -30,6 +33,9 @@ type QueryClient interface {
 	// Parameters queries the parameters of the module.
 	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
 	Deal(ctx context.Context, in *QueryDealRequest, opts ...grpc.CallOption) (*QueryDealResponse, error)
+	DealStatus(ctx context.Context, in *QueryDealStatusRequest, opts ...grpc.CallOption) (*QueryDealStatusResponse, error)
+	Subscription(ctx context.Context, in *QuerySubscriptionRequest, opts ...grpc.CallOption) (*QuerySubscriptionResponse, error)
+	Subscriptions(ctx context.Context, in *QuerySubscriptionsRequest, opts ...grpc.CallOption) (*QuerySubscriptionsResponse, error)
 }
 
 type queryClient struct {
@@ -58,6 +64,33 @@ func (c *queryClient) Deal(ctx context.Context, in *QueryDealRequest, opts ...gr
 	return out, nil
 }
 
+func (c *queryClient) DealStatus(ctx context.Context, in *QueryDealStatusRequest, opts ...grpc.CallOption) (*QueryDealStatusResponse, error) {
+	out := new(QueryDealStatusResponse)
+	err := c.cc.Invoke(ctx, Query_DealStatus_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) Subscription(ctx context.Context, in *QuerySubscriptionRequest, opts ...grpc.CallOption) (*QuerySubscriptionResponse, error) {
+	out := new(QuerySubscriptionResponse)
+	err := c.cc.Invoke(ctx, Query_Subscription_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) Subscriptions(ctx context.Context, in *QuerySubscriptionsRequest, opts ...grpc.CallOption) (*QuerySubscriptionsResponse, error) {
+	out := new(QuerySubscriptionsResponse)
+	err := c.cc.Invoke(ctx, Query_Subscriptions_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -65,6 +98,9 @@ type QueryServer interface {
 	// Parameters queries the parameters of the module.
 	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
 	Deal(context.Context, *QueryDealRequest) (*QueryDealResponse, error)
+	DealStatus(context.Context, *QueryDealStatusRequest) (*QueryDealStatusResponse, error)
+	Subscription(context.Context, *QuerySubscriptionRequest) (*QuerySubscriptionResponse, error)
+	Subscriptions(context.Context, *QuerySubscriptionsRequest) (*QuerySubscriptionsResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -77,6 +113,15 @@ func (UnimplementedQueryServer) Params(context.Context, *QueryParamsRequest) (*Q
 }
 func (UnimplementedQueryServer) Deal(context.Context, *QueryDealRequest) (*QueryDealResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Deal not implemented")
+}
+func (UnimplementedQueryServer) DealStatus(context.Context, *QueryDealStatusRequest) (*QueryDealStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DealStatus not implemented")
+}
+func (UnimplementedQueryServer) Subscription(context.Context, *QuerySubscriptionRequest) (*QuerySubscriptionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Subscription not implemented")
+}
+func (UnimplementedQueryServer) Subscriptions(context.Context, *QuerySubscriptionsRequest) (*QuerySubscriptionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Subscriptions not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -127,6 +172,60 @@ func _Query_Deal_Handler(srv interface{}, ctx context.Context, dec func(interfac
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_DealStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryDealStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).DealStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_DealStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).DealStatus(ctx, req.(*QueryDealStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_Subscription_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QuerySubscriptionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Subscription(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_Subscription_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Subscription(ctx, req.(*QuerySubscriptionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_Subscriptions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QuerySubscriptionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Subscriptions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_Subscriptions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Subscriptions(ctx, req.(*QuerySubscriptionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -141,6 +240,18 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Deal",
 			Handler:    _Query_Deal_Handler,
+		},
+		{
+			MethodName: "DealStatus",
+			Handler:    _Query_DealStatus_Handler,
+		},
+		{
+			MethodName: "Subscription",
+			Handler:    _Query_Subscription_Handler,
+		},
+		{
+			MethodName: "Subscriptions",
+			Handler:    _Query_Subscriptions_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -24,17 +24,17 @@ service Query {
 	option (google.api.http).get = "/topchain/subscription/deal/{id}";
   }
 
-  // rpc DealStatus(QueryDealStatusRequest) returns (QueryDealStatusResponse) {
-  // 	option (google.api.http).get = "/topchain/subscription/deal_status/{id}";
-  // }
+  rpc DealStatus(QueryDealStatusRequest) returns (QueryDealStatusResponse) {
+  	option (google.api.http).get = "/topchain/subscription/deal_status/{id}";
+  }
 
-  // rpc Subscription(QuerySubscriptionRequest) returns (QuerySubscriptionResponse) {
-  // 	option (google.api.http).get = "/topchain/subscription/subscription/{id}";
-  // }
+  rpc Subscription(QuerySubscriptionRequest) returns (QuerySubscriptionResponse) {
+  	option (google.api.http).get = "/topchain/subscription/subscription/{id}";
+  }
 
-  // rpc Subscriptions(QuerySubscriptionsRequest) returns (QuerySubscriptionsResponse) {
-  // 	option (google.api.http).get = "/topchain/subscription/subscriptions/{provider}";
-  // }
+  rpc Subscriptions(QuerySubscriptionsRequest) returns (QuerySubscriptionsResponse) {
+  	option (google.api.http).get = "/topchain/subscription/subscriptions/{provider}";
+  }
 }
 
 // QueryParamsRequest is request type for the Query/Params RPC method.

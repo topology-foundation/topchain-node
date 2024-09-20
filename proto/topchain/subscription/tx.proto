@@ -18,11 +18,11 @@ service Msg {
   // parameters. The authority defaults to the x/gov module account.
   rpc UpdateParams (MsgUpdateParams ) returns (MsgUpdateParamsResponse );
 
-  // rpc CreateDeal (MsgCreateDeal ) returns (MsgCreateDealResponse );
-  // rpc CancelDeal (MsgCancelDeal ) returns (MsgCancelDealResponse );
-  // rpc UpdateDeal (MsgUpdateDeal ) returns (MsgUpdateDealResponse );
-  // rpc JoinDeal (MsgJoinDeal ) returns (MsgJoinDealResponse );
-  // rpc LeaveDeal (MsgLeaveDeal ) returns (MsgLeaveDealResponse );
+  rpc CreateDeal   (MsgCreateDeal   ) returns (MsgCreateDealResponse   );
+  rpc CancelDeal   (MsgCancelDeal   ) returns (MsgCancelDealResponse   );
+  rpc UpdateDeal   (MsgUpdateDeal   ) returns (MsgUpdateDealResponse   );
+  rpc JoinDeal     (MsgJoinDeal     ) returns (MsgJoinDealResponse     );
+  rpc LeaveDeal    (MsgLeaveDeal    ) returns (MsgLeaveDealResponse    );
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
