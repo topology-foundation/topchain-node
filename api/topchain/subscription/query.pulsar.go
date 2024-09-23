@@ -2487,27 +2487,27 @@ func (x *fastReflection_QueryDealStatusResponse) ProtoMethods() *protoiface.Meth
 }
 
 var (
-	md_QueryListDealsRequest            protoreflect.MessageDescriptor
-	fd_QueryListDealsRequest_requester  protoreflect.FieldDescriptor
-	fd_QueryListDealsRequest_pagination protoreflect.FieldDescriptor
+	md_QueryDealsRequest            protoreflect.MessageDescriptor
+	fd_QueryDealsRequest_requester  protoreflect.FieldDescriptor
+	fd_QueryDealsRequest_pagination protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_topchain_subscription_query_proto_init()
-	md_QueryListDealsRequest = File_topchain_subscription_query_proto.Messages().ByName("QueryListDealsRequest")
-	fd_QueryListDealsRequest_requester = md_QueryListDealsRequest.Fields().ByName("requester")
-	fd_QueryListDealsRequest_pagination = md_QueryListDealsRequest.Fields().ByName("pagination")
+	md_QueryDealsRequest = File_topchain_subscription_query_proto.Messages().ByName("QueryDealsRequest")
+	fd_QueryDealsRequest_requester = md_QueryDealsRequest.Fields().ByName("requester")
+	fd_QueryDealsRequest_pagination = md_QueryDealsRequest.Fields().ByName("pagination")
 }
 
-var _ protoreflect.Message = (*fastReflection_QueryListDealsRequest)(nil)
+var _ protoreflect.Message = (*fastReflection_QueryDealsRequest)(nil)
 
-type fastReflection_QueryListDealsRequest QueryListDealsRequest
+type fastReflection_QueryDealsRequest QueryDealsRequest
 
-func (x *QueryListDealsRequest) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_QueryListDealsRequest)(x)
+func (x *QueryDealsRequest) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_QueryDealsRequest)(x)
 }
 
-func (x *QueryListDealsRequest) slowProtoReflect() protoreflect.Message {
+func (x *QueryDealsRequest) slowProtoReflect() protoreflect.Message {
 	mi := &file_topchain_subscription_query_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2519,43 +2519,43 @@ func (x *QueryListDealsRequest) slowProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_QueryListDealsRequest_messageType fastReflection_QueryListDealsRequest_messageType
-var _ protoreflect.MessageType = fastReflection_QueryListDealsRequest_messageType{}
+var _fastReflection_QueryDealsRequest_messageType fastReflection_QueryDealsRequest_messageType
+var _ protoreflect.MessageType = fastReflection_QueryDealsRequest_messageType{}
 
-type fastReflection_QueryListDealsRequest_messageType struct{}
+type fastReflection_QueryDealsRequest_messageType struct{}
 
-func (x fastReflection_QueryListDealsRequest_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_QueryListDealsRequest)(nil)
+func (x fastReflection_QueryDealsRequest_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_QueryDealsRequest)(nil)
 }
-func (x fastReflection_QueryListDealsRequest_messageType) New() protoreflect.Message {
-	return new(fastReflection_QueryListDealsRequest)
+func (x fastReflection_QueryDealsRequest_messageType) New() protoreflect.Message {
+	return new(fastReflection_QueryDealsRequest)
 }
-func (x fastReflection_QueryListDealsRequest_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_QueryListDealsRequest
+func (x fastReflection_QueryDealsRequest_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryDealsRequest
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_QueryListDealsRequest) Descriptor() protoreflect.MessageDescriptor {
-	return md_QueryListDealsRequest
+func (x *fastReflection_QueryDealsRequest) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryDealsRequest
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_QueryListDealsRequest) Type() protoreflect.MessageType {
-	return _fastReflection_QueryListDealsRequest_messageType
+func (x *fastReflection_QueryDealsRequest) Type() protoreflect.MessageType {
+	return _fastReflection_QueryDealsRequest_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_QueryListDealsRequest) New() protoreflect.Message {
-	return new(fastReflection_QueryListDealsRequest)
+func (x *fastReflection_QueryDealsRequest) New() protoreflect.Message {
+	return new(fastReflection_QueryDealsRequest)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_QueryListDealsRequest) Interface() protoreflect.ProtoMessage {
-	return (*QueryListDealsRequest)(x)
+func (x *fastReflection_QueryDealsRequest) Interface() protoreflect.ProtoMessage {
+	return (*QueryDealsRequest)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -2563,16 +2563,16 @@ func (x *fastReflection_QueryListDealsRequest) Interface() protoreflect.ProtoMes
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_QueryListDealsRequest) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+func (x *fastReflection_QueryDealsRequest) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 	if x.Requester != "" {
 		value := protoreflect.ValueOfString(x.Requester)
-		if !f(fd_QueryListDealsRequest_requester, value) {
+		if !f(fd_QueryDealsRequest_requester, value) {
 			return
 		}
 	}
 	if x.Pagination != nil {
 		value := protoreflect.ValueOfMessage(x.Pagination.ProtoReflect())
-		if !f(fd_QueryListDealsRequest_pagination, value) {
+		if !f(fd_QueryDealsRequest_pagination, value) {
 			return
 		}
 	}
@@ -2589,17 +2589,17 @@ func (x *fastReflection_QueryListDealsRequest) Range(f func(protoreflect.FieldDe
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_QueryListDealsRequest) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_QueryDealsRequest) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "topchain.subscription.QueryListDealsRequest.requester":
+	case "topchain.subscription.QueryDealsRequest.requester":
 		return x.Requester != ""
-	case "topchain.subscription.QueryListDealsRequest.pagination":
+	case "topchain.subscription.QueryDealsRequest.pagination":
 		return x.Pagination != nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryListDealsRequest"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryDealsRequest"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.QueryListDealsRequest does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.QueryDealsRequest does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2609,17 +2609,17 @@ func (x *fastReflection_QueryListDealsRequest) Has(fd protoreflect.FieldDescript
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_QueryListDealsRequest) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_QueryDealsRequest) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "topchain.subscription.QueryListDealsRequest.requester":
+	case "topchain.subscription.QueryDealsRequest.requester":
 		x.Requester = ""
-	case "topchain.subscription.QueryListDealsRequest.pagination":
+	case "topchain.subscription.QueryDealsRequest.pagination":
 		x.Pagination = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryListDealsRequest"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryDealsRequest"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.QueryListDealsRequest does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.QueryDealsRequest does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2629,19 +2629,19 @@ func (x *fastReflection_QueryListDealsRequest) Clear(fd protoreflect.FieldDescri
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_QueryListDealsRequest) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_QueryDealsRequest) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "topchain.subscription.QueryListDealsRequest.requester":
+	case "topchain.subscription.QueryDealsRequest.requester":
 		value := x.Requester
 		return protoreflect.ValueOfString(value)
-	case "topchain.subscription.QueryListDealsRequest.pagination":
+	case "topchain.subscription.QueryDealsRequest.pagination":
 		value := x.Pagination
 		return protoreflect.ValueOfMessage(value.ProtoReflect())
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryListDealsRequest"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryDealsRequest"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.QueryListDealsRequest does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.QueryDealsRequest does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -2655,17 +2655,17 @@ func (x *fastReflection_QueryListDealsRequest) Get(descriptor protoreflect.Field
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_QueryListDealsRequest) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_QueryDealsRequest) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "topchain.subscription.QueryListDealsRequest.requester":
+	case "topchain.subscription.QueryDealsRequest.requester":
 		x.Requester = value.Interface().(string)
-	case "topchain.subscription.QueryListDealsRequest.pagination":
+	case "topchain.subscription.QueryDealsRequest.pagination":
 		x.Pagination = value.Message().Interface().(*v1beta1.PageRequest)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryListDealsRequest"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryDealsRequest"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.QueryListDealsRequest does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.QueryDealsRequest does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2679,48 +2679,48 @@ func (x *fastReflection_QueryListDealsRequest) Set(fd protoreflect.FieldDescript
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_QueryListDealsRequest) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_QueryDealsRequest) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "topchain.subscription.QueryListDealsRequest.pagination":
+	case "topchain.subscription.QueryDealsRequest.pagination":
 		if x.Pagination == nil {
 			x.Pagination = new(v1beta1.PageRequest)
 		}
 		return protoreflect.ValueOfMessage(x.Pagination.ProtoReflect())
-	case "topchain.subscription.QueryListDealsRequest.requester":
-		panic(fmt.Errorf("field requester of message topchain.subscription.QueryListDealsRequest is not mutable"))
+	case "topchain.subscription.QueryDealsRequest.requester":
+		panic(fmt.Errorf("field requester of message topchain.subscription.QueryDealsRequest is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryListDealsRequest"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryDealsRequest"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.QueryListDealsRequest does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.QueryDealsRequest does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_QueryListDealsRequest) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_QueryDealsRequest) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "topchain.subscription.QueryListDealsRequest.requester":
+	case "topchain.subscription.QueryDealsRequest.requester":
 		return protoreflect.ValueOfString("")
-	case "topchain.subscription.QueryListDealsRequest.pagination":
+	case "topchain.subscription.QueryDealsRequest.pagination":
 		m := new(v1beta1.PageRequest)
 		return protoreflect.ValueOfMessage(m.ProtoReflect())
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryListDealsRequest"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryDealsRequest"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.QueryListDealsRequest does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.QueryDealsRequest does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_QueryListDealsRequest) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_QueryDealsRequest) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.QueryListDealsRequest", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.QueryDealsRequest", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -2728,7 +2728,7 @@ func (x *fastReflection_QueryListDealsRequest) WhichOneof(d protoreflect.OneofDe
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_QueryListDealsRequest) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_QueryDealsRequest) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -2739,7 +2739,7 @@ func (x *fastReflection_QueryListDealsRequest) GetUnknown() protoreflect.RawFiel
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_QueryListDealsRequest) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_QueryDealsRequest) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -2751,7 +2751,7 @@ func (x *fastReflection_QueryListDealsRequest) SetUnknown(fields protoreflect.Ra
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_QueryListDealsRequest) IsValid() bool {
+func (x *fastReflection_QueryDealsRequest) IsValid() bool {
 	return x != nil
 }
 
@@ -2761,9 +2761,9 @@ func (x *fastReflection_QueryListDealsRequest) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_QueryListDealsRequest) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_QueryDealsRequest) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*QueryListDealsRequest)
+		x := input.Message.Interface().(*QueryDealsRequest)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -2793,7 +2793,7 @@ func (x *fastReflection_QueryListDealsRequest) ProtoMethods() *protoiface.Method
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*QueryListDealsRequest)
+		x := input.Message.Interface().(*QueryDealsRequest)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -2844,7 +2844,7 @@ func (x *fastReflection_QueryListDealsRequest) ProtoMethods() *protoiface.Method
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*QueryListDealsRequest)
+		x := input.Message.Interface().(*QueryDealsRequest)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -2876,10 +2876,10 @@ func (x *fastReflection_QueryListDealsRequest) ProtoMethods() *protoiface.Method
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryListDealsRequest: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryDealsRequest: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryListDealsRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryDealsRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			case 1:
@@ -2985,79 +2985,79 @@ func (x *fastReflection_QueryListDealsRequest) ProtoMethods() *protoiface.Method
 	}
 }
 
-var _ protoreflect.List = (*_QueryListDealsResponse_1_list)(nil)
+var _ protoreflect.List = (*_QueryDealsResponse_1_list)(nil)
 
-type _QueryListDealsResponse_1_list struct {
+type _QueryDealsResponse_1_list struct {
 	list *[]*Deal
 }
 
-func (x *_QueryListDealsResponse_1_list) Len() int {
+func (x *_QueryDealsResponse_1_list) Len() int {
 	if x.list == nil {
 		return 0
 	}
 	return len(*x.list)
 }
 
-func (x *_QueryListDealsResponse_1_list) Get(i int) protoreflect.Value {
+func (x *_QueryDealsResponse_1_list) Get(i int) protoreflect.Value {
 	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
 }
 
-func (x *_QueryListDealsResponse_1_list) Set(i int, value protoreflect.Value) {
+func (x *_QueryDealsResponse_1_list) Set(i int, value protoreflect.Value) {
 	valueUnwrapped := value.Message()
 	concreteValue := valueUnwrapped.Interface().(*Deal)
 	(*x.list)[i] = concreteValue
 }
 
-func (x *_QueryListDealsResponse_1_list) Append(value protoreflect.Value) {
+func (x *_QueryDealsResponse_1_list) Append(value protoreflect.Value) {
 	valueUnwrapped := value.Message()
 	concreteValue := valueUnwrapped.Interface().(*Deal)
 	*x.list = append(*x.list, concreteValue)
 }
 
-func (x *_QueryListDealsResponse_1_list) AppendMutable() protoreflect.Value {
+func (x *_QueryDealsResponse_1_list) AppendMutable() protoreflect.Value {
 	v := new(Deal)
 	*x.list = append(*x.list, v)
 	return protoreflect.ValueOfMessage(v.ProtoReflect())
 }
 
-func (x *_QueryListDealsResponse_1_list) Truncate(n int) {
+func (x *_QueryDealsResponse_1_list) Truncate(n int) {
 	for i := n; i < len(*x.list); i++ {
 		(*x.list)[i] = nil
 	}
 	*x.list = (*x.list)[:n]
 }
 
-func (x *_QueryListDealsResponse_1_list) NewElement() protoreflect.Value {
+func (x *_QueryDealsResponse_1_list) NewElement() protoreflect.Value {
 	v := new(Deal)
 	return protoreflect.ValueOfMessage(v.ProtoReflect())
 }
 
-func (x *_QueryListDealsResponse_1_list) IsValid() bool {
+func (x *_QueryDealsResponse_1_list) IsValid() bool {
 	return x.list != nil
 }
 
 var (
-	md_QueryListDealsResponse            protoreflect.MessageDescriptor
-	fd_QueryListDealsResponse_deals      protoreflect.FieldDescriptor
-	fd_QueryListDealsResponse_pagination protoreflect.FieldDescriptor
+	md_QueryDealsResponse            protoreflect.MessageDescriptor
+	fd_QueryDealsResponse_deals      protoreflect.FieldDescriptor
+	fd_QueryDealsResponse_pagination protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_topchain_subscription_query_proto_init()
-	md_QueryListDealsResponse = File_topchain_subscription_query_proto.Messages().ByName("QueryListDealsResponse")
-	fd_QueryListDealsResponse_deals = md_QueryListDealsResponse.Fields().ByName("deals")
-	fd_QueryListDealsResponse_pagination = md_QueryListDealsResponse.Fields().ByName("pagination")
+	md_QueryDealsResponse = File_topchain_subscription_query_proto.Messages().ByName("QueryDealsResponse")
+	fd_QueryDealsResponse_deals = md_QueryDealsResponse.Fields().ByName("deals")
+	fd_QueryDealsResponse_pagination = md_QueryDealsResponse.Fields().ByName("pagination")
 }
 
-var _ protoreflect.Message = (*fastReflection_QueryListDealsResponse)(nil)
+var _ protoreflect.Message = (*fastReflection_QueryDealsResponse)(nil)
 
-type fastReflection_QueryListDealsResponse QueryListDealsResponse
+type fastReflection_QueryDealsResponse QueryDealsResponse
 
-func (x *QueryListDealsResponse) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_QueryListDealsResponse)(x)
+func (x *QueryDealsResponse) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_QueryDealsResponse)(x)
 }
 
-func (x *QueryListDealsResponse) slowProtoReflect() protoreflect.Message {
+func (x *QueryDealsResponse) slowProtoReflect() protoreflect.Message {
 	mi := &file_topchain_subscription_query_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -3069,43 +3069,43 @@ func (x *QueryListDealsResponse) slowProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_QueryListDealsResponse_messageType fastReflection_QueryListDealsResponse_messageType
-var _ protoreflect.MessageType = fastReflection_QueryListDealsResponse_messageType{}
+var _fastReflection_QueryDealsResponse_messageType fastReflection_QueryDealsResponse_messageType
+var _ protoreflect.MessageType = fastReflection_QueryDealsResponse_messageType{}
 
-type fastReflection_QueryListDealsResponse_messageType struct{}
+type fastReflection_QueryDealsResponse_messageType struct{}
 
-func (x fastReflection_QueryListDealsResponse_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_QueryListDealsResponse)(nil)
+func (x fastReflection_QueryDealsResponse_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_QueryDealsResponse)(nil)
 }
-func (x fastReflection_QueryListDealsResponse_messageType) New() protoreflect.Message {
-	return new(fastReflection_QueryListDealsResponse)
+func (x fastReflection_QueryDealsResponse_messageType) New() protoreflect.Message {
+	return new(fastReflection_QueryDealsResponse)
 }
-func (x fastReflection_QueryListDealsResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_QueryListDealsResponse
+func (x fastReflection_QueryDealsResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryDealsResponse
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_QueryListDealsResponse) Descriptor() protoreflect.MessageDescriptor {
-	return md_QueryListDealsResponse
+func (x *fastReflection_QueryDealsResponse) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryDealsResponse
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_QueryListDealsResponse) Type() protoreflect.MessageType {
-	return _fastReflection_QueryListDealsResponse_messageType
+func (x *fastReflection_QueryDealsResponse) Type() protoreflect.MessageType {
+	return _fastReflection_QueryDealsResponse_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_QueryListDealsResponse) New() protoreflect.Message {
-	return new(fastReflection_QueryListDealsResponse)
+func (x *fastReflection_QueryDealsResponse) New() protoreflect.Message {
+	return new(fastReflection_QueryDealsResponse)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_QueryListDealsResponse) Interface() protoreflect.ProtoMessage {
-	return (*QueryListDealsResponse)(x)
+func (x *fastReflection_QueryDealsResponse) Interface() protoreflect.ProtoMessage {
+	return (*QueryDealsResponse)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -3113,16 +3113,16 @@ func (x *fastReflection_QueryListDealsResponse) Interface() protoreflect.ProtoMe
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_QueryListDealsResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+func (x *fastReflection_QueryDealsResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 	if len(x.Deals) != 0 {
-		value := protoreflect.ValueOfList(&_QueryListDealsResponse_1_list{list: &x.Deals})
-		if !f(fd_QueryListDealsResponse_deals, value) {
+		value := protoreflect.ValueOfList(&_QueryDealsResponse_1_list{list: &x.Deals})
+		if !f(fd_QueryDealsResponse_deals, value) {
 			return
 		}
 	}
 	if x.Pagination != nil {
 		value := protoreflect.ValueOfMessage(x.Pagination.ProtoReflect())
-		if !f(fd_QueryListDealsResponse_pagination, value) {
+		if !f(fd_QueryDealsResponse_pagination, value) {
 			return
 		}
 	}
@@ -3139,17 +3139,17 @@ func (x *fastReflection_QueryListDealsResponse) Range(f func(protoreflect.FieldD
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_QueryListDealsResponse) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_QueryDealsResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "topchain.subscription.QueryListDealsResponse.deals":
+	case "topchain.subscription.QueryDealsResponse.deals":
 		return len(x.Deals) != 0
-	case "topchain.subscription.QueryListDealsResponse.pagination":
+	case "topchain.subscription.QueryDealsResponse.pagination":
 		return x.Pagination != nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryListDealsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryDealsResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.QueryListDealsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.QueryDealsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3159,17 +3159,17 @@ func (x *fastReflection_QueryListDealsResponse) Has(fd protoreflect.FieldDescrip
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_QueryListDealsResponse) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_QueryDealsResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "topchain.subscription.QueryListDealsResponse.deals":
+	case "topchain.subscription.QueryDealsResponse.deals":
 		x.Deals = nil
-	case "topchain.subscription.QueryListDealsResponse.pagination":
+	case "topchain.subscription.QueryDealsResponse.pagination":
 		x.Pagination = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryListDealsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryDealsResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.QueryListDealsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.QueryDealsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3179,22 +3179,22 @@ func (x *fastReflection_QueryListDealsResponse) Clear(fd protoreflect.FieldDescr
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_QueryListDealsResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_QueryDealsResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "topchain.subscription.QueryListDealsResponse.deals":
+	case "topchain.subscription.QueryDealsResponse.deals":
 		if len(x.Deals) == 0 {
-			return protoreflect.ValueOfList(&_QueryListDealsResponse_1_list{})
+			return protoreflect.ValueOfList(&_QueryDealsResponse_1_list{})
 		}
-		listValue := &_QueryListDealsResponse_1_list{list: &x.Deals}
+		listValue := &_QueryDealsResponse_1_list{list: &x.Deals}
 		return protoreflect.ValueOfList(listValue)
-	case "topchain.subscription.QueryListDealsResponse.pagination":
+	case "topchain.subscription.QueryDealsResponse.pagination":
 		value := x.Pagination
 		return protoreflect.ValueOfMessage(value.ProtoReflect())
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryListDealsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryDealsResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.QueryListDealsResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.QueryDealsResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -3208,19 +3208,19 @@ func (x *fastReflection_QueryListDealsResponse) Get(descriptor protoreflect.Fiel
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_QueryListDealsResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_QueryDealsResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "topchain.subscription.QueryListDealsResponse.deals":
+	case "topchain.subscription.QueryDealsResponse.deals":
 		lv := value.List()
-		clv := lv.(*_QueryListDealsResponse_1_list)
+		clv := lv.(*_QueryDealsResponse_1_list)
 		x.Deals = *clv.list
-	case "topchain.subscription.QueryListDealsResponse.pagination":
+	case "topchain.subscription.QueryDealsResponse.pagination":
 		x.Pagination = value.Message().Interface().(*v1beta1.PageResponse)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryListDealsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryDealsResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.QueryListDealsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.QueryDealsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3234,53 +3234,53 @@ func (x *fastReflection_QueryListDealsResponse) Set(fd protoreflect.FieldDescrip
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_QueryListDealsResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_QueryDealsResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "topchain.subscription.QueryListDealsResponse.deals":
+	case "topchain.subscription.QueryDealsResponse.deals":
 		if x.Deals == nil {
 			x.Deals = []*Deal{}
 		}
-		value := &_QueryListDealsResponse_1_list{list: &x.Deals}
+		value := &_QueryDealsResponse_1_list{list: &x.Deals}
 		return protoreflect.ValueOfList(value)
-	case "topchain.subscription.QueryListDealsResponse.pagination":
+	case "topchain.subscription.QueryDealsResponse.pagination":
 		if x.Pagination == nil {
 			x.Pagination = new(v1beta1.PageResponse)
 		}
 		return protoreflect.ValueOfMessage(x.Pagination.ProtoReflect())
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryListDealsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryDealsResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.QueryListDealsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.QueryDealsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_QueryListDealsResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_QueryDealsResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "topchain.subscription.QueryListDealsResponse.deals":
+	case "topchain.subscription.QueryDealsResponse.deals":
 		list := []*Deal{}
-		return protoreflect.ValueOfList(&_QueryListDealsResponse_1_list{list: &list})
-	case "topchain.subscription.QueryListDealsResponse.pagination":
+		return protoreflect.ValueOfList(&_QueryDealsResponse_1_list{list: &list})
+	case "topchain.subscription.QueryDealsResponse.pagination":
 		m := new(v1beta1.PageResponse)
 		return protoreflect.ValueOfMessage(m.ProtoReflect())
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryListDealsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.QueryDealsResponse"))
 		}
-		panic(fmt.Errorf("message topchain.subscription.QueryListDealsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message topchain.subscription.QueryDealsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_QueryListDealsResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_QueryDealsResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.QueryListDealsResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in topchain.subscription.QueryDealsResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -3288,7 +3288,7 @@ func (x *fastReflection_QueryListDealsResponse) WhichOneof(d protoreflect.OneofD
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_QueryListDealsResponse) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_QueryDealsResponse) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -3299,7 +3299,7 @@ func (x *fastReflection_QueryListDealsResponse) GetUnknown() protoreflect.RawFie
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_QueryListDealsResponse) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_QueryDealsResponse) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -3311,7 +3311,7 @@ func (x *fastReflection_QueryListDealsResponse) SetUnknown(fields protoreflect.R
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_QueryListDealsResponse) IsValid() bool {
+func (x *fastReflection_QueryDealsResponse) IsValid() bool {
 	return x != nil
 }
 
@@ -3321,9 +3321,9 @@ func (x *fastReflection_QueryListDealsResponse) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_QueryListDealsResponse) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_QueryDealsResponse) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*QueryListDealsResponse)
+		x := input.Message.Interface().(*QueryDealsResponse)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3355,7 +3355,7 @@ func (x *fastReflection_QueryListDealsResponse) ProtoMethods() *protoiface.Metho
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*QueryListDealsResponse)
+		x := input.Message.Interface().(*QueryDealsResponse)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3415,7 +3415,7 @@ func (x *fastReflection_QueryListDealsResponse) ProtoMethods() *protoiface.Metho
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*QueryListDealsResponse)
+		x := input.Message.Interface().(*QueryDealsResponse)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3447,10 +3447,10 @@ func (x *fastReflection_QueryListDealsResponse) ProtoMethods() *protoiface.Metho
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryListDealsResponse: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryDealsResponse: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryListDealsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryDealsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			case 1:
@@ -5702,7 +5702,7 @@ func (x *QueryDealStatusResponse) GetStatus() Deal_Status {
 	return Deal_SCHEDULED
 }
 
-type QueryListDealsRequest struct {
+type QueryDealsRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -5711,8 +5711,8 @@ type QueryListDealsRequest struct {
 	Pagination *v1beta1.PageRequest `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
-func (x *QueryListDealsRequest) Reset() {
-	*x = QueryListDealsRequest{}
+func (x *QueryDealsRequest) Reset() {
+	*x = QueryDealsRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_topchain_subscription_query_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -5720,32 +5720,32 @@ func (x *QueryListDealsRequest) Reset() {
 	}
 }
 
-func (x *QueryListDealsRequest) String() string {
+func (x *QueryDealsRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*QueryListDealsRequest) ProtoMessage() {}
+func (*QueryDealsRequest) ProtoMessage() {}
 
-// Deprecated: Use QueryListDealsRequest.ProtoReflect.Descriptor instead.
-func (*QueryListDealsRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use QueryDealsRequest.ProtoReflect.Descriptor instead.
+func (*QueryDealsRequest) Descriptor() ([]byte, []int) {
 	return file_topchain_subscription_query_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *QueryListDealsRequest) GetRequester() string {
+func (x *QueryDealsRequest) GetRequester() string {
 	if x != nil {
 		return x.Requester
 	}
 	return ""
 }
 
-func (x *QueryListDealsRequest) GetPagination() *v1beta1.PageRequest {
+func (x *QueryDealsRequest) GetPagination() *v1beta1.PageRequest {
 	if x != nil {
 		return x.Pagination
 	}
 	return nil
 }
 
-type QueryListDealsResponse struct {
+type QueryDealsResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -5754,8 +5754,8 @@ type QueryListDealsResponse struct {
 	Pagination *v1beta1.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
-func (x *QueryListDealsResponse) Reset() {
-	*x = QueryListDealsResponse{}
+func (x *QueryDealsResponse) Reset() {
+	*x = QueryDealsResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_topchain_subscription_query_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -5763,25 +5763,25 @@ func (x *QueryListDealsResponse) Reset() {
 	}
 }
 
-func (x *QueryListDealsResponse) String() string {
+func (x *QueryDealsResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*QueryListDealsResponse) ProtoMessage() {}
+func (*QueryDealsResponse) ProtoMessage() {}
 
-// Deprecated: Use QueryListDealsResponse.ProtoReflect.Descriptor instead.
-func (*QueryListDealsResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use QueryDealsResponse.ProtoReflect.Descriptor instead.
+func (*QueryDealsResponse) Descriptor() ([]byte, []int) {
 	return file_topchain_subscription_query_proto_rawDescGZIP(), []int{7}
 }
 
-func (x *QueryListDealsResponse) GetDeals() []*Deal {
+func (x *QueryDealsResponse) GetDeals() []*Deal {
 	if x != nil {
 		return x.Deals
 	}
 	return nil
 }
 
-func (x *QueryListDealsResponse) GetPagination() *v1beta1.PageResponse {
+func (x *QueryDealsResponse) GetPagination() *v1beta1.PageResponse {
 	if x != nil {
 		return x.Pagination
 	}
@@ -5986,115 +5986,124 @@ var file_topchain_subscription_query_proto_rawDesc = []byte{
 	0x65, 0x12, 0x3a, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28,
 	0x0e, 0x32, 0x22, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62,
 	0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x44, 0x65, 0x61, 0x6c, 0x2e, 0x53,
-	0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x22, 0x7d, 0x0a,
-	0x15, 0x51, 0x75, 0x65, 0x72, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x44, 0x65, 0x61, 0x6c, 0x73, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1c, 0x0a, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x65, 0x72, 0x12, 0x46, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69,
-	0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f,
-	0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x71, 0x75, 0x65, 0x72, 0x79, 0x2e, 0x76, 0x31, 0x62,
-	0x65, 0x74, 0x61, 0x31, 0x2e, 0x50, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x9a, 0x01, 0x0a,
-	0x16, 0x51, 0x75, 0x65, 0x72, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x44, 0x65, 0x61, 0x6c, 0x73, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x37, 0x0a, 0x05, 0x64, 0x65, 0x61, 0x6c, 0x73,
-	0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69,
-	0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x44,
-	0x65, 0x61, 0x6c, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x05, 0x64, 0x65, 0x61, 0x6c, 0x73,
-	0x12, 0x47, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x0b, 0x32, 0x27, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61,
+	0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x22, 0x79, 0x0a,
+	0x11, 0x51, 0x75, 0x65, 0x72, 0x79, 0x44, 0x65, 0x61, 0x6c, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x1c, 0x0a, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72,
+	0x12, 0x46, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61,
 	0x73, 0x65, 0x2e, 0x71, 0x75, 0x65, 0x72, 0x79, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31,
-	0x2e, 0x50, 0x61, 0x67, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x52, 0x0a, 0x70,
-	0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x2a, 0x0a, 0x18, 0x51, 0x75, 0x65,
-	0x72, 0x79, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x6a, 0x0a, 0x19, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x75,
-	0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x12, 0x4d, 0x0a, 0x0c, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
-	0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x23, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68,
-	0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e,
-	0x2e, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x04, 0xc8,
-	0xde, 0x1f, 0x00, 0x52, 0x0c, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
-	0x6e, 0x22, 0x7f, 0x0a, 0x19, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72,
-	0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1a,
-	0x0a, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x12, 0x46, 0x0a, 0x0a, 0x70, 0x61,
-	0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x26,
-	0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x71, 0x75, 0x65,
-	0x72, 0x79, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x50, 0x61, 0x67, 0x65, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69,
-	0x6f, 0x6e, 0x22, 0xb0, 0x01, 0x0a, 0x1a, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x75, 0x62, 0x73,
-	0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x12, 0x49, 0x0a, 0x0d, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
-	0x6e, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x23, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68,
-	0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e,
-	0x2e, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0d, 0x73,
-	0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x47, 0x0a, 0x0a,
-	0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b,
-	0x32, 0x27, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x71,
-	0x75, 0x65, 0x72, 0x79, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x50, 0x61, 0x67,
-	0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x32, 0x8b, 0x06, 0x0a, 0x05, 0x51, 0x75, 0x65, 0x72, 0x79, 0x12,
-	0x86, 0x01, 0x0a, 0x06, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x29, 0x2e, 0x74, 0x6f, 0x70,
-	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
-	0x6f, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2a, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e,
-	0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x51, 0x75,
-	0x65, 0x72, 0x79, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x22, 0x25, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x1f, 0x12, 0x1d, 0x2f, 0x74, 0x6f, 0x70, 0x63,
-	0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
-	0x6e, 0x2f, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x83, 0x01, 0x0a, 0x04, 0x44, 0x65, 0x61,
-	0x6c, 0x12, 0x27, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62,
-	0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x44,
-	0x65, 0x61, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x28, 0x2e, 0x74, 0x6f, 0x70,
-	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
-	0x6f, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x44, 0x65, 0x61, 0x6c, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x28, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x22, 0x12, 0x20, 0x2f, 0x74,
-	0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70,
-	0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x64, 0x65, 0x61, 0x6c, 0x2f, 0x7b, 0x69, 0x64, 0x7d, 0x12, 0x9c,
-	0x01, 0x0a, 0x0a, 0x44, 0x65, 0x61, 0x6c, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x2d, 0x2e,
-	0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69,
-	0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x44, 0x65, 0x61, 0x6c, 0x53,
-	0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2e, 0x2e, 0x74,
-	0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70,
-	0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x44, 0x65, 0x61, 0x6c, 0x53, 0x74,
-	0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x2f, 0x82, 0xd3,
-	0xe4, 0x93, 0x02, 0x29, 0x12, 0x27, 0x2f, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f,
-	0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x64, 0x65, 0x61,
-	0x6c, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x2f, 0x7b, 0x69, 0x64, 0x7d, 0x12, 0xa3, 0x01,
-	0x0a, 0x0c, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x2f,
+	0x2e, 0x50, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x0a, 0x70, 0x61,
+	0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x96, 0x01, 0x0a, 0x12, 0x51, 0x75, 0x65,
+	0x72, 0x79, 0x44, 0x65, 0x61, 0x6c, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x37, 0x0a, 0x05, 0x64, 0x65, 0x61, 0x6c, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1b,
 	0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72,
-	0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x75, 0x62, 0x73,
-	0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
-	0x30, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63,
-	0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x75, 0x62,
-	0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x22, 0x30, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x2a, 0x12, 0x28, 0x2f, 0x74, 0x6f, 0x70, 0x63,
-	0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
-	0x6e, 0x2f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x7b,
-	0x69, 0x64, 0x7d, 0x12, 0xad, 0x01, 0x0a, 0x0d, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70,
-	0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x30, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e,
+	0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x44, 0x65, 0x61, 0x6c, 0x42, 0x04, 0xc8, 0xde, 0x1f,
+	0x00, 0x52, 0x05, 0x64, 0x65, 0x61, 0x6c, 0x73, 0x12, 0x47, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69,
+	0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x27, 0x2e, 0x63,
+	0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x71, 0x75, 0x65, 0x72, 0x79,
+	0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x50, 0x61, 0x67, 0x65, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x22, 0x2a, 0x0a, 0x18, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72,
+	0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a,
+	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x6a, 0x0a,
+	0x19, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
+	0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4d, 0x0a, 0x0c, 0x73, 0x75,
+	0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x23, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73,
+	0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69,
+	0x70, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x0c, 0x73, 0x75, 0x62,
+	0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x7f, 0x0a, 0x19, 0x51, 0x75, 0x65,
+	0x72, 0x79, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64,
+	0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64,
+	0x65, 0x72, 0x12, 0x46, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e,
+	0x62, 0x61, 0x73, 0x65, 0x2e, 0x71, 0x75, 0x65, 0x72, 0x79, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74,
+	0x61, 0x31, 0x2e, 0x50, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x0a,
+	0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0xb0, 0x01, 0x0a, 0x1a, 0x51,
+	0x75, 0x65, 0x72, 0x79, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e,
+	0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x49, 0x0a, 0x0d, 0x73, 0x75, 0x62,
+	0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x23, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73,
+	0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69,
+	0x70, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0d, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74,
+	0x69, 0x6f, 0x6e, 0x73, 0x12, 0x47, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x27, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f,
+	0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x71, 0x75, 0x65, 0x72, 0x79, 0x2e, 0x76, 0x31, 0x62,
+	0x65, 0x74, 0x61, 0x31, 0x2e, 0x50, 0x61, 0x67, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x32, 0x9c, 0x07,
+	0x0a, 0x05, 0x51, 0x75, 0x65, 0x72, 0x79, 0x12, 0x86, 0x01, 0x0a, 0x06, 0x50, 0x61, 0x72, 0x61,
+	0x6d, 0x73, 0x12, 0x29, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75,
+	0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79,
+	0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2a, 0x2e,
+	0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69,
+	0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x72, 0x61, 0x6d,
+	0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x25, 0x82, 0xd3, 0xe4, 0x93, 0x02,
+	0x1f, 0x12, 0x1d, 0x2f, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x75, 0x62,
+	0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73,
+	0x12, 0x83, 0x01, 0x0a, 0x04, 0x44, 0x65, 0x61, 0x6c, 0x12, 0x27, 0x2e, 0x74, 0x6f, 0x70, 0x63,
+	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
+	0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x44, 0x65, 0x61, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x28, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75,
+	0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79,
+	0x44, 0x65, 0x61, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x28, 0x82, 0xd3,
+	0xe4, 0x93, 0x02, 0x22, 0x12, 0x20, 0x2f, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f,
+	0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x64, 0x65, 0x61,
+	0x6c, 0x2f, 0x7b, 0x69, 0x64, 0x7d, 0x12, 0x9c, 0x01, 0x0a, 0x0a, 0x44, 0x65, 0x61, 0x6c, 0x53,
+	0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x2d, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e,
 	0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x51, 0x75,
-	0x65, 0x72, 0x79, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x73,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x31, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61,
+	0x65, 0x72, 0x79, 0x44, 0x65, 0x61, 0x6c, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x2e, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e,
+	0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x51, 0x75, 0x65,
+	0x72, 0x79, 0x44, 0x65, 0x61, 0x6c, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x2f, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x29, 0x12, 0x27, 0x2f, 0x74,
+	0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70,
+	0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x64, 0x65, 0x61, 0x6c, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73,
+	0x2f, 0x7b, 0x69, 0x64, 0x7d, 0x12, 0x8e, 0x01, 0x0a, 0x05, 0x44, 0x65, 0x61, 0x6c, 0x73, 0x12,
+	0x28, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63,
+	0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x44, 0x65, 0x61,
+	0x6c, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x29, 0x2e, 0x74, 0x6f, 0x70, 0x63,
+	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
+	0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x44, 0x65, 0x61, 0x6c, 0x73, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x30, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x2a, 0x12, 0x28, 0x2f, 0x74,
+	0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70,
+	0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x64, 0x65, 0x61, 0x6c, 0x73, 0x2f, 0x7b, 0x72, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x65, 0x72, 0x7d, 0x12, 0xa3, 0x01, 0x0a, 0x0c, 0x53, 0x75, 0x62, 0x73, 0x63,
+	0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x2f, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61,
 	0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e,
 	0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
-	0x6e, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x37, 0x82, 0xd3, 0xe4, 0x93,
-	0x02, 0x31, 0x12, 0x2f, 0x2f, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x75,
+	0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x30, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68,
+	0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e,
+	0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
+	0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x30, 0x82, 0xd3, 0xe4, 0x93,
+	0x02, 0x2a, 0x12, 0x28, 0x2f, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x75,
 	0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x73, 0x75, 0x62, 0x73, 0x63,
-	0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2f, 0x7b, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64,
-	0x65, 0x72, 0x7d, 0x42, 0xc0, 0x01, 0x0a, 0x19, 0x63, 0x6f, 0x6d, 0x2e, 0x74, 0x6f, 0x70, 0x63,
-	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
-	0x6e, 0x42, 0x0a, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a,
-	0x22, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x74, 0x6f,
+	0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x7b, 0x69, 0x64, 0x7d, 0x12, 0xad, 0x01, 0x0a,
+	0x0d, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x30,
+	0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72,
+	0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x75, 0x62, 0x73,
+	0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x1a, 0x31, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73,
+	0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x75,
+	0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x22, 0x37, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x31, 0x12, 0x2f, 0x2f, 0x74, 0x6f,
 	0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74,
-	0x69, 0x6f, 0x6e, 0xa2, 0x02, 0x03, 0x54, 0x53, 0x58, 0xaa, 0x02, 0x15, 0x54, 0x6f, 0x70, 0x63,
-	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
-	0x6e, 0xca, 0x02, 0x15, 0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x53, 0x75, 0x62,
-	0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0xe2, 0x02, 0x21, 0x54, 0x6f, 0x70, 0x63,
-	0x68, 0x61, 0x69, 0x6e, 0x5c, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
-	0x6e, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x16,
-	0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x3a, 0x3a, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72,
-	0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x69, 0x6f, 0x6e, 0x2f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e,
+	0x73, 0x2f, 0x7b, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x7d, 0x42, 0xc0, 0x01, 0x0a,
+	0x19, 0x63, 0x6f, 0x6d, 0x2e, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75,
+	0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x0a, 0x51, 0x75, 0x65, 0x72,
+	0x79, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x22, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61,
+	0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f,
+	0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0xa2, 0x02, 0x03, 0x54,
+	0x53, 0x58, 0xaa, 0x02, 0x15, 0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x53, 0x75,
+	0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0xca, 0x02, 0x15, 0x54, 0x6f, 0x70,
+	0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
+	0x6f, 0x6e, 0xe2, 0x02, 0x21, 0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x53, 0x75,
+	0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65,
+	0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x16, 0x54, 0x6f, 0x70, 0x63, 0x68, 0x61, 0x69,
+	0x6e, 0x3a, 0x3a, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x62,
+	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -6117,8 +6126,8 @@ var file_topchain_subscription_query_proto_goTypes = []interface{}{
 	(*QueryDealResponse)(nil),          // 3: topchain.subscription.QueryDealResponse
 	(*QueryDealStatusRequest)(nil),     // 4: topchain.subscription.QueryDealStatusRequest
 	(*QueryDealStatusResponse)(nil),    // 5: topchain.subscription.QueryDealStatusResponse
-	(*QueryListDealsRequest)(nil),      // 6: topchain.subscription.QueryListDealsRequest
-	(*QueryListDealsResponse)(nil),     // 7: topchain.subscription.QueryListDealsResponse
+	(*QueryDealsRequest)(nil),          // 6: topchain.subscription.QueryDealsRequest
+	(*QueryDealsResponse)(nil),         // 7: topchain.subscription.QueryDealsResponse
 	(*QuerySubscriptionRequest)(nil),   // 8: topchain.subscription.QuerySubscriptionRequest
 	(*QuerySubscriptionResponse)(nil),  // 9: topchain.subscription.QuerySubscriptionResponse
 	(*QuerySubscriptionsRequest)(nil),  // 10: topchain.subscription.QuerySubscriptionsRequest
@@ -6134,9 +6143,9 @@ var file_topchain_subscription_query_proto_depIdxs = []int32{
 	12, // 0: topchain.subscription.QueryParamsResponse.params:type_name -> topchain.subscription.Params
 	13, // 1: topchain.subscription.QueryDealResponse.deal:type_name -> topchain.subscription.Deal
 	14, // 2: topchain.subscription.QueryDealStatusResponse.status:type_name -> topchain.subscription.Deal.Status
-	15, // 3: topchain.subscription.QueryListDealsRequest.pagination:type_name -> cosmos.base.query.v1beta1.PageRequest
-	13, // 4: topchain.subscription.QueryListDealsResponse.deals:type_name -> topchain.subscription.Deal
-	16, // 5: topchain.subscription.QueryListDealsResponse.pagination:type_name -> cosmos.base.query.v1beta1.PageResponse
+	15, // 3: topchain.subscription.QueryDealsRequest.pagination:type_name -> cosmos.base.query.v1beta1.PageRequest
+	13, // 4: topchain.subscription.QueryDealsResponse.deals:type_name -> topchain.subscription.Deal
+	16, // 5: topchain.subscription.QueryDealsResponse.pagination:type_name -> cosmos.base.query.v1beta1.PageResponse
 	17, // 6: topchain.subscription.QuerySubscriptionResponse.subscription:type_name -> topchain.subscription.Subscription
 	15, // 7: topchain.subscription.QuerySubscriptionsRequest.pagination:type_name -> cosmos.base.query.v1beta1.PageRequest
 	17, // 8: topchain.subscription.QuerySubscriptionsResponse.subscriptions:type_name -> topchain.subscription.Subscription
@@ -6144,15 +6153,17 @@ var file_topchain_subscription_query_proto_depIdxs = []int32{
 	0,  // 10: topchain.subscription.Query.Params:input_type -> topchain.subscription.QueryParamsRequest
 	2,  // 11: topchain.subscription.Query.Deal:input_type -> topchain.subscription.QueryDealRequest
 	4,  // 12: topchain.subscription.Query.DealStatus:input_type -> topchain.subscription.QueryDealStatusRequest
-	8,  // 13: topchain.subscription.Query.Subscription:input_type -> topchain.subscription.QuerySubscriptionRequest
-	10, // 14: topchain.subscription.Query.Subscriptions:input_type -> topchain.subscription.QuerySubscriptionsRequest
-	1,  // 15: topchain.subscription.Query.Params:output_type -> topchain.subscription.QueryParamsResponse
-	3,  // 16: topchain.subscription.Query.Deal:output_type -> topchain.subscription.QueryDealResponse
-	5,  // 17: topchain.subscription.Query.DealStatus:output_type -> topchain.subscription.QueryDealStatusResponse
-	9,  // 18: topchain.subscription.Query.Subscription:output_type -> topchain.subscription.QuerySubscriptionResponse
-	11, // 19: topchain.subscription.Query.Subscriptions:output_type -> topchain.subscription.QuerySubscriptionsResponse
-	15, // [15:20] is the sub-list for method output_type
-	10, // [10:15] is the sub-list for method input_type
+	6,  // 13: topchain.subscription.Query.Deals:input_type -> topchain.subscription.QueryDealsRequest
+	8,  // 14: topchain.subscription.Query.Subscription:input_type -> topchain.subscription.QuerySubscriptionRequest
+	10, // 15: topchain.subscription.Query.Subscriptions:input_type -> topchain.subscription.QuerySubscriptionsRequest
+	1,  // 16: topchain.subscription.Query.Params:output_type -> topchain.subscription.QueryParamsResponse
+	3,  // 17: topchain.subscription.Query.Deal:output_type -> topchain.subscription.QueryDealResponse
+	5,  // 18: topchain.subscription.Query.DealStatus:output_type -> topchain.subscription.QueryDealStatusResponse
+	7,  // 19: topchain.subscription.Query.Deals:output_type -> topchain.subscription.QueryDealsResponse
+	9,  // 20: topchain.subscription.Query.Subscription:output_type -> topchain.subscription.QuerySubscriptionResponse
+	11, // 21: topchain.subscription.Query.Subscriptions:output_type -> topchain.subscription.QuerySubscriptionsResponse
+	16, // [16:22] is the sub-list for method output_type
+	10, // [10:16] is the sub-list for method input_type
 	10, // [10:10] is the sub-list for extension type_name
 	10, // [10:10] is the sub-list for extension extendee
 	0,  // [0:10] is the sub-list for field type_name
@@ -6240,7 +6251,7 @@ func file_topchain_subscription_query_proto_init() {
 			}
 		}
 		file_topchain_subscription_query_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*QueryListDealsRequest); i {
+			switch v := v.(*QueryDealsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6252,7 +6263,7 @@ func file_topchain_subscription_query_proto_init() {
 			}
 		}
 		file_topchain_subscription_query_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*QueryListDealsResponse); i {
+			switch v := v.(*QueryDealsResponse); i {
 			case 0:
 				return &v.state
 			case 1:

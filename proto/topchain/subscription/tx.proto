@@ -78,7 +78,7 @@ message MsgUpdateDealResponse {}
 message MsgJoinDeal {
   option (cosmos.msg.v1.signer) = "provider";
   string provider        = 1;
-  string subscription_id = 2;
+  string deal_id = 2;
 }
 
 message MsgJoinDealResponse {}
@@ -86,7 +86,7 @@ message MsgJoinDealResponse {}
 message MsgLeaveDeal {
   option (cosmos.msg.v1.signer) = "provider";
   string provider        = 1;
-  string subscription_id = 2;
+  string deal_id = 2;
 }
 
 message MsgLeaveDealResponse {}

@@ -3744,16 +3744,16 @@ func (x *fastReflection_MsgUpdateDealResponse) ProtoMethods() *protoiface.Method
 }
 
 var (
-	md_MsgJoinDeal                 protoreflect.MessageDescriptor
-	fd_MsgJoinDeal_provider        protoreflect.FieldDescriptor
-	fd_MsgJoinDeal_subscription_id protoreflect.FieldDescriptor
+	md_MsgJoinDeal          protoreflect.MessageDescriptor
+	fd_MsgJoinDeal_provider protoreflect.FieldDescriptor
+	fd_MsgJoinDeal_deal_id  protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_topchain_subscription_tx_proto_init()
 	md_MsgJoinDeal = File_topchain_subscription_tx_proto.Messages().ByName("MsgJoinDeal")
 	fd_MsgJoinDeal_provider = md_MsgJoinDeal.Fields().ByName("provider")
-	fd_MsgJoinDeal_subscription_id = md_MsgJoinDeal.Fields().ByName("subscription_id")
+	fd_MsgJoinDeal_deal_id = md_MsgJoinDeal.Fields().ByName("deal_id")
 }
 
 var _ protoreflect.Message = (*fastReflection_MsgJoinDeal)(nil)
@@ -3827,9 +3827,9 @@ func (x *fastReflection_MsgJoinDeal) Range(f func(protoreflect.FieldDescriptor, 
 			return
 		}
 	}
-	if x.SubscriptionId != "" {
-		value := protoreflect.ValueOfString(x.SubscriptionId)
-		if !f(fd_MsgJoinDeal_subscription_id, value) {
+	if x.DealId != "" {
+		value := protoreflect.ValueOfString(x.DealId)
+		if !f(fd_MsgJoinDeal_deal_id, value) {
 			return
 		}
 	}
@@ -3850,8 +3850,8 @@ func (x *fastReflection_MsgJoinDeal) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
 	case "topchain.subscription.MsgJoinDeal.provider":
 		return x.Provider != ""
-	case "topchain.subscription.MsgJoinDeal.subscription_id":
-		return x.SubscriptionId != ""
+	case "topchain.subscription.MsgJoinDeal.deal_id":
+		return x.DealId != ""
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgJoinDeal"))
@@ -3870,8 +3870,8 @@ func (x *fastReflection_MsgJoinDeal) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	case "topchain.subscription.MsgJoinDeal.provider":
 		x.Provider = ""
-	case "topchain.subscription.MsgJoinDeal.subscription_id":
-		x.SubscriptionId = ""
+	case "topchain.subscription.MsgJoinDeal.deal_id":
+		x.DealId = ""
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgJoinDeal"))
@@ -3891,8 +3891,8 @@ func (x *fastReflection_MsgJoinDeal) Get(descriptor protoreflect.FieldDescriptor
 	case "topchain.subscription.MsgJoinDeal.provider":
 		value := x.Provider
 		return protoreflect.ValueOfString(value)
-	case "topchain.subscription.MsgJoinDeal.subscription_id":
-		value := x.SubscriptionId
+	case "topchain.subscription.MsgJoinDeal.deal_id":
+		value := x.DealId
 		return protoreflect.ValueOfString(value)
 	default:
 		if descriptor.IsExtension() {
@@ -3916,8 +3916,8 @@ func (x *fastReflection_MsgJoinDeal) Set(fd protoreflect.FieldDescriptor, value 
 	switch fd.FullName() {
 	case "topchain.subscription.MsgJoinDeal.provider":
 		x.Provider = value.Interface().(string)
-	case "topchain.subscription.MsgJoinDeal.subscription_id":
-		x.SubscriptionId = value.Interface().(string)
+	case "topchain.subscription.MsgJoinDeal.deal_id":
+		x.DealId = value.Interface().(string)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgJoinDeal"))
@@ -3940,8 +3940,8 @@ func (x *fastReflection_MsgJoinDeal) Mutable(fd protoreflect.FieldDescriptor) pr
 	switch fd.FullName() {
 	case "topchain.subscription.MsgJoinDeal.provider":
 		panic(fmt.Errorf("field provider of message topchain.subscription.MsgJoinDeal is not mutable"))
-	case "topchain.subscription.MsgJoinDeal.subscription_id":
-		panic(fmt.Errorf("field subscription_id of message topchain.subscription.MsgJoinDeal is not mutable"))
+	case "topchain.subscription.MsgJoinDeal.deal_id":
+		panic(fmt.Errorf("field deal_id of message topchain.subscription.MsgJoinDeal is not mutable"))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgJoinDeal"))
@@ -3957,7 +3957,7 @@ func (x *fastReflection_MsgJoinDeal) NewField(fd protoreflect.FieldDescriptor) p
 	switch fd.FullName() {
 	case "topchain.subscription.MsgJoinDeal.provider":
 		return protoreflect.ValueOfString("")
-	case "topchain.subscription.MsgJoinDeal.subscription_id":
+	case "topchain.subscription.MsgJoinDeal.deal_id":
 		return protoreflect.ValueOfString("")
 	default:
 		if fd.IsExtension() {
@@ -4032,7 +4032,7 @@ func (x *fastReflection_MsgJoinDeal) ProtoMethods() *protoiface.Methods {
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
-		l = len(x.SubscriptionId)
+		l = len(x.DealId)
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
@@ -4065,10 +4065,10 @@ func (x *fastReflection_MsgJoinDeal) ProtoMethods() *protoiface.Methods {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
 		}
-		if len(x.SubscriptionId) > 0 {
-			i -= len(x.SubscriptionId)
-			copy(dAtA[i:], x.SubscriptionId)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.SubscriptionId)))
+		if len(x.DealId) > 0 {
+			i -= len(x.DealId)
+			copy(dAtA[i:], x.DealId)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.DealId)))
 			i--
 			dAtA[i] = 0x12
 		}
@@ -4162,7 +4162,7 @@ func (x *fastReflection_MsgJoinDeal) ProtoMethods() *protoiface.Methods {
 				iNdEx = postIndex
 			case 2:
 				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field SubscriptionId", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field DealId", wireType)
 				}
 				var stringLen uint64
 				for shift := uint(0); ; shift += 7 {
@@ -4190,7 +4190,7 @@ func (x *fastReflection_MsgJoinDeal) ProtoMethods() *protoiface.Methods {
 				if postIndex > l {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
-				x.SubscriptionId = string(dAtA[iNdEx:postIndex])
+				x.DealId = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
 			default:
 				iNdEx = preIndex
@@ -4584,16 +4584,16 @@ func (x *fastReflection_MsgJoinDealResponse) ProtoMethods() *protoiface.Methods 
 }
 
 var (
-	md_MsgLeaveDeal                 protoreflect.MessageDescriptor
-	fd_MsgLeaveDeal_provider        protoreflect.FieldDescriptor
-	fd_MsgLeaveDeal_subscription_id protoreflect.FieldDescriptor
+	md_MsgLeaveDeal          protoreflect.MessageDescriptor
+	fd_MsgLeaveDeal_provider protoreflect.FieldDescriptor
+	fd_MsgLeaveDeal_deal_id  protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_topchain_subscription_tx_proto_init()
 	md_MsgLeaveDeal = File_topchain_subscription_tx_proto.Messages().ByName("MsgLeaveDeal")
 	fd_MsgLeaveDeal_provider = md_MsgLeaveDeal.Fields().ByName("provider")
-	fd_MsgLeaveDeal_subscription_id = md_MsgLeaveDeal.Fields().ByName("subscription_id")
+	fd_MsgLeaveDeal_deal_id = md_MsgLeaveDeal.Fields().ByName("deal_id")
 }
 
 var _ protoreflect.Message = (*fastReflection_MsgLeaveDeal)(nil)
@@ -4667,9 +4667,9 @@ func (x *fastReflection_MsgLeaveDeal) Range(f func(protoreflect.FieldDescriptor,
 			return
 		}
 	}
-	if x.SubscriptionId != "" {
-		value := protoreflect.ValueOfString(x.SubscriptionId)
-		if !f(fd_MsgLeaveDeal_subscription_id, value) {
+	if x.DealId != "" {
+		value := protoreflect.ValueOfString(x.DealId)
+		if !f(fd_MsgLeaveDeal_deal_id, value) {
 			return
 		}
 	}
@@ -4690,8 +4690,8 @@ func (x *fastReflection_MsgLeaveDeal) Has(fd protoreflect.FieldDescriptor) bool 
 	switch fd.FullName() {
 	case "topchain.subscription.MsgLeaveDeal.provider":
 		return x.Provider != ""
-	case "topchain.subscription.MsgLeaveDeal.subscription_id":
-		return x.SubscriptionId != ""
+	case "topchain.subscription.MsgLeaveDeal.deal_id":
+		return x.DealId != ""
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgLeaveDeal"))
@@ -4710,8 +4710,8 @@ func (x *fastReflection_MsgLeaveDeal) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	case "topchain.subscription.MsgLeaveDeal.provider":
 		x.Provider = ""
-	case "topchain.subscription.MsgLeaveDeal.subscription_id":
-		x.SubscriptionId = ""
+	case "topchain.subscription.MsgLeaveDeal.deal_id":
+		x.DealId = ""
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgLeaveDeal"))
@@ -4731,8 +4731,8 @@ func (x *fastReflection_MsgLeaveDeal) Get(descriptor protoreflect.FieldDescripto
 	case "topchain.subscription.MsgLeaveDeal.provider":
 		value := x.Provider
 		return protoreflect.ValueOfString(value)
-	case "topchain.subscription.MsgLeaveDeal.subscription_id":
-		value := x.SubscriptionId
+	case "topchain.subscription.MsgLeaveDeal.deal_id":
+		value := x.DealId
 		return protoreflect.ValueOfString(value)
 	default:
 		if descriptor.IsExtension() {
@@ -4756,8 +4756,8 @@ func (x *fastReflection_MsgLeaveDeal) Set(fd protoreflect.FieldDescriptor, value
 	switch fd.FullName() {
 	case "topchain.subscription.MsgLeaveDeal.provider":
 		x.Provider = value.Interface().(string)
-	case "topchain.subscription.MsgLeaveDeal.subscription_id":
-		x.SubscriptionId = value.Interface().(string)
+	case "topchain.subscription.MsgLeaveDeal.deal_id":
+		x.DealId = value.Interface().(string)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgLeaveDeal"))
@@ -4780,8 +4780,8 @@ func (x *fastReflection_MsgLeaveDeal) Mutable(fd protoreflect.FieldDescriptor) p
 	switch fd.FullName() {
 	case "topchain.subscription.MsgLeaveDeal.provider":
 		panic(fmt.Errorf("field provider of message topchain.subscription.MsgLeaveDeal is not mutable"))
-	case "topchain.subscription.MsgLeaveDeal.subscription_id":
-		panic(fmt.Errorf("field subscription_id of message topchain.subscription.MsgLeaveDeal is not mutable"))
+	case "topchain.subscription.MsgLeaveDeal.deal_id":
+		panic(fmt.Errorf("field deal_id of message topchain.subscription.MsgLeaveDeal is not mutable"))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgLeaveDeal"))
@@ -4797,7 +4797,7 @@ func (x *fastReflection_MsgLeaveDeal) NewField(fd protoreflect.FieldDescriptor) 
 	switch fd.FullName() {
 	case "topchain.subscription.MsgLeaveDeal.provider":
 		return protoreflect.ValueOfString("")
-	case "topchain.subscription.MsgLeaveDeal.subscription_id":
+	case "topchain.subscription.MsgLeaveDeal.deal_id":
 		return protoreflect.ValueOfString("")
 	default:
 		if fd.IsExtension() {
@@ -4872,7 +4872,7 @@ func (x *fastReflection_MsgLeaveDeal) ProtoMethods() *protoiface.Methods {
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
-		l = len(x.SubscriptionId)
+		l = len(x.DealId)
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
@@ -4905,10 +4905,10 @@ func (x *fastReflection_MsgLeaveDeal) ProtoMethods() *protoiface.Methods {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
 		}
-		if len(x.SubscriptionId) > 0 {
-			i -= len(x.SubscriptionId)
-			copy(dAtA[i:], x.SubscriptionId)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.SubscriptionId)))
+		if len(x.DealId) > 0 {
+			i -= len(x.DealId)
+			copy(dAtA[i:], x.DealId)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.DealId)))
 			i--
 			dAtA[i] = 0x12
 		}
@@ -5002,7 +5002,7 @@ func (x *fastReflection_MsgLeaveDeal) ProtoMethods() *protoiface.Methods {
 				iNdEx = postIndex
 			case 2:
 				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field SubscriptionId", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field DealId", wireType)
 				}
 				var stringLen uint64
 				for shift := uint(0); ; shift += 7 {
@@ -5030,7 +5030,7 @@ func (x *fastReflection_MsgLeaveDeal) ProtoMethods() *protoiface.Methods {
 				if postIndex > l {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
-				x.SubscriptionId = string(dAtA[iNdEx:postIndex])
+				x.DealId = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
 			default:
 				iNdEx = preIndex
@@ -5780,8 +5780,8 @@ type MsgJoinDeal struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Provider       string `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"`
-	SubscriptionId string `protobuf:"bytes,2,opt,name=subscription_id,json=subscriptionId,proto3" json:"subscription_id,omitempty"`
+	Provider string `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"`
+	DealId   string `protobuf:"bytes,2,opt,name=deal_id,json=dealId,proto3" json:"deal_id,omitempty"`
 }
 
 func (x *MsgJoinDeal) Reset() {
@@ -5811,9 +5811,9 @@ func (x *MsgJoinDeal) GetProvider() string {
 	return ""
 }
 
-func (x *MsgJoinDeal) GetSubscriptionId() string {
+func (x *MsgJoinDeal) GetDealId() string {
 	if x != nil {
-		return x.SubscriptionId
+		return x.DealId
 	}
 	return ""
 }
@@ -5849,8 +5849,8 @@ type MsgLeaveDeal struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Provider       string `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"`
-	SubscriptionId string `protobuf:"bytes,2,opt,name=subscription_id,json=subscriptionId,proto3" json:"subscription_id,omitempty"`
+	Provider string `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"`
+	DealId   string `protobuf:"bytes,2,opt,name=deal_id,json=dealId,proto3" json:"deal_id,omitempty"`
 }
 
 func (x *MsgLeaveDeal) Reset() {
@@ -5880,9 +5880,9 @@ func (x *MsgLeaveDeal) GetProvider() string {
 	return ""
 }
 
-func (x *MsgLeaveDeal) GetSubscriptionId() string {
+func (x *MsgLeaveDeal) GetDealId() string {
 	if x != nil {
-		return x.SubscriptionId
+		return x.DealId
 	}
 	return ""
 }
@@ -5975,20 +5975,18 @@ var file_topchain_subscription_tx_proto_rawDesc = []byte{
 	0x28, 0x04, 0x52, 0x08, 0x65, 0x6e, 0x64, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x3a, 0x0e, 0x82, 0xe7,
 	0xb0, 0x2a, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x22, 0x17, 0x0a, 0x15,
 	0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x44, 0x65, 0x61, 0x6c, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x61, 0x0a, 0x0b, 0x4d, 0x73, 0x67, 0x4a, 0x6f, 0x69, 0x6e,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x51, 0x0a, 0x0b, 0x4d, 0x73, 0x67, 0x4a, 0x6f, 0x69, 0x6e,
 	0x44, 0x65, 0x61, 0x6c, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72,
 	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72,
-	0x12, 0x27, 0x0a, 0x0f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e,
-	0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x73, 0x75, 0x62, 0x73, 0x63,
-	0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x3a, 0x0d, 0x82, 0xe7, 0xb0, 0x2a, 0x08,
+	0x12, 0x17, 0x0a, 0x07, 0x64, 0x65, 0x61, 0x6c, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x06, 0x64, 0x65, 0x61, 0x6c, 0x49, 0x64, 0x3a, 0x0d, 0x82, 0xe7, 0xb0, 0x2a, 0x08,
 	0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x22, 0x15, 0x0a, 0x13, 0x4d, 0x73, 0x67, 0x4a,
 	0x6f, 0x69, 0x6e, 0x44, 0x65, 0x61, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22,
-	0x62, 0x0a, 0x0c, 0x4d, 0x73, 0x67, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x44, 0x65, 0x61, 0x6c, 0x12,
+	0x52, 0x0a, 0x0c, 0x4d, 0x73, 0x67, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x44, 0x65, 0x61, 0x6c, 0x12,
 	0x1a, 0x0a, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x12, 0x27, 0x0a, 0x0f, 0x73,
-	0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
-	0x6f, 0x6e, 0x49, 0x64, 0x3a, 0x0d, 0x82, 0xe7, 0xb0, 0x2a, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69,
+	0x09, 0x52, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x12, 0x17, 0x0a, 0x07, 0x64,
+	0x65, 0x61, 0x6c, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x64, 0x65,
+	0x61, 0x6c, 0x49, 0x64, 0x3a, 0x0d, 0x82, 0xe7, 0xb0, 0x2a, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69,
 	0x64, 0x65, 0x72, 0x22, 0x16, 0x0a, 0x14, 0x4d, 0x73, 0x67, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x44,
 	0x65, 0x61, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0xd5, 0x04, 0x0a, 0x03,
 	0x4d, 0x73, 0x67, 0x12, 0x66, 0x0a, 0x0c, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72,
