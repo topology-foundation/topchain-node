@@ -23,3 +23,11 @@ func (k Keeper) DealStatus(ctx context.Context, req *types.QueryDealStatusReques
 
 	return &types.QueryDealStatusResponse{}, nil
 }
+
+func (k Keeper) ListDeals(ctx context.Context, req *types.QueryListDealsRequest) (*types.QueryListDealsResponse, error) {
+	if req == nil {
+		return nil, status.Error(codes.InvalidArgument, "invalid request")
+	}
+
+	return &types.QueryListDealsResponse{}, nil
+}
