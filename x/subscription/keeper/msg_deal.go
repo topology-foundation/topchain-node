@@ -5,12 +5,27 @@ import (
 	"topchain/x/subscription/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/google/uuid"
 )
 
 func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (*types.MsgCreateDealResponse, error) {
-	_ = sdk.UnwrapSDKContext(goCtx)
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	id := uuid.NewString()
+	var deal = types.Deal{
+		Id:              id,
+		Requester:       msg.Requester,
+		CroId:           msg.CroId,
+		SubscriptionIds: []string{},
+		Status:          types.Deal_SCHEDULED,
+		InitialAmount:   msg.Amount,
+		AvailableAmount: msg.Amount,
+		StartBlock:      msg.StartBlock,
+		EndBlock:        msg.EndBlock,
+	}
 
-	return &types.MsgCreateDealResponse{}, nil
+	k.AddDeal(ctx, deal)
+
+	return &types.MsgCreateDealResponse{DealId: id}, nil
 }
 
 func (k msgServer) CancelDeal(goCtx context.Context, msg *types.MsgCancelDeal) (*types.MsgCancelDealResponse, error) {
