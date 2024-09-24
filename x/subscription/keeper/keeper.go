@@ -16,6 +16,7 @@ type (
 		cdc           codec.BinaryCodec
 		storeService  store.KVStoreService
 		logger        log.Logger
+		bankKeeper    types.BankKeeper
 		stakingKeeper types.StakingKeeper
 
 		// the address capable of executing a MsgUpdateParams message. Typically, this

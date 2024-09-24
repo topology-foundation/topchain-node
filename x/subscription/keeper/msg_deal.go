@@ -28,6 +28,15 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 
 	k.AddDeal(ctx, deal)
 
+	requester, err := sdk.AccAddressFromBech32(msg.Requester)
+	if err != nil {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
+	}
+	sdkError := k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewCoin("top", sdk.NewInt(msg.Amount))))
+	if sdkError != nil {
+		return nil, errorsmod.Wrap(sdkError, "failed to send coins to module account")
+	}
+
 	return &types.MsgCreateDealResponse{DealId: id}, nil
 }
 
