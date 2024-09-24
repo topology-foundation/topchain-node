@@ -9,7 +9,8 @@ message Deal {
 	INITIALIZED = 1;
 	ACTIVE = 2;
 	INACTIVE = 3;
-	EXPIRED = 4;
+	CANCELLED = 4;
+	EXPIRED = 5;
   }
 
   string id = 1;
