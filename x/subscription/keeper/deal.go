@@ -29,12 +29,6 @@ func (k Keeper) GetDeal(ctx sdk.Context, dealId string) (deal types.Deal, found 
 	return deal, true
 }
 
-func (k Keeper) RemoveDeal(ctx sdk.Context, dealId string) {
-	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DealKeyPrefix))
-	store.Delete([]byte(dealId))
-}
-
 // Need a formula
 func (k Keeper) CalculateMinimumStake(ctx sdk.Context, deal types.Deal) int64 {
 	return 0

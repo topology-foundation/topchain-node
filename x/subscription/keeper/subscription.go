@@ -8,7 +8,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k Keeper) AddSubscription(ctx sdk.Context, subscription types.Subscription) {
+func (k Keeper) SetSubscription(ctx sdk.Context, subscription types.Subscription) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SubscriptionKeyPrefix))
 
@@ -27,10 +27,4 @@ func (k Keeper) GetSubscription(ctx sdk.Context, subscriptionId string) (subscri
 
 	k.cdc.MustUnmarshal(subscriptionBytes, &subscription)
 	return subscription, true
-}
-
-func (k Keeper) RemoveSubscription(ctx sdk.Context, subscriptionId string) {
-	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SubscriptionKeyPrefix))
-	store.Delete([]byte(subscriptionId))
 }
