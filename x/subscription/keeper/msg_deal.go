@@ -87,7 +87,41 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 }
 
 func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*types.MsgJoinDealResponse, error) {
-	_ = sdk.UnwrapSDKContext(goCtx)
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	deal, found := k.GetDeal(ctx, msg.DealId)
+	if !found {
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id"+msg.DealId+"not found")
+	}
+	delegations := k.stakingKeeper.GetAllDelegations(ctx, sdk.AccAddress(msg.Provider))
+
+	var totalStake int64 = 0
+	for _, delegation := range delegations {
+		totalStake += delegation.GetShares().TruncateInt64()
+	}
+
+	// need a formula to determine the necessary amount to join the deal, currently always accepted
+	if totalStake < k.CalculateMinimumStake(ctx, deal) {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "insufficient stake to join deal")
+	}
+
+	id := uuid.NewString()
+	var subscriptionStartBlock uint64
+	if deal.StartBlock < uint64(ctx.BlockHeight()) {
+		subscriptionStartBlock = uint64(ctx.BlockHeight())
+		deal.Status = types.Deal_ACTIVE
+	} else {
+		subscriptionStartBlock = deal.StartBlock
+	}
+
+	subsription := types.Subscription{
+		Id:         id,
+		DealId:     msg.DealId,
+		Provider:   msg.Provider,
+		StartBlock: subscriptionStartBlock,
+		EndBlock:   deal.EndBlock,
+	}
+	k.AddSubscription(ctx, subsription)
+	deal.SubscriptionIds = append(deal.SubscriptionIds, subsription.Id)
 
 	return &types.MsgJoinDealResponse{}, nil
 }

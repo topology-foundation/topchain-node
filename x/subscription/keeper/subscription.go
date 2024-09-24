@@ -1,10 +1,6 @@
 package keeper
 
 import (
-	"crypto/sha256"
-	"encoding/hex"
-	"encoding/json"
-
 	"topchain/x/subscription/types"
 
 	"cosmossdk.io/store/prefix"
@@ -12,19 +8,12 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k Keeper) AddSubscription(ctx sdk.Context, subscription types.Subscription) string {
+func (k Keeper) AddSubscription(ctx sdk.Context, subscription types.Subscription) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SubscriptionKeyPrefix))
+
 	appendedValue := k.cdc.MustMarshal(&subscription)
-	subscriptionStringified, err := json.Marshal(subscription)
-	if err != nil {
-		panic(err)
-	}
-	hash := sha256.New()
-	hash.Write(subscriptionStringified)
-	hashed := hash.Sum(nil)
-	store.Set(hashed, appendedValue)
-	return hex.EncodeToString(hashed)
+	store.Set([]byte(subscription.Id), appendedValue)
 }
 
 func (k Keeper) GetSubscription(ctx sdk.Context, subscriptionId string) (subscription types.Subscription, found bool) {

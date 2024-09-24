@@ -34,3 +34,8 @@ func (k Keeper) RemoveDeal(ctx sdk.Context, dealId string) {
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DealKeyPrefix))
 	store.Delete([]byte(dealId))
 }
+
+// Need a formula
+func (k Keeper) CalculateMinimumStake(ctx sdk.Context, deal types.Deal) int64 {
+	return 0
+}
