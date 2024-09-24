@@ -26,7 +26,7 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 		EndBlock:        msg.EndBlock,
 	}
 
-	k.AddDeal(ctx, deal)
+	k.SetDeal(ctx, deal)
 
 	requester, err := sdk.AccAddressFromBech32(msg.Requester)
 	if err != nil {
@@ -90,7 +90,7 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 		}
 	}
 
-	k.AddDeal(ctx, deal)
+	k.SetDeal(ctx, deal)
 
 	return &types.MsgUpdateDealResponse{}, nil
 }
@@ -131,6 +131,8 @@ func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*typ
 	}
 	k.AddSubscription(ctx, subsription)
 	deal.SubscriptionIds = append(deal.SubscriptionIds, subsription.Id)
+
+	k.SetDeal(ctx, deal)
 
 	return &types.MsgJoinDealResponse{}, nil
 }

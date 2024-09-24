@@ -8,7 +8,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k Keeper) AddDeal(ctx sdk.Context, deal types.Deal) {
+func (k Keeper) SetDeal(ctx sdk.Context, deal types.Deal) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DealKeyPrefix))
 
