@@ -29,6 +29,19 @@ func (k Keeper) GetDeal(ctx sdk.Context, dealId string) (deal types.Deal, found 
 	return deal, true
 }
 
+func (k Keeper) IsDealActive(ctx sdk.Context, deal types.Deal) bool {
+	for _, subscriptionId := range deal.SubscriptionIds {
+		subscription, found := k.GetSubscription(ctx, subscriptionId)
+		if !found {
+			continue
+		}
+		if subscription.EndBlock > uint64(ctx.BlockHeight()) {
+			return true
+		}
+	}
+	return false
+}
+
 // Need a formula
 func (k Keeper) CalculateMinimumStake(ctx sdk.Context, deal types.Deal) int64 {
 	return 0

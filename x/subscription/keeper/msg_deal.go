@@ -62,7 +62,7 @@ func (k msgServer) CancelDeal(goCtx context.Context, msg *types.MsgCancelDeal) (
 		for _, subscriptionId := range deal.SubscriptionIds {
 			subscription, found := k.GetSubscription(ctx, subscriptionId)
 			if !found {
-				return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "subscription with id"+subscriptionId+"not found")
+				return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "SHOULD NOT HAPPEN: subscription with id"+subscriptionId+"not found")
 			}
 			subscription.EndBlock = uint64(ctx.BlockHeight())
 			k.SetSubscription(ctx, subscription)
@@ -163,13 +163,31 @@ func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*typ
 	k.SetDeal(ctx, deal)
 
 	// TODO -> droak
-	// rpc to TopologyNode
+	// subscribe rpc to TopologyNode
 
 	return &types.MsgJoinDealResponse{}, nil
 }
 
 func (k msgServer) LeaveDeal(goCtx context.Context, msg *types.MsgLeaveDeal) (*types.MsgLeaveDealResponse, error) {
-	_ = sdk.UnwrapSDKContext(goCtx)
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	deal, found1 := k.GetDeal(ctx, msg.DealId)
+	if !found1 {
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id"+msg.DealId+"not found")
+	}
+	for _, subscriptionId := range deal.SubscriptionIds {
+		subscription, found2 := k.GetSubscription(ctx, subscriptionId)
+		if !found2 {
+			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "SHOULD NOT HAPPEN: subscription with id"+subscriptionId+"not found")
+		}
+		if subscription.Provider == msg.Provider {
+			subscription.EndBlock = uint64(ctx.BlockHeight())
+			k.SetSubscription(ctx, subscription)
+		}
+	}
+	if !k.IsDealActive(ctx, deal) {
+		deal.Status = types.Deal_INACTIVE
+		k.SetDeal(ctx, deal)
+	}
 
 	return &types.MsgLeaveDealResponse{}, nil
 }
