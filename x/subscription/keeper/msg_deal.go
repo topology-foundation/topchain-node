@@ -26,13 +26,50 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 		EndBlock:        msg.EndBlock,
 	}
 
-	k.AddDeal(ctx, deal)
+	k.SetDeal(ctx, deal)
+
+	requester, err := sdk.AccAddressFromBech32(msg.Requester)
+	if err != nil {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
+	}
+	sdkError := k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", int64(msg.Amount))))
+	if sdkError != nil {
+		return nil, errorsmod.Wrap(sdkError, "failed to send coins to module account")
+	}
 
 	return &types.MsgCreateDealResponse{DealId: id}, nil
 }
 
 func (k msgServer) CancelDeal(goCtx context.Context, msg *types.MsgCancelDeal) (*types.MsgCancelDealResponse, error) {
-	_ = sdk.UnwrapSDKContext(goCtx)
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	deal, found := k.GetDeal(ctx, msg.DealId)
+	if !found {
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id " + msg.DealId + " not found")
+	}
+	if msg.Requester != deal.Requester {
+		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the requester can cancel the deal")
+	}
+	if deal.Status == types.Deal_SCHEDULED || deal.Status == types.Deal_INITIALIZED {
+		deal.Status = types.Deal_CANCELLED
+		k.SetDeal(ctx, deal)
+		// return the remaining amount to the requester
+		k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin("top", int64(deal.AvailableAmount))))
+		return &types.MsgCancelDealResponse{}, nil
+	}
+	if deal.Status == types.Deal_INACTIVE || deal.Status == types.Deal_ACTIVE {
+		deal.Status = types.Deal_CANCELLED
+		k.SetDeal(ctx, deal)
+		for _, subscriptionId := range deal.SubscriptionIds {
+			subscription, found := k.GetSubscription(ctx, subscriptionId)
+			if !found {
+				return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "SHOULD NOT HAPPEN: subscription with id " + subscriptionId + " not found")
+			}
+			subscription.EndBlock = uint64(ctx.BlockHeight())
+			k.SetSubscription(ctx, subscription)
+		}
+		// return the remaining amount to the requester
+		k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin("top", int64(deal.AvailableAmount))))
+	}
 
 	return &types.MsgCancelDealResponse{}, nil
 }
@@ -81,7 +118,7 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 		}
 	}
 
-	k.AddDeal(ctx, deal)
+	k.SetDeal(ctx, deal)
 
 	return &types.MsgUpdateDealResponse{}, nil
 }
@@ -120,14 +157,39 @@ func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*typ
 		StartBlock: subscriptionStartBlock,
 		EndBlock:   deal.EndBlock,
 	}
-	k.AddSubscription(ctx, subsription)
+	k.SetSubscription(ctx, subsription)
 	deal.SubscriptionIds = append(deal.SubscriptionIds, subsription.Id)
+
+	k.SetDeal(ctx, deal)
+
+	// TODO -> droak
+	// subscribe rpc to TopologyNode
 
 	return &types.MsgJoinDealResponse{}, nil
 }
 
 func (k msgServer) LeaveDeal(goCtx context.Context, msg *types.MsgLeaveDeal) (*types.MsgLeaveDealResponse, error) {
-	_ = sdk.UnwrapSDKContext(goCtx)
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	deal, found := k.GetDeal(ctx, msg.DealId)
+	if !found {
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id " + msg.DealId + " not found")
+	}
+	for _, subscriptionId := range deal.SubscriptionIds {
+		subscription, found := k.GetSubscription(ctx, subscriptionId)
+		if !found {
+			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "SHOULD NOT HAPPEN: subscription with id " + subscriptionId + " not found")
+		}
+		if subscription.Provider == msg.Provider {
+			subscription.EndBlock = uint64(ctx.BlockHeight())
+			// TODO -> droak
+			// unsubscribe rpc to TopologyNode
+			k.SetSubscription(ctx, subscription)
+		}
+	}
+	if !k.IsDealActive(ctx, deal) {
+		deal.Status = types.Deal_INACTIVE
+		k.SetDeal(ctx, deal)
+	}
 
 	return &types.MsgLeaveDealResponse{}, nil
 }

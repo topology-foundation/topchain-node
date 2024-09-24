@@ -8,7 +8,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k Keeper) AddDeal(ctx sdk.Context, deal types.Deal) {
+func (k Keeper) SetDeal(ctx sdk.Context, deal types.Deal) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DealKeyPrefix))
 
@@ -29,10 +29,17 @@ func (k Keeper) GetDeal(ctx sdk.Context, dealId string) (deal types.Deal, found 
 	return deal, true
 }
 
-func (k Keeper) RemoveDeal(ctx sdk.Context, dealId string) {
-	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DealKeyPrefix))
-	store.Delete([]byte(dealId))
+func (k Keeper) IsDealActive(ctx sdk.Context, deal types.Deal) bool {
+	for _, subscriptionId := range deal.SubscriptionIds {
+		subscription, found := k.GetSubscription(ctx, subscriptionId)
+		if !found {
+			continue
+		}
+		if subscription.EndBlock > uint64(ctx.BlockHeight()) {
+			return true
+		}
+	}
+	return false
 }
 
 // Need a formula
