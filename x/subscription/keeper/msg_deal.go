@@ -41,7 +41,35 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 }
 
 func (k msgServer) CancelDeal(goCtx context.Context, msg *types.MsgCancelDeal) (*types.MsgCancelDealResponse, error) {
-	_ = sdk.UnwrapSDKContext(goCtx)
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	deal, found := k.GetDeal(ctx, msg.DealId)
+	if !found {
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id"+msg.DealId+"not found")
+	}
+	if msg.Requester != deal.Requester {
+		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the requester can cancel the deal")
+	}
+	if deal.Status == types.Deal_SCHEDULED || deal.Status == types.Deal_INITIALIZED {
+		deal.Status = types.Deal_CANCELLED
+		k.SetDeal(ctx, deal)
+		// return the remaining amount to the requester
+		k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin("top", int64(deal.AvailableAmount))))
+		return &types.MsgCancelDealResponse{}, nil
+	}
+	if deal.Status == types.Deal_INACTIVE || deal.Status == types.Deal_ACTIVE {
+		deal.Status = types.Deal_CANCELLED
+		k.SetDeal(ctx, deal)
+		for _, subscriptionId := range deal.SubscriptionIds {
+			subscription, found := k.GetSubscription(ctx, subscriptionId)
+			if !found {
+				return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "subscription with id"+subscriptionId+"not found")
+			}
+			subscription.EndBlock = uint64(ctx.BlockHeight())
+			k.SetSubscription(ctx, subscription)
+		}
+		// return the remaining amount to the requester
+		k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin("top", int64(deal.AvailableAmount))))
+	}
 
 	return &types.MsgCancelDealResponse{}, nil
 }
@@ -129,10 +157,13 @@ func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*typ
 		StartBlock: subscriptionStartBlock,
 		EndBlock:   deal.EndBlock,
 	}
-	k.AddSubscription(ctx, subsription)
+	k.SetSubscription(ctx, subsription)
 	deal.SubscriptionIds = append(deal.SubscriptionIds, subsription.Id)
 
 	k.SetDeal(ctx, deal)
+
+	// TODO -> droak
+	// rpc to TopologyNode
 
 	return &types.MsgJoinDealResponse{}, nil
 }
