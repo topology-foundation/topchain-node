@@ -181,6 +181,8 @@ func (k msgServer) LeaveDeal(goCtx context.Context, msg *types.MsgLeaveDeal) (*t
 		}
 		if subscription.Provider == msg.Provider {
 			subscription.EndBlock = uint64(ctx.BlockHeight())
+			// TODO -> droak
+			// unsubscribe rpc to TopologyNode
 			k.SetSubscription(ctx, subscription)
 		}
 	}
