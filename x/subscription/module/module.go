@@ -151,7 +151,22 @@ func (am AppModule) BeginBlock(_ context.Context) error {
 
 // EndBlock contains the logic that is automatically triggered at the end of each block.
 // The end block implementation is optional.
-func (am AppModule) EndBlock(_ context.Context) error {
+func (am AppModule) EndBlock(goCtx context.Context) error {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	am.keeper.IterateDeals(ctx, func(deal types.Deal) bool {
+		// Deal status updates
+		if deal.Status == types.Deal_SCHEDULED && uint64(ctx.BlockHeight()) >= deal.StartBlock {
+			if len(deal.SubscriptionIds) > 0 {
+				deal.Status = types.Deal_ACTIVE
+			} else {
+				deal.Status = types.Deal_INITIALIZED
+			}
+		}
+		// TODO
+
+		am.keeper.SetDeal(ctx, deal)
+		return false
+	})
 	return nil
 }
 

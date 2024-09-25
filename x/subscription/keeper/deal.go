@@ -46,3 +46,17 @@ func (k Keeper) IsDealActive(ctx sdk.Context, deal types.Deal) bool {
 func (k Keeper) CalculateMinimumStake(ctx sdk.Context, deal types.Deal) int64 {
 	return 0
 }
+
+// Iterates over all deals and apply the given callback function
+func (k Keeper) IterateDeals(ctx sdk.Context, shouldBreak func(deal types.Deal) bool) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	iterator := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DealKeyPrefix)).Iterator(nil, nil)
+	defer iterator.Close()
+	for ; iterator.Valid(); iterator.Next() {
+		var deal types.Deal
+		k.cdc.MustUnmarshal(iterator.Value(), &deal)
+		if shouldBreak(deal) {
+			break
+		}
+	}
+}
