@@ -26,8 +26,6 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 		EndBlock:        msg.EndBlock,
 	}
 
-	k.SetDeal(ctx, deal)
-
 	requester, err := sdk.AccAddressFromBech32(msg.Requester)
 	if err != nil {
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
@@ -36,6 +34,8 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 	if sdkError != nil {
 		return nil, errorsmod.Wrap(sdkError, "failed to send coins to module account")
 	}
+
+	k.SetDeal(ctx, deal)
 
 	return &types.MsgCreateDealResponse{DealId: id}, nil
 }
@@ -78,13 +78,27 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	deal, found := k.GetDeal(ctx, msg.DealId)
 	if !found {
-		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id"+msg.DealId+"not found")
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id "+msg.DealId+" not found")
 	}
 	if msg.Requester != deal.Requester {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the requester can update the deal")
 	}
 	if ctx.BlockHeight() < int64(deal.StartBlock) {
 		if msg.Amount != 0 {
+			requester, err := sdk.AccAddressFromBech32(msg.Requester)
+			if err != nil {
+				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
+			}
+			if msg.Amount < deal.TotalAmount {
+				amountToReturn := deal.TotalAmount - msg.Amount
+				k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, requester, sdk.NewCoins(sdk.NewInt64Coin("top", int64(amountToReturn))))
+			} else if msg.Amount > deal.TotalAmount {
+				amountToDeposit := msg.Amount - deal.TotalAmount
+				sdkError := k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", int64(amountToDeposit))))
+				if sdkError != nil {
+					return nil, errorsmod.Wrap(sdkError, "failed to send coins to module account")
+				}
+			}
 			deal.TotalAmount = msg.Amount
 			deal.AvailableAmount = msg.Amount
 		}
@@ -105,7 +119,17 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 			if msg.Amount < deal.TotalAmount {
 				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "amount must be greater than initial amount")
 			}
-			deal.AvailableAmount = msg.Amount
+			amountToDeposit := msg.Amount - deal.TotalAmount
+			requester, err := sdk.AccAddressFromBech32(msg.Requester)
+			if err != nil {
+				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
+			}
+			sdkError := k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", int64(amountToDeposit))))
+			if sdkError != nil {
+				return nil, errorsmod.Wrap(sdkError, "failed to send coins to module account")
+			}
+			deal.TotalAmount = msg.Amount
+			deal.AvailableAmount += amountToDeposit
 		}
 		if msg.StartBlock != 0 {
 			return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot update start block after deal has started")
@@ -124,8 +148,28 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 }
 
 func (k msgServer) IncrementDealAmount(goCtx context.Context, msg *types.MsgIncrementDealAmount) (*types.MsgIncrementDealAmountResponse, error) {
-	_ = sdk.UnwrapSDKContext(goCtx)
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	deal, found := k.GetDeal(ctx, msg.DealId)
+	if !found {
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id "+msg.DealId+" not found")
+	}
+	if msg.Requester != deal.Requester {
+		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the requester can increment the deal amount")
+	}
+	if ctx.BlockHeight() < int64(deal.EndBlock) {
+		requester, err := sdk.AccAddressFromBech32(msg.Requester)
+		if err != nil {
+			return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
+		}
+		sdkError := k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", int64(msg.Amount))))
+		if sdkError != nil {
+			return nil, errorsmod.Wrap(sdkError, "failed to send coins to module account")
+		}
+		deal.TotalAmount += msg.Amount
+		deal.AvailableAmount += msg.Amount
+	}
 
+	k.SetDeal(ctx, deal)
 	return &types.MsgIncrementDealAmountResponse{}, nil
 }
 
