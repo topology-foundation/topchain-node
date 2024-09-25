@@ -169,7 +169,7 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 				deal.Status = types.Deal_INITIALIZED
 			}
 		case types.Deal_INITIALIZED:
-			if uint64(ctx.BlockHeight()) >= deal.EndBlock {
+			if uint64(ctx.BlockHeight()) > deal.EndBlock {
 				deal.Status = types.Deal_EXPIRED
 				// return the remaining amount to the requester
 				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin("top", int64(deal.AvailableAmount))))
