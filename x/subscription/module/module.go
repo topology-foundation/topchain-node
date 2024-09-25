@@ -156,13 +156,36 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 	am.keeper.IterateDeals(ctx, func(deal types.Deal) bool {
 		// Deal status updates
 		if deal.Status == types.Deal_SCHEDULED && uint64(ctx.BlockHeight()) >= deal.StartBlock {
-			if len(deal.SubscriptionIds) > 0 {
+			if am.keeper.IsDealActive(ctx, deal) {
 				deal.Status = types.Deal_ACTIVE
 			} else {
 				deal.Status = types.Deal_INITIALIZED
 			}
 		}
-		// TODO
+		if deal.Status == types.Deal_INITIALIZED && uint64(ctx.BlockHeight()) > deal.EndBlock {
+			deal.Status = types.Deal_EXPIRED
+			// return the remaining amount to the requester
+			am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin("top", int64(deal.AvailableAmount))))
+		}
+		if deal.Status == types.Deal_ACTIVE {
+			if uint64(ctx.BlockHeight()) > deal.EndBlock {
+				deal.Status = types.Deal_EXPIRED
+			} else {
+				// payout to providers
+				activeProviders := am.keeper.GetAllActiveProviders(ctx, deal)
+				blockReward := am.keeper.CalculateBlockReward(ctx, deal)
+				rewardPerProvider := blockReward / int64(len(activeProviders))
+				for _, provider := range activeProviders {
+					am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(provider), sdk.NewCoins(sdk.NewInt64Coin("top", rewardPerProvider)))
+				}
+				deal.AvailableAmount -= uint64(blockReward)
+			}
+		}
+		if deal.Status == types.Deal_INACTIVE && uint64(ctx.BlockHeight()) > deal.EndBlock {
+			deal.Status = types.Deal_EXPIRED
+			// return the remaining amount to the requester
+			am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin("top", int64(deal.AvailableAmount))))
+		}
 
 		am.keeper.SetDeal(ctx, deal)
 		return false
