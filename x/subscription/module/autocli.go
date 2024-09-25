@@ -77,6 +77,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "deal_id"}, {ProtoField: "amount"}, {ProtoField: "start_block"}, {ProtoField: "end_block"}},
 				},
 				{
+					RpcMethod:      "IncrementDealAmount",
+					Use:            "increment-deal-amount [deal_id] [amount]",
+					Short:          "Send a increment-deal-amount tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "deal_id"}, {ProtoField: "amount"}},
+				},
+				{
 					RpcMethod:      "JoinDeal",
 					Use:            "join-deal [deal_id]",
 					Short:          "Send a join-deal tx",

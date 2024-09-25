@@ -20,7 +20,7 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 		CroId:           msg.CroId,
 		SubscriptionIds: []string{},
 		Status:          types.Deal_SCHEDULED,
-		InitialAmount:   msg.Amount,
+		TotalAmount:     msg.Amount,
 		AvailableAmount: msg.Amount,
 		StartBlock:      msg.StartBlock,
 		EndBlock:        msg.EndBlock,
@@ -85,7 +85,7 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 	}
 	if ctx.BlockHeight() < int64(deal.StartBlock) {
 		if msg.Amount != 0 {
-			deal.InitialAmount = msg.Amount
+			deal.TotalAmount = msg.Amount
 			deal.AvailableAmount = msg.Amount
 		}
 		if msg.StartBlock != 0 {
@@ -102,7 +102,7 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 		}
 	} else {
 		if msg.Amount != 0 {
-			if msg.Amount < deal.InitialAmount {
+			if msg.Amount < deal.TotalAmount {
 				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "amount must be greater than initial amount")
 			}
 			deal.AvailableAmount = msg.Amount
