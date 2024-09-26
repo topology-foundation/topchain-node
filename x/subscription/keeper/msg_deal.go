@@ -32,10 +32,6 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
 	}
 
-	// TODO rm this from here and add in init of ctx
-	acc := k.accountKeeper.NewAccountWithAddress(ctx, sdk.AccAddress(k.authority))
-	k.accountKeeper.SetAccount(ctx, acc)
-
 	sdkError := k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, k.authority, sdk.NewCoins(sdk.NewInt64Coin("top", int64(msg.Amount))))
 	if sdkError != nil {
 		return nil, errorsmod.Wrap(sdkError, "failed to send coins to module account")
