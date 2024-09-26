@@ -44,7 +44,7 @@ func (k msgServer) CancelDeal(goCtx context.Context, msg *types.MsgCancelDeal) (
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	deal, found := k.GetDeal(ctx, msg.DealId)
 	if !found {
-		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id " + msg.DealId + " not found")
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id "+msg.DealId+" not found")
 	}
 	if msg.Requester != deal.Requester {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the requester can cancel the deal")
@@ -62,7 +62,7 @@ func (k msgServer) CancelDeal(goCtx context.Context, msg *types.MsgCancelDeal) (
 		for _, subscriptionId := range deal.SubscriptionIds {
 			subscription, found := k.GetSubscription(ctx, subscriptionId)
 			if !found {
-				return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "SHOULD NOT HAPPEN: subscription with id " + subscriptionId + " not found")
+				return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "SHOULD NOT HAPPEN: subscription with id "+subscriptionId+" not found")
 			}
 			subscription.EndBlock = uint64(ctx.BlockHeight())
 			k.SetSubscription(ctx, subscription)
@@ -78,7 +78,7 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	deal, found := k.GetDeal(ctx, msg.DealId)
 	if !found {
-		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id"+msg.DealId+"not found")
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id "+msg.DealId+" not found")
 	}
 	if msg.Requester != deal.Requester {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the requester can update the deal")
@@ -127,7 +127,7 @@ func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*typ
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	deal, found := k.GetDeal(ctx, msg.DealId)
 	if !found {
-		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id"+msg.DealId+"not found")
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id "+msg.DealId+" not found")
 	}
 	delegations := k.stakingKeeper.GetAllDelegations(ctx, sdk.AccAddress(msg.Provider))
 
@@ -172,12 +172,12 @@ func (k msgServer) LeaveDeal(goCtx context.Context, msg *types.MsgLeaveDeal) (*t
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	deal, found := k.GetDeal(ctx, msg.DealId)
 	if !found {
-		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id " + msg.DealId + " not found")
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id "+msg.DealId+" not found")
 	}
 	for _, subscriptionId := range deal.SubscriptionIds {
 		subscription, found := k.GetSubscription(ctx, subscriptionId)
 		if !found {
-			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "SHOULD NOT HAPPEN: subscription with id " + subscriptionId + " not found")
+			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "SHOULD NOT HAPPEN: subscription with id "+subscriptionId+" not found")
 		}
 		if subscription.Provider == msg.Provider {
 			subscription.EndBlock = uint64(ctx.BlockHeight())
