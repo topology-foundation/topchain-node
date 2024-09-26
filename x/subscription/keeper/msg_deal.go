@@ -75,6 +75,10 @@ func (k msgServer) CancelDeal(goCtx context.Context, msg *types.MsgCancelDeal) (
 }
 
 func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (*types.MsgUpdateDealResponse, error) {
+	requester, err := sdk.AccAddressFromBech32(msg.Requester)
+	if err != nil {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
+	}
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	deal, found := k.GetDeal(ctx, msg.DealId)
 	if !found {
@@ -83,12 +87,9 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 	if msg.Requester != deal.Requester {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the requester can update the deal")
 	}
+	// Amount, StartBlock, and EndBlock are optional arguments an default to 0 if not provided
 	if ctx.BlockHeight() < int64(deal.StartBlock) {
 		if msg.Amount != 0 {
-			requester, err := sdk.AccAddressFromBech32(msg.Requester)
-			if err != nil {
-				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
-			}
 			if msg.Amount < deal.TotalAmount {
 				amountToReturn := deal.TotalAmount - msg.Amount
 				k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, requester, sdk.NewCoins(sdk.NewInt64Coin("top", int64(amountToReturn))))
@@ -148,6 +149,10 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 }
 
 func (k msgServer) IncrementDealAmount(goCtx context.Context, msg *types.MsgIncrementDealAmount) (*types.MsgIncrementDealAmountResponse, error) {
+	requester, err := sdk.AccAddressFromBech32(msg.Requester)
+	if err != nil {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
+	}
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	deal, found := k.GetDeal(ctx, msg.DealId)
 	if !found {
@@ -157,10 +162,6 @@ func (k msgServer) IncrementDealAmount(goCtx context.Context, msg *types.MsgIncr
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the requester can increment the deal amount")
 	}
 	if ctx.BlockHeight() < int64(deal.EndBlock) {
-		requester, err := sdk.AccAddressFromBech32(msg.Requester)
-		if err != nil {
-			return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
-		}
 		sdkError := k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", int64(msg.Amount))))
 		if sdkError != nil {
 			return nil, errorsmod.Wrap(sdkError, "failed to send coins to module account")
