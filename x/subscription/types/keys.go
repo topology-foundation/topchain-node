@@ -4,6 +4,8 @@ const (
 	// ModuleName defines the module name
 	ModuleName = "subscription"
 
+	ModuleAccountName = "subscription_account"
+
 	// StoreKey defines the primary module store key
 	StoreKey = ModuleName
 

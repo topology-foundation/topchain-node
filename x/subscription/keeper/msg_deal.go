@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"fmt"
 	"topchain/x/subscription/types"
 
 	errorsmod "cosmossdk.io/errors"
@@ -26,14 +27,22 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 		EndBlock:        msg.EndBlock,
 	}
 
-	// requester, err := sdk.AccAddressFromBech32(msg.Requester)
-	// if err != nil {
-	// 	return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
-	// }
-	// sdkError := k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", int64(msg.Amount))))
-	// if sdkError != nil {
-	// 	return nil, errorsmod.Wrap(sdkError, "failed to send coins to module account")
-	// }
+	if k.bankKeeper == nil {
+		fmt.Println("bank keeper is not initialized")
+	}
+	if goCtx == nil {
+		fmt.Println("context is nil")
+	}
+
+	requester, err := sdk.AccAddressFromBech32(msg.Requester)
+	if err != nil {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
+	}
+
+	sdkError := k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", int64(msg.Amount))))
+	if sdkError != nil {
+		return nil, errorsmod.Wrap(sdkError, "failed to send coins to module account")
+	}
 
 	k.SetDeal(ctx, deal)
 

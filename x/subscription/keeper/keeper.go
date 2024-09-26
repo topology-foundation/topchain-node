@@ -7,6 +7,7 @@ import (
 	"cosmossdk.io/log"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	authkeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"
 
 	"topchain/x/subscription/types"
 )
@@ -18,6 +19,7 @@ type (
 		logger        log.Logger
 		bankKeeper    types.BankKeeper
 		stakingKeeper types.StakingKeeper
+		accountKeeper authkeeper.AccountKeeper
 
 		// the address capable of executing a MsgUpdateParams message. Typically, this
 		// should be the x/gov module account.
@@ -29,6 +31,8 @@ func NewKeeper(
 	cdc codec.BinaryCodec,
 	storeService store.KVStoreService,
 	logger log.Logger,
+	bankKeeper types.BankKeeper,
+	accountKeeper authkeeper.AccountKeeper,
 	authority string,
 
 ) Keeper {
@@ -37,10 +41,12 @@ func NewKeeper(
 	}
 
 	return Keeper{
-		cdc:          cdc,
-		storeService: storeService,
-		authority:    authority,
-		logger:       logger,
+		cdc:           cdc,
+		storeService:  storeService,
+		authority:     authority,
+		logger:        logger,
+		bankKeeper:    bankKeeper,
+		accountKeeper: accountKeeper,
 	}
 }
 
