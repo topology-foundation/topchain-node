@@ -162,7 +162,11 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 		case types.Deal_CANCELLED:
 			return false
 		case types.Deal_SCHEDULED:
-			if uint64(ctx.BlockHeight()) >= deal.StartBlock {
+			if uint64(ctx.BlockHeight()) < deal.StartBlock {
+				return false
+			}
+
+			if am.keeper.IsDealActive(ctx, deal) {
 				deal.Status = types.Deal_ACTIVE
 				deal = am.PayActiveProvidersPerBlock(ctx, deal)
 			} else {
