@@ -19,12 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Msg_UpdateParams_FullMethodName = "/topchain.subscription.Msg/UpdateParams"
-	Msg_CreateDeal_FullMethodName   = "/topchain.subscription.Msg/CreateDeal"
-	Msg_CancelDeal_FullMethodName   = "/topchain.subscription.Msg/CancelDeal"
-	Msg_UpdateDeal_FullMethodName   = "/topchain.subscription.Msg/UpdateDeal"
-	Msg_JoinDeal_FullMethodName     = "/topchain.subscription.Msg/JoinDeal"
-	Msg_LeaveDeal_FullMethodName    = "/topchain.subscription.Msg/LeaveDeal"
+	Msg_UpdateParams_FullMethodName        = "/topchain.subscription.Msg/UpdateParams"
+	Msg_CreateDeal_FullMethodName          = "/topchain.subscription.Msg/CreateDeal"
+	Msg_CancelDeal_FullMethodName          = "/topchain.subscription.Msg/CancelDeal"
+	Msg_UpdateDeal_FullMethodName          = "/topchain.subscription.Msg/UpdateDeal"
+	Msg_IncrementDealAmount_FullMethodName = "/topchain.subscription.Msg/IncrementDealAmount"
+	Msg_JoinDeal_FullMethodName            = "/topchain.subscription.Msg/JoinDeal"
+	Msg_LeaveDeal_FullMethodName           = "/topchain.subscription.Msg/LeaveDeal"
 )
 
 // MsgClient is the client API for Msg service.
@@ -37,6 +38,7 @@ type MsgClient interface {
 	CreateDeal(ctx context.Context, in *MsgCreateDeal, opts ...grpc.CallOption) (*MsgCreateDealResponse, error)
 	CancelDeal(ctx context.Context, in *MsgCancelDeal, opts ...grpc.CallOption) (*MsgCancelDealResponse, error)
 	UpdateDeal(ctx context.Context, in *MsgUpdateDeal, opts ...grpc.CallOption) (*MsgUpdateDealResponse, error)
+	IncrementDealAmount(ctx context.Context, in *MsgIncrementDealAmount, opts ...grpc.CallOption) (*MsgIncrementDealAmountResponse, error)
 	JoinDeal(ctx context.Context, in *MsgJoinDeal, opts ...grpc.CallOption) (*MsgJoinDealResponse, error)
 	LeaveDeal(ctx context.Context, in *MsgLeaveDeal, opts ...grpc.CallOption) (*MsgLeaveDealResponse, error)
 }
@@ -85,6 +87,15 @@ func (c *msgClient) UpdateDeal(ctx context.Context, in *MsgUpdateDeal, opts ...g
 	return out, nil
 }
 
+func (c *msgClient) IncrementDealAmount(ctx context.Context, in *MsgIncrementDealAmount, opts ...grpc.CallOption) (*MsgIncrementDealAmountResponse, error) {
+	out := new(MsgIncrementDealAmountResponse)
+	err := c.cc.Invoke(ctx, Msg_IncrementDealAmount_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *msgClient) JoinDeal(ctx context.Context, in *MsgJoinDeal, opts ...grpc.CallOption) (*MsgJoinDealResponse, error) {
 	out := new(MsgJoinDealResponse)
 	err := c.cc.Invoke(ctx, Msg_JoinDeal_FullMethodName, in, out, opts...)
@@ -113,6 +124,7 @@ type MsgServer interface {
 	CreateDeal(context.Context, *MsgCreateDeal) (*MsgCreateDealResponse, error)
 	CancelDeal(context.Context, *MsgCancelDeal) (*MsgCancelDealResponse, error)
 	UpdateDeal(context.Context, *MsgUpdateDeal) (*MsgUpdateDealResponse, error)
+	IncrementDealAmount(context.Context, *MsgIncrementDealAmount) (*MsgIncrementDealAmountResponse, error)
 	JoinDeal(context.Context, *MsgJoinDeal) (*MsgJoinDealResponse, error)
 	LeaveDeal(context.Context, *MsgLeaveDeal) (*MsgLeaveDealResponse, error)
 	mustEmbedUnimplementedMsgServer()
@@ -133,6 +145,9 @@ func (UnimplementedMsgServer) CancelDeal(context.Context, *MsgCancelDeal) (*MsgC
 }
 func (UnimplementedMsgServer) UpdateDeal(context.Context, *MsgUpdateDeal) (*MsgUpdateDealResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateDeal not implemented")
+}
+func (UnimplementedMsgServer) IncrementDealAmount(context.Context, *MsgIncrementDealAmount) (*MsgIncrementDealAmountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IncrementDealAmount not implemented")
 }
 func (UnimplementedMsgServer) JoinDeal(context.Context, *MsgJoinDeal) (*MsgJoinDealResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method JoinDeal not implemented")
@@ -225,6 +240,24 @@ func _Msg_UpdateDeal_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_IncrementDealAmount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgIncrementDealAmount)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).IncrementDealAmount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_IncrementDealAmount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).IncrementDealAmount(ctx, req.(*MsgIncrementDealAmount))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Msg_JoinDeal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MsgJoinDeal)
 	if err := dec(in); err != nil {
@@ -283,6 +316,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateDeal",
 			Handler:    _Msg_UpdateDeal_Handler,
+		},
+		{
+			MethodName: "IncrementDealAmount",
+			Handler:    _Msg_IncrementDealAmount_Handler,
 		},
 		{
 			MethodName: "JoinDeal",
