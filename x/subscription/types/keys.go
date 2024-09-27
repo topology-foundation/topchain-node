@@ -22,3 +22,8 @@ var (
 func KeyPrefix(p string) []byte {
 	return []byte(p)
 }
+
+// GetProviderStoreKey returns the key for the provider store for the given provider.
+func GetProviderStoreKey(provider string) []byte {
+	return []byte(KeyPrefix(SubscriptionProviderKeyPrefix + "/" + provider))
+}
