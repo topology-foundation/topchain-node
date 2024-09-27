@@ -10,9 +10,6 @@ import (
 // AccountKeeper defines the expected interface for the Account module.
 type AccountKeeper interface {
 	GetAccount(context.Context, sdk.AccAddress) sdk.AccountI // only used for simulation
-	SetAccount(ctx context.Context, acc sdk.AccountI)
-
-	GetModuleAccount(ctx context.Context, moduleName string) sdk.ModuleAccountI
 	// Methods imported from account should be defined here
 }
 
