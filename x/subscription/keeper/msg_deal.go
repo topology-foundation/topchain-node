@@ -2,6 +2,8 @@ package keeper
 
 import (
 	"context"
+	"math"
+
 	"topchain/x/subscription/types"
 
 	errorsmod "cosmossdk.io/errors"
@@ -14,7 +16,7 @@ import (
 func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (*types.MsgCreateDealResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	id := uuid.NewString()
-	var deal = types.Deal{
+	deal := types.Deal{
 		Id:              id,
 		Requester:       msg.Requester,
 		CroId:           msg.CroId,
@@ -180,7 +182,10 @@ func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*typ
 	if !found {
 		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id "+msg.DealId+" not found")
 	}
-	delegations := k.stakingKeeper.GetAllDelegations(ctx, sdk.AccAddress(msg.Provider))
+	delegations, err := k.stakingKeeper.GetDelegatorDelegations(ctx, sdk.AccAddress(msg.Provider), math.MaxUint16)
+	if err != nil {
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "provider "+msg.Provider+" not found")
+	}
 
 	var totalStake int64 = 0
 	for _, delegation := range delegations {
