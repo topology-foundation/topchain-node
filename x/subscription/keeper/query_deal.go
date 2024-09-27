@@ -50,6 +50,7 @@ func (k Keeper) Deals(ctx context.Context, req *types.QueryDealsRequest) (*types
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DealKeyPrefix))
 
+	// TODO: use a KV mapping <deal requester, deals> to avoid iterating over every deal like done below.
 	var deals []types.Deal
 	pageRes, err := query.Paginate(store, req.Pagination, func(key []byte, value []byte) error {
 		var deal types.Deal
