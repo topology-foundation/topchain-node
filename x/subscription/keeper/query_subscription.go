@@ -33,7 +33,7 @@ func (k Keeper) Subscriptions(goCtx context.Context, req *types.QuerySubscriptio
 	}
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SubscriptionKeyPrefix))
+	store := prefix.NewStore(storeAdapter, types.GetProviderStoreKey(req.Provider))
 
 	var subscriptions []types.Subscription
 	pageRes, err := query.Paginate(store, req.Pagination, func(key []byte, value []byte) error {
@@ -42,9 +42,7 @@ func (k Keeper) Subscriptions(goCtx context.Context, req *types.QuerySubscriptio
 			return err
 		}
 
-		if subscription.Provider == req.Provider {
-			subscriptions = append(subscriptions, subscription)
-		}
+		subscriptions = append(subscriptions, subscription)
 		return nil
 	})
 	if err != nil {

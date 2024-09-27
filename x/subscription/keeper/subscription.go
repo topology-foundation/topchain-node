@@ -14,6 +14,9 @@ func (k Keeper) SetSubscription(ctx sdk.Context, subscription types.Subscription
 
 	appendedValue := k.cdc.MustMarshal(&subscription)
 	store.Set([]byte(subscription.Id), appendedValue)
+
+	providerStore := prefix.NewStore(storeAdapter, types.GetProviderStoreKey(subscription.Provider))
+	providerStore.Set([]byte(subscription.Id), appendedValue)
 }
 
 func (k Keeper) GetSubscription(ctx sdk.Context, subscriptionId string) (subscription types.Subscription, found bool) {
