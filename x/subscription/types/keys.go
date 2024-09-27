@@ -12,7 +12,7 @@ const (
 
 	DealKeyPrefix                 = "Deal/value"
 	SubscriptionKeyPrefix         = "Subscription/value"
-	ProviderSubscriptionKeyPrefix = "Provider/Subscription/value"
+	SubscriptionProviderKeyPrefix = "Subscription/Provider/value"
 )
 
 var (
