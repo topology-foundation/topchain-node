@@ -13,10 +13,6 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	if err := k.SetParams(ctx, genState.Params); err != nil {
 		panic(err)
 	}
-
-	// Create and save the module account to the account keeper
-	// Create a module account for your custom module
-	k.CreateModuleAccount(ctx, types.ModuleName)
 }
 
 // ExportGenesis returns the module's exported genesis.

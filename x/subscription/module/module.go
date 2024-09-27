@@ -14,7 +14,6 @@ import (
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	authkeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
@@ -243,7 +242,7 @@ type ModuleInputs struct {
 	Config       *modulev1.Module
 	Logger       log.Logger
 
-	AccountKeeper authkeeper.AccountKeeper
+	AccountKeeper types.AccountKeeper
 	BankKeeper    types.BankKeeper
 	StakingKeeper types.StakingKeeper
 }
@@ -268,8 +267,6 @@ func ProvideModule(in ModuleInputs) ModuleOutputs {
 		in.Cdc,
 		in.StoreService,
 		in.Logger,
-		in.BankKeeper,
-		in.AccountKeeper,
 		authority.String(),
 		moduleAddress.String(),
 		in.AccountKeeper,

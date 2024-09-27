@@ -7,7 +7,6 @@ import (
 	"cosmossdk.io/log"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	authkeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"
 
 	"topchain/x/subscription/types"
 )
@@ -33,8 +32,6 @@ func NewKeeper(
 	cdc codec.BinaryCodec,
 	storeService store.KVStoreService,
 	logger log.Logger,
-	bankKeeper types.BankKeeper,
-	accountKeeper authkeeper.AccountKeeper,
 	authority string,
 	moduleAddress string,
 	accountKeeper types.AccountKeeper,
