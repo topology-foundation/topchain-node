@@ -15,7 +15,7 @@ func (k Keeper) SetSubscription(ctx sdk.Context, subscription types.Subscription
 	appendedValue := k.cdc.MustMarshal(&subscription)
 	store.Set([]byte(subscription.Id), appendedValue)
 
-	providerStore := prefix.NewStore(storeAdapter, types.KeyPrefix(types.ProviderSubscriptionKeyPrefix+"/"+subscription.Provider))
+	providerStore := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SubscriptionProviderKeyPrefix+"/"+subscription.Provider))
 	providerStore.Set([]byte(subscription.Id), appendedValue)
 }
 

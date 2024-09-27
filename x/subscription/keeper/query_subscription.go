@@ -42,9 +42,7 @@ func (k Keeper) Subscriptions(goCtx context.Context, req *types.QuerySubscriptio
 			return err
 		}
 
-		if subscription.Provider == req.Provider {
-			subscriptions = append(subscriptions, subscription)
-		}
+		subscriptions = append(subscriptions, subscription)
 		return nil
 	})
 	if err != nil {
