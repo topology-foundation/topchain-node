@@ -16,9 +16,7 @@ const (
 	SubscriptionKeyPrefix = "Subscription/value"
 )
 
-var (
-	ParamsKey = []byte("p_subscription")
-)
+var ParamsKey = []byte("p_subscription")
 
 func KeyPrefix(p string) []byte {
 	return []byte(p)

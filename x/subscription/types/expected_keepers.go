@@ -22,7 +22,7 @@ type BankKeeper interface {
 
 // StakingKeeper defines the expected interface for the Staking module.
 type StakingKeeper interface {
-	GetAllDelegations(ctx context.Context, delegatorAddress sdk.AccAddress) []types.Delegation
+	GetDelegatorDelegations(ctx context.Context, delegator sdk.AccAddress, maxRetrieve uint16) (delegations []types.Delegation, err error)
 }
 
 // ParamSubspace defines the expected Subspace interface for parameters.
