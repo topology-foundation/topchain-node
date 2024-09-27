@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"fmt"
 	"math"
 
 	"topchain/x/subscription/types"
@@ -27,13 +26,6 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 		AvailableAmount: msg.Amount,
 		StartBlock:      msg.StartBlock,
 		EndBlock:        msg.EndBlock,
-	}
-
-	if k.bankKeeper == nil {
-		fmt.Println("bank keeper is not initialized")
-	}
-	if goCtx == nil {
-		fmt.Println("context is nil")
 	}
 
 	requester, err := sdk.AccAddressFromBech32(msg.Requester)
