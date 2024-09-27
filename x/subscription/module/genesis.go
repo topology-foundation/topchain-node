@@ -1,10 +1,10 @@
 package subscription
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
-
 	"topchain/x/subscription/keeper"
 	"topchain/x/subscription/types"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.
