@@ -10,3 +10,7 @@ message Subscription {
   uint64 start_block = 4;
   uint64 end_block = 5;
 }
+
+message SubscriptionIds {
+  repeated string ids = 1;
+}

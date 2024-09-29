@@ -2,13 +2,13 @@ package keeper
 
 import (
 	"context"
+
 	"topchain/x/subscription/types"
 
 	"cosmossdk.io/store/prefix"
 	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/cosmos/cosmos-sdk/types/query"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -31,23 +31,36 @@ func (k Keeper) Subscriptions(goCtx context.Context, req *types.QuerySubscriptio
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
+	req.Pagination = types.InitPagintionRequestDefaults(req.Pagination)
+
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	store := prefix.NewStore(storeAdapter, types.GetProviderStoreKey(req.Provider))
+	providerStore := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SubscriptionProviderKeyPrefix))
 
-	var subscriptions []types.Subscription
-	pageRes, err := query.Paginate(store, req.Pagination, func(key []byte, value []byte) error {
-		var subscription types.Subscription
-		if err := k.cdc.Unmarshal(value, &subscription); err != nil {
-			return err
-		}
+	var subscriptionIds types.SubscriptionIds
+	providerSubscriptions := providerStore.Get([]byte(req.Provider))
+	if providerSubscriptions == nil {
+		return &types.QuerySubscriptionsResponse{Subscriptions: []types.Subscription{}}, nil
+	}
+	k.cdc.MustUnmarshal(providerSubscriptions, &subscriptionIds)
 
-		subscriptions = append(subscriptions, subscription)
-		return nil
-	})
-	if err != nil {
-		return nil, status.Error(codes.Internal, err.Error())
+	idsLen := uint64(len(subscriptionIds.Ids))
+	if req.Pagination.Offset >= idsLen || idsLen == 0 {
+		return &types.QuerySubscriptionsResponse{Subscriptions: []types.Subscription{}}, nil
+	}
+	end := req.Pagination.Offset + req.Pagination.Limit
+	if end > idsLen {
+		end = idsLen
 	}
 
-	return &types.QuerySubscriptionsResponse{Subscriptions: subscriptions, Pagination: pageRes}, nil
+	var subscriptions []types.Subscription
+	for _, id := range subscriptionIds.Ids[req.Pagination.Offset:end] {
+		subscription, found := k.GetSubscription(ctx, id)
+		if !found {
+			return nil, sdkerrors.ErrKeyNotFound
+		}
+		subscriptions = append(subscriptions, subscription)
+	}
+
+	return &types.QuerySubscriptionsResponse{Subscriptions: subscriptions}, nil
 }

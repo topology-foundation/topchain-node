@@ -7,8 +7,6 @@ import (
 
 	"topchain/x/subscription/types"
 
-	query "github.com/cosmos/cosmos-sdk/types/query"
-
 	keepertest "topchain/testutil/keeper"
 )
 
@@ -74,12 +72,12 @@ func TestSubscriptionsWithPaginationOne(t *testing.T) {
 	keeper.SetSubscription(ctx, subscription2)
 	keeper.SetSubscription(ctx, subscription3)
 
-	req := &types.QuerySubscriptionsRequest{Provider: "provider1", Pagination: &query.PageRequest{Limit: 1}}
+	req := &types.QuerySubscriptionsRequest{Provider: "provider1", Pagination: &types.PageRequest{Offset: 0, Limit: 1}}
 	res, err := keeper.Subscriptions(ctx, req)
 	require.NoError(t, err)
 	require.Len(t, res.Subscriptions, 1)
 	require.Contains(t, res.Subscriptions, subscription1)
-	req = &types.QuerySubscriptionsRequest{Provider: "provider1", Pagination: &query.PageRequest{Key: res.Pagination.NextKey, Limit: 1}}
+	req = &types.QuerySubscriptionsRequest{Provider: "provider1", Pagination: &types.PageRequest{Offset: 1, Limit: 1}}
 	res, err = keeper.Subscriptions(ctx, req)
 	require.Len(t, res.Subscriptions, 1)
 	require.Contains(t, res.Subscriptions, subscription2)

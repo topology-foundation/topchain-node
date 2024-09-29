@@ -8,6 +8,7 @@ import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "topchain/subscription/params.proto";
 import "topchain/subscription/deal.proto";
+import "topchain/subscription/pagination.proto";
 import "topchain/subscription/subscription.proto";
 
 option go_package = "topchain/x/subscription/types";
@@ -86,10 +87,9 @@ message QuerySubscriptionResponse {
 
 message QuerySubscriptionsRequest {
   string provider = 1;
-  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+  topchain.subscription.PageRequest pagination = 2;
 }
 
 message QuerySubscriptionsResponse {
   repeated topchain.subscription.Subscription subscriptions = 1 [(gogoproto.nullable) = false];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }

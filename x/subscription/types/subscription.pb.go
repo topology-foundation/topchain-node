@@ -98,8 +98,53 @@ func (m *Subscription) GetEndBlock() uint64 {
 	return 0
 }
 
+type SubscriptionIds struct {
+	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"`
+}
+
+func (m *SubscriptionIds) Reset()         { *m = SubscriptionIds{} }
+func (m *SubscriptionIds) String() string { return proto.CompactTextString(m) }
+func (*SubscriptionIds) ProtoMessage()    {}
+func (*SubscriptionIds) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f6aa30eaaa7d0617, []int{1}
+}
+func (m *SubscriptionIds) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *SubscriptionIds) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_SubscriptionIds.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *SubscriptionIds) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SubscriptionIds.Merge(m, src)
+}
+func (m *SubscriptionIds) XXX_Size() int {
+	return m.Size()
+}
+func (m *SubscriptionIds) XXX_DiscardUnknown() {
+	xxx_messageInfo_SubscriptionIds.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SubscriptionIds proto.InternalMessageInfo
+
+func (m *SubscriptionIds) GetIds() []string {
+	if m != nil {
+		return m.Ids
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*Subscription)(nil), "topchain.subscription.Subscription")
+	proto.RegisterType((*SubscriptionIds)(nil), "topchain.subscription.SubscriptionIds")
 }
 
 func init() {
@@ -107,7 +152,7 @@ func init() {
 }
 
 var fileDescriptor_f6aa30eaaa7d0617 = []byte{
-	// 213 bytes of a gzipped FileDescriptorProto
+	// 239 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xd2, 0x28, 0xc9, 0x2f, 0x48,
 	0xce, 0x48, 0xcc, 0xcc, 0xd3, 0x2f, 0x2e, 0x4d, 0x2a, 0x4e, 0x2e, 0xca, 0x2c, 0x28, 0xc9, 0xcc,
 	0x47, 0xe5, 0xe8, 0x15, 0x14, 0xe5, 0x97, 0xe4, 0x0b, 0x89, 0xc2, 0x54, 0xea, 0x21, 0x4b, 0x2a,
@@ -117,11 +162,12 @@ var fileDescriptor_f6aa30eaaa7d0617 = []byte{
 	0x45, 0xf9, 0x65, 0x99, 0x29, 0xa9, 0x45, 0x12, 0xcc, 0x60, 0x19, 0x38, 0x5f, 0x48, 0x9e, 0x8b,
 	0xbb, 0xb8, 0x24, 0xb1, 0xa8, 0x24, 0x3e, 0x29, 0x27, 0x3f, 0x39, 0x5b, 0x82, 0x45, 0x81, 0x51,
 	0x83, 0x25, 0x88, 0x0b, 0x2c, 0xe4, 0x04, 0x12, 0x11, 0x92, 0xe6, 0xe2, 0x4c, 0xcd, 0x4b, 0x81,
-	0x4a, 0xb3, 0x82, 0xa5, 0x39, 0x52, 0xf3, 0x52, 0xc0, 0x92, 0x4e, 0xe6, 0x27, 0x1e, 0xc9, 0x31,
-	0x5e, 0x78, 0x24, 0xc7, 0xf8, 0xe0, 0x91, 0x1c, 0xe3, 0x84, 0xc7, 0x72, 0x0c, 0x17, 0x1e, 0xcb,
-	0x31, 0xdc, 0x78, 0x2c, 0xc7, 0x10, 0x25, 0x0b, 0xf7, 0x6e, 0x05, 0xaa, 0x87, 0x4b, 0x2a, 0x0b,
-	0x52, 0x8b, 0x93, 0xd8, 0xc0, 0x5e, 0x35, 0x06, 0x04, 0x00, 0x00, 0xff, 0xff, 0xbe, 0x33, 0x98,
-	0x06, 0x16, 0x01, 0x00, 0x00,
+	0x4a, 0xb3, 0x82, 0xa5, 0x39, 0x52, 0xf3, 0x52, 0xc0, 0x92, 0x4a, 0xca, 0x5c, 0xfc, 0xc8, 0x4e,
+	0xf2, 0x4c, 0x29, 0x16, 0x12, 0xe0, 0x62, 0xce, 0x4c, 0x29, 0x96, 0x60, 0x54, 0x60, 0xd6, 0xe0,
+	0x0c, 0x02, 0x31, 0x9d, 0xcc, 0x4f, 0x3c, 0x92, 0x63, 0xbc, 0xf0, 0x48, 0x8e, 0xf1, 0xc1, 0x23,
+	0x39, 0xc6, 0x09, 0x8f, 0xe5, 0x18, 0x2e, 0x3c, 0x96, 0x63, 0xb8, 0xf1, 0x58, 0x8e, 0x21, 0x4a,
+	0x16, 0x1e, 0x26, 0x15, 0xa8, 0xa1, 0x52, 0x52, 0x59, 0x90, 0x5a, 0x9c, 0xc4, 0x06, 0x0e, 0x0f,
+	0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0xde, 0x1d, 0xb5, 0xcc, 0x3b, 0x01, 0x00, 0x00,
 }
 
 func (m *Subscription) Marshal() (dAtA []byte, err error) {
@@ -178,6 +224,38 @@ func (m *Subscription) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *SubscriptionIds) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *SubscriptionIds) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *SubscriptionIds) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Ids) > 0 {
+		for iNdEx := len(m.Ids) - 1; iNdEx >= 0; iNdEx-- {
+			i -= len(m.Ids[iNdEx])
+			copy(dAtA[i:], m.Ids[iNdEx])
+			i = encodeVarintSubscription(dAtA, i, uint64(len(m.Ids[iNdEx])))
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintSubscription(dAtA []byte, offset int, v uint64) int {
 	offset -= sovSubscription(v)
 	base := offset
@@ -212,6 +290,21 @@ func (m *Subscription) Size() (n int) {
 	}
 	if m.EndBlock != 0 {
 		n += 1 + sovSubscription(uint64(m.EndBlock))
+	}
+	return n
+}
+
+func (m *SubscriptionIds) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Ids) > 0 {
+		for _, s := range m.Ids {
+			l = len(s)
+			n += 1 + l + sovSubscription(uint64(l))
+		}
 	}
 	return n
 }
@@ -385,6 +478,88 @@ func (m *Subscription) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipSubscription(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthSubscription
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *SubscriptionIds) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowSubscription
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: SubscriptionIds: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: SubscriptionIds: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Ids", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSubscription
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSubscription
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSubscription
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Ids = append(m.Ids, string(dAtA[iNdEx:postIndex]))
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipSubscription(dAtA[iNdEx:])

@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package topchain.subscription;
+
+option go_package = "topchain/x/subscription/types";
+
+message PageRequest {
+  uint64 offset = 2;
+  uint64 limit = 3;
+}
