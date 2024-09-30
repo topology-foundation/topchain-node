@@ -22,6 +22,11 @@ func (k Keeper) SetSubscription(ctx sdk.Context, subscription types.Subscription
 		k.cdc.MustUnmarshal(existingSubscriptionIdsByte, &subscriptionsIds)
 	}
 
+	for _, id := range subscriptionsIds.Ids {
+		if id == subscription.Id {
+			return
+		}
+	}
 	subscriptionsIds.Ids = append(subscriptionsIds.Ids, subscription.Id)
 	providerStore.Set([]byte(subscription.Provider), k.cdc.MustMarshal(&subscriptionsIds))
 }
