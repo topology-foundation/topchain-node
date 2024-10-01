@@ -71,6 +71,19 @@ func (k Keeper) IsDealUnavailable(status types.Deal_Status) bool {
 	}
 }
 
+func (k Keeper) IsAlreadySubscribed(ctx sdk.Context, subscriptionIds []string, provider string) bool {
+	for _, subscriptionId := range subscriptionIds {
+		// NOTE: i'm ignoring the `found` return value because it should be true if the sub ids are fetched from the deal
+		// TODO(h3lio5): need to think about the visibility of this function
+		sub, _ := k.GetSubscription(ctx, subscriptionId)
+		if sub.Provider == provider {
+			return true
+		}
+	}
+
+	return false
+}
+
 func (k Keeper) CalculateBlockReward(ctx sdk.Context, deal types.Deal) int64 {
 	remainingBlocks := deal.EndBlock - uint64(ctx.BlockHeight())
 	return int64(deal.AvailableAmount) / int64(remainingBlocks)

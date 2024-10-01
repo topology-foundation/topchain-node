@@ -188,6 +188,10 @@ func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*typ
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidVersion, "deal with id "+msg.DealId+"is not available to join")
 	}
 
+	if k.IsAlreadySubscribed(ctx, deal.SubscriptionIds, msg.Provider) {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidVersion, "provider is already subscribed to the deal with id "+msg.DealId)
+	}
+
 	delegations, err := k.stakingKeeper.GetDelegatorDelegations(ctx, sdk.AccAddress(msg.Provider), math.MaxUint16)
 	if err != nil {
 		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "provider "+msg.Provider+" not found")

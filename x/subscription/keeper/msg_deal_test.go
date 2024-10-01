@@ -499,3 +499,31 @@ func TestMsgServerJoinCancelledDealMsg(t *testing.T) {
 
 	require.NotNil(t, err)
 }
+
+func TestMsgServerJoinSameDealMoreThanOnceMsg(t *testing.T) {
+	k, ms, ctx, _ := setupMsgServer(t)
+
+	require.NotNil(t, ms)
+	require.NotNil(t, ctx)
+	require.NotEmpty(t, k)
+
+	// Create a new deal
+	createDeal := types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
+	createResponse, err := ms.CreateDeal(ctx, &createDeal)
+
+	dealId := createResponse.DealId
+	require.Nil(t, err)
+
+	// Provider joins the deal
+	joinDeal := types.MsgJoinDeal{Provider: testutil.Bob, DealId: dealId}
+	_, err = ms.JoinDeal(ctx, &joinDeal)
+
+	require.Nil(t, err)
+
+	// Provider tries to join the same deal again
+	_, err = ms.JoinDeal(ctx, &joinDeal)
+
+	// It is disallowed to join a deal already subscribed to
+	require.NotNil(t, err)
+
+}
