@@ -5,12 +5,13 @@ option go_package = "topchain/x/subscription/types";
 
 message Deal {
   enum Status {
-	SCHEDULED = 0;
-	INITIALIZED = 1;
-	ACTIVE = 2;
-	INACTIVE = 3;
-	CANCELLED = 4;
-	EXPIRED = 5;
+  UNDEFINED = 0;
+	SCHEDULED = 1;
+	INITIALIZED = 2;
+	ACTIVE = 3;
+	INACTIVE = 4;
+	CANCELLED = 5;
+	EXPIRED = 6;
   }
 
   string id = 1;
