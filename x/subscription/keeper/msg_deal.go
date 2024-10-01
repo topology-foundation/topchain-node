@@ -218,7 +218,7 @@ func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*typ
 
 	k.SetDeal(ctx, deal)
 
-	client := types.GetClient()
+	client := types.Client
 	_, err = client.SubscribeCro(goCtx, &types.SubscribeCroRequest{CroId: deal.CroId})
 	if err != nil {
 		return nil, types.ErrTopologyRPC
@@ -240,7 +240,7 @@ func (k msgServer) LeaveDeal(goCtx context.Context, msg *types.MsgLeaveDeal) (*t
 		}
 		if subscription.Provider == msg.Provider {
 			subscription.EndBlock = uint64(ctx.BlockHeight())
-			client := types.GetClient()
+			client := types.Client
 			_, err := client.UnsubscribeCro(goCtx, &types.UnsubscribeCroRequest{CroId: deal.CroId})
 			if err != nil {
 				return nil, types.ErrTopologyRPC
