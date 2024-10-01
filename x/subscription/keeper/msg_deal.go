@@ -221,7 +221,7 @@ func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*typ
 	client := types.GetClient()
 	_, err = client.SubscribeCro(goCtx, &types.SubscribeCroRequest{CroId: deal.CroId})
 	if err != nil {
-		k.logger.Error("rpc call failed", "err", err)
+		return nil, types.ErrTopologyRPC
 	}
 
 	return &types.MsgJoinDealResponse{}, nil
@@ -243,7 +243,7 @@ func (k msgServer) LeaveDeal(goCtx context.Context, msg *types.MsgLeaveDeal) (*t
 			client := types.GetClient()
 			_, err := client.UnsubscribeCro(goCtx, &types.UnsubscribeCroRequest{CroId: deal.CroId})
 			if err != nil {
-				k.logger.Error("rpc call failed", "err", err)
+				return nil, types.ErrTopologyRPC
 			}
 			k.SetSubscription(ctx, subscription)
 		}
