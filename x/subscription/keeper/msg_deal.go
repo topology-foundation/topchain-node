@@ -206,20 +206,23 @@ func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*typ
 		subscriptionStartBlock = deal.StartBlock
 	}
 
-	subsription := types.Subscription{
+	subscription := types.Subscription{
 		Id:         id,
 		DealId:     msg.DealId,
 		Provider:   msg.Provider,
 		StartBlock: subscriptionStartBlock,
 		EndBlock:   deal.EndBlock,
 	}
-	k.SetSubscription(ctx, subsription)
-	deal.SubscriptionIds = append(deal.SubscriptionIds, subsription.Id)
+	k.SetSubscription(ctx, subscription)
+	deal.SubscriptionIds = append(deal.SubscriptionIds, subscription.Id)
 
 	k.SetDeal(ctx, deal)
 
-	// TODO -> droak
-	// subscribe rpc to TopologyNode
+	client := types.GetClient()
+	_, err = client.SubscribeCro(goCtx, &types.SubscribeCroRequest{CroId: deal.CroId})
+	if err != nil {
+		k.logger.Error("rpc call failed", "err", err)
+	}
 
 	return &types.MsgJoinDealResponse{}, nil
 }
@@ -237,8 +240,11 @@ func (k msgServer) LeaveDeal(goCtx context.Context, msg *types.MsgLeaveDeal) (*t
 		}
 		if subscription.Provider == msg.Provider {
 			subscription.EndBlock = uint64(ctx.BlockHeight())
-			// TODO -> droak
-			// unsubscribe rpc to TopologyNode
+			client := types.GetClient()
+			_, err := client.UnsubscribeCro(goCtx, &types.UnsubscribeCroRequest{CroId: deal.CroId})
+			if err != nil {
+				k.logger.Error("rpc call failed", "err", err)
+			}
 			k.SetSubscription(ctx, subscription)
 		}
 	}
