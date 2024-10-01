@@ -12,7 +12,6 @@ func SetupRpcClient() (TopologyRpcClient, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer conn.Close()
 
 	RpcClient = NewTopologyRpcClient(conn)
 	return RpcClient, nil
