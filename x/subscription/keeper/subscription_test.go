@@ -13,7 +13,7 @@ import (
 )
 
 func TestSubscription(t *testing.T) {
-	keeper, ctx := keepertest.SubscriptionKeeper(t)
+	keeper, ctx, _ := keepertest.SubscriptionKeeper(t)
 	subscription := types.Subscription{
 		Id:       "sub1",
 		Provider: "provider1",
@@ -29,7 +29,7 @@ func TestSubscription(t *testing.T) {
 }
 
 func TestSubscriptions(t *testing.T) {
-	keeper, ctx := keepertest.SubscriptionKeeper(t)
+	keeper, ctx, _ := keepertest.SubscriptionKeeper(t)
 	subscription1 := types.Subscription{
 		Id:       "sub1",
 		Provider: "provider1",
@@ -56,7 +56,7 @@ func TestSubscriptions(t *testing.T) {
 }
 
 func TestSubscriptionsWithPaginationOne(t *testing.T) {
-	keeper, ctx := keepertest.SubscriptionKeeper(t)
+	keeper, ctx, _ := keepertest.SubscriptionKeeper(t)
 	subscription1 := types.Subscription{
 		Id:       "sub1",
 		Provider: "provider1",

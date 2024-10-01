@@ -91,7 +91,9 @@ message MsgJoinDeal {
   string deal_id = 2;
 }
 
-message MsgJoinDealResponse {}
+message MsgJoinDealResponse {
+  string subscription_id = 1;
+}
 
 message MsgLeaveDeal {
   option (cosmos.msg.v1.signer) = "provider";
