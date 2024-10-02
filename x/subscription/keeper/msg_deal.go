@@ -240,18 +240,26 @@ func (k msgServer) LeaveDeal(goCtx context.Context, msg *types.MsgLeaveDeal) (*t
 	if !found {
 		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id "+msg.DealId+" not found")
 	}
+
+	isSubscribed := false
 	for _, subscriptionId := range deal.SubscriptionIds {
 		subscription, found := k.GetSubscription(ctx, subscriptionId)
 		if !found {
 			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "SHOULD NOT HAPPEN: subscription with id "+subscriptionId+" not found")
 		}
 		if subscription.Provider == msg.Provider {
+			isSubscribed = true
 			subscription.EndBlock = uint64(ctx.BlockHeight())
 			// TODO -> droak
 			// unsubscribe rpc to TopologyNode
 			k.SetSubscription(ctx, subscription)
 		}
 	}
+
+	if !isSubscribed {
+		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "provider must be subscribed to the deal with id "+msg.DealId+" to leave it")
+	}
+
 	if !k.IsDealActive(ctx, deal) {
 		deal.Status = types.Deal_INACTIVE
 		k.SetDeal(ctx, deal)
