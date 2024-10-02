@@ -14,6 +14,9 @@ func (k Keeper) SetDeal(ctx sdk.Context, deal types.Deal) {
 
 	appendedValue := k.cdc.MustMarshal(&deal)
 	store.Set([]byte(deal.Id), appendedValue)
+
+	providerStore := prefix.NewStore(storeAdapter, types.GetRequesterStoreKey(deal.Requester))
+	providerStore.Set([]byte(deal.Id), []byte{})
 }
 
 func (k Keeper) GetDeal(ctx sdk.Context, dealId string) (deal types.Deal, found bool) {
