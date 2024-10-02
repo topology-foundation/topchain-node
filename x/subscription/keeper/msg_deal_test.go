@@ -578,3 +578,33 @@ func TestMsgServerLeaveNotJoinedDealMsg(t *testing.T) {
 	require.NotNil(t, err)
 
 }
+
+func TestMsgServerJoinLeaveJoinDeallMsg(t *testing.T) {
+	k, ms, ctx, _ := setupMsgServer(t)
+
+	require.NotNil(t, ms)
+	require.NotNil(t, ctx)
+	require.NotEmpty(t, k)
+
+	// Create a new deal
+	createDeal := types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
+	createResponse, err := ms.CreateDeal(ctx, &createDeal)
+
+	dealId := createResponse.DealId
+	require.Nil(t, err)
+
+	// Provider joins the deal
+	joinDeal := types.MsgJoinDeal{Provider: testutil.Bob, DealId: dealId}
+	_, err = ms.JoinDeal(ctx, &joinDeal)
+
+	require.Nil(t, err)
+
+	leaveDeal := types.MsgLeaveDeal{Provider: testutil.Bob, DealId: dealId}
+	// Provider tries to leave the deal it has not joined
+	_, err = ms.LeaveDeal(ctx, &leaveDeal)
+
+	// Provider joins the deal again
+	_, err = ms.JoinDeal(ctx, &joinDeal)
+
+	require.Nil(t, err)
+}
