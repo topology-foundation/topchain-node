@@ -164,13 +164,17 @@ func (k msgServer) IncrementDealAmount(goCtx context.Context, msg *types.MsgIncr
 	if msg.Requester != deal.Requester {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the requester can increment the deal amount")
 	}
-	if ctx.BlockHeight() < int64(deal.EndBlock) {
+	// cancelled or expired deals cannot be increment amount
+	// NOTE: due to the impl of EndBlock hook, deals can be incremented amount on their endblock.
+	if !k.IsDealUnavailable(deal.Status) {
 		sdkError := k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", int64(msg.Amount))))
 		if sdkError != nil {
 			return nil, errorsmod.Wrap(sdkError, "failed to send coins to module account")
 		}
 		deal.TotalAmount += msg.Amount
 		deal.AvailableAmount += msg.Amount
+	} else {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot topup the expired deal with id "+msg.DealId)
 	}
 
 	k.SetDeal(ctx, deal)

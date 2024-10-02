@@ -66,7 +66,7 @@ func TestMsgServerCreateDealScheduled(t *testing.T) {
 
 }
 
-func TestMsgServerCreateDealActiveStatus(t *testing.T) {
+func TestMsgServerCreateDealInitializedStatus(t *testing.T) {
 
 	k, ms, ctx, am := setupMsgServer(t)
 
@@ -528,6 +528,100 @@ func TestMsgServerJoinSameDealMoreThanOnceMsg(t *testing.T) {
 
 }
 
+func TestMsgServerIncrementDealAmount(t *testing.T) {
+	k, ms, ctx, _ := setupMsgServer(t)
+
+	require.NotNil(t, ms)
+	require.NotNil(t, ctx)
+	require.NotEmpty(t, k)
+
+	// Create a new deal
+	createDeal := types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
+	createResponse, err := ms.CreateDeal(ctx, &createDeal)
+
+	dealId := createResponse.DealId
+	require.Nil(t, err)
+
+	// topop the deal amount
+	incrementDeal := types.MsgIncrementDealAmount{Requester: testutil.Alice, DealId: dealId, Amount: 1000}
+	_, err = ms.IncrementDealAmount(ctx, &incrementDeal)
+
+	require.Nil(t, err)
+}
+
+func TestMsgServerIncrementDealAmountIncorrectRequester(t *testing.T) {
+	k, ms, ctx, _ := setupMsgServer(t)
+
+	require.NotNil(t, ms)
+	require.NotNil(t, ctx)
+	require.NotEmpty(t, k)
+
+	// Create a new deal
+	createDeal := types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
+	createResponse, err := ms.CreateDeal(ctx, &createDeal)
+
+	dealId := createResponse.DealId
+	require.Nil(t, err)
+
+	// topop the deal amount
+	incrementDeal := types.MsgIncrementDealAmount{Requester: testutil.Bob, DealId: dealId, Amount: 1000}
+	_, err = ms.IncrementDealAmount(ctx, &incrementDeal)
+
+	require.NotNil(t, err)
+}
+
+func TestMsgServerIncrementCancelledDealAmount(t *testing.T) {
+	k, ms, ctx, _ := setupMsgServer(t)
+
+	require.NotNil(t, ms)
+	require.NotNil(t, ctx)
+	require.NotEmpty(t, k)
+
+	// Create a new deal
+	createDeal := types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
+	createResponse, err := ms.CreateDeal(ctx, &createDeal)
+
+	dealId := createResponse.DealId
+	require.Nil(t, err)
+
+	// cancel the deal
+	cancelDeal := types.MsgCancelDeal{Requester: testutil.Alice, DealId: dealId}
+	_, err = ms.CancelDeal(ctx, &cancelDeal)
+	require.Nil(t, err)
+
+	// topop the deal amount
+	incrementDeal := types.MsgIncrementDealAmount{Requester: testutil.Alice, DealId: dealId, Amount: 1000}
+	_, err = ms.IncrementDealAmount(ctx, &incrementDeal)
+
+	require.NotNil(t, err)
+}
+
+func TestMsgServerIncrementExpiredDealAmount(t *testing.T) {
+	k, ms, ctx, am := setupMsgServer(t)
+
+	require.NotNil(t, ms)
+	require.NotNil(t, ctx)
+	require.NotEmpty(t, k)
+
+	// Create a new deal
+	createDeal := types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
+	createResponse, err := ms.CreateDeal(ctx, &createDeal)
+
+	dealId := createResponse.DealId
+	require.Nil(t, err)
+
+	// Jump to block 12 to initialize the deal
+	ctx = testutil.MockBlockHeight(ctx, am, 12)
+	// Jump to block 25 to expire the deal
+	ctx = testutil.MockBlockHeight(ctx, am, 25)
+
+	// topop the deal amount
+	incrementDeal := types.MsgIncrementDealAmount{Requester: testutil.Alice, DealId: dealId, Amount: 1000}
+	_, err = ms.IncrementDealAmount(ctx, &incrementDeal)
+
+	require.NotNil(t, err)
+}
+
 func TestMsgServerLeaveJoinedDealMsg(t *testing.T) {
 	k, ms, ctx, _ := setupMsgServer(t)
 
@@ -580,7 +674,7 @@ func TestMsgServerLeaveNotJoinedDealMsg(t *testing.T) {
 }
 
 func TestMsgServerJoinLeaveJoinDeallMsg(t *testing.T) {
-	k, ms, ctx, _ := setupMsgServer(t)
+	k, ms, ctx, am := setupMsgServer(t)
 
 	require.NotNil(t, ms)
 	require.NotNil(t, ctx)
@@ -603,6 +697,8 @@ func TestMsgServerJoinLeaveJoinDeallMsg(t *testing.T) {
 	// Provider tries to leave the deal it has not joined
 	_, err = ms.LeaveDeal(ctx, &leaveDeal)
 
+	// Jump one block forward
+	ctx = testutil.MockBlockHeight(ctx, am, 1)
 	// Provider joins the deal again
 	_, err = ms.JoinDeal(ctx, &joinDeal)
 

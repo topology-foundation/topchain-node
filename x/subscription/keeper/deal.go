@@ -76,7 +76,7 @@ func (k Keeper) IsAlreadySubscribed(ctx sdk.Context, subscriptionIds []string, p
 		// NOTE: i'm ignoring the `found` return value because it should be true if the sub ids are fetched from the deal
 		// TODO(h3lio5): need to think about the visibility of this function
 		sub, _ := k.GetSubscription(ctx, subscriptionId)
-		if sub.Provider == provider && uint64(ctx.BlockHeight()) < sub.EndBlock {
+		if sub.Provider == provider && uint64(ctx.BlockHeight()) <= sub.EndBlock {
 			return true
 		}
 	}
