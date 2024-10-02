@@ -13,19 +13,14 @@ import (
 func TestMsgServerCreateDealMsg(t *testing.T) {
 
 	k, ms, ctx, _ := setupMsgServer(t)
-
 	require.NotNil(t, ms)
-
 	require.NotNil(t, ctx)
-
 	require.NotEmpty(t, k)
 
 	response, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 10000, StartBlock: 10, EndBlock: 20})
-
 	require.Nil(t, err)
 
 	require.NotEmpty(t, response)
-
 	require.NotEmpty(t, response.DealId)
 
 }
@@ -33,34 +28,21 @@ func TestMsgServerCreateDealMsg(t *testing.T) {
 func TestMsgServerCreateDealScheduled(t *testing.T) {
 
 	k, ms, ctx, _ := setupMsgServer(t)
-
 	require.NotNil(t, ms)
-
 	require.NotNil(t, ctx)
-
 	require.NotEmpty(t, k)
 
 	createDeal := types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 10000, StartBlock: 10, EndBlock: 20}
 
 	response, err := ms.CreateDeal(ctx, &createDeal)
-
 	require.Nil(t, err)
 
-	require.NotEmpty(t, response)
-
-	require.NotEmpty(t, response.DealId)
-
 	deal, found := k.GetDeal(ctx, response.DealId)
-
 	require.True(t, found)
 
 	require.EqualValues(t, response.DealId, deal.Id)
 
-	require.EqualValues(t, createDeal.Requester, deal.Requester)
-
-	require.EqualValues(t, createDeal.CroId, deal.CroId)
-
-	require.EqualValues(t, createDeal.Amount, deal.AvailableAmount)
+	require.EqualValues(t, createDeal, types.MsgCreateDeal{Requester: deal.Requester, CroId: deal.CroId, Amount: deal.TotalAmount, StartBlock: deal.StartBlock, EndBlock: deal.EndBlock})
 
 	require.Equal(t, deal.Status, types.Deal_SCHEDULED)
 
@@ -69,37 +51,17 @@ func TestMsgServerCreateDealScheduled(t *testing.T) {
 func TestMsgServerCreateDealInitializedStatus(t *testing.T) {
 
 	k, ms, ctx, am := setupMsgServer(t)
-
 	require.NotNil(t, ms)
-
 	require.NotNil(t, ctx)
-
 	require.NotEmpty(t, k)
 
 	createDeal := types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 10000, StartBlock: 10, EndBlock: 20}
-
 	response, err := ms.CreateDeal(ctx, &createDeal)
-
 	require.Nil(t, err)
-
-	require.NotEmpty(t, response)
-
-	require.NotEmpty(t, response.DealId)
 
 	// Get the deal from the storage
 	deal, found := k.GetDeal(ctx, response.DealId)
-
 	require.True(t, found)
-
-	require.EqualValues(t, response.DealId, deal.Id)
-
-	require.EqualValues(t, createDeal.Requester, deal.Requester)
-
-	require.EqualValues(t, createDeal.CroId, deal.CroId)
-
-	require.EqualValues(t, createDeal.Amount, deal.AvailableAmount)
-
-	require.EqualValues(t, deal.Status, types.Deal_SCHEDULED)
 
 	// Jump to block number 11
 	ctx = testutil.MockBlockHeight(ctx, am, 10)
@@ -114,22 +76,13 @@ func TestMsgServerCreateDealInitializedStatus(t *testing.T) {
 func TestMsgServerCancelDealCorrectRequester(t *testing.T) {
 
 	k, ms, ctx, _ := setupMsgServer(t)
-
 	require.NotNil(t, ms)
-
 	require.NotNil(t, ctx)
-
 	require.NotEmpty(t, k)
 
 	createDeal := types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 10000, StartBlock: 10, EndBlock: 20}
-
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
-
 	require.Nil(t, err)
-
-	require.NotEmpty(t, createResponse)
-
-	require.NotEmpty(t, createResponse.DealId)
 
 	// Get the deal from the storage
 	_, found := k.GetDeal(ctx, createResponse.DealId)
@@ -148,22 +101,13 @@ func TestMsgServerCancelDealCorrectRequester(t *testing.T) {
 func TestMsgServerCancelDealIncorrectRequester(t *testing.T) {
 
 	k, ms, ctx, _ := setupMsgServer(t)
-
 	require.NotNil(t, ms)
-
 	require.NotNil(t, ctx)
-
 	require.NotEmpty(t, k)
 
 	createDeal := types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 10000, StartBlock: 10, EndBlock: 20}
-
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
-
 	require.Nil(t, err)
-
-	require.NotEmpty(t, createResponse)
-
-	require.NotEmpty(t, createResponse.DealId)
 
 	// Get the deal from the storage
 	_, found := k.GetDeal(ctx, createResponse.DealId)
@@ -175,27 +119,20 @@ func TestMsgServerCancelDealIncorrectRequester(t *testing.T) {
 
 	// The error should not be nil because the incorrect requester sends the CancelDeal message
 	require.NotNil(t, err)
-
 }
 
 func TestMsgServerUpdateDealIncorrectRequesterMsg(t *testing.T) {}
 func TestMsgServerUpdateScheduledDealCorrectStartBlockMsg(t *testing.T) {
-
 	k, ms, ctx, _ := setupMsgServer(t)
-
 	require.NotNil(t, ms)
-
 	require.NotNil(t, ctx)
-
 	require.NotEmpty(t, k)
 
 	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 10000, StartBlock: 10, EndBlock: 20})
-
 	require.Nil(t, err)
 
 	updateDeal := types.MsgUpdateDeal{Requester: testutil.Alice, DealId: createResponse.DealId, StartBlock: 11}
 	_, err = ms.UpdateDeal(ctx, &updateDeal)
-
 	require.Nil(t, err)
 
 	deal, found := k.GetDeal(ctx, createResponse.DealId)
@@ -205,17 +142,12 @@ func TestMsgServerUpdateScheduledDealCorrectStartBlockMsg(t *testing.T) {
 }
 
 func TestMsgServerUpdateScheduledDealIncorrectStartBlockMsg(t *testing.T) {
-
 	k, ms, ctx, am := setupMsgServer(t)
-
 	require.NotNil(t, ms)
-
 	require.NotNil(t, ctx)
-
 	require.NotEmpty(t, k)
 
 	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 10000, StartBlock: 10, EndBlock: 20})
-
 	require.Nil(t, err)
 
 	// Jump to block 9
@@ -228,17 +160,12 @@ func TestMsgServerUpdateScheduledDealIncorrectStartBlockMsg(t *testing.T) {
 }
 
 func TestMsgServerUpdateInitiatedDealIncorrectStartBlockMsg(t *testing.T) {
-
 	k, ms, ctx, am := setupMsgServer(t)
-
 	require.NotNil(t, ms)
-
 	require.NotNil(t, ctx)
-
 	require.NotEmpty(t, k)
 
 	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 10000, StartBlock: 10, EndBlock: 20})
-
 	require.Nil(t, err)
 
 	// Jump to block 12
@@ -252,128 +179,90 @@ func TestMsgServerUpdateInitiatedDealIncorrectStartBlockMsg(t *testing.T) {
 }
 
 func TestMsgServerUpdateScheduledDealIncrementAmountMsg(t *testing.T) {
-
 	k, ms, ctx, _ := setupMsgServer(t)
-
 	require.NotNil(t, ms)
-
 	require.NotNil(t, ctx)
-
 	require.NotEmpty(t, k)
 
 	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 10000, StartBlock: 10, EndBlock: 20})
-
 	require.Nil(t, err)
 
 	updateDeal := types.MsgUpdateDeal{Requester: testutil.Alice, DealId: createResponse.DealId, Amount: 12000}
 	_, err = ms.UpdateDeal(ctx, &updateDeal)
-
 	require.Nil(t, err)
 
 	deal, found := k.GetDeal(ctx, createResponse.DealId)
-
 	require.True(t, found)
 	require.EqualValues(t, deal.TotalAmount, 12000)
 }
 
 func TestMsgServerUpdateScheduledDealDecrementAmountMsg(t *testing.T) {
-
 	k, ms, ctx, _ := setupMsgServer(t)
-
 	require.NotNil(t, ms)
-
 	require.NotNil(t, ctx)
-
 	require.NotEmpty(t, k)
 
 	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 10000, StartBlock: 10, EndBlock: 20})
-
 	require.Nil(t, err)
 
-	updateDeal := types.MsgUpdateDeal{Requester: testutil.Alice, DealId: createResponse.DealId, Amount: 5000}
-	_, err = ms.UpdateDeal(ctx, &updateDeal)
-
+	_, err = ms.UpdateDeal(ctx, &types.MsgUpdateDeal{Requester: testutil.Alice, DealId: createResponse.DealId, Amount: 5000})
 	require.Nil(t, err)
 
 	deal, found := k.GetDeal(ctx, createResponse.DealId)
-
 	require.True(t, found)
 	require.EqualValues(t, deal.TotalAmount, 5000)
 }
 func TestMsgServerUpdateScheduledDealDecrementTotalAmountMsg(t *testing.T) {
-
 	k, ms, ctx, _ := setupMsgServer(t)
-
 	require.NotNil(t, ms)
-
 	require.NotNil(t, ctx)
-
 	require.NotEmpty(t, k)
 
 	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 10000, StartBlock: 10, EndBlock: 20})
-
 	require.Nil(t, err)
 
-	updateDeal := types.MsgUpdateDeal{Requester: testutil.Alice, DealId: createResponse.DealId, Amount: 0}
-	_, err = ms.UpdateDeal(ctx, &updateDeal)
-
+	_, err = ms.UpdateDeal(ctx, &types.MsgUpdateDeal{Requester: testutil.Alice, DealId: createResponse.DealId, Amount: 0})
 	require.Nil(t, err)
 
 	deal, found := k.GetDeal(ctx, createResponse.DealId)
-
 	require.True(t, found)
 	// Amount should be unchanged because you cannot withdraw full amount while the deal is still active.
 	require.EqualValues(t, deal.TotalAmount, 10000)
 }
 
 func TestMsgServerUpdateInitiatedDealIncrementAmountMsg(t *testing.T) {
-
 	k, ms, ctx, am := setupMsgServer(t)
-
 	require.NotNil(t, ms)
-
 	require.NotNil(t, ctx)
-
 	require.NotEmpty(t, k)
 
 	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 10000, StartBlock: 10, EndBlock: 20})
-
 	require.Nil(t, err)
 
 	// Jump to block 12 to initiate the deal
 	ctx = testutil.MockBlockHeight(ctx, am, 12)
 
-	updateDeal := types.MsgUpdateDeal{Requester: testutil.Alice, DealId: createResponse.DealId, Amount: 15000}
-	_, err = ms.UpdateDeal(ctx, &updateDeal)
-
+	_, err = ms.UpdateDeal(ctx, &types.MsgUpdateDeal{Requester: testutil.Alice, DealId: createResponse.DealId, Amount: 15000})
 	require.Nil(t, err)
 
 	deal, found := k.GetDeal(ctx, createResponse.DealId)
-
 	require.True(t, found)
 	require.EqualValues(t, deal.TotalAmount, 15000)
 }
 
 func TestMsgServerUpdateInitiatedDealDecrementAmountMsg(t *testing.T) {
-
 	k, ms, ctx, am := setupMsgServer(t)
-
 	require.NotNil(t, ms)
-
 	require.NotNil(t, ctx)
-
 	require.NotEmpty(t, k)
 
 	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 10000, StartBlock: 10, EndBlock: 20})
-
 	require.Nil(t, err)
 
 	// Jump to block 12 to initiate the deal
 	ctx = testutil.MockBlockHeight(ctx, am, 12)
 
-	updateDeal := types.MsgUpdateDeal{Requester: testutil.Alice, DealId: createResponse.DealId, Amount: 9000}
-	_, err = ms.UpdateDeal(ctx, &updateDeal)
-
+	_, err = ms.UpdateDeal(ctx, &types.MsgUpdateDeal{Requester: testutil.Alice, DealId: createResponse.DealId, Amount: 9000})
 	// It should return an error because you're not allowed to decrease the amount after deal initiation
 	require.NotNil(t, err)
 }
@@ -675,7 +564,6 @@ func TestMsgServerLeaveNotJoinedDealMsg(t *testing.T) {
 
 func TestMsgServerJoinLeaveJoinDeallMsg(t *testing.T) {
 	k, ms, ctx, am := setupMsgServer(t)
-
 	require.NotNil(t, ms)
 	require.NotNil(t, ctx)
 	require.NotEmpty(t, k)
