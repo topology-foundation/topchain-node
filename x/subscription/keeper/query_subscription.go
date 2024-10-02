@@ -36,10 +36,10 @@ func (k Keeper) Subscriptions(goCtx context.Context, req *types.QuerySubscriptio
 	store := prefix.NewStore(storeAdapter, types.GetProviderStoreKey(req.Provider))
 
 	var subscriptions []types.Subscription
-	pageRes, err := query.Paginate(store, req.Pagination, func(key []byte, value []byte) error {
-		var subscription types.Subscription
-		if err := k.cdc.Unmarshal(value, &subscription); err != nil {
-			return err
+	pageRes, err := query.Paginate(store, req.Pagination, func(key []byte, _ []byte) error {
+		subscription, found := k.GetSubscription(ctx, string(key))
+		if !found {
+			return sdkerrors.ErrKeyNotFound
 		}
 
 		subscriptions = append(subscriptions, subscription)
