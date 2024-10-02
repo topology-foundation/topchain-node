@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+
 	"topchain/x/subscription/types"
 
 	"cosmossdk.io/store/prefix"
@@ -42,28 +43,24 @@ func (k Keeper) DealStatus(goCtx context.Context, req *types.QueryDealStatusRequ
 	return &types.QueryDealStatusResponse{Status: deal.Status}, nil
 }
 
-func (k Keeper) Deals(ctx context.Context, req *types.QueryDealsRequest) (*types.QueryDealsResponse, error) {
+func (k Keeper) Deals(goCtx context.Context, req *types.QueryDealsRequest) (*types.QueryDealsResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
-
+	ctx := sdk.UnwrapSDKContext(goCtx)
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DealKeyPrefix))
+	store := prefix.NewStore(storeAdapter, types.GetRequesterStoreKey(req.Requester))
 
 	var deals []types.Deal
-	pageRes, err := query.Paginate(store, req.Pagination, func(key []byte, value []byte) error {
-		var deal types.Deal
-		if err := k.cdc.Unmarshal(value, &deal); err != nil {
-			return err
+	pageRes, err := query.Paginate(store, req.Pagination, func(key []byte, _ []byte) error {
+		deal, found := k.GetDeal(ctx, string(key))
+		if !found {
+			return sdkerrors.ErrKeyNotFound
 		}
 
-		if deal.Requester == req.Requester {
-			deals = append(deals, deal)
-		}
-
+		deals = append(deals, deal)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
