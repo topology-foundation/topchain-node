@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"context"
 	"testing"
 
 	"cosmossdk.io/log"
@@ -33,6 +34,14 @@ const (
 	Bob   = "cosmos1xyxs3skf3f4jfqeuv89yyaqvjc6lffavxqhc8g"
 	Carol = "cosmos1e0w5t53nrq7p66fye6c8p0ynyhf6y24l4yuxd7"
 )
+
+// Custom BankKeeper interface because MintCoins is not to be defined in the main one.
+type BankKeeper interface {
+	SendCoinsFromAccountToModule(ctx context.Context, senderAddress sdk.AccAddress, recipientModule string, amount sdk.Coins) error
+	SendCoinsFromModuleToAccount(ctx context.Context, senderModule string, recipientAddress sdk.AccAddress, amount sdk.Coins) error
+	// Methods imported from bank should be defined here
+	MintCoins(ctx context.Context, moduleName string, amounts sdk.Coins) error
+}
 
 func SubscriptionKeeper(t testing.TB) (keeper.Keeper, sdk.Context, subscription.AppModule) {
 	storeKey := storetypes.NewKVStoreKey(types.StoreKey)
@@ -100,7 +109,7 @@ func MockBlockHeight(ctx sdk.Context, am subscription.AppModule, height int64) s
 	return ctx
 }
 
-func FundAccounts(bankKeeper types.BankKeeper, ctx sdk.Context) error {
+func FundAccounts(bankKeeper BankKeeper, ctx sdk.Context) error {
 	totalMint := sdk.NewCoins(sdk.NewInt64Coin("top", 10000000000))
 	amounts := sdk.NewCoins(sdk.NewInt64Coin("top", 1000000000))
 	if err := bankKeeper.MintCoins(ctx, types.ModuleName, totalMint); err != nil {

@@ -18,7 +18,6 @@ type BankKeeper interface {
 	SendCoinsFromAccountToModule(ctx context.Context, senderAddress sdk.AccAddress, recipientModule string, amount sdk.Coins) error
 	SendCoinsFromModuleToAccount(ctx context.Context, senderModule string, recipientAddress sdk.AccAddress, amount sdk.Coins) error
 	// Methods imported from bank should be defined here
-	MintCoins(ctx context.Context, moduleName string, amounts sdk.Coins) error
 }
 
 // StakingKeeper defines the expected interface for the Staking module.
