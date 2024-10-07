@@ -263,7 +263,11 @@ func ProvideModule(in ModuleInputs) ModuleOutputs {
 
 	// nodes can run without setting up a topology node rpc
 	// no need to check for error on initialization
-	types.SetupRpcClient()
+	_, err := types.SetupRpcClient()
+	if err != nil {
+		in.Logger.Error("failed to setup rpc client", "error", err)
+		panic(err)
+	}
 
 	moduleAddress := authtypes.NewModuleAddress(types.ModuleName)
 
