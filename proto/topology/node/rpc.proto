@@ -5,7 +5,7 @@ option go_package = "topchain/x/subscription/types";
 
 service TopologyRpc {
 	rpc subscribeCro    (SubscribeCroRequest    ) returns (SubscribeCroResponse    );
-	rpc unsubscribeCro  (UnsubscribeCroRequest  ) returns (UnsubscribeCroRequest   );
+	rpc unsubscribeCro  (UnsubscribeCroRequest  ) returns (UnsubscribeCroResponse  );
 	rpc getCroHashGraph (GetCroHashGraphRequest ) returns (GetCroHashGraphResponse );
 }
 
