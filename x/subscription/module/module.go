@@ -261,6 +261,12 @@ func ProvideModule(in ModuleInputs) ModuleOutputs {
 		authority = authtypes.NewModuleAddressOrBech32Address(in.Config.Authority)
 	}
 
+	_, err := types.SetupRpcClient()
+	if err != nil {
+		in.Logger.Error("failed to setup rpc client", "error", err)
+		panic(err)
+	}
+
 	moduleAddress := authtypes.NewModuleAddress(types.ModuleName)
 
 	k := keeper.NewKeeper(
