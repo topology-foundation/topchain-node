@@ -33,9 +33,9 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
 	}
 
-	sdkError := k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", int64(msg.Amount))))
-	if sdkError != nil {
-		return nil, errorsmod.Wrap(sdkError, "failed to send coins to module account")
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", int64(msg.Amount))))
+	if err != nil {
+		return nil, errorsmod.Wrap(err, "failed to send coins to module account")
 	}
 
 	k.SetDeal(ctx, deal)
@@ -169,9 +169,9 @@ func (k msgServer) IncrementDealAmount(goCtx context.Context, msg *types.MsgIncr
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot topup the expired deal with id "+msg.DealId)
 	}
 
-	sdkError := k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", int64(msg.Amount))))
-	if sdkError != nil {
-		return nil, errorsmod.Wrap(sdkError, "failed to send coins to module account")
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", int64(msg.Amount))))
+	if err != nil {
+		return nil, errorsmod.Wrap(err, "failed to send coins to module account")
 	}
 	deal.TotalAmount += msg.Amount
 	deal.AvailableAmount += msg.Amount
@@ -219,20 +219,17 @@ func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*typ
 		subscriptionStartBlock = deal.StartBlock
 	}
 
-	subsription := types.Subscription{
+	subscription := types.Subscription{
 		Id:         id,
 		DealId:     msg.DealId,
 		Provider:   msg.Provider,
 		StartBlock: subscriptionStartBlock,
 		EndBlock:   deal.EndBlock,
 	}
-	k.SetSubscription(ctx, subsription)
-	deal.SubscriptionIds = append(deal.SubscriptionIds, subsription.Id)
+	k.SetSubscription(ctx, subscription)
+	deal.SubscriptionIds = append(deal.SubscriptionIds, subscription.Id)
 
 	k.SetDeal(ctx, deal)
-
-	// TODO -> droak
-	// subscribe rpc to TopologyNode
 
 	return &types.MsgJoinDealResponse{SubscriptionId: id}, nil
 }
@@ -253,8 +250,6 @@ func (k msgServer) LeaveDeal(goCtx context.Context, msg *types.MsgLeaveDeal) (*t
 		if subscription.Provider == msg.Provider {
 			isSubscribed = true
 			subscription.EndBlock = uint64(ctx.BlockHeight())
-			// TODO -> droak
-			// unsubscribe rpc to TopologyNode
 			k.SetSubscription(ctx, subscription)
 		}
 	}

@@ -11,6 +11,7 @@ const (
 	MemStoreKey = "mem_subscription"
 
 	DealKeyPrefix                 = "Deal/value"
+	DealRequesterKeyPrefix        = "Deal/Requester/value"
 	SubscriptionKeyPrefix         = "Subscription/value"
 	SubscriptionProviderKeyPrefix = "Subscription/Provider/value"
 )
@@ -24,4 +25,9 @@ func KeyPrefix(p string) []byte {
 // GetProviderStoreKey returns the key for the provider store for the given provider.
 func GetProviderStoreKey(provider string) []byte {
 	return []byte(KeyPrefix(SubscriptionProviderKeyPrefix + "/" + provider))
+}
+
+// GetRequesterStoreKey returns the key for the requester store for the given requester.
+func GetRequesterStoreKey(requester string) []byte {
+	return []byte(KeyPrefix(DealRequesterKeyPrefix + "/" + requester))
 }
