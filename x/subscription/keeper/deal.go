@@ -74,8 +74,8 @@ func (k Keeper) IsDealUnavailable(status types.Deal_Status) bool {
 	}
 }
 
-func (k Keeper) SubscriptionHasProvider(ctx sdk.Context, provider string, subscriptionIds []string) bool {
-	for _, subscriptionId := range subscriptionIds {
+func (k Keeper) DealHasProvider(ctx sdk.Context, deal types.Deal, provider string) bool {
+	for _, subscriptionId := range deal.SubscriptionIds {
 		sub, _ := k.GetSubscription(ctx, subscriptionId)
 		if sub.Provider == provider && uint64(ctx.BlockHeight()) <= sub.EndBlock {
 			return true
