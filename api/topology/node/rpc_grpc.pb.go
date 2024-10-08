@@ -29,7 +29,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TopologyRpcClient interface {
 	SubscribeCro(ctx context.Context, in *SubscribeCroRequest, opts ...grpc.CallOption) (*SubscribeCroResponse, error)
-	UnsubscribeCro(ctx context.Context, in *UnsubscribeCroRequest, opts ...grpc.CallOption) (*UnsubscribeCroRequest, error)
+	UnsubscribeCro(ctx context.Context, in *UnsubscribeCroRequest, opts ...grpc.CallOption) (*UnsubscribeCroResponse, error)
 	GetCroHashGraph(ctx context.Context, in *GetCroHashGraphRequest, opts ...grpc.CallOption) (*GetCroHashGraphResponse, error)
 }
 
@@ -50,8 +50,8 @@ func (c *topologyRpcClient) SubscribeCro(ctx context.Context, in *SubscribeCroRe
 	return out, nil
 }
 
-func (c *topologyRpcClient) UnsubscribeCro(ctx context.Context, in *UnsubscribeCroRequest, opts ...grpc.CallOption) (*UnsubscribeCroRequest, error) {
-	out := new(UnsubscribeCroRequest)
+func (c *topologyRpcClient) UnsubscribeCro(ctx context.Context, in *UnsubscribeCroRequest, opts ...grpc.CallOption) (*UnsubscribeCroResponse, error) {
+	out := new(UnsubscribeCroResponse)
 	err := c.cc.Invoke(ctx, TopologyRpc_UnsubscribeCro_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -73,7 +73,7 @@ func (c *topologyRpcClient) GetCroHashGraph(ctx context.Context, in *GetCroHashG
 // for forward compatibility
 type TopologyRpcServer interface {
 	SubscribeCro(context.Context, *SubscribeCroRequest) (*SubscribeCroResponse, error)
-	UnsubscribeCro(context.Context, *UnsubscribeCroRequest) (*UnsubscribeCroRequest, error)
+	UnsubscribeCro(context.Context, *UnsubscribeCroRequest) (*UnsubscribeCroResponse, error)
 	GetCroHashGraph(context.Context, *GetCroHashGraphRequest) (*GetCroHashGraphResponse, error)
 	mustEmbedUnimplementedTopologyRpcServer()
 }
@@ -85,7 +85,7 @@ type UnimplementedTopologyRpcServer struct {
 func (UnimplementedTopologyRpcServer) SubscribeCro(context.Context, *SubscribeCroRequest) (*SubscribeCroResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SubscribeCro not implemented")
 }
-func (UnimplementedTopologyRpcServer) UnsubscribeCro(context.Context, *UnsubscribeCroRequest) (*UnsubscribeCroRequest, error) {
+func (UnimplementedTopologyRpcServer) UnsubscribeCro(context.Context, *UnsubscribeCroRequest) (*UnsubscribeCroResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UnsubscribeCro not implemented")
 }
 func (UnimplementedTopologyRpcServer) GetCroHashGraph(context.Context, *GetCroHashGraphRequest) (*GetCroHashGraphResponse, error) {
