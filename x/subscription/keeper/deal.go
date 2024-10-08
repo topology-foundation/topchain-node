@@ -74,16 +74,13 @@ func (k Keeper) IsDealUnavailable(status types.Deal_Status) bool {
 	}
 }
 
-func (k Keeper) IsAlreadySubscribed(ctx sdk.Context, subscriptionIds []string, provider string) bool {
+func (k Keeper) SubscriptionHasProvider(ctx sdk.Context, provider string, subscriptionIds []string) bool {
 	for _, subscriptionId := range subscriptionIds {
-		// NOTE: i'm ignoring the `found` return value because it should be true if the sub ids are fetched from the deal
-		// TODO(h3lio5): need to think about the visibility of this function
 		sub, _ := k.GetSubscription(ctx, subscriptionId)
 		if sub.Provider == provider && uint64(ctx.BlockHeight()) <= sub.EndBlock {
 			return true
 		}
 	}
-
 	return false
 }
 

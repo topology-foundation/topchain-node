@@ -191,7 +191,7 @@ func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*typ
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidVersion, "deal with id "+msg.DealId+"is not available to join")
 	}
 
-	if k.IsAlreadySubscribed(ctx, deal.SubscriptionIds, msg.Provider) {
+	if k.SubscriptionHasProvider(ctx, msg.Provider, deal.SubscriptionIds) {
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidVersion, "provider is already subscribed to the deal with id "+msg.DealId)
 	}
 
