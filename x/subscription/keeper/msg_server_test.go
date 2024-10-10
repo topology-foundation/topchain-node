@@ -3,7 +3,6 @@ package keeper_test
 import (
 	"testing"
 
-	keepertest "topchain/testutil/keeper"
 	"topchain/x/subscription/keeper"
 	subscription "topchain/x/subscription/module"
 	"topchain/x/subscription/types"
@@ -13,7 +12,7 @@ import (
 )
 
 func setupMsgServer(t testing.TB) (keeper.Keeper, types.MsgServer, sdk.Context, subscription.AppModule) {
-	k, ctx, am := keepertest.SubscriptionKeeper(t)
+	k, ctx, am := MockSubscriptionKeeper(t)
 	return k, keeper.NewMsgServerImpl(k), ctx, am
 }
 

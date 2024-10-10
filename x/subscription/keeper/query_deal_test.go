@@ -3,8 +3,6 @@ package keeper_test
 import (
 	"testing"
 
-	testutil "topchain/testutil/keeper"
-
 	"topchain/x/subscription/types"
 
 	qtypes "github.com/cosmos/cosmos-sdk/types/query"
@@ -18,7 +16,7 @@ func TestQueryDeal(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a deal
-	createDeal := types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
+	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
 	require.Nil(t, err)
 
@@ -36,7 +34,7 @@ func TestQueryDealStatus(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a deal
-	createDeal := types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
+	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
 	require.Nil(t, err)
 
@@ -55,7 +53,7 @@ func TestQueryDeals(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a first deal
-	createDeal1 := types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro1", Amount: 1000, StartBlock: 10, EndBlock: 20}
+	createDeal1 := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro1", Amount: 1000, StartBlock: 10, EndBlock: 20}
 	createResponse1, err := ms.CreateDeal(ctx, &createDeal1)
 	require.Nil(t, err)
 
@@ -63,7 +61,7 @@ func TestQueryDeals(t *testing.T) {
 	require.True(t, found)
 
 	// Create a second deal
-	createDeal2 := types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro2", Amount: 1000, StartBlock: 20, EndBlock: 30}
+	createDeal2 := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro2", Amount: 1000, StartBlock: 20, EndBlock: 30}
 	createResponse2, err := ms.CreateDeal(ctx, &createDeal2)
 	require.Nil(t, err)
 
@@ -71,7 +69,7 @@ func TestQueryDeals(t *testing.T) {
 	require.True(t, found)
 
 	// Create a third deal
-	createDeal3 := types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
+	createDeal3 := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
 	createResponse3, err := ms.CreateDeal(ctx, &createDeal3)
 	require.Nil(t, err)
 
@@ -79,7 +77,7 @@ func TestQueryDeals(t *testing.T) {
 	require.True(t, found)
 
 	// Query for all the deals by alice
-	queryDealsResponse, err := k.Deals(ctx, &types.QueryDealsRequest{Requester: testutil.Alice})
+	queryDealsResponse, err := k.Deals(ctx, &types.QueryDealsRequest{Requester: Alice})
 	require.Nil(t, err)
 
 	require.Contains(t, queryDealsResponse.Deals, deal1)
@@ -94,7 +92,7 @@ func TestQueryDealsWithPagination(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a first deal
-	createDeal1 := types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro1", Amount: 1000, StartBlock: 10, EndBlock: 20}
+	createDeal1 := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro1", Amount: 1000, StartBlock: 10, EndBlock: 20}
 	createResponse1, err := ms.CreateDeal(ctx, &createDeal1)
 	require.Nil(t, err)
 
@@ -102,7 +100,7 @@ func TestQueryDealsWithPagination(t *testing.T) {
 	require.True(t, found)
 
 	// Create a second deal
-	createDeal2 := types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro2", Amount: 1000, StartBlock: 20, EndBlock: 30}
+	createDeal2 := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro2", Amount: 1000, StartBlock: 20, EndBlock: 30}
 	createResponse2, err := ms.CreateDeal(ctx, &createDeal2)
 	require.Nil(t, err)
 
@@ -110,7 +108,7 @@ func TestQueryDealsWithPagination(t *testing.T) {
 	require.True(t, found)
 
 	// Create a third deal
-	createDeal3 := types.MsgCreateDeal{Requester: testutil.Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
+	createDeal3 := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
 	createResponse3, err := ms.CreateDeal(ctx, &createDeal3)
 	require.Nil(t, err)
 
@@ -118,7 +116,7 @@ func TestQueryDealsWithPagination(t *testing.T) {
 	require.True(t, found)
 
 	// Query for all the deals by alice
-	queryDealsResponse, err := k.Deals(ctx, &types.QueryDealsRequest{Requester: testutil.Alice, Pagination: &qtypes.PageRequest{Limit: 2}})
+	queryDealsResponse, err := k.Deals(ctx, &types.QueryDealsRequest{Requester: Alice, Pagination: &qtypes.PageRequest{Limit: 2}})
 	require.Nil(t, err)
 
 	require.Equal(t, len(queryDealsResponse.Deals), 2)

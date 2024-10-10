@@ -8,7 +8,6 @@ import (
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
 
-	"topchain/testutil/sample"
 	subscriptionsimulation "topchain/x/subscription/simulation"
 	"topchain/x/subscription/types"
 )
@@ -17,7 +16,6 @@ import (
 var (
 	_ = subscriptionsimulation.FindAccount
 	_ = rand.Rand{}
-	_ = sample.AccAddress
 	_ = sdk.AccAddress{}
 	_ = simulation.MsgEntryKind
 )

@@ -8,12 +8,10 @@ import (
 	"topchain/x/subscription/types"
 
 	query "github.com/cosmos/cosmos-sdk/types/query"
-
-	keepertest "topchain/testutil/keeper"
 )
 
 func TestSubscription(t *testing.T) {
-	keeper, ctx, _ := keepertest.SubscriptionKeeper(t)
+	keeper, ctx, _ := MockSubscriptionKeeper(t)
 	subscription := types.Subscription{
 		Id:       "sub1",
 		Provider: "provider1",
@@ -29,7 +27,7 @@ func TestSubscription(t *testing.T) {
 }
 
 func TestSubscriptions(t *testing.T) {
-	keeper, ctx, _ := keepertest.SubscriptionKeeper(t)
+	keeper, ctx, _ := MockSubscriptionKeeper(t)
 	subscription1 := types.Subscription{
 		Id:       "sub1",
 		Provider: "provider1",
@@ -56,7 +54,7 @@ func TestSubscriptions(t *testing.T) {
 }
 
 func TestSubscriptionsWithPaginationOne(t *testing.T) {
-	keeper, ctx, _ := keepertest.SubscriptionKeeper(t)
+	keeper, ctx, _ := MockSubscriptionKeeper(t)
 	subscription1 := types.Subscription{
 		Id:       "sub1",
 		Provider: "provider1",
