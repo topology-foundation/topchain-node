@@ -5,12 +5,11 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	keepertest "topchain/testutil/keeper"
 	"topchain/x/subscription/types"
 )
 
 func TestGetParams(t *testing.T) {
-	k, ctx := keepertest.SubscriptionKeeper(t)
+	k, ctx, _ := MockSubscriptionKeeper(t)
 	params := types.DefaultParams()
 
 	require.NoError(t, k.SetParams(ctx, params))

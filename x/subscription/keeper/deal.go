@@ -65,6 +65,25 @@ func (k Keeper) CalculateMinimumStake(ctx sdk.Context, deal types.Deal) int64 {
 	return 0
 }
 
+func (k Keeper) IsDealUnavailable(status types.Deal_Status) bool {
+	switch status {
+	case types.Deal_CANCELLED, types.Deal_EXPIRED:
+		return true
+	default:
+		return false
+	}
+}
+
+func (k Keeper) DealHasProvider(ctx sdk.Context, deal types.Deal, provider string) bool {
+	for _, subscriptionId := range deal.SubscriptionIds {
+		sub, _ := k.GetSubscription(ctx, subscriptionId)
+		if sub.Provider == provider && uint64(ctx.BlockHeight()) <= sub.EndBlock {
+			return true
+		}
+	}
+	return false
+}
+
 func (k Keeper) CalculateBlockReward(ctx sdk.Context, deal types.Deal) int64 {
 	remainingBlocks := deal.EndBlock - uint64(ctx.BlockHeight())
 	return int64(deal.AvailableAmount) / int64(remainingBlocks)

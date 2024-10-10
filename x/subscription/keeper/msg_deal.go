@@ -33,9 +33,9 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
 	}
 
-	sdkError := k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", int64(msg.Amount))))
-	if sdkError != nil {
-		return nil, errorsmod.Wrap(sdkError, "failed to send coins to module account")
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", int64(msg.Amount))))
+	if err != nil {
+		return nil, errorsmod.Wrap(err, "failed to send coins to module account")
 	}
 
 	k.SetDeal(ctx, deal)
@@ -164,14 +164,17 @@ func (k msgServer) IncrementDealAmount(goCtx context.Context, msg *types.MsgIncr
 	if msg.Requester != deal.Requester {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the requester can increment the deal amount")
 	}
-	if ctx.BlockHeight() < int64(deal.EndBlock) {
-		sdkError := k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", int64(msg.Amount))))
-		if sdkError != nil {
-			return nil, errorsmod.Wrap(sdkError, "failed to send coins to module account")
-		}
-		deal.TotalAmount += msg.Amount
-		deal.AvailableAmount += msg.Amount
+
+	if k.IsDealUnavailable(deal.Status) {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot topup the expired deal with id "+msg.DealId)
 	}
+
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", int64(msg.Amount))))
+	if err != nil {
+		return nil, errorsmod.Wrap(err, "failed to send coins to module account")
+	}
+	deal.TotalAmount += msg.Amount
+	deal.AvailableAmount += msg.Amount
 
 	k.SetDeal(ctx, deal)
 	return &types.MsgIncrementDealAmountResponse{}, nil
@@ -183,6 +186,15 @@ func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*typ
 	if !found {
 		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id "+msg.DealId+" not found")
 	}
+
+	if k.IsDealUnavailable(deal.Status) {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidVersion, "deal with id "+msg.DealId+"is not available to join")
+	}
+
+	if k.DealHasProvider(ctx, deal, msg.Provider) {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidVersion, "provider is already subscribed to the deal with id "+msg.DealId)
+	}
+
 	delegations, err := k.stakingKeeper.GetDelegatorDelegations(ctx, sdk.AccAddress(msg.Provider), math.MaxUint16)
 	if err != nil {
 		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "provider "+msg.Provider+" not found")
@@ -219,7 +231,7 @@ func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*typ
 
 	k.SetDeal(ctx, deal)
 
-	return &types.MsgJoinDealResponse{}, nil
+	return &types.MsgJoinDealResponse{SubscriptionId: id}, nil
 }
 
 func (k msgServer) LeaveDeal(goCtx context.Context, msg *types.MsgLeaveDeal) (*types.MsgLeaveDealResponse, error) {
@@ -228,16 +240,24 @@ func (k msgServer) LeaveDeal(goCtx context.Context, msg *types.MsgLeaveDeal) (*t
 	if !found {
 		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id "+msg.DealId+" not found")
 	}
+
+	isSubscribed := false
 	for _, subscriptionId := range deal.SubscriptionIds {
 		subscription, found := k.GetSubscription(ctx, subscriptionId)
 		if !found {
 			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "SHOULD NOT HAPPEN: subscription with id "+subscriptionId+" not found")
 		}
 		if subscription.Provider == msg.Provider {
+			isSubscribed = true
 			subscription.EndBlock = uint64(ctx.BlockHeight())
 			k.SetSubscription(ctx, subscription)
 		}
 	}
+
+	if !isSubscribed {
+		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "provider must be subscribed to the deal with id "+msg.DealId+" to leave it")
+	}
+
 	if !k.IsDealActive(ctx, deal) {
 		deal.Status = types.Deal_INACTIVE
 		k.SetDeal(ctx, deal)
