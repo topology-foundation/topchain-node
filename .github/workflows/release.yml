@@ -1,6 +1,7 @@
 name: Workflow - Release
-on: release
-
+on:
+  release:
+    types: [published]
 jobs:
   build_docker_images:
     name: Build Docker Images
