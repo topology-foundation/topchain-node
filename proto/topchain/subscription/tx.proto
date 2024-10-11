@@ -24,6 +24,7 @@ service Msg {
   rpc IncrementDealAmount (MsgIncrementDealAmount ) returns (MsgIncrementDealAmountResponse );
   rpc JoinDeal            (MsgJoinDeal            ) returns (MsgJoinDealResponse            );
   rpc LeaveDeal           (MsgLeaveDeal           ) returns (MsgLeaveDealResponse           );
+  rpc Challenge           (MsgChallenge           ) returns (MsgChallengeResponse           );
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
@@ -102,3 +103,12 @@ message MsgLeaveDeal {
 }
 
 message MsgLeaveDealResponse {}
+
+message MsgChallenge{
+  option (cosmos.msg.v1.signer) = "challenger";
+  string challenger = 1;
+  string provider_id = 2;
+  repeated string vertices_hashes = 3; 
+}
+
+message MsgChallengeResponse{}
