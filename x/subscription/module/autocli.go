@@ -94,12 +94,6 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Send a leave-deal tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "deal_id"}},
 				},
-				{
-					RpcMethod:      "Challenge",
-					Use:            "challenge [provider_id] [vertices_hashes]",
-					Short:          "Send a challenge tx",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "provider_id"}, {ProtoField: "vertices_hashes"}},
-				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},

@@ -3,7 +3,7 @@ package keeper
 import (
 	"context"
 
-	"topchain/x/subscription/types"
+	"topchain/x/challenge/types"
 
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"

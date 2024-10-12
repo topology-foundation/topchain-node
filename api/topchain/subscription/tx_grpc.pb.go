@@ -26,7 +26,6 @@ const (
 	Msg_IncrementDealAmount_FullMethodName = "/topchain.subscription.Msg/IncrementDealAmount"
 	Msg_JoinDeal_FullMethodName            = "/topchain.subscription.Msg/JoinDeal"
 	Msg_LeaveDeal_FullMethodName           = "/topchain.subscription.Msg/LeaveDeal"
-	Msg_Challenge_FullMethodName           = "/topchain.subscription.Msg/Challenge"
 )
 
 // MsgClient is the client API for Msg service.
@@ -42,7 +41,6 @@ type MsgClient interface {
 	IncrementDealAmount(ctx context.Context, in *MsgIncrementDealAmount, opts ...grpc.CallOption) (*MsgIncrementDealAmountResponse, error)
 	JoinDeal(ctx context.Context, in *MsgJoinDeal, opts ...grpc.CallOption) (*MsgJoinDealResponse, error)
 	LeaveDeal(ctx context.Context, in *MsgLeaveDeal, opts ...grpc.CallOption) (*MsgLeaveDealResponse, error)
-	Challenge(ctx context.Context, in *MsgChallenge, opts ...grpc.CallOption) (*MsgChallengeResponse, error)
 }
 
 type msgClient struct {
@@ -116,15 +114,6 @@ func (c *msgClient) LeaveDeal(ctx context.Context, in *MsgLeaveDeal, opts ...grp
 	return out, nil
 }
 
-func (c *msgClient) Challenge(ctx context.Context, in *MsgChallenge, opts ...grpc.CallOption) (*MsgChallengeResponse, error) {
-	out := new(MsgChallengeResponse)
-	err := c.cc.Invoke(ctx, Msg_Challenge_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -138,7 +127,6 @@ type MsgServer interface {
 	IncrementDealAmount(context.Context, *MsgIncrementDealAmount) (*MsgIncrementDealAmountResponse, error)
 	JoinDeal(context.Context, *MsgJoinDeal) (*MsgJoinDealResponse, error)
 	LeaveDeal(context.Context, *MsgLeaveDeal) (*MsgLeaveDealResponse, error)
-	Challenge(context.Context, *MsgChallenge) (*MsgChallengeResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -166,9 +154,6 @@ func (UnimplementedMsgServer) JoinDeal(context.Context, *MsgJoinDeal) (*MsgJoinD
 }
 func (UnimplementedMsgServer) LeaveDeal(context.Context, *MsgLeaveDeal) (*MsgLeaveDealResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LeaveDeal not implemented")
-}
-func (UnimplementedMsgServer) Challenge(context.Context, *MsgChallenge) (*MsgChallengeResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Challenge not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -309,24 +294,6 @@ func _Msg_LeaveDeal_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_Challenge_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgChallenge)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MsgServer).Challenge(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Msg_Challenge_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).Challenge(ctx, req.(*MsgChallenge))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -361,10 +328,6 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "LeaveDeal",
 			Handler:    _Msg_LeaveDeal_Handler,
-		},
-		{
-			MethodName: "Challenge",
-			Handler:    _Msg_Challenge_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
