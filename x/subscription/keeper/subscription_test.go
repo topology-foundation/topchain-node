@@ -78,7 +78,7 @@ func TestSubscriptionsWithPaginationOne(t *testing.T) {
 	require.Len(t, res.Subscriptions, 1)
 	require.Contains(t, res.Subscriptions, subscription1)
 	req = &types.QuerySubscriptionsRequest{Provider: "provider1", Pagination: &query.PageRequest{Key: res.Pagination.NextKey, Limit: 1}}
-	res, err = keeper.Subscriptions(ctx, req)
+	res, _ = keeper.Subscriptions(ctx, req)
 	require.Len(t, res.Subscriptions, 1)
 	require.Contains(t, res.Subscriptions, subscription2)
 }
