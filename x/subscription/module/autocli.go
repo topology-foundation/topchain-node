@@ -60,9 +60,9 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				},
 				{
 					RpcMethod:      "CreateDeal",
-					Use:            "create-deal [cro_id] [amount] [start_block] [end_block]",
+					Use:            "create-deal [cro_id] [amount] [start_block] [end_block] [initial_frontier]",
 					Short:          "Send a create-deal tx",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cro_id"}, {ProtoField: "amount"}, {ProtoField: "start_block"}, {ProtoField: "end_block"}},
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cro_id"}, {ProtoField: "amount"}, {ProtoField: "start_block"}, {ProtoField: "end_block"}, {ProtoField: "initial_frontier"}},
 				},
 				{
 					RpcMethod:      "CancelDeal",
