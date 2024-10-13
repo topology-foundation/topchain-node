@@ -60,7 +60,7 @@ func (k Keeper) GetAllActiveProviders(ctx sdk.Context, deal types.Deal) []string
 	return providers
 }
 
-// Need a formula
+// TODO: Need a formula
 func (k Keeper) CalculateMinimumStake(ctx sdk.Context, deal types.Deal) int64 {
 	return 0
 }
