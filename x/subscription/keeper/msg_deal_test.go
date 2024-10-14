@@ -88,10 +88,14 @@ func TestMsgServerCancelDealCorrectRequester(t *testing.T) {
 
 	// Now send a cancel message
 	cancelDeal := types.MsgCancelDeal{Requester: Alice, DealId: createResponse.DealId}
-	_, _ = ms.CancelDeal(ctx, &cancelDeal)
+	_, err = ms.CancelDeal(ctx, &cancelDeal)
+	require.Nil(t, err)
 
 	// Get the deal from the storage
-	deal, _ := k.GetDeal(ctx, createResponse.DealId)
+	deal, found := k.GetDeal(ctx, createResponse.DealId)
+	if !found {
+		t.Fatalf("Deal not found")
+	}
 	require.EqualValues(t, deal.Status, types.Deal_CANCELLED)
 
 }
@@ -581,7 +585,8 @@ func TestMsgServerJoinLeaveJoinDeallMsg(t *testing.T) {
 
 	leaveDeal := types.MsgLeaveDeal{Provider: Bob, DealId: dealId}
 	// Provider tries to leave the deal it has not joined
-	_, _ = ms.LeaveDeal(ctx, &leaveDeal)
+	_, err = ms.LeaveDeal(ctx, &leaveDeal)
+	require.Nil(t, err)
 
 	// Jump one block forward
 	ctx = MockBlockHeight(ctx, am, 1)
