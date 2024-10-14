@@ -48,4 +48,8 @@ message MsgChallenge{
   repeated string vertices_hashes = 3; 
 }
 
-message MsgChallengeResponse{}
+message MsgChallengeResponse{
+  string challenge_id = 1;
+}
+
+// TODO: add submit-proof, ask-for-more, fix vertex error
