@@ -18,8 +18,9 @@ service Msg {
   // parameters. The authority defaults to the x/gov module account.
   rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
 
-  rpc Challenge  (MsgChallenge)   returns (MsgChallengeResponse);
-  rpc SubmitProof(MsgSubmitProof) returns (MsgSubmitProofResponse);
+  rpc Challenge           (MsgChallenge)            returns (MsgChallengeResponse);
+  rpc SubmitProof         (MsgSubmitProof)          returns (MsgSubmitProofResponse);
+  rpc RequestDependencies (MsgRequestDependencies ) returns (MsgRequestDependenciesResponse );
 }
 
 // MsgUpdateParams is the Msg/UpdateParams request type.
@@ -62,5 +63,14 @@ message MsgSubmitProof {
 }
 
 message MsgSubmitProofResponse {}
+
+message MsgRequestDependencies {
+  option (cosmos.msg.v1.signer) = "challenger";
+  string challenger = 1;
+  string challenge_id = 2;
+  repeated string vertices_hashes = 3;
+}
+
+message MsgRequestDependenciesResponse {}
 
 // TODO: add submit-proof, ask-for-more, fix vertex error

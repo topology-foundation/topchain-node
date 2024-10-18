@@ -103,3 +103,44 @@ func (k msgServer) SubmitProof(goCtx context.Context, msg *types.MsgSubmitProof)
 
 	return &types.MsgSubmitProofResponse{}, nil
 }
+
+func (k msgServer) RequestDependencies(goCtx context.Context, msg *types.MsgRequestDependencies) (*types.MsgRequestDependenciesResponse, error) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	challenge, found := k.GetChallenge(ctx, msg.ChallengeId)
+	if !found {
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "challenge "+msg.ChallengeId+" not found")
+	}
+	if challenge.Challenger != msg.Challenger {
+		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "unauthorized challenger")
+	}
+
+	requester, err := sdk.AccAddressFromBech32(msg.Challenger)
+	if err != nil {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid challenger address")
+	}
+
+	fee := k.PricePerVertexChallenge(ctx, msg.Challenger, challenge.Provider) * int64(len(msg.VerticesHashes))
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", fee)))
+	if err != nil {
+		return nil, errorsmod.Wrap(err, "failed to send coins to module account")
+	}
+
+	buf := bytes.NewBuffer(challenge.ChallengedHashes)
+	var challengedHashes sTypes.Set[string]
+	gob.NewDecoder(buf).Decode(&challengedHashes)
+
+	for _, hash := range msg.VerticesHashes {
+		challengedHashes.Add(hash)
+	}
+
+	challenge.LastActive = uint64(ctx.BlockHeight())
+	challenge.Amount += uint64(fee)
+
+	buf = &bytes.Buffer{}
+	gob.NewEncoder(buf).Encode(challengedHashes)
+	challenge.ChallengedHashes = buf.Bytes()
+
+	k.SetChallenge(ctx, challenge)
+
+	return &types.MsgRequestDependenciesResponse{}, nil
+}

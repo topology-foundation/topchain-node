@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Msg_UpdateParams_FullMethodName = "/topchain.challenge.Msg/UpdateParams"
-	Msg_Challenge_FullMethodName    = "/topchain.challenge.Msg/Challenge"
-	Msg_SubmitProof_FullMethodName  = "/topchain.challenge.Msg/SubmitProof"
+	Msg_UpdateParams_FullMethodName        = "/topchain.challenge.Msg/UpdateParams"
+	Msg_Challenge_FullMethodName           = "/topchain.challenge.Msg/Challenge"
+	Msg_SubmitProof_FullMethodName         = "/topchain.challenge.Msg/SubmitProof"
+	Msg_RequestDependencies_FullMethodName = "/topchain.challenge.Msg/RequestDependencies"
 )
 
 // MsgClient is the client API for Msg service.
@@ -33,6 +34,7 @@ type MsgClient interface {
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 	Challenge(ctx context.Context, in *MsgChallenge, opts ...grpc.CallOption) (*MsgChallengeResponse, error)
 	SubmitProof(ctx context.Context, in *MsgSubmitProof, opts ...grpc.CallOption) (*MsgSubmitProofResponse, error)
+	RequestDependencies(ctx context.Context, in *MsgRequestDependencies, opts ...grpc.CallOption) (*MsgRequestDependenciesResponse, error)
 }
 
 type msgClient struct {
@@ -70,6 +72,15 @@ func (c *msgClient) SubmitProof(ctx context.Context, in *MsgSubmitProof, opts ..
 	return out, nil
 }
 
+func (c *msgClient) RequestDependencies(ctx context.Context, in *MsgRequestDependencies, opts ...grpc.CallOption) (*MsgRequestDependenciesResponse, error) {
+	out := new(MsgRequestDependenciesResponse)
+	err := c.cc.Invoke(ctx, Msg_RequestDependencies_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -79,6 +90,7 @@ type MsgServer interface {
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 	Challenge(context.Context, *MsgChallenge) (*MsgChallengeResponse, error)
 	SubmitProof(context.Context, *MsgSubmitProof) (*MsgSubmitProofResponse, error)
+	RequestDependencies(context.Context, *MsgRequestDependencies) (*MsgRequestDependenciesResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -94,6 +106,9 @@ func (UnimplementedMsgServer) Challenge(context.Context, *MsgChallenge) (*MsgCha
 }
 func (UnimplementedMsgServer) SubmitProof(context.Context, *MsgSubmitProof) (*MsgSubmitProofResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SubmitProof not implemented")
+}
+func (UnimplementedMsgServer) RequestDependencies(context.Context, *MsgRequestDependencies) (*MsgRequestDependenciesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RequestDependencies not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -162,6 +177,24 @@ func _Msg_SubmitProof_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_RequestDependencies_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgRequestDependencies)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).RequestDependencies(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_RequestDependencies_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).RequestDependencies(ctx, req.(*MsgRequestDependencies))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -180,6 +213,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SubmitProof",
 			Handler:    _Msg_SubmitProof_Handler,
+		},
+		{
+			MethodName: "RequestDependencies",
+			Handler:    _Msg_RequestDependencies_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
