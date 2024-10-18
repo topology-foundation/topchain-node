@@ -279,9 +279,9 @@ func TestMsgServerJoinDealBeforeInitiationMsg(t *testing.T) {
 	// Create a new deal
 	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
+	require.NoError(t, err)
 
 	dealId := createResponse.DealId
-	require.NoError(t, err)
 
 	// Get the deal from the storage
 	deal, found := k.GetDeal(ctx, dealId)
@@ -293,7 +293,6 @@ func TestMsgServerJoinDealBeforeInitiationMsg(t *testing.T) {
 	// Provider joins the deal before it is initiated
 	joinDeal := types.MsgJoinDeal{Provider: Bob, DealId: dealId}
 	joinResponse, err := ms.JoinDeal(ctx, &joinDeal)
-
 	require.NoError(t, err)
 
 	// Check if the subscription exists
@@ -321,9 +320,9 @@ func TestMsgServerJoinInitiatedDealMsg(t *testing.T) {
 	// Create a new deal
 	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
+	require.NoError(t, err)
 
 	dealId := createResponse.DealId
-	require.NoError(t, err)
 
 	// Get the deal from the storage
 	deal, found := k.GetDeal(ctx, dealId)
@@ -337,7 +336,6 @@ func TestMsgServerJoinInitiatedDealMsg(t *testing.T) {
 	// Provider joins the deal before it is initiated
 	joinDeal := types.MsgJoinDeal{Provider: Bob, DealId: dealId}
 	joinResponse, err := ms.JoinDeal(ctx, &joinDeal)
-
 	require.NoError(t, err)
 
 	// Check if the subscription exists
@@ -367,9 +365,9 @@ func TestMsgServerJoinCancelledDealMsg(t *testing.T) {
 	// Create a new deal
 	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
+	require.NoError(t, err)
 
 	dealId := createResponse.DealId
-	require.NoError(t, err)
 
 	// Get the deal from the storage
 	_, found := k.GetDeal(ctx, dealId)
@@ -401,14 +399,13 @@ func TestMsgServerJoinSameDealMoreThanOnceMsg(t *testing.T) {
 	// Create a new deal
 	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
+	require.NoError(t, err)
 
 	dealId := createResponse.DealId
-	require.NoError(t, err)
 
 	// Provider joins the deal
 	joinDeal := types.MsgJoinDeal{Provider: Bob, DealId: dealId}
 	_, err = ms.JoinDeal(ctx, &joinDeal)
-
 	require.NoError(t, err)
 
 	// Provider tries to join the same deal again
@@ -429,9 +426,9 @@ func TestMsgServerIncrementDealAmount(t *testing.T) {
 	// Create a new deal
 	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
+	require.NoError(t, err)
 
 	dealId := createResponse.DealId
-	require.NoError(t, err)
 
 	// topop the deal amount
 	incrementDeal := types.MsgIncrementDealAmount{Requester: Alice, DealId: dealId, Amount: 1000}
@@ -450,9 +447,9 @@ func TestMsgServerIncrementDealAmountIncorrectRequester(t *testing.T) {
 	// Create a new deal
 	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
+	require.NoError(t, err)
 
 	dealId := createResponse.DealId
-	require.NoError(t, err)
 
 	// topop the deal amount
 	incrementDeal := types.MsgIncrementDealAmount{Requester: Bob, DealId: dealId, Amount: 1000}
@@ -471,9 +468,9 @@ func TestMsgServerIncrementCancelledDealAmount(t *testing.T) {
 	// Create a new deal
 	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
+	require.NoError(t, err)
 
 	dealId := createResponse.DealId
-	require.NoError(t, err)
 
 	// cancel the deal
 	cancelDeal := types.MsgCancelDeal{Requester: Alice, DealId: dealId}
@@ -497,9 +494,9 @@ func TestMsgServerIncrementExpiredDealAmount(t *testing.T) {
 	// Create a new deal
 	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
+	require.NoError(t, err)
 
 	dealId := createResponse.DealId
-	require.NoError(t, err)
 
 	// Jump to block 12 to initialize the deal
 	ctx = MockBlockHeight(ctx, am, 12)
@@ -523,9 +520,9 @@ func TestMsgServerLeaveJoinedDealMsg(t *testing.T) {
 	// Create a new deal
 	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
+	require.NoError(t, err)
 
 	dealId := createResponse.DealId
-	require.NoError(t, err)
 
 	// Provider joins the deal
 	joinDeal := types.MsgJoinDeal{Provider: Bob, DealId: dealId}
@@ -551,9 +548,9 @@ func TestMsgServerLeaveNotJoinedDealMsg(t *testing.T) {
 	// Create a new deal
 	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
+	require.NoError(t, err)
 
 	dealId := createResponse.DealId
-	require.NoError(t, err)
 
 	leaveDeal := types.MsgLeaveDeal{Provider: Bob, DealId: dealId}
 	// Provider tries to leave the deal it has not joined
@@ -573,14 +570,13 @@ func TestMsgServerJoinLeaveJoinDeallMsg(t *testing.T) {
 	// Create a new deal
 	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
+	require.NoError(t, err)
 
 	dealId := createResponse.DealId
-	require.NoError(t, err)
 
 	// Provider joins the deal
 	joinDeal := types.MsgJoinDeal{Provider: Bob, DealId: dealId}
 	_, err = ms.JoinDeal(ctx, &joinDeal)
-
 	require.NoError(t, err)
 
 	leaveDeal := types.MsgLeaveDeal{Provider: Bob, DealId: dealId}
