@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	Msg_UpdateParams_FullMethodName = "/topchain.challenge.Msg/UpdateParams"
 	Msg_Challenge_FullMethodName    = "/topchain.challenge.Msg/Challenge"
+	Msg_SubmitProof_FullMethodName  = "/topchain.challenge.Msg/SubmitProof"
 )
 
 // MsgClient is the client API for Msg service.
@@ -31,6 +32,7 @@ type MsgClient interface {
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 	Challenge(ctx context.Context, in *MsgChallenge, opts ...grpc.CallOption) (*MsgChallengeResponse, error)
+	SubmitProof(ctx context.Context, in *MsgSubmitProof, opts ...grpc.CallOption) (*MsgSubmitProofResponse, error)
 }
 
 type msgClient struct {
@@ -59,6 +61,15 @@ func (c *msgClient) Challenge(ctx context.Context, in *MsgChallenge, opts ...grp
 	return out, nil
 }
 
+func (c *msgClient) SubmitProof(ctx context.Context, in *MsgSubmitProof, opts ...grpc.CallOption) (*MsgSubmitProofResponse, error) {
+	out := new(MsgSubmitProofResponse)
+	err := c.cc.Invoke(ctx, Msg_SubmitProof_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -67,6 +78,7 @@ type MsgServer interface {
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 	Challenge(context.Context, *MsgChallenge) (*MsgChallengeResponse, error)
+	SubmitProof(context.Context, *MsgSubmitProof) (*MsgSubmitProofResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -79,6 +91,9 @@ func (UnimplementedMsgServer) UpdateParams(context.Context, *MsgUpdateParams) (*
 }
 func (UnimplementedMsgServer) Challenge(context.Context, *MsgChallenge) (*MsgChallengeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Challenge not implemented")
+}
+func (UnimplementedMsgServer) SubmitProof(context.Context, *MsgSubmitProof) (*MsgSubmitProofResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubmitProof not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -129,6 +144,24 @@ func _Msg_Challenge_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_SubmitProof_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSubmitProof)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SubmitProof(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_SubmitProof_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SubmitProof(ctx, req.(*MsgSubmitProof))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -143,6 +176,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Challenge",
 			Handler:    _Msg_Challenge_Handler,
+		},
+		{
+			MethodName: "SubmitProof",
+			Handler:    _Msg_SubmitProof_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

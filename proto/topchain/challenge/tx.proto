@@ -6,6 +6,7 @@ import "cosmos/msg/v1/msg.proto";
 import "cosmos_proto/cosmos.proto";
 import "gogoproto/gogo.proto";
 import "topchain/challenge/params.proto";
+import "topchain/challenge/vertex.proto";
 
 option go_package = "topchain/x/challenge/types";
 
@@ -17,7 +18,8 @@ service Msg {
   // parameters. The authority defaults to the x/gov module account.
   rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
 
-  rpc Challenge(MsgChallenge) returns (MsgChallengeResponse);
+  rpc Challenge  (MsgChallenge)   returns (MsgChallengeResponse);
+  rpc SubmitProof(MsgSubmitProof) returns (MsgSubmitProofResponse);
 }
 
 // MsgUpdateParams is the Msg/UpdateParams request type.
@@ -41,15 +43,24 @@ message MsgUpdateParams {
 // MsgUpdateParams message.
 message MsgUpdateParamsResponse {}
 
-message MsgChallenge{
+message MsgChallenge {
   option (cosmos.msg.v1.signer) = "challenger";
   string challenger = 1;
   string provider_id = 2;
   repeated string vertices_hashes = 3; 
 }
 
-message MsgChallengeResponse{
+message MsgChallengeResponse {
   string challenge_id = 1;
 }
+
+message MsgSubmitProof {
+  option (cosmos.msg.v1.signer) = "provider";
+  string provider = 1;
+  string challenge_id = 2;
+  repeated topchain.challenge.Vertex vertices = 3;
+}
+
+message MsgSubmitProofResponse {}
 
 // TODO: add submit-proof, ask-for-more, fix vertex error

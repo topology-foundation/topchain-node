@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/gob"
+	"encoding/json"
 
 	"topchain/x/challenge/types"
 	sTypes "topchain/x/subscription/types"
@@ -11,6 +12,8 @@ import (
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+
+	"crypto/sha256"
 
 	"github.com/google/uuid"
 )
@@ -58,4 +61,45 @@ func (k msgServer) Challenge(goCtx context.Context, msg *types.MsgChallenge) (*t
 	})
 
 	return &types.MsgChallengeResponse{ChallengeId: id}, nil
+}
+
+func (k msgServer) SubmitProof(goCtx context.Context, msg *types.MsgSubmitProof) (*types.MsgSubmitProofResponse, error) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	challenge, found := k.GetChallenge(ctx, msg.ChallengeId)
+	if !found {
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "challenge "+msg.ChallengeId+" not found")
+	}
+	if challenge.Provider != msg.Provider {
+		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "unauthorized provider")
+	}
+
+	buf := bytes.NewBuffer(challenge.ChallengedHashes)
+	var challengedHashes sTypes.Set[string]
+	gob.NewDecoder(buf).Decode(&challengedHashes)
+
+	for _, vertex := range msg.Vertices {
+		if challengedHashes.Has(vertex.Hash) {
+			// TODO - make sure this gives the same hashing output as in ts-topology
+			stringified, err := json.Marshal(vertex)
+			if err != nil {
+				return nil, errorsmod.Wrap(err, "failed to marshal vertex")
+			}
+			computedHash := sha256.Sum256(stringified)
+
+			if !bytes.Equal(computedHash[:], []byte(vertex.Hash)) {
+				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "hashes do not match")
+			}
+
+			challengedHashes.Remove(vertex.Hash)
+		}
+	}
+
+	challenge.LastActive = uint64(ctx.BlockHeight())
+	buf = &bytes.Buffer{}
+	gob.NewEncoder(buf).Encode(challengedHashes)
+	challenge.ChallengedHashes = buf.Bytes()
+
+	k.SetChallenge(ctx, challenge)
+
+	return &types.MsgSubmitProofResponse{}, nil
 }
