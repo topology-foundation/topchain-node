@@ -31,30 +31,28 @@ func (k msgServer) Challenge(goCtx context.Context, msg *types.MsgChallenge) (*t
 		return nil, errorsmod.Wrap(err, "failed to send coins to module account")
 	}
 
-	challenger := msg.Challenger
-	providerId := msg.ProviderId
-	challengedHashes := msg.VerticesHashes
-
 	currentBlock := ctx.BlockHeight()
-	for _, hash := range challengedHashes {
+	var hashes sTypes.Set[string]
+
+	for _, hash := range msg.VerticesHashes {
 		block, found := k.GetHashSubmissionBlock(ctx, hash)
 		if !found {
-			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "hash "+hash+" not found")
-		}
-		if currentBlock-block > ChallengePeriod {
-			return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "hash "+hash+" was submitted more than "+string(ChallengePeriod)+" blocks ago")
+			k.logger.Error("hash " + hash + " not found")
+		} else if currentBlock-block > ChallengePeriod {
+			k.logger.Error("hash " + hash + " was submitted more than " + string(ChallengePeriod) + " blocks ago")
+		} else {
+			hashes.Add(hash)
 		}
 	}
 
 	id := uuid.NewString()
-	hashes := sTypes.SetFrom(challengedHashes...)
 	buf := &bytes.Buffer{}
 	gob.NewEncoder(buf).Encode(hashes)
 
 	k.SetChallenge(ctx, types.Challenge{
 		Id:               id,
-		Challenger:       challenger,
-		Provider:         providerId,
+		Challenger:       msg.Challenger,
+		Provider:         msg.ProviderId,
 		Amount:           uint64(totalChallengePrice),
 		LastActive:       uint64(currentBlock),
 		ChallengedHashes: buf.Bytes(),
@@ -82,12 +80,14 @@ func (k msgServer) SubmitProof(goCtx context.Context, msg *types.MsgSubmitProof)
 			// TODO - make sure this gives the same hashing output as in ts-topology
 			stringified, err := json.Marshal(vertex)
 			if err != nil {
-				return nil, errorsmod.Wrap(err, "failed to marshal vertex")
+				k.logger.Error("failed to marshal vertex with hash " + vertex.Hash)
+				continue
 			}
 			computedHash := sha256.Sum256(stringified)
 
 			if !bytes.Equal(computedHash[:], []byte(vertex.Hash)) {
-				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "hashes do not match")
+				k.logger.Error("hash " + vertex.Hash + " does not match the computed hash")
+				continue
 			}
 
 			challengedHashes.Remove(vertex.Hash)
@@ -133,10 +133,12 @@ func (k msgServer) RequestDependencies(goCtx context.Context, msg *types.MsgRequ
 	for _, hash := range msg.VerticesHashes {
 		block, found := k.GetHashSubmissionBlock(ctx, hash)
 		if !found {
-			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "hash "+hash+" not found")
+			k.logger.Error("hash " + hash + " not found")
 		}
 		if currentBlock-block > ChallengePeriod {
-			return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "hash "+hash+" was submitted more than "+string(ChallengePeriod)+" blocks ago")
+			k.logger.Error("hash " + hash + " was submitted more than " + string(ChallengePeriod) + " blocks ago")
+		} else {
+			challengedHashes.Add(hash)
 		}
 	}
 
