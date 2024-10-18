@@ -34,6 +34,18 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Send a challenge tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "provider_id"}, {ProtoField: "vertices_hashes"}},
 				},
+				{
+					RpcMethod:      "SubmitProof",
+					Use:            "submit-proof [challenge_id] [vertices]",
+					Short:          "Submit a submit-proof tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "challenge_id"}, {ProtoField: "vertices"}},
+				},
+				{
+					RpcMethod:      "RequestDependencies",
+					Use:            "request-dependencies [challenge_id] [vertices_hashes]",
+					Short:          "Send a request-dependencies tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "challenge_id"}, {ProtoField: "vertices_hashes"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},
