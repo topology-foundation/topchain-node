@@ -32,11 +32,11 @@ func (k msgServer) Challenge(goCtx context.Context, msg *types.MsgChallenge) (*t
 	}
 
 	challenger := msg.Challenger
-	provider_id := msg.ProviderId
-	challenged_hashes := msg.VerticesHashes
+	providerId := msg.ProviderId
+	challengedHashes := msg.VerticesHashes
 
 	currentBlock := ctx.BlockHeight()
-	for _, hash := range challenged_hashes {
+	for _, hash := range challengedHashes {
 		block, found := k.GetHashSubmissionBlock(ctx, hash)
 		if !found {
 			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "hash "+hash+" not found")
@@ -47,14 +47,14 @@ func (k msgServer) Challenge(goCtx context.Context, msg *types.MsgChallenge) (*t
 	}
 
 	id := uuid.NewString()
-	hashes := sTypes.SetFrom(challenged_hashes...)
+	hashes := sTypes.SetFrom(challengedHashes...)
 	buf := &bytes.Buffer{}
 	gob.NewEncoder(buf).Encode(hashes)
 
 	k.SetChallenge(ctx, types.Challenge{
 		Id:               id,
 		Challenger:       challenger,
-		Provider:         provider_id,
+		Provider:         providerId,
 		Amount:           uint64(totalChallengePrice),
 		LastActive:       uint64(currentBlock),
 		ChallengedHashes: buf.Bytes(),
@@ -129,11 +129,18 @@ func (k msgServer) RequestDependencies(goCtx context.Context, msg *types.MsgRequ
 	var challengedHashes sTypes.Set[string]
 	gob.NewDecoder(buf).Decode(&challengedHashes)
 
+	currentBlock := ctx.BlockHeight()
 	for _, hash := range msg.VerticesHashes {
-		challengedHashes.Add(hash)
+		block, found := k.GetHashSubmissionBlock(ctx, hash)
+		if !found {
+			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "hash "+hash+" not found")
+		}
+		if currentBlock-block > ChallengePeriod {
+			return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "hash "+hash+" was submitted more than "+string(ChallengePeriod)+" blocks ago")
+		}
 	}
 
-	challenge.LastActive = uint64(ctx.BlockHeight())
+	challenge.LastActive = uint64(currentBlock)
 	challenge.Amount += uint64(fee)
 
 	buf = &bytes.Buffer{}
