@@ -34,9 +34,9 @@ func (k Keeper) GetChallenge(ctx sdk.Context, challengeId string) (challenge typ
 	return challenge, true
 }
 
-func (k Keeper) GetHashSubmissionBlock(ctx sdk.Context, hash string) (block int64, found bool) {
+func (k Keeper) GetHashSubmissionBlock(ctx sdk.Context, provider string, hash string) (block int64, found bool) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	store := prefix.NewStore(storeAdapter, sTypes.KeyPrefix(sTypes.HashSubmissionBlockKeyPrefix))
+	store := prefix.NewStore(storeAdapter, sTypes.GetHashSubmissionBlockStoreKey(provider))
 
 	blockBytes := store.Get([]byte(hash))
 	if blockBytes == nil {

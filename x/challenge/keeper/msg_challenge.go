@@ -35,7 +35,7 @@ func (k msgServer) Challenge(goCtx context.Context, msg *types.MsgChallenge) (*t
 	var hashes sTypes.Set[string]
 
 	for _, hash := range msg.VerticesHashes {
-		block, found := k.GetHashSubmissionBlock(ctx, hash)
+		block, found := k.GetHashSubmissionBlock(ctx, msg.ProviderId, hash)
 		if !found {
 			k.logger.Error("hash " + hash + " not found")
 		} else if currentBlock-block > ChallengePeriod {
@@ -131,7 +131,7 @@ func (k msgServer) RequestDependencies(goCtx context.Context, msg *types.MsgRequ
 
 	currentBlock := ctx.BlockHeight()
 	for _, hash := range msg.VerticesHashes {
-		block, found := k.GetHashSubmissionBlock(ctx, hash)
+		block, found := k.GetHashSubmissionBlock(ctx, challenge.Provider, hash)
 		if !found {
 			k.logger.Error("hash " + hash + " not found")
 		}

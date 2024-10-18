@@ -38,3 +38,7 @@ func GetRequesterStoreKey(requester string) []byte {
 func GetProgressSizeStoreKey(subscription string) []byte {
 	return KeyPrefix(ProgressSizeKeyPrefix + "/" + subscription)
 }
+
+func GetHashSubmissionBlockStoreKey(provider string) []byte {
+	return KeyPrefix(HashSubmissionBlockKeyPrefix + "/" + provider)
+}

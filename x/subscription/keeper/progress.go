@@ -52,16 +52,16 @@ func (k Keeper) GetProgressSize(ctx sdk.Context, subscription string, block int6
 	return int(sdk.BigEndianToUint64(sizeBytes)), true
 }
 
-func (k Keeper) SetHashSubmissionBlock(ctx sdk.Context, hash string, block int64) {
+func (k Keeper) SetHashSubmissionBlock(ctx sdk.Context, provider string, hash string, block int64) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.HashSubmissionBlockKeyPrefix))
+	store := prefix.NewStore(storeAdapter, types.GetHashSubmissionBlockStoreKey(provider))
 
 	store.Set([]byte(hash), sdk.Uint64ToBigEndian(uint64(block)))
 }
 
-func (k Keeper) GetHashSubmissionBlock(ctx sdk.Context, hash string) (block int64, found bool) {
+func (k Keeper) GetHashSubmissionBlock(ctx sdk.Context, provider string, hash string) (block int64, found bool) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.HashSubmissionBlockKeyPrefix))
+	store := prefix.NewStore(storeAdapter, types.GetHashSubmissionBlockStoreKey(provider))
 
 	blockBytes := store.Get([]byte(hash))
 	if blockBytes == nil {

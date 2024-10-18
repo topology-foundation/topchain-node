@@ -36,7 +36,7 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 	for _, hash := range submittedHashes {
 		if !progress.Has(hash) {
 			progress = progress.Add(hash)
-			k.SetHashSubmissionBlock(ctx, hash, ctx.BlockHeight())
+			k.SetHashSubmissionBlock(ctx, provider, hash, ctx.BlockHeight())
 		}
 	}
 
