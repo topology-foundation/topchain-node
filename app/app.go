@@ -77,6 +77,7 @@ import (
 
 	subscriptionmodulekeeper "topchain/x/subscription/keeper"
 
+	challengemodulekeeper "topchain/x/challenge/keeper"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	"topchain/docs"
@@ -141,6 +142,7 @@ type App struct {
 	ScopedKeepers             map[string]capabilitykeeper.ScopedKeeper
 
 	SubscriptionKeeper subscriptionmodulekeeper.Keeper
+	ChallengeKeeper    challengemodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -245,6 +247,7 @@ func New(
 		&app.GroupKeeper,
 		&app.CircuitBreakerKeeper,
 		&app.SubscriptionKeeper,
+		&app.ChallengeKeeper,
 		// this line is used by starport scaffolding # stargate/app/keeperDefinition
 	); err != nil {
 		panic(err)
