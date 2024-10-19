@@ -10,7 +10,8 @@ import (
 )
 
 const (
-	ChallengePeriod = 100
+	ChallengePeriod  = 100
+	InactivityPeriod = 100
 )
 
 func (k Keeper) SetChallenge(ctx sdk.Context, challenge types.Challenge) {
@@ -34,6 +35,13 @@ func (k Keeper) GetChallenge(ctx sdk.Context, challengeId string) (challenge typ
 	return challenge, true
 }
 
+func (k Keeper) RemoveChallenge(ctx sdk.Context, challengeId string) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.ChallengeKeyPrefix))
+
+	store.Delete([]byte(challengeId))
+}
+
 func (k Keeper) GetHashSubmissionBlock(ctx sdk.Context, provider string, hash string) (block int64, found bool) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, sTypes.GetHashSubmissionBlockStoreKey(provider))
@@ -44,6 +52,20 @@ func (k Keeper) GetHashSubmissionBlock(ctx sdk.Context, provider string, hash st
 	}
 
 	return int64(sdk.BigEndianToUint64(blockBytes)), true
+}
+
+// Iterate over all challenges and apply the given callback function
+func (k Keeper) IterateChallenges(ctx sdk.Context, shouldBreak func(challenge types.Challenge) bool) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	iterator := prefix.NewStore(storeAdapter, types.KeyPrefix(types.ChallengeKeyPrefix)).Iterator(nil, nil)
+	defer iterator.Close()
+	for ; iterator.Valid(); iterator.Next() {
+		var challenge types.Challenge
+		k.cdc.MustUnmarshal(iterator.Value(), &challenge)
+		if shouldBreak(challenge) {
+			break
+		}
+	}
 }
 
 func (k Keeper) PricePerVertexChallenge(ctx sdk.Context, challenger_address string, provider_id string) int64 {

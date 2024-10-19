@@ -46,18 +46,19 @@ func (k Keeper) IsDealActive(ctx sdk.Context, deal types.Deal) bool {
 	return false
 }
 
-func (k Keeper) GetAllActiveProviders(ctx sdk.Context, deal types.Deal) []string {
-	providers := []string{}
+// returns a map of subscription to provider
+func (k Keeper) GetAllActiveSubscriptionsWithProviders(ctx sdk.Context, deal types.Deal) map[string]string {
+	subscriptions := make(map[string]string)
 	for _, subscriptionId := range deal.SubscriptionIds {
 		subscription, found := k.GetSubscription(ctx, subscriptionId)
 		if !found {
 			continue
 		}
 		if subscription.StartBlock <= uint64(ctx.BlockHeight()) && subscription.EndBlock >= uint64(ctx.BlockHeight()) {
-			providers = append(providers, subscription.Provider)
+			subscriptions[subscriptionId] = subscription.Provider
 		}
 	}
-	return providers
+	return subscriptions
 }
 
 // TODO: Need a formula

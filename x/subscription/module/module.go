@@ -181,12 +181,14 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 				deal.Status = types.Deal_EXPIRED
 				// return the remaining amount to the requester
 				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin("top", int64(deal.AvailableAmount))))
+				// TODO: garbage collection
 			}
 		case types.Deal_ACTIVE:
 			if uint64(ctx.BlockHeight()) > deal.EndBlock {
 				deal.Status = types.Deal_EXPIRED
 				// return the remaining amount to the requester
 				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin("top", int64(deal.AvailableAmount))))
+				// TODO: garbage collection
 			} else {
 				deal = am.PayActiveProvidersPerBlock(ctx, deal)
 			}
@@ -195,6 +197,7 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 				deal.Status = types.Deal_EXPIRED
 				// return the remaining amount to the requester
 				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin("top", int64(deal.AvailableAmount))))
+				// TODO: garbage collection
 			}
 		default:
 			return false
@@ -207,13 +210,31 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 }
 
 func (am AppModule) PayActiveProvidersPerBlock(ctx sdk.Context, deal types.Deal) types.Deal {
-	activeProviders := am.keeper.GetAllActiveProviders(ctx, deal)
+	activeSubscriptions := am.keeper.GetAllActiveSubscriptionsWithProviders(ctx, deal)
 	blockReward := am.keeper.CalculateBlockReward(ctx, deal)
-	rewardPerProvider := blockReward / int64(len(activeProviders))
-	for _, provider := range activeProviders {
-		am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(provider), sdk.NewCoins(sdk.NewInt64Coin("top", rewardPerProvider)))
+	currentBlock := ctx.BlockHeight()
+	// iterate through the progress to get the total while recording the progress of each provider
+	providerProgress := make(map[string]int)
+	totalProgress := 0
+	for subscription, provider := range activeSubscriptions {
+		progress, found := am.keeper.GetProgressSize(ctx, subscription, currentBlock)
+		if !found {
+			providerProgress[provider] = 0
+		}
+		providerProgress[provider] = progress
+		totalProgress += progress
 	}
-	deal.AvailableAmount -= uint64(blockReward)
+
+	totalRewardSent := int64(0)
+	for subscription, provider := range activeSubscriptions {
+		// reward based on the progress size
+		// TODO: incorporate more sophisticated reward distribution
+		reward := int64(float64(blockReward) * float64(providerProgress[activeSubscriptions[subscription]]) / float64(totalProgress))
+		am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(provider), sdk.NewCoins(sdk.NewInt64Coin("top", reward)))
+		totalRewardSent += reward
+	}
+
+	deal.AvailableAmount -= uint64(totalRewardSent)
 	return deal
 }
 
