@@ -78,7 +78,12 @@ func (k msgServer) SubmitProof(goCtx context.Context, msg *types.MsgSubmitProof)
 	for _, vertex := range msg.Vertices {
 		if challengedHashes.Has(vertex.Hash) {
 			// TODO - make sure this gives the same hashing output as in ts-topology
-			stringified, err := json.Marshal(vertex)
+			vertexData := map[string]interface{}{
+				"operation": vertex.Operation,
+				"deps":      vertex.Dependencies,
+				"nodeId":    vertex.NodeId,
+			}
+			stringified, err := json.Marshal(vertexData)
 			if err != nil {
 				k.logger.Error("failed to marshal vertex with hash " + vertex.Hash)
 				continue
