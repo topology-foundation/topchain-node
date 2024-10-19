@@ -72,5 +72,3 @@ message MsgRequestDependencies {
 }
 
 message MsgRequestDependenciesResponse {}
-
-// TODO: add submit-proof, ask-for-more, fix vertex error
