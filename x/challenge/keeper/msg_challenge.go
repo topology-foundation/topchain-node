@@ -25,24 +25,24 @@ func (k msgServer) Challenge(goCtx context.Context, msg *types.MsgChallenge) (*t
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid challenger address")
 	}
 
-	totalChallengePrice := k.PricePerVertexChallenge(ctx, msg.Challenger, msg.ProviderId) * int64(len(msg.VerticesHashes))
-	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", totalChallengePrice)))
-	if err != nil {
-		return nil, errorsmod.Wrap(err, "failed to send coins to module account")
-	}
-
 	currentBlock := ctx.BlockHeight()
 	var hashes sTypes.Set[string]
 
 	for _, hash := range msg.VerticesHashes {
 		block, found := k.GetHashSubmissionBlock(ctx, msg.ProviderId, hash)
 		if !found {
-			k.logger.Error("hash " + hash + " not found")
+			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "hash "+hash+" not found")
 		} else if currentBlock-block > ChallengePeriod {
-			k.logger.Error("hash " + hash + " was submitted more than " + string(ChallengePeriod) + " blocks ago")
+			return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "hash "+hash+" was submitted more than "+string(ChallengePeriod)+" blocks ago")
 		} else {
 			hashes.Add(hash)
 		}
+	}
+
+	totalChallengePrice := k.PricePerVertexChallenge(ctx, msg.Challenger, msg.ProviderId) * int64(len(msg.VerticesHashes))
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", totalChallengePrice)))
+	if err != nil {
+		return nil, errorsmod.Wrap(err, "failed to send coins to module account")
 	}
 
 	id := uuid.NewString()
