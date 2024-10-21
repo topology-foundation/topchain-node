@@ -47,7 +47,7 @@ func (k Keeper) IsDealActive(ctx sdk.Context, deal types.Deal) bool {
 }
 
 // returns a map of subscription to provider
-func (k Keeper) GetAllActiveSubscriptionsWithProviders(ctx sdk.Context, deal types.Deal) map[string]string {
+func (k Keeper) GetAllActiveSubscriptions(ctx sdk.Context, deal types.Deal) map[string]string {
 	subscriptions := make(map[string]string)
 	for _, subscriptionId := range deal.SubscriptionIds {
 		subscription, found := k.GetSubscription(ctx, subscriptionId)
