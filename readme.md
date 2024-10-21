@@ -1,6 +1,6 @@
 # TopChain Installation Guide
 
-This README provides instructions for installing TopChain both manually and using Docker.
+This file provides instructions for installing TopChain both manually and using Docker.
 
 ## Manual Installation
 
