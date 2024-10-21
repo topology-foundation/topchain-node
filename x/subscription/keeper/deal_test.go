@@ -68,20 +68,21 @@ func TestGetAllActiveProviders(t *testing.T) {
 	deal := types.Deal{Id: "12345", CroId: "alicecro", Requester: Alice, Status: types.Deal_UNDEFINED, AvailableAmount: 1000, TotalAmount: 100, StartBlock: 10, EndBlock: 20, SubscriptionIds: []string{"123"}}
 	k.SetDeal(ctx, deal)
 
-	activeSubs := k.GetAllActiveProviders(ctx, deal)
+	activeSubs := k.GetAllActiveSubscriptions(ctx, deal)
 	// there shouldn't be any active subs at block 0
 	require.True(t, len(activeSubs) == 0)
 
 	// Jump to block 12
 	ctx = MockBlockHeight(ctx, am, 12)
-	activeSubs = k.GetAllActiveProviders(ctx, deal)
+	activeSubs = k.GetAllActiveSubscriptions(ctx, deal)
 	// there should be an active subs at block 12
 	require.True(t, len(activeSubs) == 1)
-	require.EqualValues(t, activeSubs[0], sub.Provider)
+	_, ok := activeSubs[sub.Id]
+	require.True(t, ok)
 
 	// Jump to block 18
 	ctx = MockBlockHeight(ctx, am, 18)
-	activeSubs = k.GetAllActiveProviders(ctx, deal)
+	activeSubs = k.GetAllActiveSubscriptions(ctx, deal)
 	// there shouldn't be an active subs at block 18
 	require.True(t, len(activeSubs) == 0)
 

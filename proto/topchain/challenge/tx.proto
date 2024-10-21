@@ -1,0 +1,74 @@
+syntax = "proto3";
+package topchain.challenge;
+
+import "amino/amino.proto";
+import "cosmos/msg/v1/msg.proto";
+import "cosmos_proto/cosmos.proto";
+import "gogoproto/gogo.proto";
+import "topchain/challenge/params.proto";
+import "topchain/challenge/vertex.proto";
+
+option go_package = "topchain/x/challenge/types";
+
+// Msg defines the Msg service.
+service Msg {
+  option (cosmos.msg.v1.service) = true;
+
+  // UpdateParams defines a (governance) operation for updating the module
+  // parameters. The authority defaults to the x/gov module account.
+  rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
+
+  rpc Challenge           (MsgChallenge)            returns (MsgChallengeResponse);
+  rpc SubmitProof         (MsgSubmitProof)          returns (MsgSubmitProofResponse);
+  rpc RequestDependencies (MsgRequestDependencies ) returns (MsgRequestDependenciesResponse );
+}
+
+// MsgUpdateParams is the Msg/UpdateParams request type.
+message MsgUpdateParams {
+  option (cosmos.msg.v1.signer) = "authority";
+  option (amino.name) = "topchain/x/challenge/MsgUpdateParams";
+
+  // authority is the address that controls the module (defaults to x/gov unless overwritten).
+  string authority = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+
+  // params defines the module parameters to update.
+  //
+  // NOTE: All parameters must be supplied.
+  Params params = 2 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
+
+// MsgUpdateParamsResponse defines the response structure for executing a
+// MsgUpdateParams message.
+message MsgUpdateParamsResponse {}
+
+message MsgChallenge {
+  option (cosmos.msg.v1.signer) = "challenger";
+  string challenger = 1;
+  string provider_id = 2;
+  repeated string vertices_hashes = 3; 
+}
+
+message MsgChallengeResponse {
+  string challenge_id = 1;
+}
+
+message MsgSubmitProof {
+  option (cosmos.msg.v1.signer) = "provider";
+  string provider = 1;
+  string challenge_id = 2;
+  repeated topchain.challenge.Vertex vertices = 3;
+}
+
+message MsgSubmitProofResponse {}
+
+message MsgRequestDependencies {
+  option (cosmos.msg.v1.signer) = "challenger";
+  string challenger = 1;
+  string challenge_id = 2;
+  repeated string vertices_hashes = 3;
+}
+
+message MsgRequestDependenciesResponse {}
