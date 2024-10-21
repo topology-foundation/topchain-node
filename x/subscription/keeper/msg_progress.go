@@ -28,6 +28,9 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 	progress, found := k.GetProgress(ctx, subscriptionId)
 	if !found {
 		hashesSet := types.SetFrom(submittedHashes...)
+		for hash := range hashesSet {
+			k.SetHashSubmissionBlock(ctx, provider, hash, ctx.BlockHeight())
+		}
 		k.SetProgress(ctx, subscriptionId, hashesSet)
 		return &types.MsgSubmitProgressResponse{}, nil
 	}
