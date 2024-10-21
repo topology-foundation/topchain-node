@@ -61,7 +61,6 @@ func (k Keeper) GetAllActiveSubscriptions(ctx sdk.Context, deal types.Deal) map[
 	return subscriptions
 }
 
-// TODO: Need a formula
 func (k Keeper) CalculateMinimumStake(ctx sdk.Context, deal types.Deal) int64 {
 	return 0
 }

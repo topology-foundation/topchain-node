@@ -23,7 +23,6 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// TODO: fetch from protobuf registry
 type Vertex struct {
 	Hash         string            `protobuf:"bytes,1,opt,name=hash,proto3" json:"hash,omitempty"`
 	NodeId       string            `protobuf:"bytes,2,opt,name=node_id,json=nodeId,proto3" json:"node_id,omitempty"`

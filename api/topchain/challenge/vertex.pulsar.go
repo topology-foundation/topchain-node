@@ -1212,7 +1212,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// TODO: fetch from protobuf registry
 type Vertex struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

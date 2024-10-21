@@ -167,11 +167,9 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 			coins := sdk.NewCoins(sdk.NewInt64Coin("top", int64(challenge.Amount)))
 			if len(challengedHashes) == 0 {
 				// all hashes were verified - send coins to challenger, remove challenge
-				// TODO - not sure if this is the correct way to reward
 				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Challenger), coins)
 			} else {
 				// some hashes were not verified - send coins to provider
-				// TODO - not sure how to slash the provider
 				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Provider), coins)
 			}
 			am.keeper.RemoveChallenge(ctx, challenge.Id)

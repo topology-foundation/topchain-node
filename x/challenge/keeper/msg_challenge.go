@@ -77,7 +77,6 @@ func (k msgServer) SubmitProof(goCtx context.Context, msg *types.MsgSubmitProof)
 
 	for _, vertex := range msg.Vertices {
 		if challengedHashes.Has(vertex.Hash) {
-			// TODO - make sure this gives the same hashing output as in ts-topology
 			vertexData := map[string]interface{}{
 				"operation": vertex.Operation,
 				"deps":      vertex.Dependencies,

@@ -5,7 +5,6 @@ option go_package = "topchain/x/challenge/types";
 
 import "google/protobuf/struct.proto";
 
-// TODO: fetch from protobuf registry
 message Vertex {
     message Operation {
         string type = 1;
