@@ -19,6 +19,7 @@ faucet:
   coins:
     - 5token
     - 100000stake
+    - 100top
 validators:
   - name: alice
     bonded: 100000000stake
