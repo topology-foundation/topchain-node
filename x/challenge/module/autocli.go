@@ -17,6 +17,18 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Use:       "params",
 					Short:     "Shows the parameters of the module",
 				},
+				{
+					RpcMethod:      "Proof",
+					Use:            "proof [challenge_id] [hash]",
+					Short:          "Query proof",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "challenge_id"}, {ProtoField: "hash"}},
+				},
+				{
+					RpcMethod:      "Proofs",
+					Use:            "proofs [challenge_id]",
+					Short:          "Query proofs",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "challenge_id"}},
+				},
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},

@@ -11,6 +11,7 @@ const (
 	MemStoreKey = "mem_challenge"
 
 	ChallengeKeyPrefix = "Challenge/value"
+	ProofKeyPrefix     = "Proof/value"
 )
 
 var (
@@ -19,4 +20,8 @@ var (
 
 func KeyPrefix(p string) []byte {
 	return []byte(p)
+}
+
+func GetProofStoreKey(challengeId string) []byte {
+	return KeyPrefix(ProofKeyPrefix + "/" + challengeId)
 }

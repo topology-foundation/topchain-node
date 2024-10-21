@@ -94,6 +94,7 @@ func (k msgServer) SubmitProof(goCtx context.Context, msg *types.MsgSubmitProof)
 				continue
 			}
 
+			k.SetProof(ctx, msg.ChallengeId, *vertex)
 			challengedHashes.Remove(vertex.Hash)
 		}
 	}
