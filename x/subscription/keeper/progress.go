@@ -10,6 +10,12 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+// ObfuscatedProgressData represents the struct we want to store
+type ObfuscatedProgressData struct {
+	BlockNumber int64
+	Hashes      types.Set[string]
+}
+
 func (k Keeper) SetProgress(ctx sdk.Context, subscription string, hashes types.Set[string]) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.ProgressKeyPrefix))
@@ -31,6 +37,33 @@ func (k Keeper) GetProgress(ctx sdk.Context, subscription string) (hashes types.
 	buf := bytes.NewBuffer(hashesBytes)
 	gob.NewDecoder(buf).Decode(&hashes)
 	return hashes, true
+}
+
+func (k Keeper) SetObfuscatedProgress(ctx sdk.Context, subscription string, blockNumber int64, hashes types.Set[string]) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.ProgressObfuscatedKeyPrefix))
+
+	data := ObfuscatedProgressData{
+		BlockNumber: blockNumber,
+		Hashes:      hashes,
+	}
+	buf := &bytes.Buffer{}
+	gob.NewEncoder(buf).Encode(data)
+	store.Set([]byte(subscription), buf.Bytes())
+}
+
+func (k Keeper) GetObfuscatedProgress(ctx sdk.Context, subscription string) (data ObfuscatedProgressData, found bool) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.ProgressObfuscatedKeyPrefix))
+
+	hashesBytes := store.Get([]byte(subscription))
+	if hashesBytes == nil {
+		return data, false
+	}
+
+	buf := bytes.NewBuffer(hashesBytes)
+	gob.NewDecoder(buf).Decode(&data)
+	return data, true
 }
 
 func (k Keeper) SetProgressSize(ctx sdk.Context, subscription string, block int64, size int) {

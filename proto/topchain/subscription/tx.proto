@@ -25,6 +25,7 @@ service Msg {
   rpc JoinDeal            (MsgJoinDeal            ) returns (MsgJoinDealResponse            );
   rpc LeaveDeal           (MsgLeaveDeal           ) returns (MsgLeaveDealResponse           );
   rpc SubmitProgress      (MsgSubmitProgress      ) returns (MsgSubmitProgressResponse      );
+  rpc SubmitObfuscatedProgress (MsgSubmitObfuscatedProgress) returns (MsgSubmitObfuscatedProgressResponse);
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
@@ -112,4 +113,12 @@ message MsgSubmitProgress {
   repeated string vertices_hashes = 3;
 }
 
+message MsgSubmitObfuscatedProgress {
+  option (cosmos.msg.v1.signer) = "provider";
+  string provider        = 1;
+  string subscription_id = 2;
+  repeated string obfuscated_vertex_hashes = 3;
+}
+
 message MsgSubmitProgressResponse {}
+message MsgSubmitObfuscatedProgressResponse {}
