@@ -26,6 +26,7 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 		AvailableAmount: msg.Amount,
 		StartBlock:      msg.StartBlock,
 		EndBlock:        msg.EndBlock,
+		InitialFrontier: msg.InitialFrontier,
 	}
 
 	requester, err := sdk.AccAddressFromBech32(msg.Requester)
