@@ -14,6 +14,9 @@ const (
 	DealRequesterKeyPrefix        = "Deal/Requester/value"
 	SubscriptionKeyPrefix         = "Subscription/value"
 	SubscriptionProviderKeyPrefix = "Subscription/Provider/value"
+	ProgressKeyPrefix             = "Progress/value"
+	ProgressSizeKeyPrefix         = "Progress/Size/value"
+	HashSubmissionBlockKeyPrefix  = "HashSubmissionBlock/value"
 )
 
 var ParamsKey = []byte("p_subscription")
@@ -24,10 +27,18 @@ func KeyPrefix(p string) []byte {
 
 // GetProviderStoreKey returns the key for the provider store for the given provider.
 func GetProviderStoreKey(provider string) []byte {
-	return []byte(KeyPrefix(SubscriptionProviderKeyPrefix + "/" + provider))
+	return KeyPrefix(SubscriptionProviderKeyPrefix + "/" + provider)
 }
 
 // GetRequesterStoreKey returns the key for the requester store for the given requester.
 func GetRequesterStoreKey(requester string) []byte {
-	return []byte(KeyPrefix(DealRequesterKeyPrefix + "/" + requester))
+	return KeyPrefix(DealRequesterKeyPrefix + "/" + requester)
+}
+
+func GetProgressSizeStoreKey(subscription string) []byte {
+	return KeyPrefix(ProgressSizeKeyPrefix + "/" + subscription)
+}
+
+func GetHashSubmissionBlockStoreKey(provider string) []byte {
+	return KeyPrefix(HashSubmissionBlockKeyPrefix + "/" + provider)
 }

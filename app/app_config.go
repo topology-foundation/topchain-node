@@ -7,6 +7,10 @@ import (
 	_ "topchain/x/subscription/module" // import for side-effects
 	subscriptionmoduletypes "topchain/x/subscription/types"
 
+	challengemodulev1 "topchain/api/topchain/challenge/module"
+	_ "topchain/x/challenge/module" // import for side-effects
+	challengemoduletypes "topchain/x/challenge/types"
+
 	runtimev1alpha1 "cosmossdk.io/api/cosmos/app/runtime/v1alpha1"
 	appv1alpha1 "cosmossdk.io/api/cosmos/app/v1alpha1"
 	authmodulev1 "cosmossdk.io/api/cosmos/auth/module/v1"
@@ -94,6 +98,7 @@ var (
 		circuittypes.ModuleName,
 		// chain modules
 		subscriptionmoduletypes.ModuleName,
+		challengemoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 
@@ -119,6 +124,7 @@ var (
 		ibcfeetypes.ModuleName,
 		// chain modules
 		subscriptionmoduletypes.ModuleName,
+		challengemoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	}
 
@@ -138,6 +144,7 @@ var (
 		ibcfeetypes.ModuleName,
 		// chain modules
 		subscriptionmoduletypes.ModuleName,
+		challengemoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
 
@@ -297,6 +304,10 @@ var (
 			{
 				Name:   subscriptionmoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&subscriptionmodulev1.Module{}),
+			},
+			{
+				Name:   challengemoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&challengemodulev1.Module{}),
 			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},

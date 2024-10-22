@@ -60,9 +60,9 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				},
 				{
 					RpcMethod:      "CreateDeal",
-					Use:            "create-deal [cro_id] [amount] [start_block] [end_block]",
+					Use:            "create-deal [cro_id] [amount] [start_block] [end_block] [initial_frontier]",
 					Short:          "Send a create-deal tx",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cro_id"}, {ProtoField: "amount"}, {ProtoField: "start_block"}, {ProtoField: "end_block"}},
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cro_id"}, {ProtoField: "amount"}, {ProtoField: "start_block"}, {ProtoField: "end_block"}, {ProtoField: "initial_frontier"}},
 				},
 				{
 					RpcMethod:      "CancelDeal",
@@ -93,6 +93,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Use:            "leave-deal [deal_id]",
 					Short:          "Send a leave-deal tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "deal_id"}},
+				},
+				{
+					RpcMethod:      "SubmitProgress",
+					Use:            "submit-progress [subscription_id] [progress (hashes)]",
+					Short:          "Send a submit-progress tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "subscription_id"}, {ProtoField: "vertices_hashes"}},
 				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
