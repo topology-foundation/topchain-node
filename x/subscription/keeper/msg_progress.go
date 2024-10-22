@@ -93,7 +93,9 @@ func validateObfuscatedProgress(obfuscatedProgress ObfuscatedProgressData, submi
 	}
 
 	for _, hash := range submittedHashes {
-		hashBytes := sha3.New256().Sum([]byte(hash + provider))
+		hasher := sha3.New256()
+		hasher.Write([]byte(hash + provider))
+		hashBytes := hasher.Sum(nil)
 		if !obfuscatedProgress.Hashes.Has(string(hashBytes)) {
 			return errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "submitted hash is not in the obfuscated progress")
 		}
