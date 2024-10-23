@@ -15,7 +15,10 @@ func (k msgServer) SubmitObfuscatedProgress(goCtx context.Context, msg *types.Ms
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	provider := msg.Provider
+	obfuscatedHash := msg.obfuscatedHash
 	subscriptionId := msg.SubscriptionId
+
+	// store the obfuscatedHash in the obfuscatedProgressStore
 	subscription, found := k.GetSubscription(ctx, subscriptionId)
 	if !found {
 		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "subscription with id "+subscriptionId+" not found")
@@ -47,17 +50,24 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 	}
 
 	// Validate that the obfuscated vertex hashes submitted in the previous block match the current vertex hashes
-	obfuscatedProgress, found := k.GetObfuscatedProgress(ctx, subscriptionId)
+	obfuscatedProgressHashSet, found := k.GetObfuscatedProgress(ctx, subscriptionId, provider)
 	if !found {
-		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "obfuscated progress for subscription "+subscriptionId+" not found")
+		hashesSet := types.SetFrom(msg.NewBatchObfuscatedProgressHash)
+		k.SetObfuscatedProgress(ctx, subscriptionId, provider, hashesSet)
+		// early return as this is the first obfuscated progress batch submission
+		return &types.MsgSubmitProgressResponse{}, nil
 	}
 
-	err := validateObfuscatedProgress(obfuscatedProgress, msg.VerticesHashes, provider, ctx.BlockHeight())
+	submittedHashes := msg.PreviousBatchVerticesHashes
+
+	obfuscatedProgressHashSet, err := validateAndUpdateObfuscatedProgress(obfuscatedProgressHashSet, submittedHashes, provider)
 	if err != nil {
-		return nil, errorsmod.Wrap(err, "vertex hashes don't match the obfuscated vertex hashes is invalid")
+		return nil, errorsmod.Wrap(err, "obfuscated progress hash for the submitted vertices hashes set does not exist")
 	}
 
-	submittedHashes := msg.VerticesHashes
+	// Add the new obfuscated progress hash to the obfuscated progress hash set
+	obfuscatedProgressHashSet = obfuscatedProgressHashSet.Add(msg.NewBatchObfuscatedProgressHash)
+	k.SetObfuscatedProgress(ctx, subscriptionId, provider, obfuscatedProgressHashSet)
 
 	progress, found := k.GetProgress(ctx, subscriptionId)
 	if !found {
@@ -84,21 +94,19 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 	return &types.MsgSubmitProgressResponse{}, nil
 }
 
-func validateObfuscatedProgress(obfuscatedProgress ObfuscatedProgressData, submittedHashes []string, provider string, currentBlock int64) error {
-	if obfuscatedProgress.BlockNumber != currentBlock-1 {
-		return errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "obfuscated progress is not for the previous block")
-	}
-	if len(obfuscatedProgress.Hashes) != len(submittedHashes) {
-		return errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "obfuscated progress and submitted hashes have different lengths")
-	}
+func validateAndUpdateObfuscatedProgress(obfuscatedProgressHashSet types.Set[string], submittedHashes []string, provider string) (types.Set[string], error) {
 
+	hasher := sha3.New256()
 	for _, hash := range submittedHashes {
-		hasher := sha3.New256()
-		hasher.Write([]byte(hash + provider))
-		hashBytes := hasher.Sum(nil)
-		if !obfuscatedProgress.Hashes.Has(string(hashBytes)) {
-			return errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "submitted hash is not in the obfuscated progress")
-		}
+		hasher.Write([]byte(hash))
 	}
-	return nil
+	hasher.Write([]byte(provider))
+	hashBytes := hasher.Sum(nil)
+	obfuscatedHash := string(hashBytes)
+	if !obfuscatedProgressHashSet.Has(obfuscatedHash) {
+		return obfuscatedProgressHashSet, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "submitted hash is not in the obfuscated progress")
+	}
+	// Remove the obfuscated hash from the set
+	obfuscatedProgressHashSet = obfuscatedProgressHashSet.Remove(obfuscatedHash)
+	return obfuscatedProgressHashSet, nil
 }

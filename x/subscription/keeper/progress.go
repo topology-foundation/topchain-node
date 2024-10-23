@@ -39,31 +39,27 @@ func (k Keeper) GetProgress(ctx sdk.Context, subscription string) (hashes types.
 	return hashes, true
 }
 
-func (k Keeper) SetObfuscatedProgress(ctx sdk.Context, subscription string, blockNumber int64, hashes types.Set[string]) {
+func (k Keeper) SetObfuscatedProgress(ctx sdk.Context, subscription string, provider string, hashes types.Set[string]) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.ProgressObfuscatedKeyPrefix))
 
-	data := ObfuscatedProgressData{
-		BlockNumber: blockNumber,
-		Hashes:      hashes,
-	}
 	buf := &bytes.Buffer{}
-	gob.NewEncoder(buf).Encode(data)
-	store.Set([]byte(subscription), buf.Bytes())
+	gob.NewEncoder(buf).Encode(hashes)
+	store.Set([]byte(subscription+provider), buf.Bytes())
 }
 
-func (k Keeper) GetObfuscatedProgress(ctx sdk.Context, subscription string) (data ObfuscatedProgressData, found bool) {
+func (k Keeper) GetObfuscatedProgress(ctx sdk.Context, subscription string, provider string) (hashes types.Set[string], found bool) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.ProgressObfuscatedKeyPrefix))
 
-	hashesBytes := store.Get([]byte(subscription))
+	hashesBytes := store.Get([]byte(subscription + provider))
 	if hashesBytes == nil {
-		return data, false
+		return hashes, false
 	}
 
 	buf := bytes.NewBuffer(hashesBytes)
-	gob.NewDecoder(buf).Decode(&data)
-	return data, true
+	gob.NewDecoder(buf).Decode(&hashes)
+	return hashes, true
 }
 
 func (k Keeper) SetProgressSize(ctx sdk.Context, subscription string, block int64, size int) {
