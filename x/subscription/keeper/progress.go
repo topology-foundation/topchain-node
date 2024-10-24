@@ -16,7 +16,7 @@ type ObfuscatedProgressData struct {
 	Hash        string
 }
 
-const EPOCH_SIZE = 100
+const EPOCH_SIZE = 10
 
 func (k Keeper) SetProgress(ctx sdk.Context, subscription string, hashes types.Set[string]) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
