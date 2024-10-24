@@ -14,26 +14,26 @@ import (
 	"github.com/google/uuid"
 )
 
-func validateNonEmptyString(value string, fieldName string) error {
+func validateNonEmptyString(value string) error {
 	if len(value) == 0 {
-		return errorsmod.Wrap(sdkerrors.ErrInvalidRequest, fmt.Sprintf("%s is required", fieldName))
+		return errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "string is empty")
 	}
 	return nil
 }
 
-func validatePositiveAmount(amount uint64, fieldName string) error {
+func validatePositiveAmount(amount uint64) error {
 	if amount <= 0 {
-		return errorsmod.Wrap(sdkerrors.ErrInvalidRequest, fmt.Sprintf("%s must be greater than 0", fieldName))
+		return errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "amount must be greater than 0")
 	}
 	return nil
 }
 
-func validateAddress(address string, fieldName string) error {
-	if err := validateNonEmptyString(address, fieldName); err != nil {
+func validateAddress(address string) error {
+	if err := validateNonEmptyString(address); err != nil {
 		return err
 	}
 	if _, err := sdk.AccAddressFromBech32(address); err != nil {
-		return errorsmod.Wrap(sdkerrors.ErrInvalidAddress, fmt.Sprintf("invalid %s address", fieldName))
+		return errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid address")
 	}
 	return nil
 }
@@ -49,13 +49,13 @@ func validateMsgCreateDeal(msg *types.MsgCreateDeal) error {
 	if err := validateBlockRange(msg.StartBlock, msg.EndBlock); err != nil {
 		return err
 	}
-	if err := validatePositiveAmount(msg.Amount, "amount"); err != nil {
+	if err := validatePositiveAmount(msg.Amount); err != nil {
 		return err
 	}
-	if err := validateNonEmptyString(msg.CroId, "cro id"); err != nil {
+	if err := validateNonEmptyString(msg.CroId); err != nil {
 		return err
 	}
-	if err := validateAddress(msg.Requester, "requester"); err != nil {
+	if err := validateAddress(msg.Requester); err != nil {
 		return err
 	}
 	return nil
@@ -98,10 +98,10 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 }
 
 func validateMsgCancelDeal(msg *types.MsgCancelDeal) error {
-	if err := validateNonEmptyString(msg.DealId, "deal id"); err != nil {
+	if err := validateNonEmptyString(msg.DealId); err != nil {
 		return err
 	}
-	if err := validateAddress(msg.Requester, "requester"); err != nil {
+	if err := validateAddress(msg.Requester); err != nil {
 		return err
 	}
 	return nil
@@ -147,16 +147,16 @@ func (k msgServer) CancelDeal(goCtx context.Context, msg *types.MsgCancelDeal) (
 }
 
 func validateMsgUpdateDeal(msg *types.MsgUpdateDeal) error {
-	if err := validateNonEmptyString(msg.DealId, "deal id"); err != nil {
+	if err := validateNonEmptyString(msg.DealId); err != nil {
 		return err
 	}
-	if err := validateAddress(msg.Requester, "requester"); err != nil {
+	if err := validateAddress(msg.Requester); err != nil {
 		return err
 	}
 	if err := validateBlockRange(msg.StartBlock, msg.EndBlock); err != nil {
 		return err
 	}
-	if err := validatePositiveAmount(msg.Amount, "amount"); err != nil {
+	if err := validatePositiveAmount(msg.Amount); err != nil {
 		return err
 	}
 	return nil
@@ -241,13 +241,13 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 }
 
 func validateMsgIncrementDealAmount(msg *types.MsgIncrementDealAmount) error {
-	if err := validatePositiveAmount(msg.Amount, "amount"); err != nil {
+	if err := validatePositiveAmount(msg.Amount); err != nil {
 		return err
 	}
-	if err := validateNonEmptyString(msg.DealId, "deal id"); err != nil {
+	if err := validateNonEmptyString(msg.DealId); err != nil {
 		return err
 	}
-	if err := validateAddress(msg.Requester, "requester"); err != nil {
+	if err := validateAddress(msg.Requester); err != nil {
 		return err
 	}
 	return nil
@@ -287,10 +287,10 @@ func (k msgServer) IncrementDealAmount(goCtx context.Context, msg *types.MsgIncr
 }
 
 func validateMsgJoinDeal(msg *types.MsgJoinDeal) error {
-	if err := validateNonEmptyString(msg.DealId, "deal id"); err != nil {
+	if err := validateNonEmptyString(msg.DealId); err != nil {
 		return err
 	}
-	if err := validateAddress(msg.Provider, "provider"); err != nil {
+	if err := validateAddress(msg.Provider); err != nil {
 		return err
 	}
 	return nil
@@ -355,10 +355,10 @@ func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*typ
 }
 
 func validateMsgLeaveDeal(msg *types.MsgLeaveDeal) error {
-	if err := validateNonEmptyString(msg.DealId, "deal id"); err != nil {
+	if err := validateNonEmptyString(msg.DealId); err != nil {
 		return err
 	}
-	if err := validateAddress(msg.Provider, "provider"); err != nil {
+	if err := validateAddress(msg.Provider); err != nil {
 		return err
 	}
 	return nil
