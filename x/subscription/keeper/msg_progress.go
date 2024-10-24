@@ -18,6 +18,7 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 	subscriptionId := msg.SubscriptionId
 	obfuscatedVerticesHash := msg.ObfuscatedVerticesHash
 	blockHeight := ctx.BlockHeight()
+	submittedHashes := msg.VerticesHashes
 
 	subscription, found := k.GetSubscription(ctx, subscriptionId)
 	if !found {
@@ -27,17 +28,15 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the provider can submit progress")
 	}
 
-	// Validate that the obfuscated vertex hashes submitted in the previous block match the current vertex hashes
-	obfuscatedProgressData, found := k.GetObfuscatedProgress(ctx, subscriptionId)
-	if !found {
+	if len(submittedHashes) == 0 {
 		k.SetObfuscatedProgress(ctx, subscriptionId, blockHeight, obfuscatedVerticesHash)
 		// early return as this is the first obfuscated progress batch submission
 		return &types.MsgSubmitProgressResponse{}, nil
 	}
 
-	submittedHashes := msg.VerticesHashes
-
-	err := validateAndUpdateObfuscatedProgress(obfuscatedProgressData, submittedHashes, provider, blockHeight)
+	// Validate that the obfuscated vertex hashes submitted in the previous block match the current vertex hashes
+	obfuscatedProgressData, found := k.GetObfuscatedProgress(ctx, subscriptionId)
+	err := validateObfuscatedProgress(obfuscatedProgressData, submittedHashes, provider, blockHeight)
 	if err != nil {
 		return nil, errorsmod.Wrap(err, "vertices hashes / obfuscated data validation failed")
 	}
@@ -70,7 +69,7 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 	return &types.MsgSubmitProgressResponse{}, nil
 }
 
-func validateAndUpdateObfuscatedProgress(obfuscatedProgressData ObfuscatedProgressData, submittedHashes []string, provider string, currentBlockNumber int64) error {
+func validateObfuscatedProgress(obfuscatedProgressData ObfuscatedProgressData, submittedHashes []string, provider string, currentBlockNumber int64) error {
 	if currentBlockNumber > obfuscatedProgressData.EpochNumber+EPOCH_SIZE {
 		return errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "Revealing vertices hashes exceeded epoch size")
 	}
