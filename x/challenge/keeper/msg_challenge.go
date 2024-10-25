@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/gob"
 	"encoding/json"
+	"fmt"
 
 	"topchain/x/challenge/types"
 	sTypes "topchain/x/subscription/types"
@@ -84,12 +85,12 @@ func (k msgServer) SubmitProof(goCtx context.Context, msg *types.MsgSubmitProof)
 			}
 			stringified, err := json.Marshal(vertexData)
 			if err != nil {
-				return nil, errorsmod.Wrap(err, "failed to marshal vertex with hash "+vertex.Hash)
+				return nil, errorsmod.Wrap(err, fmt.Sprintf("failed to marshal vertex with hash "+vertex.Hash))
 			}
 			computedHash := sha256.Sum256(stringified)
 
 			if !bytes.Equal(computedHash[:], []byte(vertex.Hash)) {
-				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "hash "+vertex.Hash+" does not match the computed hash")
+				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, fmt.Sprintf("hash "+vertex.Hash+" does not match the computed hash"))
 				continue
 			}
 
@@ -137,10 +138,10 @@ func (k msgServer) RequestDependencies(goCtx context.Context, msg *types.MsgRequ
 	for _, hash := range msg.VerticesHashes {
 		block, found := k.GetHashSubmissionBlock(ctx, challenge.Provider, hash)
 		if !found {
-			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "hash "+hash+" not found")
+			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("hash "+hash+" not found"))
 		}
 		if currentBlock-block > ChallengePeriod {
-			return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "hash "+hash+" was submitted more than "+string(ChallengePeriod)+" blocks ago")
+			return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, fmt.Sprintf("hash "+hash+" was submitted more than "+string(ChallengePeriod)+" blocks ago"))
 		} else {
 			challengedHashes.Add(hash)
 		}
