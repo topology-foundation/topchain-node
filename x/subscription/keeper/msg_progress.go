@@ -51,6 +51,7 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 			k.SetHashSubmissionBlock(ctx, provider, hash, blockHeight)
 		}
 		k.SetProgress(ctx, subscriptionId, hashesSet)
+		k.SetProgressSize(ctx, subscriptionId, blockHeight, len(hashesSet))
 		return &types.MsgSubmitProgressResponse{}, nil
 	}
 
