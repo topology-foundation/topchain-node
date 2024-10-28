@@ -35,7 +35,7 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 	}
 
 	// Validate that the obfuscated vertex hashes submitted in the previous block match the current vertex hashes
-	obfuscatedProgressData, found := k.GetObfuscatedProgress(ctx, subscriptionId)
+	obfuscatedProgressData, _ := k.GetObfuscatedProgress(ctx, subscriptionId)
 	err := validateObfuscatedProgress(obfuscatedProgressData, submittedHashes, provider, blockHeight)
 	if err != nil {
 		return nil, errorsmod.Wrap(err, "vertices hashes / obfuscated data validation failed")
@@ -72,7 +72,7 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 
 func validateObfuscatedProgress(obfuscatedProgressData ObfuscatedProgressData, submittedHashes []string, provider string, currentBlockNumber int64) error {
 	if currentBlockNumber > obfuscatedProgressData.EpochNumber+EPOCH_SIZE {
-		return errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "Revealing vertices hashes exceeded epoch size")
+		return errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "Revealing vertices hashes exceeded epoch duration")
 	}
 	hasher := sha3.New256()
 	for _, hash := range submittedHashes {
