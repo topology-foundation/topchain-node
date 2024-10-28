@@ -81,10 +81,10 @@ func MockSubscriptionKeeper(t testing.TB) (keeper.Keeper, sdk.Context, subscript
 
 	ctx := sdk.NewContext(stateStore, cmtproto.Header{}, false, logger)
 	// Prefund accounts
-	if err := MockFundAccounts(bankKeeperInstance, ctx); err != nil {
+	if err := MockFundAccounts(bankKeeper, ctx); err != nil {
 		panic(err)
 	}
-	appModule := subscription.NewAppModule(cdc, k, accountKeeper, bankKeeperInstance, stakingKeeper)
+	appModule := subscription.NewAppModule(cdc, k, accountKeeper, bankKeeper, stakingKeeper)
 	// Initialize params
 	if err := k.SetParams(ctx, types.DefaultParams()); err != nil {
 		panic(err)
