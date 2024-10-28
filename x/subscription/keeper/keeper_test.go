@@ -35,13 +35,17 @@ const (
 	Carol = "cosmos1e0w5t53nrq7p66fye6c8p0ynyhf6y24l4yuxd7"
 )
 
+var bankKeeperInstance bankkeeper.Keeper
+
 // Custom BankKeeper interface because MintCoins is not to be defined in the main one.
-type BankKeeper interface {
-	SendCoinsFromAccountToModule(ctx context.Context, senderAddress sdk.AccAddress, recipientModule string, amount sdk.Coins) error
-	SendCoinsFromModuleToAccount(ctx context.Context, senderModule string, recipientAddress sdk.AccAddress, amount sdk.Coins) error
-	// Methods imported from bank should be defined here
-	MintCoins(ctx context.Context, moduleName string, amounts sdk.Coins) error
-}
+// type BankKeeper interface {
+// 	SendCoinsFromAccountToModule(ctx context.Context, senderAddress sdk.AccAddress, recipientModule string, amount sdk.Coins) error
+// 	SendCoinsFromModuleToAccount(ctx context.Context, senderModule string, recipientAddress sdk.AccAddress, amount sdk.Coins) error
+// 	// Methods imported from bank should be defined here
+// 	MintCoins(ctx context.Context, moduleName string, amounts sdk.Coins) error
+// 	GetAllBalances(ctx context.Context, addr sdk.AccAddress) sdk.Coins
+// 	GetBalance(ctx context.Context, addr sdk.AccAddress, denom string) sdk.Coin
+// }
 
 func MockSubscriptionKeeper(t testing.TB) (keeper.Keeper, sdk.Context, subscription.AppModule) {
 	storeKey := storetypes.NewKVStoreKey(types.StoreKey)
@@ -74,8 +78,8 @@ func MockSubscriptionKeeper(t testing.TB) (keeper.Keeper, sdk.Context, subscript
 	accountKeeper := authkeeper.NewAccountKeeper(cdc, storeService, authtypes.ProtoBaseAccount,
 		maccPerms, authcodec.NewBech32Codec("cosmos"), "cosmos", string(authority))
 
-	bankKeeper := bankkeeper.NewBaseKeeper(cdc, storeService, accountKeeper, nil, authority.String(), logger)
-	stakingKeeper := stakingkeeper.NewKeeper(cdc, storeService, accountKeeper, bankKeeper, authority.String(), authcodec.NewBech32Codec("valoper"), authcodec.NewBech32Codec("valcons"))
+	bankKeeperInstance = bankkeeper.NewBaseKeeper(cdc, storeService, accountKeeper, nil, authority.String(), logger)
+	stakingKeeper := stakingkeeper.NewKeeper(cdc, storeService, accountKeeper, bankKeeperInstance, authority.String(), authcodec.NewBech32Codec("valoper"), authcodec.NewBech32Codec("valcons"))
 
 	k := keeper.NewKeeper(
 		cdc,
@@ -84,16 +88,16 @@ func MockSubscriptionKeeper(t testing.TB) (keeper.Keeper, sdk.Context, subscript
 		authority.String(),
 		module.String(),
 		accountKeeper,
-		bankKeeper,
+		bankKeeperInstance,
 		stakingKeeper,
 	)
 
 	ctx := sdk.NewContext(stateStore, cmtproto.Header{}, false, logger)
 	// Prefund accounts
-	if err := MockFundAccounts(bankKeeper, ctx); err != nil {
+	if err := MockFundAccounts(bankKeeperInstance, ctx); err != nil {
 		panic(err)
 	}
-	appModule := subscription.NewAppModule(cdc, k, accountKeeper, bankKeeper, stakingKeeper)
+	appModule := subscription.NewAppModule(cdc, k, accountKeeper, bankKeeperInstance, stakingKeeper)
 	// Initialize params
 	if err := k.SetParams(ctx, types.DefaultParams()); err != nil {
 		panic(err)
@@ -109,7 +113,7 @@ func MockBlockHeight(ctx sdk.Context, am subscription.AppModule, height int64) s
 	return ctx
 }
 
-func MockFundAccounts(bankKeeper BankKeeper, ctx sdk.Context) error {
+func MockFundAccounts(bankKeeper bankkeeper.Keeper, ctx sdk.Context) error {
 	totalMint := sdk.NewCoins(sdk.NewInt64Coin("top", 10000000000))
 	amounts := sdk.NewCoins(sdk.NewInt64Coin("top", 1000000000))
 	if err := bankKeeper.MintCoins(ctx, types.ModuleName, totalMint); err != nil {
@@ -126,4 +130,14 @@ func MockFundAccounts(bankKeeper BankKeeper, ctx sdk.Context) error {
 		}
 	}
 	return nil
+}
+
+func CheckBankBalance(ctx context.Context, address string) (sdk.Coin, error) {
+	addr, err := sdk.AccAddressFromBech32(address)
+	if err != nil {
+		return sdk.Coin{}, err
+	}
+
+	coin := bankKeeperInstance.GetBalance(ctx, addr, "top")
+	return coin, nil
 }
