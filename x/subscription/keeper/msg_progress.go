@@ -34,7 +34,7 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 		return &types.MsgSubmitProgressResponse{}, nil
 	}
 
-	// Validate that the obfuscated vertex hashes submitted in the previous block match the current vertex hashes
+	// Validate that the obfuscated vertex hashes submitted in the previous epoch match the current vertex hashes
 	obfuscatedProgressData, found := k.GetObfuscatedProgress(ctx, subscriptionId)
 	err := validateObfuscatedProgress(obfuscatedProgressData, submittedHashes, provider, blockHeight)
 	if err != nil {
