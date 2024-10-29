@@ -28,9 +28,9 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the provider can submit progress")
 	}
 
+	// this is the first obfuscated progress batch submission
 	if len(submittedHashes) == 0 {
 		k.SetObfuscatedProgress(ctx, subscriptionId, blockHeight, obfuscatedVerticesHash)
-		// early return as this is the first obfuscated progress batch submission
 		return &types.MsgSubmitProgressResponse{}, nil
 	}
 
