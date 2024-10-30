@@ -28,21 +28,18 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the provider can submit progress")
 	}
 
+	// this is the first obfuscated progress batch submission
 	if len(submittedHashes) == 0 {
 		k.SetObfuscatedProgress(ctx, subscriptionId, blockHeight, obfuscatedVerticesHash)
-		// early return as this is the first obfuscated progress batch submission
 		return &types.MsgSubmitProgressResponse{}, nil
 	}
 
-	// Validate that the obfuscated vertex hashes submitted in the previous block match the current vertex hashes
+	// Validate that the obfuscated vertex hashes submitted in the previous epoch match the current vertex hashes
 	obfuscatedProgressData, _ := k.GetObfuscatedProgress(ctx, subscriptionId)
 	err := validateObfuscatedProgress(obfuscatedProgressData, submittedHashes, provider, blockHeight)
 	if err != nil {
 		return nil, errorsmod.Wrap(err, "vertices hashes / obfuscated data validation failed")
 	}
-
-	// Add the new obfuscated progress hash to the obfuscated progress hash set
-	k.SetObfuscatedProgress(ctx, subscriptionId, blockHeight, obfuscatedVerticesHash)
 
 	progress, found := k.GetProgress(ctx, subscriptionId)
 	if !found {
@@ -63,7 +60,11 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 		}
 	}
 
+	// Add the new obfuscated progress hash to the obfuscated progress hash set
+	k.SetObfuscatedProgress(ctx, subscriptionId, blockHeight, obfuscatedVerticesHash)
+
 	progressSize := len(progress) - initialProgressSize
+
 	k.SetProgress(ctx, subscriptionId, progress)
 	k.SetProgressSize(ctx, subscriptionId, blockHeight, progressSize)
 
