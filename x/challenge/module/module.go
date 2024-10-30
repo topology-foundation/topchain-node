@@ -166,11 +166,11 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 		if challenge.LastActive+keeper.InactivityPeriod > uint64(ctx.BlockHeight()) {
 			coins := sdk.NewCoins(sdk.NewInt64Coin("top", int64(challenge.Amount)))
 			if len(challengedHashes) == 0 {
-				// all hashes were verified - send coins to challenger, remove challenge
-				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Challenger), coins)
-			} else {
-				// some hashes were not verified - send coins to provider
+				// all hashes were verified - send coins to provider, remove challenge
 				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Provider), coins)
+			} else {
+				// some hashes were not verified - send coins to challenger
+				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Challenger), coins)
 			}
 			am.keeper.RemoveChallenge(ctx, challenge.Id)
 		}
