@@ -2,8 +2,10 @@ package keeper
 
 import (
 	"context"
+	"fmt"
 	"math"
 
+	"topchain/utils/validation"
 	"topchain/x/subscription/types"
 
 	errorsmod "cosmossdk.io/errors"
@@ -13,7 +15,29 @@ import (
 	"github.com/google/uuid"
 )
 
+func validateMsgCreateDeal(msg *types.MsgCreateDeal) error {
+	if err := validation.ValidateBlockRange(msg.StartBlock, msg.EndBlock); err != nil {
+		return err
+	}
+	if err := validation.ValidatePositiveAmount(msg.Amount); err != nil {
+		return err
+	}
+	if err := validation.ValidateNonEmptyString(msg.CroId); err != nil {
+		return err
+	}
+	if err := validation.ValidateAddress(msg.Requester); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (*types.MsgCreateDealResponse, error) {
+	err := validateMsgCreateDeal(msg)
+	if err != nil {
+		fmt.Println("error in validateMsgCreateDeal", err)
+		return nil, err
+	}
+
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	id := uuid.NewString()
 	deal := types.Deal{
@@ -44,7 +68,22 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 	return &types.MsgCreateDealResponse{DealId: id}, nil
 }
 
+func validateMsgCancelDeal(msg *types.MsgCancelDeal) error {
+	if err := validation.ValidateNonEmptyString(msg.DealId); err != nil {
+		return err
+	}
+	if err := validation.ValidateAddress(msg.Requester); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (k msgServer) CancelDeal(goCtx context.Context, msg *types.MsgCancelDeal) (*types.MsgCancelDealResponse, error) {
+	err := validateMsgCancelDeal(msg)
+	if err != nil {
+		return nil, err
+	}
+
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	deal, found := k.GetDeal(ctx, msg.DealId)
 	if !found {
@@ -78,7 +117,27 @@ func (k msgServer) CancelDeal(goCtx context.Context, msg *types.MsgCancelDeal) (
 	return &types.MsgCancelDealResponse{}, nil
 }
 
+func validateMsgUpdateDeal(msg *types.MsgUpdateDeal) error {
+	if err := validation.ValidateNonEmptyString(msg.DealId); err != nil {
+		return err
+	}
+	if err := validation.ValidateAddress(msg.Requester); err != nil {
+		return err
+	}
+	if err := validation.ValidateBlockRange(msg.StartBlock, msg.EndBlock); err != nil {
+		return err
+	}
+	if err := validation.ValidatePositiveAmount(msg.Amount); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (*types.MsgUpdateDealResponse, error) {
+	err := validateMsgUpdateDeal(msg)
+	if err != nil {
+		return nil, err
+	}
 	requester, err := sdk.AccAddressFromBech32(msg.Requester)
 	if err != nil {
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
@@ -152,7 +211,24 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 	return &types.MsgUpdateDealResponse{}, nil
 }
 
+func validateMsgIncrementDealAmount(msg *types.MsgIncrementDealAmount) error {
+	if err := validation.ValidatePositiveAmount(msg.Amount); err != nil {
+		return err
+	}
+	if err := validation.ValidateNonEmptyString(msg.DealId); err != nil {
+		return err
+	}
+	if err := validation.ValidateAddress(msg.Requester); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (k msgServer) IncrementDealAmount(goCtx context.Context, msg *types.MsgIncrementDealAmount) (*types.MsgIncrementDealAmountResponse, error) {
+	if err := validateMsgIncrementDealAmount(msg); err != nil {
+		return nil, err
+	}
+
 	requester, err := sdk.AccAddressFromBech32(msg.Requester)
 	if err != nil {
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
@@ -181,7 +257,21 @@ func (k msgServer) IncrementDealAmount(goCtx context.Context, msg *types.MsgIncr
 	return &types.MsgIncrementDealAmountResponse{}, nil
 }
 
+func validateMsgJoinDeal(msg *types.MsgJoinDeal) error {
+	if err := validation.ValidateNonEmptyString(msg.DealId); err != nil {
+		return err
+	}
+	if err := validation.ValidateAddress(msg.Provider); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*types.MsgJoinDealResponse, error) {
+	err := validateMsgJoinDeal(msg)
+	if err != nil {
+		return nil, err
+	}
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	deal, found := k.GetDeal(ctx, msg.DealId)
 	if !found {
@@ -235,7 +325,21 @@ func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*typ
 	return &types.MsgJoinDealResponse{SubscriptionId: id}, nil
 }
 
+func validateMsgLeaveDeal(msg *types.MsgLeaveDeal) error {
+	if err := validation.ValidateNonEmptyString(msg.DealId); err != nil {
+		return err
+	}
+	if err := validation.ValidateAddress(msg.Provider); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (k msgServer) LeaveDeal(goCtx context.Context, msg *types.MsgLeaveDeal) (*types.MsgLeaveDealResponse, error) {
+	err := validateMsgLeaveDeal(msg)
+	if err != nil {
+		return nil, err
+	}
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	deal, found := k.GetDeal(ctx, msg.DealId)
 	if !found {

@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/gob"
 	"encoding/json"
+	"fmt"
 
 	"topchain/x/challenge/types"
 	sTypes "topchain/x/subscription/types"
@@ -31,9 +32,9 @@ func (k msgServer) Challenge(goCtx context.Context, msg *types.MsgChallenge) (*t
 	for _, hash := range msg.VerticesHashes {
 		block, found := k.GetHashSubmissionBlock(ctx, msg.ProviderId, hash)
 		if !found {
-			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "hash "+hash+" not found")
+			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("hash %s not found", hash))
 		} else if currentBlock-block > ChallengePeriod {
-			return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "hash "+hash+" was submitted more than "+string(ChallengePeriod)+" blocks ago")
+			return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, fmt.Sprintf("hash %s was submitted more than %d blocks ago", hash, ChallengePeriod))
 		} else {
 			hashes.Add(hash)
 		}
@@ -65,7 +66,7 @@ func (k msgServer) SubmitProof(goCtx context.Context, msg *types.MsgSubmitProof)
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	challenge, found := k.GetChallenge(ctx, msg.ChallengeId)
 	if !found {
-		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "challenge "+msg.ChallengeId+" not found")
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("challenge %s not found", msg.ChallengeId))
 	}
 	if challenge.Provider != msg.Provider {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "unauthorized provider")
@@ -84,13 +85,12 @@ func (k msgServer) SubmitProof(goCtx context.Context, msg *types.MsgSubmitProof)
 			}
 			stringified, err := json.Marshal(vertexData)
 			if err != nil {
-				k.logger.Error("failed to marshal vertex with hash " + vertex.Hash)
-				continue
+				return nil, errorsmod.Wrap(err, fmt.Sprintf("failed to marshal vertex with hash %s", vertex.Hash))
 			}
 			computedHash := sha256.Sum256(stringified)
 
 			if !bytes.Equal(computedHash[:], []byte(vertex.Hash)) {
-				k.logger.Error("hash " + vertex.Hash + " does not match the computed hash")
+				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, fmt.Sprintf("hash %s does not match the computed hash", vertex.Hash))
 				continue
 			}
 
@@ -113,7 +113,7 @@ func (k msgServer) RequestDependencies(goCtx context.Context, msg *types.MsgRequ
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	challenge, found := k.GetChallenge(ctx, msg.ChallengeId)
 	if !found {
-		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "challenge "+msg.ChallengeId+" not found")
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("challenge %s not found", msg.ChallengeId))
 	}
 	if challenge.Challenger != msg.Challenger {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "unauthorized challenger")
@@ -138,10 +138,10 @@ func (k msgServer) RequestDependencies(goCtx context.Context, msg *types.MsgRequ
 	for _, hash := range msg.VerticesHashes {
 		block, found := k.GetHashSubmissionBlock(ctx, challenge.Provider, hash)
 		if !found {
-			k.logger.Error("hash " + hash + " not found")
+			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("hash %s not found", hash))
 		}
 		if currentBlock-block > ChallengePeriod {
-			k.logger.Error("hash " + hash + " was submitted more than " + string(ChallengePeriod) + " blocks ago")
+			return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, fmt.Sprintf("hash %s was submitted more than %d blocks ago", hash, ChallengePeriod))
 		} else {
 			challengedHashes.Add(hash)
 		}
