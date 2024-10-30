@@ -18,6 +18,7 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 	subscriptionId := msg.SubscriptionId
 	obfuscatedVerticesHash := msg.ObfuscatedVerticesHash
 	blockHeight := ctx.BlockHeight()
+	epochNumber := blockHeight / EPOCH_SIZE
 	submittedHashes := msg.VerticesHashes
 
 	subscription, found := k.GetSubscription(ctx, subscriptionId)
@@ -30,13 +31,13 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 
 	// this is the first obfuscated progress batch submission
 	if len(submittedHashes) == 0 {
-		k.SetObfuscatedProgress(ctx, subscriptionId, blockHeight, obfuscatedVerticesHash)
+		k.SetObfuscatedProgress(ctx, subscriptionId, epochNumber, obfuscatedVerticesHash)
 		return &types.MsgSubmitProgressResponse{}, nil
 	}
 
 	// Validate that the obfuscated vertex hashes submitted in the previous epoch match the current vertex hashes
 	obfuscatedProgressData, _ := k.GetObfuscatedProgress(ctx, subscriptionId)
-	err := validateObfuscatedProgress(obfuscatedProgressData, submittedHashes, provider, blockHeight)
+	err := validateObfuscatedProgress(obfuscatedProgressData, submittedHashes, provider, epochNumber)
 	if err != nil {
 		return nil, errorsmod.Wrap(err, "vertices hashes / obfuscated data validation failed")
 	}
@@ -61,7 +62,7 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 	}
 
 	// Add the new obfuscated progress hash to the obfuscated progress hash set
-	k.SetObfuscatedProgress(ctx, subscriptionId, blockHeight, obfuscatedVerticesHash)
+	k.SetObfuscatedProgress(ctx, subscriptionId, epochNumber, obfuscatedVerticesHash)
 
 	progressSize := len(progress) - initialProgressSize
 
@@ -71,8 +72,8 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 	return &types.MsgSubmitProgressResponse{}, nil
 }
 
-func validateObfuscatedProgress(obfuscatedProgressData ObfuscatedProgressData, submittedHashes []string, provider string, currentBlockNumber int64) error {
-	if currentBlockNumber > obfuscatedProgressData.EpochNumber+EPOCH_SIZE {
+func validateObfuscatedProgress(obfuscatedProgressData ObfuscatedProgressData, submittedHashes []string, provider string, epochNumber int64) error {
+	if epochNumber != obfuscatedProgressData.EpochNumber {
 		return errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "Revealing vertices hashes exceeded epoch duration")
 	}
 	hasher := sha3.New256()
