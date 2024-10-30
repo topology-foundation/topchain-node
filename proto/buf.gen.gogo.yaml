@@ -10,6 +10,7 @@ plugins:
     opt:
       - plugins=grpc
       - Mgoogle/protobuf/any.proto=github.com/cosmos/cosmos-sdk/codec/types
+      - Mgoogle/protobuf/struct.proto=github.com/gogo/protobuf/types
       - Mcosmos/orm/v1/orm.proto=cosmossdk.io/orm
   - name: grpc-gateway
     out: .

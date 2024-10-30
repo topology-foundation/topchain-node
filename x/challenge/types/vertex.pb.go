@@ -6,7 +6,7 @@ package types
 import (
 	fmt "fmt"
 	proto "github.com/cosmos/gogoproto/proto"
-	structpb "google.golang.org/protobuf/types/known/structpb"
+	types "github.com/gogo/protobuf/types"
 	io "io"
 	math "math"
 	math_bits "math/bits"
@@ -92,8 +92,8 @@ func (m *Vertex) GetDependencies() []string {
 }
 
 type Vertex_Operation struct {
-	Type  string          `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
-	Value *structpb.Value `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+	Type  string       `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Value *types.Value `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
 }
 
 func (m *Vertex_Operation) Reset()         { *m = Vertex_Operation{} }
@@ -136,7 +136,7 @@ func (m *Vertex_Operation) GetType() string {
 	return ""
 }
 
-func (m *Vertex_Operation) GetValue() *structpb.Value {
+func (m *Vertex_Operation) GetValue() *types.Value {
 	if m != nil {
 		return m.Value
 	}
@@ -606,7 +606,7 @@ func (m *Vertex_Operation) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Value == nil {
-				m.Value = &structpb.Value{}
+				m.Value = &types.Value{}
 			}
 			if err := m.Value.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
