@@ -15,6 +15,7 @@ const (
 	SubscriptionKeyPrefix         = "Subscription/value"
 	SubscriptionProviderKeyPrefix = "Subscription/Provider/value"
 	ProgressKeyPrefix             = "Progress/value"
+	ProgressObfuscatedKeyPrefix   = "Progress/Obfuscated/value"
 	ProgressSizeKeyPrefix         = "Progress/Size/value"
 	HashSubmissionBlockKeyPrefix  = "HashSubmissionBlock/value"
 )

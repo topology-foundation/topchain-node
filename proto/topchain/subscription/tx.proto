@@ -109,7 +109,8 @@ message MsgSubmitProgress {
   option (cosmos.msg.v1.signer) = "provider";
   string provider        = 1;
   string subscription_id = 2;
-  repeated string vertices_hashes = 3;
+  repeated string previous_vertices_hashes = 3;
+  string obfuscated_vertices_hash = 4;
 }
 
 message MsgSubmitProgressResponse {}

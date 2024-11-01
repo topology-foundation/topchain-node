@@ -333,7 +333,7 @@ func TestMsgServerJoinInitiatedDealMsg(t *testing.T) {
 
 	// Jump to block 12
 	ctx = MockBlockHeight(ctx, am, 12)
-	// Provider joins the deal before it is initiated
+	// Provider joins the deal after it is initiated
 	joinDeal := types.MsgJoinDeal{Provider: Bob, DealId: dealId}
 	joinResponse, err := ms.JoinDeal(ctx, &joinDeal)
 	require.NoError(t, err)
