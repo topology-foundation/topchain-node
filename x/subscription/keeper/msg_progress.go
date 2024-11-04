@@ -19,7 +19,7 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 	obfuscatedVerticesHash := msg.ObfuscatedVerticesHash
 	blockHeight := ctx.BlockHeight()
 	epochNumber := blockHeight / EPOCH_SIZE
-	submittedHashes := msg.VerticesHashes
+	submittedHashes := msg.PreviousVerticesHashes
 
 	subscription, found := k.GetSubscription(ctx, subscriptionId)
 	if !found {

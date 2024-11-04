@@ -54,7 +54,7 @@ func TestSubmitProgress(t *testing.T) {
 	verticesHashes2 := []string{"666", "777", "888", "999", "1010"}
 	obfuscatedHash2 := ObfuscatedDataHashHelper(verticesHashes2, providerId)
 
-	_, err = ms.SubmitProgress(ctx, &types.MsgSubmitProgress{Provider: providerId, SubscriptionId: subscriptionId, VerticesHashes: verticesHashes1, ObfuscatedVerticesHash: obfuscatedHash2})
+	_, err = ms.SubmitProgress(ctx, &types.MsgSubmitProgress{Provider: providerId, SubscriptionId: subscriptionId, PreviousVerticesHashes: verticesHashes1, ObfuscatedVerticesHash: obfuscatedHash2})
 
 	// There should not be any error
 	require.NoError(t, err)
@@ -97,7 +97,7 @@ func TestSubmitProgressWithIncorrectObfuscatedHash(t *testing.T) {
 	verticesHashes2 := []string{"666", "777", "888", "999", "1010"}
 	obfuscatedHash2 := ObfuscatedDataHashHelper(verticesHashes2, providerId)
 
-	_, err = ms.SubmitProgress(ctx, &types.MsgSubmitProgress{Provider: providerId, SubscriptionId: subscriptionId, VerticesHashes: verticesHashes1, ObfuscatedVerticesHash: obfuscatedHash2})
+	_, err = ms.SubmitProgress(ctx, &types.MsgSubmitProgress{Provider: providerId, SubscriptionId: subscriptionId, PreviousVerticesHashes: verticesHashes1, ObfuscatedVerticesHash: obfuscatedHash2})
 
 	// There should be an error because you submitted the wrong vertices hashes
 	require.Error(t, err)
@@ -140,7 +140,7 @@ func TestSubmitProgressAfterEpochDeadline(t *testing.T) {
 	verticesHashes2 := []string{"666", "777", "888", "999", "1010"}
 	obfuscatedHash2 := ObfuscatedDataHashHelper(verticesHashes2, providerId)
 
-	_, err = ms.SubmitProgress(ctx, &types.MsgSubmitProgress{Provider: providerId, SubscriptionId: subscriptionId, VerticesHashes: verticesHashes1, ObfuscatedVerticesHash: obfuscatedHash2})
+	_, err = ms.SubmitProgress(ctx, &types.MsgSubmitProgress{Provider: providerId, SubscriptionId: subscriptionId, PreviousVerticesHashes: verticesHashes1, ObfuscatedVerticesHash: obfuscatedHash2})
 
 	// There should be an error beacuse you submit after the epoch deadline
 	require.Error(t, err)
