@@ -96,9 +96,9 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				},
 				{
 					RpcMethod:      "SubmitProgress",
-					Use:            "submit-progress [subscription_id] [progress (hashes)]",
+					Use:            "submit-progress [subscription_id] [previous_progress (hashes)] [obfuscated_hash]",
 					Short:          "Send a submit-progress tx",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "subscription_id"}, {ProtoField: "vertices_hashes"}},
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "subscription_id"}, {ProtoField: "previous_vertices_hashes"}, {ProtoField: "obfuscated_vertices_hash"}},
 				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},

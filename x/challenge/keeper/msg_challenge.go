@@ -91,7 +91,6 @@ func (k msgServer) SubmitProof(goCtx context.Context, msg *types.MsgSubmitProof)
 
 			if !bytes.Equal(computedHash[:], []byte(vertex.Hash)) {
 				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, fmt.Sprintf("hash %s does not match the computed hash", vertex.Hash))
-				continue
 			}
 
 			k.SetProof(ctx, msg.ChallengeId, *vertex)
