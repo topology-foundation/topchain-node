@@ -157,3 +157,33 @@ func (k msgServer) RequestDependencies(goCtx context.Context, msg *types.MsgRequ
 
 	return &types.MsgRequestDependenciesResponse{}, nil
 }
+
+func (k msgServer) SettleChallenge(goCtx context.Context, msg *types.MsgSettleChallenge) (*types.MsgSettleChallengeResponse, error) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	challenge, found := k.GetChallenge(ctx, msg.ChallengeId)
+	if !found {
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("challenge %s not found", msg.ChallengeId))
+	}
+	if msg.Petitioner != challenge.Challenger || msg.Petitioner != challenge.Provider {
+		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "unauthorized - not the challenger or the provider")
+	}
+
+	// check if the challenge is expired
+	buf := bytes.NewBuffer(challenge.ChallengedHashes)
+	var challengedHashes sTypes.Set[string]
+	gob.NewDecoder(buf).Decode(&challengedHashes)
+
+	if challenge.LastActive+InactivityPeriod > uint64(ctx.BlockHeight()) {
+		coins := sdk.NewCoins(sdk.NewInt64Coin("top", int64(challenge.Amount)))
+		if len(challengedHashes) == 0 {
+			// all hashes were verified - send coins to provider, remove challenge
+			k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Provider), coins)
+		} else {
+			// some hashes were not verified - send coins to challenger
+			k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Challenger), coins)
+		}
+		k.RemoveChallenge(ctx, challenge.Id)
+	}
+
+	return &types.MsgSettleChallengeResponse{}, nil
+}
