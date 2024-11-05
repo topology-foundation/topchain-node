@@ -164,8 +164,8 @@ func (k msgServer) SettleChallenge(goCtx context.Context, msg *types.MsgSettleCh
 	if !found {
 		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("challenge %s not found", msg.ChallengeId))
 	}
-	if msg.Petitioner != challenge.Challenger || msg.Petitioner != challenge.Provider {
-		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "unauthorized - not the challenger or the provider")
+	if msg.Petitioner != challenge.Challenger && msg.Petitioner != challenge.Provider {
+		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "not the challenger or the provider")
 	}
 
 	// check if the challenge is expired
@@ -173,17 +173,19 @@ func (k msgServer) SettleChallenge(goCtx context.Context, msg *types.MsgSettleCh
 	var challengedHashes sTypes.Set[string]
 	gob.NewDecoder(buf).Decode(&challengedHashes)
 
-	if challenge.LastActive+InactivityPeriod > uint64(ctx.BlockHeight()) {
-		coins := sdk.NewCoins(sdk.NewInt64Coin("top", int64(challenge.Amount)))
-		if len(challengedHashes) == 0 {
-			// all hashes were verified - send coins to provider, remove challenge
-			k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Provider), coins)
-		} else {
-			// some hashes were not verified - send coins to challenger
-			k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Challenger), coins)
-		}
-		k.RemoveChallenge(ctx, challenge.Id)
+	if challenge.LastActive+InactivityPeriod >= uint64(ctx.BlockHeight()) {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "challenge is not yet expired")
 	}
+
+	coins := sdk.NewCoins(sdk.NewInt64Coin("top", int64(challenge.Amount)))
+	if len(challengedHashes) == 0 {
+		// all hashes were verified - send coins to provider, remove challenge
+		k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Provider), coins)
+	} else {
+		// some hashes were not verified - send coins to challenger
+		k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Challenger), coins)
+	}
+	k.RemoveChallenge(ctx, challenge.Id)
 
 	return &types.MsgSettleChallengeResponse{}, nil
 }
