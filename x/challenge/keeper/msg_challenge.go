@@ -71,6 +71,9 @@ func (k msgServer) SubmitProof(goCtx context.Context, msg *types.MsgSubmitProof)
 	if challenge.Provider != msg.Provider {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "unauthorized provider")
 	}
+	if k.isChallengeExpired(ctx, challenge) {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "challenge is expired")
+	}
 
 	buf := bytes.NewBuffer(challenge.ChallengedHashes)
 	var challengedHashes sTypes.Set[string]
@@ -116,6 +119,9 @@ func (k msgServer) RequestDependencies(goCtx context.Context, msg *types.MsgRequ
 	}
 	if challenge.Challenger != msg.Challenger {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "unauthorized challenger")
+	}
+	if k.isChallengeExpired(ctx, challenge) {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "challenge is expired")
 	}
 
 	requester, err := sdk.AccAddressFromBech32(msg.Challenger)
@@ -164,18 +170,16 @@ func (k msgServer) SettleChallenge(goCtx context.Context, msg *types.MsgSettleCh
 	if !found {
 		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("challenge %s not found", msg.ChallengeId))
 	}
-	if msg.Petitioner != challenge.Challenger && msg.Petitioner != challenge.Provider {
+	if msg.Requester != challenge.Challenger && msg.Requester != challenge.Provider {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "not the challenger or the provider")
 	}
+	if k.isChallengeExpired(ctx, challenge) {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "challenge is not yet expired")
+	}
 
-	// check if the challenge is expired
 	buf := bytes.NewBuffer(challenge.ChallengedHashes)
 	var challengedHashes sTypes.Set[string]
 	gob.NewDecoder(buf).Decode(&challengedHashes)
-
-	if challenge.LastActive+InactivityPeriod >= uint64(ctx.BlockHeight()) {
-		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "challenge is not yet expired")
-	}
 
 	coins := sdk.NewCoins(sdk.NewInt64Coin("top", int64(challenge.Amount)))
 	if len(challengedHashes) == 0 {
