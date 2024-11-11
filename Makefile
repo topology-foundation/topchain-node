@@ -9,5 +9,3 @@ build-linux-amd64:
 
 build-linux-arm64:
 	GOOS=linux GOARCH=arm64 go build -o ./build/topchaind ./cmd/topchaind/main.go
-
-build-all: build-mac-amd64 build-mac-arm64 build-linux-amd64 build-linux-arm64
