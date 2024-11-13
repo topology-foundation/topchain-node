@@ -49,6 +49,8 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 			k.SetHashSubmissionBlock(ctx, provider, hash, blockHeight)
 		}
 		k.SetProgress(ctx, subscriptionId, hashesSet)
+		// k.SetGlobalProgressAtBlock(provider, progressSize, blockHeight)
+		// k.SetProviderProgressBlocks(provider, blockHeight)
 		k.SetProgressSize(ctx, subscriptionId, blockHeight, len(hashesSet))
 		return &types.MsgSubmitProgressResponse{}, nil
 	}
@@ -67,6 +69,8 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 	progressSize := len(progress) - initialProgressSize
 
 	k.SetProgress(ctx, subscriptionId, progress)
+	// k.SetGlobalProgressAtBlock(provider, progressSize, blockHeight)
+	// k.SetProviderProgressBlocks(provider, blockHeight)
 	k.SetProgressSize(ctx, subscriptionId, blockHeight, progressSize)
 
 	return &types.MsgSubmitProgressResponse{}, nil

@@ -16,6 +16,16 @@ type ObfuscatedProgressData struct {
 	Hash        string
 }
 
+type ProgressTuple struct {
+	Provider string
+	Size     int64
+}
+
+type ProgressDeal struct {
+	Total    int64
+	Progress []ProgressTuple
+}
+
 const EPOCH_SIZE = 10
 
 func (k Keeper) SetProgress(ctx sdk.Context, subscription string, hashes types.Set[string]) {
@@ -85,6 +95,74 @@ func (k Keeper) GetProgressSize(ctx sdk.Context, subscription string, block int6
 	}
 
 	return int(sdk.BigEndianToUint64(sizeBytes)), true
+}
+
+func (k Keeper) SetProgressDealAtBlock(ctx sdk.Context, deal string, provider string, block int64, size int) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.GetProgressDealStoreKey(deal))
+
+	var progressDeal ProgressDeal
+	// Fetch the progressDeal from the store or create a new if it doesn't exist.
+	if progressBytes := store.Get(sdk.Uint64ToBigEndian(uint64(block))); progressBytes == nil {
+		progressDeal = ProgressDeal{
+			Total:    int64(0),
+			Progress: []ProgressTuple{},
+		}
+	} else {
+		buf := bytes.NewBuffer(progressBytes)
+		gob.NewDecoder(buf).Decode(&progressDeal)
+	}
+
+	newProgress := ProgressTuple{
+		Provider: provider,
+		Size:     int64(size),
+	}
+	progressDeal.Progress = append(progressDeal.Progress, newProgress)
+
+	buf := &bytes.Buffer{}
+	gob.NewEncoder(buf).Encode(progressDeal)
+	store.Set(sdk.Uint64ToBigEndian(uint64(block)), buf.Bytes())
+}
+
+func (k Keeper) GetProgressDealAtBlock(ctx sdk.Context, deal string, block int64) (ProgressDeal, bool) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.GetProgressDealStoreKey(deal))
+
+	// Retrieve the progress deal data for the specified block
+	progressBytes := store.Get(sdk.Uint64ToBigEndian(uint64(block)))
+	if progressBytes == nil {
+		return ProgressDeal{}, false
+	}
+
+	// Decode the retrieved bytes into a ProgressDeal struct
+	var progressDeal ProgressDeal
+	buf := bytes.NewBuffer(progressBytes)
+	gob.NewDecoder(buf).Decode(&progressDeal)
+
+	return progressDeal, true
+}
+
+func (k Keeper) SetProgressBlocksProvider(ctx sdk.Context, provider string, blocks types.Set[int64]) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.ProgressBlocksProviderKeyPrefix))
+
+	buf := &bytes.Buffer{}
+	gob.NewEncoder(buf).Encode(blocks)
+	store.Set([]byte(provider), buf.Bytes())
+}
+
+func (k Keeper) GetProgressBlocksProvider(ctx sdk.Context, provider string) (blocks types.Set[int64], found bool) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.ProgressBlocksProviderKeyPrefix))
+
+	blocksBytes := store.Get([]byte(provider))
+	if blocksBytes == nil {
+		return blocks, false
+	}
+
+	buf := bytes.NewBuffer(blocksBytes)
+	gob.NewDecoder(buf).Decode(&blocks)
+	return blocks, true
 }
 
 func (k Keeper) SetHashSubmissionBlock(ctx sdk.Context, provider string, hash string, block int64) {
