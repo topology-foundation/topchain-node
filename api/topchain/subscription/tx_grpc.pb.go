@@ -27,6 +27,7 @@ const (
 	Msg_JoinDeal_FullMethodName            = "/topchain.subscription.Msg/JoinDeal"
 	Msg_LeaveDeal_FullMethodName           = "/topchain.subscription.Msg/LeaveDeal"
 	Msg_SubmitProgress_FullMethodName      = "/topchain.subscription.Msg/SubmitProgress"
+	Msg_ClaimRewards_FullMethodName        = "/topchain.subscription.Msg/claimRewards"
 )
 
 // MsgClient is the client API for Msg service.
@@ -43,6 +44,7 @@ type MsgClient interface {
 	JoinDeal(ctx context.Context, in *MsgJoinDeal, opts ...grpc.CallOption) (*MsgJoinDealResponse, error)
 	LeaveDeal(ctx context.Context, in *MsgLeaveDeal, opts ...grpc.CallOption) (*MsgLeaveDealResponse, error)
 	SubmitProgress(ctx context.Context, in *MsgSubmitProgress, opts ...grpc.CallOption) (*MsgSubmitProgressResponse, error)
+	ClaimRewards(ctx context.Context, in *MsgClaimRewards, opts ...grpc.CallOption) (*MsgClaimRewardsResponse, error)
 }
 
 type msgClient struct {
@@ -125,6 +127,15 @@ func (c *msgClient) SubmitProgress(ctx context.Context, in *MsgSubmitProgress, o
 	return out, nil
 }
 
+func (c *msgClient) ClaimRewards(ctx context.Context, in *MsgClaimRewards, opts ...grpc.CallOption) (*MsgClaimRewardsResponse, error) {
+	out := new(MsgClaimRewardsResponse)
+	err := c.cc.Invoke(ctx, Msg_ClaimRewards_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -139,6 +150,7 @@ type MsgServer interface {
 	JoinDeal(context.Context, *MsgJoinDeal) (*MsgJoinDealResponse, error)
 	LeaveDeal(context.Context, *MsgLeaveDeal) (*MsgLeaveDealResponse, error)
 	SubmitProgress(context.Context, *MsgSubmitProgress) (*MsgSubmitProgressResponse, error)
+	ClaimRewards(context.Context, *MsgClaimRewards) (*MsgClaimRewardsResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -169,6 +181,9 @@ func (UnimplementedMsgServer) LeaveDeal(context.Context, *MsgLeaveDeal) (*MsgLea
 }
 func (UnimplementedMsgServer) SubmitProgress(context.Context, *MsgSubmitProgress) (*MsgSubmitProgressResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SubmitProgress not implemented")
+}
+func (UnimplementedMsgServer) ClaimRewards(context.Context, *MsgClaimRewards) (*MsgClaimRewardsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ClaimRewards not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -327,6 +342,24 @@ func _Msg_SubmitProgress_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_ClaimRewards_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgClaimRewards)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).ClaimRewards(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_ClaimRewards_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).ClaimRewards(ctx, req.(*MsgClaimRewards))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -365,6 +398,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SubmitProgress",
 			Handler:    _Msg_SubmitProgress_Handler,
+		},
+		{
+			MethodName: "claimRewards",
+			Handler:    _Msg_ClaimRewards_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

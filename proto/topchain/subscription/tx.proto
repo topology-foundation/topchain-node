@@ -25,6 +25,7 @@ service Msg {
   rpc JoinDeal            (MsgJoinDeal            ) returns (MsgJoinDealResponse            );
   rpc LeaveDeal           (MsgLeaveDeal           ) returns (MsgLeaveDealResponse           );
   rpc SubmitProgress      (MsgSubmitProgress      ) returns (MsgSubmitProgressResponse      );
+  rpc claimRewards        (MsgClaimRewards        ) returns (MsgClaimRewardsResponse        );
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
@@ -114,3 +115,11 @@ message MsgSubmitProgress {
 }
 
 message MsgSubmitProgressResponse {}
+
+message MsgClaimRewards {
+  option (cosmos.msg.v1.signer) = "provider";
+  string provider = 1;
+  string subscription_id = 2;
+}
+
+message MsgClaimRewardsResponse {}
