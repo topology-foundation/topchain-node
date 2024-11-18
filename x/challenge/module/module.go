@@ -1,9 +1,7 @@
 package challenge
 
 import (
-	"bytes"
 	"context"
-	"encoding/gob"
 	"encoding/json"
 	"fmt"
 
@@ -25,8 +23,6 @@ import (
 	modulev1 "topchain/api/topchain/challenge/module"
 	"topchain/x/challenge/keeper"
 	"topchain/x/challenge/types"
-	sTypes "topchain/x/subscription/types"
-	x "topchain/x/types"
 )
 
 var (
@@ -155,28 +151,7 @@ func (am AppModule) BeginBlock(_ context.Context) error {
 
 // EndBlock contains the logic that is automatically triggered at the end of each block.
 // The end block implementation is optional.
-func (am AppModule) EndBlock(goCtx context.Context) error {
-	ctx := sdk.UnwrapSDKContext(goCtx)
-	am.keeper.IterateChallenges(ctx, func(challenge types.Challenge) bool {
-		// check if challenge is expired
-		// return false to continue iteration
-		buf := bytes.NewBuffer(challenge.ChallengedHashes)
-		var challengedHashes sTypes.Set[string]
-		gob.NewDecoder(buf).Decode(&challengedHashes)
-
-		if challenge.LastActive+keeper.InactivityPeriod > uint64(ctx.BlockHeight()) {
-			coins := sdk.NewCoins(sdk.NewInt64Coin(x.TokenDenom, int64(challenge.Amount)))
-			if len(challengedHashes) == 0 {
-				// all hashes were verified - send coins to provider, remove challenge
-				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Provider), coins)
-			} else {
-				// some hashes were not verified - send coins to challenger
-				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Challenger), coins)
-			}
-			am.keeper.RemoveChallenge(ctx, challenge.Id)
-		}
-		return false
-	})
+func (am AppModule) EndBlock(_ context.Context) error {
 	return nil
 }
 
