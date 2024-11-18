@@ -21,7 +21,7 @@ message Deal {
   Status status = 5;
   uint64 total_amount = 6;
   uint64 available_amount = 7;
-  uint64 start_block = 8;
-  uint64 end_block = 9;
+  uint64 start_epoch = 8;
+  uint64 end_epoch = 9;
   repeated string initial_frontier = 10;
 }

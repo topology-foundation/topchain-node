@@ -7,6 +7,6 @@ message Subscription {
   string id = 1;
   string deal_id = 2;
   string provider = 3;
-  uint64 start_block = 4;
-  uint64 end_block = 5;
+  uint64 start_epoch = 4;
+  uint64 end_epoch = 5;
 }

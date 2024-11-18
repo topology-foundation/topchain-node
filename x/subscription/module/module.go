@@ -208,8 +208,8 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 
 func (am AppModule) PayActiveProvidersPerBlock(ctx sdk.Context, deal types.Deal) types.Deal {
 	activeSubscriptions := am.keeper.GetAllActiveSubscriptions(ctx, deal)
-	blockReward := am.keeper.CalculateBlockReward(ctx, deal)
 	currentBlock := ctx.BlockHeight()
+	blockReward := am.keeper.CalculateBlockReward(currentBlock, deal)
 	// iterate through the progress to get the total while recording the progress of each provider
 	providerProgress := make(map[string]int)
 	totalProgress := 0
