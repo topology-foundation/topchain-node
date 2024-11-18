@@ -40,6 +40,7 @@ import (
 	"cosmossdk.io/x/nft"
 	upgradetypes "cosmossdk.io/x/upgrade/types"
 	"github.com/cosmos/cosmos-sdk/runtime"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	vestingtypes "github.com/cosmos/cosmos-sdk/x/auth/vesting/types"
 	"github.com/cosmos/cosmos-sdk/x/authz"
@@ -234,8 +235,8 @@ var (
 				Config: appconfig.WrapAny(&stakingmodulev1.Module{
 					// NOTE: specifying a prefix is only necessary when using bech32 addresses
 					// If not specfied, the auth Bech32Prefix appended with "valoper" and "valcons" is used by default
-					Bech32PrefixValidator: AccountAddressPrefix + "valoper",
-					Bech32PrefixConsensus: AccountAddressPrefix + "valcons",
+					Bech32PrefixValidator: sdk.GetConfig().GetBech32ValidatorAddrPrefix(),
+					Bech32PrefixConsensus: sdk.GetConfig().GetBech32ConsensusAddrPrefix(),
 				}),
 			},
 			{

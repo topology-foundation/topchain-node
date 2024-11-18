@@ -26,6 +26,7 @@ import (
 	"topchain/x/subscription/keeper"
 	subscription "topchain/x/subscription/module"
 	"topchain/x/subscription/types"
+	x "topchain/x/types"
 )
 
 const (
@@ -101,8 +102,8 @@ func MockBlockHeight(ctx sdk.Context, am subscription.AppModule, height int64) s
 }
 
 func MockFundAccounts(bankKeeper bankkeeper.Keeper, ctx sdk.Context) error {
-	totalMint := sdk.NewCoins(sdk.NewInt64Coin("top", 10000000000))
-	amounts := sdk.NewCoins(sdk.NewInt64Coin("top", 1000000000))
+	totalMint := sdk.NewCoins(sdk.NewInt64Coin(x.TokenDenom, 10000000000))
+	amounts := sdk.NewCoins(sdk.NewInt64Coin(x.TokenDenom, 1000000000))
 	if err := bankKeeper.MintCoins(ctx, types.ModuleName, totalMint); err != nil {
 		return err
 	}

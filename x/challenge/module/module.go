@@ -26,6 +26,7 @@ import (
 	"topchain/x/challenge/keeper"
 	"topchain/x/challenge/types"
 	sTypes "topchain/x/subscription/types"
+	x "topchain/x/types"
 )
 
 var (
@@ -164,7 +165,7 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 		gob.NewDecoder(buf).Decode(&challengedHashes)
 
 		if challenge.LastActive+keeper.InactivityPeriod > uint64(ctx.BlockHeight()) {
-			coins := sdk.NewCoins(sdk.NewInt64Coin("top", int64(challenge.Amount)))
+			coins := sdk.NewCoins(sdk.NewInt64Coin(x.TokenDenom, int64(challenge.Amount)))
 			if len(challengedHashes) == 0 {
 				// all hashes were verified - send coins to provider, remove challenge
 				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Provider), coins)
