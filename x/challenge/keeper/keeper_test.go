@@ -22,6 +22,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
+	topTypes "topchain/types"
 	"topchain/x/challenge/keeper"
 	challenge "topchain/x/challenge/module"
 	"topchain/x/challenge/types"
@@ -103,8 +104,8 @@ func MockBlockHeight(ctx sdk.Context, am challenge.AppModule, height int64) sdk.
 }
 
 func MockFundAccounts(bankKeeper BankKeeper, ctx sdk.Context) error {
-	totalMint := sdk.NewCoins(sdk.NewInt64Coin("top", 10000000000))
-	amounts := sdk.NewCoins(sdk.NewInt64Coin("top", 1000000000))
+	totalMint := sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, 10000000000))
+	amounts := sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, 1000000000))
 	if err := bankKeeper.MintCoins(ctx, types.ModuleName, totalMint); err != nil {
 		return err
 	}
