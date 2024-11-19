@@ -7,9 +7,9 @@ import (
 	"encoding/json"
 	"fmt"
 
+	topTypes "topchain/types"
 	"topchain/x/challenge/types"
 	sTypes "topchain/x/subscription/types"
-	topTypes "topchain/x/types"
 
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"

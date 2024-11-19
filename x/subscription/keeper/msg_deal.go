@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"math"
 
+	topTypes "topchain/types"
 	"topchain/utils/validation"
 	"topchain/x/subscription/types"
-	topTypes "topchain/x/types"
 
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"

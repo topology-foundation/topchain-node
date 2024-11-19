@@ -1,4 +1,4 @@
-package x
+package types
 
 const (
 	TokenDenom string = "top"

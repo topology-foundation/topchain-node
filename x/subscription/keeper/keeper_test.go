@@ -23,10 +23,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
+	topTypes "topchain/types"
 	"topchain/x/subscription/keeper"
 	subscription "topchain/x/subscription/module"
 	"topchain/x/subscription/types"
-	topTypes "topchain/x/types"
 )
 
 const (
