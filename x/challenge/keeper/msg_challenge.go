@@ -9,7 +9,7 @@ import (
 
 	"topchain/x/challenge/types"
 	sTypes "topchain/x/subscription/types"
-	x "topchain/x/types"
+	topTypes "topchain/x/types"
 
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -42,7 +42,7 @@ func (k msgServer) Challenge(goCtx context.Context, msg *types.MsgChallenge) (*t
 	}
 
 	totalChallengePrice := k.PricePerVertexChallenge(ctx, msg.Challenger, msg.ProviderId) * int64(len(msg.VerticesHashes))
-	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin(x.TokenDenom, totalChallengePrice)))
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, totalChallengePrice)))
 	if err != nil {
 		return nil, errorsmod.Wrap(err, "failed to send coins to module account")
 	}
@@ -131,7 +131,7 @@ func (k msgServer) RequestDependencies(goCtx context.Context, msg *types.MsgRequ
 	}
 
 	fee := k.PricePerVertexChallenge(ctx, msg.Challenger, challenge.Provider) * int64(len(msg.VerticesHashes))
-	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin(x.TokenDenom, fee)))
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, fee)))
 	if err != nil {
 		return nil, errorsmod.Wrap(err, "failed to send coins to module account")
 	}

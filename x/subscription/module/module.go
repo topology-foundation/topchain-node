@@ -24,7 +24,7 @@ import (
 	modulev1 "topchain/api/topchain/subscription/module"
 	"topchain/x/subscription/keeper"
 	"topchain/x/subscription/types"
-	x "topchain/x/types"
+	topTypes "topchain/x/types"
 )
 
 var (
@@ -181,13 +181,13 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 			if uint64(ctx.BlockHeight()) > deal.EndBlock {
 				deal.Status = types.Deal_EXPIRED
 				// return the remaining amount to the requester
-				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(x.TokenDenom, int64(deal.AvailableAmount))))
+				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
 			}
 		case types.Deal_ACTIVE:
 			if uint64(ctx.BlockHeight()) > deal.EndBlock {
 				deal.Status = types.Deal_EXPIRED
 				// return the remaining amount to the requester
-				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(x.TokenDenom, int64(deal.AvailableAmount))))
+				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
 			} else {
 				deal = am.PayActiveProvidersPerBlock(ctx, deal)
 			}
@@ -195,7 +195,7 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 			if uint64(ctx.BlockHeight()) > deal.EndBlock {
 				deal.Status = types.Deal_EXPIRED
 				// return the remaining amount to the requester
-				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(x.TokenDenom, int64(deal.AvailableAmount))))
+				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
 			}
 		default:
 			return false
@@ -227,7 +227,7 @@ func (am AppModule) PayActiveProvidersPerBlock(ctx sdk.Context, deal types.Deal)
 	for subscription, provider := range activeSubscriptions {
 		// reward based on the progress size
 		reward := int64(float64(blockReward) * float64(providerProgress[activeSubscriptions[subscription]]) / float64(totalProgress))
-		am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(provider), sdk.NewCoins(sdk.NewInt64Coin(x.TokenDenom, reward)))
+		am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(provider), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, reward)))
 		totalRewardSent += reward
 	}
 
