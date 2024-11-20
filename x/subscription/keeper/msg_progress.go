@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"fmt"
 
 	topTypes "topchain/types"
 	"topchain/utils"
@@ -152,7 +151,6 @@ func (k msgServer) ClaimRewards(goCtx context.Context, msg *types.MsgClaimReward
 			epochReward := k.CalculateEpochReward(deal)
 			for _, progress := range progressDeal.Progress {
 				if progress.Provider == provider {
-					fmt.Println("block reward {}, progressSize: {}, progressTotal: {}", float64(epochReward), float64(progress.Size), float64(progressDeal.Total))
 					reward += int64(float64(epochReward) * float64(progress.Size) / float64(progressDeal.Total))
 					break
 				}
@@ -163,7 +161,6 @@ func (k msgServer) ClaimRewards(goCtx context.Context, msg *types.MsgClaimReward
 	k.SetProviderLastRewardClaimedEpoch(ctx, provider, subscriptionId, lastEligibleEpoch)
 	k.SetProgressEpochsProvider(ctx, providerProgressEpochs, provider, subscriptionId)
 	// send payout
-	fmt.Println("reward ***************", reward)
 	k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(provider), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(reward))))
 	deal.AvailableAmount -= uint64(reward)
 
