@@ -118,15 +118,15 @@ func (k msgServer) ClaimRewards(goCtx context.Context, msg *types.MsgClaimReward
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the provider can claim reward")
 	}
 
+	if currentEpoch > deal.EndEpoch+utils.DEAL_EXPIRY_CLAIM_WINDOW {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "reward claim period for deal with deal_id"+deal.Id+"ended")
+	}
+
 	lastClaimedEpoch, found := k.GetProviderLastRewardClaimedEpoch(ctx, provider, subscriptionId)
 	// if the provider is claiming for the first time, `found` is false. In this case, start checking for
 	// rewards from the subscription startBlock.
 	if !found {
 		lastClaimedEpoch = subscription.StartEpoch - 1
-	}
-
-	if lastClaimedEpoch >= subscription.EndEpoch {
-		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "can only claim rewards during deal subscription")
 	}
 
 	if currentEpoch < lastClaimedEpoch+challengeWindow {
@@ -139,7 +139,7 @@ func (k msgServer) ClaimRewards(goCtx context.Context, msg *types.MsgClaimReward
 	}
 
 	// loop until the most recent block that has elapsed the challenge window.
-	lastEligibleEpoch := currentEpoch - challengeWindow
+	lastEligibleEpoch := min(currentEpoch-challengeWindow, subscription.EndEpoch)
 	for epoch := lastClaimedEpoch + 1; epoch <= lastEligibleEpoch; epoch++ {
 		// only compute rewards for blocks that the provider submitted progress
 		if providerProgressEpochs.Has(epoch) {
@@ -148,14 +148,7 @@ func (k msgServer) ClaimRewards(goCtx context.Context, msg *types.MsgClaimReward
 			if !found {
 				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "this should not happen!")
 			}
-
-			var epochReward uint64
-			if progressDeal.Reward != 0 {
-				epochReward = progressDeal.Reward
-			} else {
-				epochReward = k.CalculateEpochReward(epoch, deal)
-			}
-
+			epochReward := k.CalculateEpochReward(deal)
 			for _, progress := range progressDeal.Progress {
 				if progress.Provider == provider {
 					fmt.Println("block reward {}, progressSize: {}, progressTotal: {}", float64(epochReward), float64(progress.Size), float64(progressDeal.Total))
@@ -166,8 +159,8 @@ func (k msgServer) ClaimRewards(goCtx context.Context, msg *types.MsgClaimReward
 			providerProgressEpochs.Remove(epoch)
 		}
 	}
-
 	k.SetProviderLastRewardClaimedEpoch(ctx, provider, subscriptionId, lastEligibleEpoch)
+	k.SetProgressEpochsProvider(ctx, providerProgressEpochs, provider, subscriptionId)
 	// send payout
 	fmt.Println("reward ***************", reward)
 	k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(provider), sdk.NewCoins(sdk.NewInt64Coin("top", reward)))

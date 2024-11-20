@@ -16,7 +16,7 @@ func TestQueryDeal(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a deal
-	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
+	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartEpoch: 10, EndEpoch: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
 	require.Nil(t, err)
 
@@ -24,7 +24,7 @@ func TestQueryDeal(t *testing.T) {
 	queryResponse, err := k.Deal(ctx, &types.QueryDealRequest{Id: createResponse.DealId})
 	require.Nil(t, err)
 
-	require.EqualValues(t, createDeal, types.MsgCreateDeal{Requester: queryResponse.Deal.Requester, CroId: queryResponse.Deal.CroId, Amount: queryResponse.Deal.TotalAmount, StartBlock: queryResponse.Deal.StartBlock, EndBlock: queryResponse.Deal.EndBlock})
+	require.EqualValues(t, createDeal, types.MsgCreateDeal{Requester: queryResponse.Deal.Requester, CroId: queryResponse.Deal.CroId, Amount: queryResponse.Deal.TotalAmount, StartEpoch: queryResponse.Deal.StartEpoch, EndEpoch: queryResponse.Deal.EndEpoch})
 }
 
 func TestQueryDealStatus(t *testing.T) {
@@ -34,7 +34,7 @@ func TestQueryDealStatus(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a deal
-	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
+	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartEpoch: 10, EndEpoch: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
 	require.Nil(t, err)
 
@@ -53,7 +53,7 @@ func TestQueryDeals(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a first deal
-	createDeal1 := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro1", Amount: 1000, StartBlock: 10, EndBlock: 20}
+	createDeal1 := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro1", Amount: 1000, StartEpoch: 10, EndEpoch: 20}
 	createResponse1, err := ms.CreateDeal(ctx, &createDeal1)
 	require.Nil(t, err)
 
@@ -61,7 +61,7 @@ func TestQueryDeals(t *testing.T) {
 	require.True(t, found)
 
 	// Create a second deal
-	createDeal2 := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro2", Amount: 1000, StartBlock: 20, EndBlock: 30}
+	createDeal2 := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro2", Amount: 1000, StartEpoch: 20, EndEpoch: 30}
 	createResponse2, err := ms.CreateDeal(ctx, &createDeal2)
 	require.Nil(t, err)
 
@@ -69,7 +69,7 @@ func TestQueryDeals(t *testing.T) {
 	require.True(t, found)
 
 	// Create a third deal
-	createDeal3 := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
+	createDeal3 := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartEpoch: 10, EndEpoch: 20}
 	createResponse3, err := ms.CreateDeal(ctx, &createDeal3)
 	require.Nil(t, err)
 
@@ -92,7 +92,7 @@ func TestQueryDealsWithPagination(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a first deal
-	createDeal1 := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro1", Amount: 1000, StartBlock: 10, EndBlock: 20}
+	createDeal1 := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro1", Amount: 1000, StartEpoch: 10, EndEpoch: 20}
 	createResponse1, err := ms.CreateDeal(ctx, &createDeal1)
 	require.Nil(t, err)
 
@@ -100,7 +100,7 @@ func TestQueryDealsWithPagination(t *testing.T) {
 	require.True(t, found)
 
 	// Create a second deal
-	createDeal2 := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro2", Amount: 1000, StartBlock: 20, EndBlock: 30}
+	createDeal2 := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro2", Amount: 1000, StartEpoch: 20, EndEpoch: 30}
 	createResponse2, err := ms.CreateDeal(ctx, &createDeal2)
 	require.Nil(t, err)
 
@@ -108,7 +108,7 @@ func TestQueryDealsWithPagination(t *testing.T) {
 	require.True(t, found)
 
 	// Create a third deal
-	createDeal3 := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartBlock: 10, EndBlock: 20}
+	createDeal3 := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartEpoch: 10, EndEpoch: 20}
 	createResponse3, err := ms.CreateDeal(ctx, &createDeal3)
 	require.Nil(t, err)
 

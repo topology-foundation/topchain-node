@@ -88,9 +88,10 @@ func (k Keeper) DealHasProvider(ctx sdk.Context, deal types.Deal, provider strin
 	return false
 }
 
-func (k Keeper) CalculateEpochReward(epoch uint64, deal types.Deal) uint64 {
-	remainingEpochs := deal.EndEpoch - epoch
-	return deal.AvailableAmount / remainingEpochs
+func (k Keeper) CalculateEpochReward(deal types.Deal) uint64 {
+	// divide the reward equally between the epochs
+	epochDuration := deal.EndEpoch - deal.StartEpoch
+	return deal.TotalAmount / epochDuration
 }
 
 // Iterate over all deals and apply the given callback function

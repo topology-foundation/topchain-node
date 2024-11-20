@@ -78,7 +78,7 @@ func TestValidateBlockRange(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := ValidateBlockRange(tt.startBlock, tt.endBlock); (err != nil) != tt.wantErr {
+			if err := ValidateEpochRange(tt.startBlock, tt.endBlock); (err != nil) != tt.wantErr {
 				t.Errorf("ValidateBlockRange() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

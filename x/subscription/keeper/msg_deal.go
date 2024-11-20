@@ -17,7 +17,7 @@ import (
 )
 
 func validateMsgCreateDeal(msg *types.MsgCreateDeal) error {
-	if err := validation.ValidateBlockRange(msg.StartBlock, msg.EndBlock); err != nil {
+	if err := validation.ValidateEpochRange(msg.StartEpoch, msg.EndEpoch); err != nil {
 		return err
 	}
 	if err := validation.ValidatePositiveAmount(msg.Amount); err != nil {
@@ -39,10 +39,6 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 		return nil, err
 	}
 
-	// converts block boundaries into epoch boundaries using ceil(a/b)
-	startEpoch := utils.ConvertBlockToEpoch(int64(msg.StartBlock))
-	endEpoch := utils.ConvertBlockToEpoch(int64(msg.EndBlock))
-
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	id := uuid.NewString()
 	deal := types.Deal{
@@ -53,8 +49,8 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 		Status:          types.Deal_SCHEDULED,
 		TotalAmount:     msg.Amount,
 		AvailableAmount: msg.Amount,
-		StartEpoch:      startEpoch,
-		EndEpoch:        endEpoch,
+		StartEpoch:      msg.StartEpoch,
+		EndEpoch:        msg.EndEpoch,
 		InitialFrontier: msg.InitialFrontier,
 	}
 
@@ -129,7 +125,7 @@ func validateMsgUpdateDeal(msg *types.MsgUpdateDeal) error {
 	if err := validation.ValidateAddress(msg.Requester); err != nil {
 		return err
 	}
-	if err := validation.ValidateBlockRange(msg.StartBlock, msg.EndBlock); err != nil {
+	if err := validation.ValidateEpochRange(msg.StartEpoch, msg.EndEpoch); err != nil {
 		return err
 	}
 	if err := validation.ValidatePositiveAmount(msg.Amount); err != nil {
@@ -172,17 +168,17 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 			deal.TotalAmount = msg.Amount
 			deal.AvailableAmount = msg.Amount
 		}
-		if msg.StartBlock != 0 {
-			if int64(msg.StartBlock) < ctx.BlockHeight() {
-				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "start block must be greater than current block height")
+		if msg.StartEpoch != 0 {
+			if msg.StartEpoch < currentEpoch {
+				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "start epoch must be greater than current epoch")
 			}
-			deal.StartEpoch = utils.ConvertBlockToEpoch(int64(msg.StartBlock))
+			deal.StartEpoch = msg.StartEpoch
 		}
-		if msg.EndBlock != 0 {
-			if int64(msg.EndBlock) < ctx.BlockHeight() {
-				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "end block must be greater than current block height")
+		if msg.EndEpoch != 0 {
+			if msg.EndEpoch < currentEpoch {
+				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "end epoch must be greater than current epoch")
 			}
-			deal.EndEpoch = utils.ConvertBlockToEpoch(int64(msg.EndBlock))
+			deal.EndEpoch = msg.EndEpoch
 		}
 	} else {
 		if msg.Amount != 0 {
@@ -201,14 +197,14 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 			deal.TotalAmount = msg.Amount
 			deal.AvailableAmount += amountToDeposit
 		}
-		if msg.StartBlock != 0 {
-			return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot update start block after deal has started")
+		if msg.StartEpoch != 0 {
+			return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot update start epoch after deal has started")
 		}
-		if msg.EndBlock != 0 {
-			if int64(msg.EndBlock) < ctx.BlockHeight() {
-				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "end block must be greater than current block height")
+		if msg.EndEpoch != 0 {
+			if msg.EndEpoch < currentEpoch {
+				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "end epoch must be greater than current epoch")
 			}
-			deal.EndEpoch = utils.ConvertBlockToEpoch(int64(msg.EndBlock))
+			deal.EndEpoch = msg.EndEpoch
 		}
 	}
 

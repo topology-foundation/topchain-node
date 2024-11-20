@@ -23,7 +23,6 @@ type ProgressTuple struct {
 
 type ProgressDeal struct {
 	Total    uint64
-	Reward   uint64
 	Progress []ProgressTuple
 }
 
@@ -107,7 +106,6 @@ func (k Keeper) AddProgressDealAtEpoch(ctx sdk.Context, deal string, provider st
 	if progressBytes := store.Get(sdk.Uint64ToBigEndian(epoch)); progressBytes == nil {
 		progressDeal = ProgressDeal{
 			Total:    0,
-			Reward:   0,
 			Progress: []ProgressTuple{},
 		}
 	} else {
@@ -123,23 +121,6 @@ func (k Keeper) AddProgressDealAtEpoch(ctx sdk.Context, deal string, provider st
 	progressDeal.Total += size
 
 	buf := &bytes.Buffer{}
-	gob.NewEncoder(buf).Encode(progressDeal)
-	store.Set(sdk.Uint64ToBigEndian(epoch), buf.Bytes())
-}
-
-func (k Keeper) UpdateRewardForProgressDealAtEpoch(ctx sdk.Context, deal string, epoch uint64, reward uint64) {
-	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	store := prefix.NewStore(storeAdapter, types.GetProgressDealStoreKey(deal))
-
-	var progressDeal ProgressDeal
-	progressBytes := store.Get(sdk.Uint64ToBigEndian(epoch))
-
-	buf := bytes.NewBuffer(progressBytes)
-	gob.NewDecoder(buf).Decode(&progressDeal)
-
-	progressDeal.Reward = reward
-
-	buf = &bytes.Buffer{}
 	gob.NewEncoder(buf).Encode(progressDeal)
 	store.Set(sdk.Uint64ToBigEndian(epoch), buf.Bytes())
 }
@@ -175,6 +156,15 @@ func (k Keeper) AddProgressEpochsProvider(ctx sdk.Context, provider string, subs
 	}
 
 	epochs.Add(epoch)
+
+	buf := &bytes.Buffer{}
+	gob.NewEncoder(buf).Encode(epochs)
+	store.Set([]byte(subscription), buf.Bytes())
+}
+
+func (k Keeper) SetProgressEpochsProvider(ctx sdk.Context, epochs types.Set[uint64], provider string, subscription string) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.GetProgressBlocksProviderKey(provider))
 
 	buf := &bytes.Buffer{}
 	gob.NewEncoder(buf).Encode(epochs)

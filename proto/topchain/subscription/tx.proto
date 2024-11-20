@@ -50,8 +50,8 @@ message MsgCreateDeal {
   string requester  = 1;
   string cro_id    = 2;
   uint64 amount  = 3;
-  uint64 start_block = 4;
-  uint64 end_block = 5;
+  uint64 start_epoch = 4;
+  uint64 end_epoch = 5;
   repeated string initial_frontier = 6;
 }
 
@@ -73,8 +73,8 @@ message MsgUpdateDeal {
   string deal_id = 2;
   // these fields should be optional, errors with pulsar
   uint64 amount  = 3;
-  uint64 start_block = 4;
-  uint64 end_block = 5;
+  uint64 start_epoch = 4;
+  uint64 end_epoch = 5;
 }
 
 message MsgUpdateDealResponse {}

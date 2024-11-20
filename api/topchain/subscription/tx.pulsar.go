@@ -922,8 +922,8 @@ var (
 	fd_MsgCreateDeal_requester        protoreflect.FieldDescriptor
 	fd_MsgCreateDeal_cro_id           protoreflect.FieldDescriptor
 	fd_MsgCreateDeal_amount           protoreflect.FieldDescriptor
-	fd_MsgCreateDeal_start_block      protoreflect.FieldDescriptor
-	fd_MsgCreateDeal_end_block        protoreflect.FieldDescriptor
+	fd_MsgCreateDeal_start_epoch      protoreflect.FieldDescriptor
+	fd_MsgCreateDeal_end_epoch        protoreflect.FieldDescriptor
 	fd_MsgCreateDeal_initial_frontier protoreflect.FieldDescriptor
 )
 
@@ -933,8 +933,8 @@ func init() {
 	fd_MsgCreateDeal_requester = md_MsgCreateDeal.Fields().ByName("requester")
 	fd_MsgCreateDeal_cro_id = md_MsgCreateDeal.Fields().ByName("cro_id")
 	fd_MsgCreateDeal_amount = md_MsgCreateDeal.Fields().ByName("amount")
-	fd_MsgCreateDeal_start_block = md_MsgCreateDeal.Fields().ByName("start_block")
-	fd_MsgCreateDeal_end_block = md_MsgCreateDeal.Fields().ByName("end_block")
+	fd_MsgCreateDeal_start_epoch = md_MsgCreateDeal.Fields().ByName("start_epoch")
+	fd_MsgCreateDeal_end_epoch = md_MsgCreateDeal.Fields().ByName("end_epoch")
 	fd_MsgCreateDeal_initial_frontier = md_MsgCreateDeal.Fields().ByName("initial_frontier")
 }
 
@@ -1021,15 +1021,15 @@ func (x *fastReflection_MsgCreateDeal) Range(f func(protoreflect.FieldDescriptor
 			return
 		}
 	}
-	if x.StartBlock != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.StartBlock)
-		if !f(fd_MsgCreateDeal_start_block, value) {
+	if x.StartEpoch != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.StartEpoch)
+		if !f(fd_MsgCreateDeal_start_epoch, value) {
 			return
 		}
 	}
-	if x.EndBlock != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.EndBlock)
-		if !f(fd_MsgCreateDeal_end_block, value) {
+	if x.EndEpoch != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.EndEpoch)
+		if !f(fd_MsgCreateDeal_end_epoch, value) {
 			return
 		}
 	}
@@ -1060,10 +1060,10 @@ func (x *fastReflection_MsgCreateDeal) Has(fd protoreflect.FieldDescriptor) bool
 		return x.CroId != ""
 	case "topchain.subscription.MsgCreateDeal.amount":
 		return x.Amount != uint64(0)
-	case "topchain.subscription.MsgCreateDeal.start_block":
-		return x.StartBlock != uint64(0)
-	case "topchain.subscription.MsgCreateDeal.end_block":
-		return x.EndBlock != uint64(0)
+	case "topchain.subscription.MsgCreateDeal.start_epoch":
+		return x.StartEpoch != uint64(0)
+	case "topchain.subscription.MsgCreateDeal.end_epoch":
+		return x.EndEpoch != uint64(0)
 	case "topchain.subscription.MsgCreateDeal.initial_frontier":
 		return len(x.InitialFrontier) != 0
 	default:
@@ -1088,10 +1088,10 @@ func (x *fastReflection_MsgCreateDeal) Clear(fd protoreflect.FieldDescriptor) {
 		x.CroId = ""
 	case "topchain.subscription.MsgCreateDeal.amount":
 		x.Amount = uint64(0)
-	case "topchain.subscription.MsgCreateDeal.start_block":
-		x.StartBlock = uint64(0)
-	case "topchain.subscription.MsgCreateDeal.end_block":
-		x.EndBlock = uint64(0)
+	case "topchain.subscription.MsgCreateDeal.start_epoch":
+		x.StartEpoch = uint64(0)
+	case "topchain.subscription.MsgCreateDeal.end_epoch":
+		x.EndEpoch = uint64(0)
 	case "topchain.subscription.MsgCreateDeal.initial_frontier":
 		x.InitialFrontier = nil
 	default:
@@ -1119,11 +1119,11 @@ func (x *fastReflection_MsgCreateDeal) Get(descriptor protoreflect.FieldDescript
 	case "topchain.subscription.MsgCreateDeal.amount":
 		value := x.Amount
 		return protoreflect.ValueOfUint64(value)
-	case "topchain.subscription.MsgCreateDeal.start_block":
-		value := x.StartBlock
+	case "topchain.subscription.MsgCreateDeal.start_epoch":
+		value := x.StartEpoch
 		return protoreflect.ValueOfUint64(value)
-	case "topchain.subscription.MsgCreateDeal.end_block":
-		value := x.EndBlock
+	case "topchain.subscription.MsgCreateDeal.end_epoch":
+		value := x.EndEpoch
 		return protoreflect.ValueOfUint64(value)
 	case "topchain.subscription.MsgCreateDeal.initial_frontier":
 		if len(x.InitialFrontier) == 0 {
@@ -1157,10 +1157,10 @@ func (x *fastReflection_MsgCreateDeal) Set(fd protoreflect.FieldDescriptor, valu
 		x.CroId = value.Interface().(string)
 	case "topchain.subscription.MsgCreateDeal.amount":
 		x.Amount = value.Uint()
-	case "topchain.subscription.MsgCreateDeal.start_block":
-		x.StartBlock = value.Uint()
-	case "topchain.subscription.MsgCreateDeal.end_block":
-		x.EndBlock = value.Uint()
+	case "topchain.subscription.MsgCreateDeal.start_epoch":
+		x.StartEpoch = value.Uint()
+	case "topchain.subscription.MsgCreateDeal.end_epoch":
+		x.EndEpoch = value.Uint()
 	case "topchain.subscription.MsgCreateDeal.initial_frontier":
 		lv := value.List()
 		clv := lv.(*_MsgCreateDeal_6_list)
@@ -1197,10 +1197,10 @@ func (x *fastReflection_MsgCreateDeal) Mutable(fd protoreflect.FieldDescriptor) 
 		panic(fmt.Errorf("field cro_id of message topchain.subscription.MsgCreateDeal is not mutable"))
 	case "topchain.subscription.MsgCreateDeal.amount":
 		panic(fmt.Errorf("field amount of message topchain.subscription.MsgCreateDeal is not mutable"))
-	case "topchain.subscription.MsgCreateDeal.start_block":
-		panic(fmt.Errorf("field start_block of message topchain.subscription.MsgCreateDeal is not mutable"))
-	case "topchain.subscription.MsgCreateDeal.end_block":
-		panic(fmt.Errorf("field end_block of message topchain.subscription.MsgCreateDeal is not mutable"))
+	case "topchain.subscription.MsgCreateDeal.start_epoch":
+		panic(fmt.Errorf("field start_epoch of message topchain.subscription.MsgCreateDeal is not mutable"))
+	case "topchain.subscription.MsgCreateDeal.end_epoch":
+		panic(fmt.Errorf("field end_epoch of message topchain.subscription.MsgCreateDeal is not mutable"))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgCreateDeal"))
@@ -1220,9 +1220,9 @@ func (x *fastReflection_MsgCreateDeal) NewField(fd protoreflect.FieldDescriptor)
 		return protoreflect.ValueOfString("")
 	case "topchain.subscription.MsgCreateDeal.amount":
 		return protoreflect.ValueOfUint64(uint64(0))
-	case "topchain.subscription.MsgCreateDeal.start_block":
+	case "topchain.subscription.MsgCreateDeal.start_epoch":
 		return protoreflect.ValueOfUint64(uint64(0))
-	case "topchain.subscription.MsgCreateDeal.end_block":
+	case "topchain.subscription.MsgCreateDeal.end_epoch":
 		return protoreflect.ValueOfUint64(uint64(0))
 	case "topchain.subscription.MsgCreateDeal.initial_frontier":
 		list := []string{}
@@ -1307,11 +1307,11 @@ func (x *fastReflection_MsgCreateDeal) ProtoMethods() *protoiface.Methods {
 		if x.Amount != 0 {
 			n += 1 + runtime.Sov(uint64(x.Amount))
 		}
-		if x.StartBlock != 0 {
-			n += 1 + runtime.Sov(uint64(x.StartBlock))
+		if x.StartEpoch != 0 {
+			n += 1 + runtime.Sov(uint64(x.StartEpoch))
 		}
-		if x.EndBlock != 0 {
-			n += 1 + runtime.Sov(uint64(x.EndBlock))
+		if x.EndEpoch != 0 {
+			n += 1 + runtime.Sov(uint64(x.EndEpoch))
 		}
 		if len(x.InitialFrontier) > 0 {
 			for _, s := range x.InitialFrontier {
@@ -1357,13 +1357,13 @@ func (x *fastReflection_MsgCreateDeal) ProtoMethods() *protoiface.Methods {
 				dAtA[i] = 0x32
 			}
 		}
-		if x.EndBlock != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.EndBlock))
+		if x.EndEpoch != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.EndEpoch))
 			i--
 			dAtA[i] = 0x28
 		}
-		if x.StartBlock != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.StartBlock))
+		if x.StartEpoch != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.StartEpoch))
 			i--
 			dAtA[i] = 0x20
 		}
@@ -1520,9 +1520,9 @@ func (x *fastReflection_MsgCreateDeal) ProtoMethods() *protoiface.Methods {
 				}
 			case 4:
 				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field StartBlock", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field StartEpoch", wireType)
 				}
-				x.StartBlock = 0
+				x.StartEpoch = 0
 				for shift := uint(0); ; shift += 7 {
 					if shift >= 64 {
 						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
@@ -1532,16 +1532,16 @@ func (x *fastReflection_MsgCreateDeal) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					x.StartBlock |= uint64(b&0x7F) << shift
+					x.StartEpoch |= uint64(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
 				}
 			case 5:
 				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field EndBlock", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field EndEpoch", wireType)
 				}
-				x.EndBlock = 0
+				x.EndEpoch = 0
 				for shift := uint(0); ; shift += 7 {
 					if shift >= 64 {
 						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
@@ -1551,7 +1551,7 @@ func (x *fastReflection_MsgCreateDeal) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					x.EndBlock |= uint64(b&0x7F) << shift
+					x.EndEpoch |= uint64(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
@@ -2888,8 +2888,8 @@ var (
 	fd_MsgUpdateDeal_requester   protoreflect.FieldDescriptor
 	fd_MsgUpdateDeal_deal_id     protoreflect.FieldDescriptor
 	fd_MsgUpdateDeal_amount      protoreflect.FieldDescriptor
-	fd_MsgUpdateDeal_start_block protoreflect.FieldDescriptor
-	fd_MsgUpdateDeal_end_block   protoreflect.FieldDescriptor
+	fd_MsgUpdateDeal_start_epoch protoreflect.FieldDescriptor
+	fd_MsgUpdateDeal_end_epoch   protoreflect.FieldDescriptor
 )
 
 func init() {
@@ -2898,8 +2898,8 @@ func init() {
 	fd_MsgUpdateDeal_requester = md_MsgUpdateDeal.Fields().ByName("requester")
 	fd_MsgUpdateDeal_deal_id = md_MsgUpdateDeal.Fields().ByName("deal_id")
 	fd_MsgUpdateDeal_amount = md_MsgUpdateDeal.Fields().ByName("amount")
-	fd_MsgUpdateDeal_start_block = md_MsgUpdateDeal.Fields().ByName("start_block")
-	fd_MsgUpdateDeal_end_block = md_MsgUpdateDeal.Fields().ByName("end_block")
+	fd_MsgUpdateDeal_start_epoch = md_MsgUpdateDeal.Fields().ByName("start_epoch")
+	fd_MsgUpdateDeal_end_epoch = md_MsgUpdateDeal.Fields().ByName("end_epoch")
 }
 
 var _ protoreflect.Message = (*fastReflection_MsgUpdateDeal)(nil)
@@ -2985,15 +2985,15 @@ func (x *fastReflection_MsgUpdateDeal) Range(f func(protoreflect.FieldDescriptor
 			return
 		}
 	}
-	if x.StartBlock != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.StartBlock)
-		if !f(fd_MsgUpdateDeal_start_block, value) {
+	if x.StartEpoch != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.StartEpoch)
+		if !f(fd_MsgUpdateDeal_start_epoch, value) {
 			return
 		}
 	}
-	if x.EndBlock != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.EndBlock)
-		if !f(fd_MsgUpdateDeal_end_block, value) {
+	if x.EndEpoch != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.EndEpoch)
+		if !f(fd_MsgUpdateDeal_end_epoch, value) {
 			return
 		}
 	}
@@ -3018,10 +3018,10 @@ func (x *fastReflection_MsgUpdateDeal) Has(fd protoreflect.FieldDescriptor) bool
 		return x.DealId != ""
 	case "topchain.subscription.MsgUpdateDeal.amount":
 		return x.Amount != uint64(0)
-	case "topchain.subscription.MsgUpdateDeal.start_block":
-		return x.StartBlock != uint64(0)
-	case "topchain.subscription.MsgUpdateDeal.end_block":
-		return x.EndBlock != uint64(0)
+	case "topchain.subscription.MsgUpdateDeal.start_epoch":
+		return x.StartEpoch != uint64(0)
+	case "topchain.subscription.MsgUpdateDeal.end_epoch":
+		return x.EndEpoch != uint64(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateDeal"))
@@ -3044,10 +3044,10 @@ func (x *fastReflection_MsgUpdateDeal) Clear(fd protoreflect.FieldDescriptor) {
 		x.DealId = ""
 	case "topchain.subscription.MsgUpdateDeal.amount":
 		x.Amount = uint64(0)
-	case "topchain.subscription.MsgUpdateDeal.start_block":
-		x.StartBlock = uint64(0)
-	case "topchain.subscription.MsgUpdateDeal.end_block":
-		x.EndBlock = uint64(0)
+	case "topchain.subscription.MsgUpdateDeal.start_epoch":
+		x.StartEpoch = uint64(0)
+	case "topchain.subscription.MsgUpdateDeal.end_epoch":
+		x.EndEpoch = uint64(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateDeal"))
@@ -3073,11 +3073,11 @@ func (x *fastReflection_MsgUpdateDeal) Get(descriptor protoreflect.FieldDescript
 	case "topchain.subscription.MsgUpdateDeal.amount":
 		value := x.Amount
 		return protoreflect.ValueOfUint64(value)
-	case "topchain.subscription.MsgUpdateDeal.start_block":
-		value := x.StartBlock
+	case "topchain.subscription.MsgUpdateDeal.start_epoch":
+		value := x.StartEpoch
 		return protoreflect.ValueOfUint64(value)
-	case "topchain.subscription.MsgUpdateDeal.end_block":
-		value := x.EndBlock
+	case "topchain.subscription.MsgUpdateDeal.end_epoch":
+		value := x.EndEpoch
 		return protoreflect.ValueOfUint64(value)
 	default:
 		if descriptor.IsExtension() {
@@ -3105,10 +3105,10 @@ func (x *fastReflection_MsgUpdateDeal) Set(fd protoreflect.FieldDescriptor, valu
 		x.DealId = value.Interface().(string)
 	case "topchain.subscription.MsgUpdateDeal.amount":
 		x.Amount = value.Uint()
-	case "topchain.subscription.MsgUpdateDeal.start_block":
-		x.StartBlock = value.Uint()
-	case "topchain.subscription.MsgUpdateDeal.end_block":
-		x.EndBlock = value.Uint()
+	case "topchain.subscription.MsgUpdateDeal.start_epoch":
+		x.StartEpoch = value.Uint()
+	case "topchain.subscription.MsgUpdateDeal.end_epoch":
+		x.EndEpoch = value.Uint()
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateDeal"))
@@ -3135,10 +3135,10 @@ func (x *fastReflection_MsgUpdateDeal) Mutable(fd protoreflect.FieldDescriptor) 
 		panic(fmt.Errorf("field deal_id of message topchain.subscription.MsgUpdateDeal is not mutable"))
 	case "topchain.subscription.MsgUpdateDeal.amount":
 		panic(fmt.Errorf("field amount of message topchain.subscription.MsgUpdateDeal is not mutable"))
-	case "topchain.subscription.MsgUpdateDeal.start_block":
-		panic(fmt.Errorf("field start_block of message topchain.subscription.MsgUpdateDeal is not mutable"))
-	case "topchain.subscription.MsgUpdateDeal.end_block":
-		panic(fmt.Errorf("field end_block of message topchain.subscription.MsgUpdateDeal is not mutable"))
+	case "topchain.subscription.MsgUpdateDeal.start_epoch":
+		panic(fmt.Errorf("field start_epoch of message topchain.subscription.MsgUpdateDeal is not mutable"))
+	case "topchain.subscription.MsgUpdateDeal.end_epoch":
+		panic(fmt.Errorf("field end_epoch of message topchain.subscription.MsgUpdateDeal is not mutable"))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.MsgUpdateDeal"))
@@ -3158,9 +3158,9 @@ func (x *fastReflection_MsgUpdateDeal) NewField(fd protoreflect.FieldDescriptor)
 		return protoreflect.ValueOfString("")
 	case "topchain.subscription.MsgUpdateDeal.amount":
 		return protoreflect.ValueOfUint64(uint64(0))
-	case "topchain.subscription.MsgUpdateDeal.start_block":
+	case "topchain.subscription.MsgUpdateDeal.start_epoch":
 		return protoreflect.ValueOfUint64(uint64(0))
-	case "topchain.subscription.MsgUpdateDeal.end_block":
+	case "topchain.subscription.MsgUpdateDeal.end_epoch":
 		return protoreflect.ValueOfUint64(uint64(0))
 	default:
 		if fd.IsExtension() {
@@ -3242,11 +3242,11 @@ func (x *fastReflection_MsgUpdateDeal) ProtoMethods() *protoiface.Methods {
 		if x.Amount != 0 {
 			n += 1 + runtime.Sov(uint64(x.Amount))
 		}
-		if x.StartBlock != 0 {
-			n += 1 + runtime.Sov(uint64(x.StartBlock))
+		if x.StartEpoch != 0 {
+			n += 1 + runtime.Sov(uint64(x.StartEpoch))
 		}
-		if x.EndBlock != 0 {
-			n += 1 + runtime.Sov(uint64(x.EndBlock))
+		if x.EndEpoch != 0 {
+			n += 1 + runtime.Sov(uint64(x.EndEpoch))
 		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
@@ -3277,13 +3277,13 @@ func (x *fastReflection_MsgUpdateDeal) ProtoMethods() *protoiface.Methods {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
 		}
-		if x.EndBlock != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.EndBlock))
+		if x.EndEpoch != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.EndEpoch))
 			i--
 			dAtA[i] = 0x28
 		}
-		if x.StartBlock != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.StartBlock))
+		if x.StartEpoch != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.StartEpoch))
 			i--
 			dAtA[i] = 0x20
 		}
@@ -3440,9 +3440,9 @@ func (x *fastReflection_MsgUpdateDeal) ProtoMethods() *protoiface.Methods {
 				}
 			case 4:
 				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field StartBlock", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field StartEpoch", wireType)
 				}
-				x.StartBlock = 0
+				x.StartEpoch = 0
 				for shift := uint(0); ; shift += 7 {
 					if shift >= 64 {
 						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
@@ -3452,16 +3452,16 @@ func (x *fastReflection_MsgUpdateDeal) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					x.StartBlock |= uint64(b&0x7F) << shift
+					x.StartEpoch |= uint64(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
 				}
 			case 5:
 				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field EndBlock", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field EndEpoch", wireType)
 				}
-				x.EndBlock = 0
+				x.EndEpoch = 0
 				for shift := uint(0); ; shift += 7 {
 					if shift >= 64 {
 						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
@@ -3471,7 +3471,7 @@ func (x *fastReflection_MsgUpdateDeal) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					x.EndBlock |= uint64(b&0x7F) << shift
+					x.EndEpoch |= uint64(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
@@ -8462,8 +8462,8 @@ type MsgCreateDeal struct {
 	Requester       string   `protobuf:"bytes,1,opt,name=requester,proto3" json:"requester,omitempty"`
 	CroId           string   `protobuf:"bytes,2,opt,name=cro_id,json=croId,proto3" json:"cro_id,omitempty"`
 	Amount          uint64   `protobuf:"varint,3,opt,name=amount,proto3" json:"amount,omitempty"`
-	StartBlock      uint64   `protobuf:"varint,4,opt,name=start_block,json=startBlock,proto3" json:"start_block,omitempty"`
-	EndBlock        uint64   `protobuf:"varint,5,opt,name=end_block,json=endBlock,proto3" json:"end_block,omitempty"`
+	StartEpoch      uint64   `protobuf:"varint,4,opt,name=start_epoch,json=startEpoch,proto3" json:"start_epoch,omitempty"`
+	EndEpoch        uint64   `protobuf:"varint,5,opt,name=end_epoch,json=endEpoch,proto3" json:"end_epoch,omitempty"`
 	InitialFrontier []string `protobuf:"bytes,6,rep,name=initial_frontier,json=initialFrontier,proto3" json:"initial_frontier,omitempty"`
 }
 
@@ -8508,16 +8508,16 @@ func (x *MsgCreateDeal) GetAmount() uint64 {
 	return 0
 }
 
-func (x *MsgCreateDeal) GetStartBlock() uint64 {
+func (x *MsgCreateDeal) GetStartEpoch() uint64 {
 	if x != nil {
-		return x.StartBlock
+		return x.StartEpoch
 	}
 	return 0
 }
 
-func (x *MsgCreateDeal) GetEndBlock() uint64 {
+func (x *MsgCreateDeal) GetEndEpoch() uint64 {
 	if x != nil {
-		return x.EndBlock
+		return x.EndEpoch
 	}
 	return 0
 }
@@ -8642,8 +8642,8 @@ type MsgUpdateDeal struct {
 	DealId    string `protobuf:"bytes,2,opt,name=deal_id,json=dealId,proto3" json:"deal_id,omitempty"`
 	// these fields should be optional, errors with pulsar
 	Amount     uint64 `protobuf:"varint,3,opt,name=amount,proto3" json:"amount,omitempty"`
-	StartBlock uint64 `protobuf:"varint,4,opt,name=start_block,json=startBlock,proto3" json:"start_block,omitempty"`
-	EndBlock   uint64 `protobuf:"varint,5,opt,name=end_block,json=endBlock,proto3" json:"end_block,omitempty"`
+	StartEpoch uint64 `protobuf:"varint,4,opt,name=start_epoch,json=startEpoch,proto3" json:"start_epoch,omitempty"`
+	EndEpoch   uint64 `protobuf:"varint,5,opt,name=end_epoch,json=endEpoch,proto3" json:"end_epoch,omitempty"`
 }
 
 func (x *MsgUpdateDeal) Reset() {
@@ -8687,16 +8687,16 @@ func (x *MsgUpdateDeal) GetAmount() uint64 {
 	return 0
 }
 
-func (x *MsgUpdateDeal) GetStartBlock() uint64 {
+func (x *MsgUpdateDeal) GetStartEpoch() uint64 {
 	if x != nil {
-		return x.StartBlock
+		return x.StartEpoch
 	}
 	return 0
 }
 
-func (x *MsgUpdateDeal) GetEndBlock() uint64 {
+func (x *MsgUpdateDeal) GetEndEpoch() uint64 {
 	if x != nil {
-		return x.EndBlock
+		return x.EndEpoch
 	}
 	return 0
 }
@@ -9140,10 +9140,10 @@ var file_topchain_subscription_tx_proto_rawDesc = []byte{
 	0x06, 0x63, 0x72, 0x6f, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x63,
 	0x72, 0x6f, 0x49, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x03,
 	0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x1f, 0x0a, 0x0b,
-	0x73, 0x74, 0x61, 0x72, 0x74, 0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x04, 0x20, 0x01, 0x28,
-	0x04, 0x52, 0x0a, 0x73, 0x74, 0x61, 0x72, 0x74, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x12, 0x1b, 0x0a,
-	0x09, 0x65, 0x6e, 0x64, 0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x05, 0x20, 0x01, 0x28, 0x04,
-	0x52, 0x08, 0x65, 0x6e, 0x64, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x12, 0x29, 0x0a, 0x10, 0x69, 0x6e,
+	0x73, 0x74, 0x61, 0x72, 0x74, 0x5f, 0x65, 0x70, 0x6f, 0x63, 0x68, 0x18, 0x04, 0x20, 0x01, 0x28,
+	0x04, 0x52, 0x0a, 0x73, 0x74, 0x61, 0x72, 0x74, 0x45, 0x70, 0x6f, 0x63, 0x68, 0x12, 0x1b, 0x0a,
+	0x09, 0x65, 0x6e, 0x64, 0x5f, 0x65, 0x70, 0x6f, 0x63, 0x68, 0x18, 0x05, 0x20, 0x01, 0x28, 0x04,
+	0x52, 0x08, 0x65, 0x6e, 0x64, 0x45, 0x70, 0x6f, 0x63, 0x68, 0x12, 0x29, 0x0a, 0x10, 0x69, 0x6e,
 	0x69, 0x74, 0x69, 0x61, 0x6c, 0x5f, 0x66, 0x72, 0x6f, 0x6e, 0x74, 0x69, 0x65, 0x72, 0x18, 0x06,
 	0x20, 0x03, 0x28, 0x09, 0x52, 0x0f, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x6c, 0x46, 0x72, 0x6f,
 	0x6e, 0x74, 0x69, 0x65, 0x72, 0x3a, 0x0e, 0x82, 0xe7, 0xb0, 0x2a, 0x09, 0x72, 0x65, 0x71, 0x75,
@@ -9164,10 +9164,10 @@ var file_topchain_subscription_tx_proto_rawDesc = []byte{
 	0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x64, 0x65, 0x61, 0x6c, 0x49,
 	0x64, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28,
 	0x04, 0x52, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x1f, 0x0a, 0x0b, 0x73, 0x74, 0x61,
-	0x72, 0x74, 0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0a,
-	0x73, 0x74, 0x61, 0x72, 0x74, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x12, 0x1b, 0x0a, 0x09, 0x65, 0x6e,
-	0x64, 0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x05, 0x20, 0x01, 0x28, 0x04, 0x52, 0x08, 0x65,
-	0x6e, 0x64, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x3a, 0x0e, 0x82, 0xe7, 0xb0, 0x2a, 0x09, 0x72, 0x65,
+	0x72, 0x74, 0x5f, 0x65, 0x70, 0x6f, 0x63, 0x68, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0a,
+	0x73, 0x74, 0x61, 0x72, 0x74, 0x45, 0x70, 0x6f, 0x63, 0x68, 0x12, 0x1b, 0x0a, 0x09, 0x65, 0x6e,
+	0x64, 0x5f, 0x65, 0x70, 0x6f, 0x63, 0x68, 0x18, 0x05, 0x20, 0x01, 0x28, 0x04, 0x52, 0x08, 0x65,
+	0x6e, 0x64, 0x45, 0x70, 0x6f, 0x63, 0x68, 0x3a, 0x0e, 0x82, 0xe7, 0xb0, 0x2a, 0x09, 0x72, 0x65,
 	0x71, 0x75, 0x65, 0x73, 0x74, 0x65, 0x72, 0x22, 0x17, 0x0a, 0x15, 0x4d, 0x73, 0x67, 0x55, 0x70,
 	0x64, 0x61, 0x74, 0x65, 0x44, 0x65, 0x61, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
 	0x22, 0x77, 0x0a, 0x16, 0x4d, 0x73, 0x67, 0x49, 0x6e, 0x63, 0x72, 0x65, 0x6d, 0x65, 0x6e, 0x74,
