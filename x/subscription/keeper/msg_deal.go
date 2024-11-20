@@ -119,40 +119,21 @@ func (k msgServer) CancelDeal(goCtx context.Context, msg *types.MsgCancelDeal) (
 	return &types.MsgCancelDealResponse{}, nil
 }
 
-func validateMsgUpdateDeal(msg *types.MsgUpdateDeal) error {
-	if err := validation.ValidateNonEmptyString(msg.DealId); err != nil {
-		return err
-	}
-	if err := validation.ValidateAddress(msg.Requester); err != nil {
-		return err
-	}
-	if err := validation.ValidateEpochRange(msg.StartEpoch, msg.EndEpoch); err != nil {
-		return err
-	}
-	if err := validation.ValidatePositiveAmount(msg.Amount); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (*types.MsgUpdateDealResponse, error) {
-	err := validateMsgUpdateDeal(msg)
-	if err != nil {
-		return nil, err
+	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	deal, found := k.GetDeal(ctx, msg.DealId)
+	if !found {
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id "+msg.DealId+" not found")
 	}
 	requester, err := sdk.AccAddressFromBech32(msg.Requester)
 	if err != nil {
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
 	}
-	ctx := sdk.UnwrapSDKContext(goCtx)
-	deal, found := k.GetDeal(ctx, msg.DealId)
-	if !found {
-		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id "+msg.DealId+" not found")
-	}
 	if msg.Requester != deal.Requester {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the requester can update the deal")
 	}
-	// Amount, StartBlock, and EndBlock are optional arguments an default to 0 if not provided
+	// Amount, StartEpoch, and EndEpoch are optional arguments an default to 0 if not provided
 	currentEpoch := utils.ConvertBlockToEpoch(ctx.BlockHeight())
 	if currentEpoch < deal.StartEpoch {
 		if msg.Amount != 0 {

@@ -79,7 +79,7 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 }
 
 func validateObfuscatedProgress(obfuscatedProgressData ObfuscatedProgressData, submittedHashes []string, provider string, epochNumber uint64) error {
-	if epochNumber != obfuscatedProgressData.EpochNumber {
+	if epochNumber != obfuscatedProgressData.EpochNumber+1 {
 		return errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "Revealing vertices hashes exceeded epoch duration")
 	}
 	hasher := sha3.New256()
