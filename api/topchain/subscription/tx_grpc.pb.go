@@ -28,6 +28,7 @@ const (
 	Msg_LeaveDeal_FullMethodName           = "/topchain.subscription.Msg/LeaveDeal"
 	Msg_SubmitProgress_FullMethodName      = "/topchain.subscription.Msg/SubmitProgress"
 	Msg_ClaimRewards_FullMethodName        = "/topchain.subscription.Msg/claimRewards"
+	Msg_WithdrawResidue_FullMethodName     = "/topchain.subscription.Msg/withdrawResidue"
 )
 
 // MsgClient is the client API for Msg service.
@@ -45,6 +46,7 @@ type MsgClient interface {
 	LeaveDeal(ctx context.Context, in *MsgLeaveDeal, opts ...grpc.CallOption) (*MsgLeaveDealResponse, error)
 	SubmitProgress(ctx context.Context, in *MsgSubmitProgress, opts ...grpc.CallOption) (*MsgSubmitProgressResponse, error)
 	ClaimRewards(ctx context.Context, in *MsgClaimRewards, opts ...grpc.CallOption) (*MsgClaimRewardsResponse, error)
+	WithdrawResidue(ctx context.Context, in *MsgWithdrawResidue, opts ...grpc.CallOption) (*MsgWithdrawResidueResponse, error)
 }
 
 type msgClient struct {
@@ -136,6 +138,15 @@ func (c *msgClient) ClaimRewards(ctx context.Context, in *MsgClaimRewards, opts 
 	return out, nil
 }
 
+func (c *msgClient) WithdrawResidue(ctx context.Context, in *MsgWithdrawResidue, opts ...grpc.CallOption) (*MsgWithdrawResidueResponse, error) {
+	out := new(MsgWithdrawResidueResponse)
+	err := c.cc.Invoke(ctx, Msg_WithdrawResidue_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -151,6 +162,7 @@ type MsgServer interface {
 	LeaveDeal(context.Context, *MsgLeaveDeal) (*MsgLeaveDealResponse, error)
 	SubmitProgress(context.Context, *MsgSubmitProgress) (*MsgSubmitProgressResponse, error)
 	ClaimRewards(context.Context, *MsgClaimRewards) (*MsgClaimRewardsResponse, error)
+	WithdrawResidue(context.Context, *MsgWithdrawResidue) (*MsgWithdrawResidueResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -184,6 +196,9 @@ func (UnimplementedMsgServer) SubmitProgress(context.Context, *MsgSubmitProgress
 }
 func (UnimplementedMsgServer) ClaimRewards(context.Context, *MsgClaimRewards) (*MsgClaimRewardsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ClaimRewards not implemented")
+}
+func (UnimplementedMsgServer) WithdrawResidue(context.Context, *MsgWithdrawResidue) (*MsgWithdrawResidueResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WithdrawResidue not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -360,6 +375,24 @@ func _Msg_ClaimRewards_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_WithdrawResidue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgWithdrawResidue)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).WithdrawResidue(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_WithdrawResidue_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).WithdrawResidue(ctx, req.(*MsgWithdrawResidue))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -402,6 +435,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "claimRewards",
 			Handler:    _Msg_ClaimRewards_Handler,
+		},
+		{
+			MethodName: "withdrawResidue",
+			Handler:    _Msg_WithdrawResidue_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

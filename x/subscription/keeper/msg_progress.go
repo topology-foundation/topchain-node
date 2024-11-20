@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	topTypes "topchain/types"
 	"topchain/utils"
 	challengeKeeper "topchain/x/challenge/keeper"
 	"topchain/x/subscription/types"
@@ -163,9 +164,33 @@ func (k msgServer) ClaimRewards(goCtx context.Context, msg *types.MsgClaimReward
 	k.SetProgressEpochsProvider(ctx, providerProgressEpochs, provider, subscriptionId)
 	// send payout
 	fmt.Println("reward ***************", reward)
-	k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(provider), sdk.NewCoins(sdk.NewInt64Coin("top", reward)))
+	k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(provider), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(reward))))
 	deal.AvailableAmount -= uint64(reward)
 
 	k.SetDeal(ctx, deal)
 	return &types.MsgClaimRewardsResponse{}, nil
+}
+
+func (k msgServer) WithdrawResidue(goCtx context.Context, msg *types.MsgWithdrawResidue) (*types.MsgWithdrawResidueResponse, error) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	currentEpoch := utils.ConvertBlockToEpoch(ctx.BlockHeight())
+
+	deal, found := k.GetDeal(ctx, msg.DealId)
+	if !found {
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id "+msg.DealId+" not found")
+	}
+	if msg.Requester != deal.Requester {
+		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the requester can cancel the deal")
+	}
+	if currentEpoch < deal.EndEpoch+utils.DEAL_EXPIRY_CLAIM_WINDOW {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidHeight, "requester can withdraw the reward residue only after the deal expiry claim window is elasped")
+	}
+	residueAmount := deal.AvailableAmount
+	if residueAmount == 0 {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInsufficientFunds, "there is no residue reward to withdraw")
+	}
+
+	k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(msg.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(residueAmount))))
+
+	return &types.MsgWithdrawResidueResponse{}, nil
 }
