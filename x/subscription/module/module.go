@@ -181,20 +181,20 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 			if currentEpoch > deal.EndEpoch {
 				deal.Status = types.Deal_EXPIRED
 				// return the remaining amount to the requester
-				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin("top", int64(deal.AvailableAmount))))
+				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
 			}
 		case types.Deal_ACTIVE:
 			if currentEpoch > deal.EndEpoch {
 				deal.Status = types.Deal_EXPIRED
 				// return the remaining amount to the requester
-				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin("top", int64(deal.AvailableAmount))))
+				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
 			} else {
 			}
 		case types.Deal_INACTIVE:
 			if currentEpoch > deal.EndEpoch {
 				deal.Status = types.Deal_EXPIRED
 				// return the remaining amount to the requester
-				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin("top", int64(deal.AvailableAmount))))
+				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
 			}
 		default:
 			return false

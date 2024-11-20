@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	topTypes "topchain/types"
 	"topchain/x/challenge/types"
 	sTypes "topchain/x/subscription/types"
 
@@ -41,7 +42,7 @@ func (k msgServer) Challenge(goCtx context.Context, msg *types.MsgChallenge) (*t
 	}
 
 	totalChallengePrice := k.PricePerVertexChallenge(ctx, msg.Challenger, msg.ProviderId) * int64(len(msg.VerticesHashes))
-	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", totalChallengePrice)))
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, totalChallengePrice)))
 	if err != nil {
 		return nil, errorsmod.Wrap(err, "failed to send coins to module account")
 	}
@@ -70,6 +71,9 @@ func (k msgServer) SubmitProof(goCtx context.Context, msg *types.MsgSubmitProof)
 	}
 	if challenge.Provider != msg.Provider {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "unauthorized provider")
+	}
+	if k.isChallengeExpired(ctx, challenge) {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "challenge is expired")
 	}
 
 	buf := bytes.NewBuffer(challenge.ChallengedHashes)
@@ -117,6 +121,9 @@ func (k msgServer) RequestDependencies(goCtx context.Context, msg *types.MsgRequ
 	if challenge.Challenger != msg.Challenger {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "unauthorized challenger")
 	}
+	if k.isChallengeExpired(ctx, challenge) {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "challenge is expired")
+	}
 
 	requester, err := sdk.AccAddressFromBech32(msg.Challenger)
 	if err != nil {
@@ -124,7 +131,7 @@ func (k msgServer) RequestDependencies(goCtx context.Context, msg *types.MsgRequ
 	}
 
 	fee := k.PricePerVertexChallenge(ctx, msg.Challenger, challenge.Provider) * int64(len(msg.VerticesHashes))
-	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin("top", fee)))
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, fee)))
 	if err != nil {
 		return nil, errorsmod.Wrap(err, "failed to send coins to module account")
 	}
@@ -156,4 +163,34 @@ func (k msgServer) RequestDependencies(goCtx context.Context, msg *types.MsgRequ
 	k.SetChallenge(ctx, challenge)
 
 	return &types.MsgRequestDependenciesResponse{}, nil
+}
+
+func (k msgServer) SettleChallenge(goCtx context.Context, msg *types.MsgSettleChallenge) (*types.MsgSettleChallengeResponse, error) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	challenge, found := k.GetChallenge(ctx, msg.ChallengeId)
+	if !found {
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("challenge %s not found", msg.ChallengeId))
+	}
+	if msg.Requester != challenge.Challenger && msg.Requester != challenge.Provider {
+		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "not the challenger or the provider")
+	}
+	if k.isChallengeExpired(ctx, challenge) {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "challenge is not yet expired")
+	}
+
+	buf := bytes.NewBuffer(challenge.ChallengedHashes)
+	var challengedHashes sTypes.Set[string]
+	gob.NewDecoder(buf).Decode(&challengedHashes)
+
+	coins := sdk.NewCoins(sdk.NewInt64Coin("top", int64(challenge.Amount)))
+	if len(challengedHashes) == 0 {
+		// all hashes were verified - send coins to provider, remove challenge
+		k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Provider), coins)
+	} else {
+		// some hashes were not verified - send coins to challenger
+		k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Challenger), coins)
+	}
+	k.RemoveChallenge(ctx, challenge.Id)
+
+	return &types.MsgSettleChallengeResponse{}, nil
 }

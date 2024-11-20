@@ -23,6 +23,7 @@ const (
 	Msg_Challenge_FullMethodName           = "/topchain.challenge.Msg/Challenge"
 	Msg_SubmitProof_FullMethodName         = "/topchain.challenge.Msg/SubmitProof"
 	Msg_RequestDependencies_FullMethodName = "/topchain.challenge.Msg/RequestDependencies"
+	Msg_SettleChallenge_FullMethodName     = "/topchain.challenge.Msg/SettleChallenge"
 )
 
 // MsgClient is the client API for Msg service.
@@ -35,6 +36,7 @@ type MsgClient interface {
 	Challenge(ctx context.Context, in *MsgChallenge, opts ...grpc.CallOption) (*MsgChallengeResponse, error)
 	SubmitProof(ctx context.Context, in *MsgSubmitProof, opts ...grpc.CallOption) (*MsgSubmitProofResponse, error)
 	RequestDependencies(ctx context.Context, in *MsgRequestDependencies, opts ...grpc.CallOption) (*MsgRequestDependenciesResponse, error)
+	SettleChallenge(ctx context.Context, in *MsgSettleChallenge, opts ...grpc.CallOption) (*MsgSettleChallengeResponse, error)
 }
 
 type msgClient struct {
@@ -81,6 +83,15 @@ func (c *msgClient) RequestDependencies(ctx context.Context, in *MsgRequestDepen
 	return out, nil
 }
 
+func (c *msgClient) SettleChallenge(ctx context.Context, in *MsgSettleChallenge, opts ...grpc.CallOption) (*MsgSettleChallengeResponse, error) {
+	out := new(MsgSettleChallengeResponse)
+	err := c.cc.Invoke(ctx, Msg_SettleChallenge_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -91,6 +102,7 @@ type MsgServer interface {
 	Challenge(context.Context, *MsgChallenge) (*MsgChallengeResponse, error)
 	SubmitProof(context.Context, *MsgSubmitProof) (*MsgSubmitProofResponse, error)
 	RequestDependencies(context.Context, *MsgRequestDependencies) (*MsgRequestDependenciesResponse, error)
+	SettleChallenge(context.Context, *MsgSettleChallenge) (*MsgSettleChallengeResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -109,6 +121,9 @@ func (UnimplementedMsgServer) SubmitProof(context.Context, *MsgSubmitProof) (*Ms
 }
 func (UnimplementedMsgServer) RequestDependencies(context.Context, *MsgRequestDependencies) (*MsgRequestDependenciesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RequestDependencies not implemented")
+}
+func (UnimplementedMsgServer) SettleChallenge(context.Context, *MsgSettleChallenge) (*MsgSettleChallengeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SettleChallenge not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -195,6 +210,24 @@ func _Msg_RequestDependencies_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_SettleChallenge_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSettleChallenge)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SettleChallenge(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_SettleChallenge_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SettleChallenge(ctx, req.(*MsgSettleChallenge))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -217,6 +250,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RequestDependencies",
 			Handler:    _Msg_RequestDependencies_Handler,
+		},
+		{
+			MethodName: "SettleChallenge",
+			Handler:    _Msg_SettleChallenge_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
