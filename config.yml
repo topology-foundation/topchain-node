@@ -16,7 +16,7 @@ accounts:
       - 1000000token 
       - 100000000stake
       - 100000000top 
-  - name: faucetAccount
+  - name: faucet
     coins:
       - 100000000000000000000token 
       - 100000000000000000000stake
