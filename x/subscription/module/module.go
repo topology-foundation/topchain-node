@@ -180,21 +180,15 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 		case types.Deal_INITIALIZED:
 			if currentEpoch > deal.EndEpoch {
 				deal.Status = types.Deal_EXPIRED
-				// return the remaining amount to the requester
-				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
 			}
 		case types.Deal_ACTIVE:
 			if currentEpoch > deal.EndEpoch {
 				deal.Status = types.Deal_EXPIRED
-				// return the remaining amount to the requester
-				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
 			} else {
 			}
 		case types.Deal_INACTIVE:
 			if currentEpoch > deal.EndEpoch {
 				deal.Status = types.Deal_EXPIRED
-				// return the remaining amount to the requester
-				am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
 			}
 		default:
 			return false
@@ -205,34 +199,6 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 	})
 	return nil
 }
-
-// func (am AppModule) PayActiveProvidersPerBlock(ctx sdk.Context, deal types.Deal) types.Deal {
-// 	activeSubscriptions := am.keeper.GetAllActiveSubscriptions(ctx, deal)
-// 	currentBlock := ctx.BlockHeight()
-// 	blockReward := am.keeper.CalculateEpochReward(currentBlock, deal)
-// 	// iterate through the progress to get the total while recording the progress of each provider
-// 	providerProgress := make(map[string]int)
-// 	totalProgress := 0
-// 	for subscription, provider := range activeSubscriptions {
-// 		progress, found := am.keeper.GetProgressSize(ctx, subscription, currentBlock)
-// 		if !found {
-// 			providerProgress[provider] = 0
-// 		}
-// 		providerProgress[provider] = progress
-// 		totalProgress += progress
-// 	}
-
-// 	totalRewardSent := int64(0)
-// 	for subscription, provider := range activeSubscriptions {
-// 		// reward based on the progress size
-// 		reward := int64(float64(blockReward) * float64(providerProgress[activeSubscriptions[subscription]]) / float64(totalProgress))
-// 		am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(provider), sdk.NewCoins(sdk.NewInt64Coin("top", reward)))
-// 		totalRewardSent += reward
-// 	}
-
-// 	deal.AvailableAmount -= uint64(totalRewardSent)
-// 	return deal
-// }
 
 // IsOnePerModuleType implements the depinject.OnePerModuleType interface.
 func (am AppModule) IsOnePerModuleType() {}
