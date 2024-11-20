@@ -189,5 +189,8 @@ func (k msgServer) WithdrawResidue(goCtx context.Context, msg *types.MsgWithdraw
 
 	k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(msg.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(residueAmount))))
 
+	deal.AvailableAmount = 0
+	k.SetDeal(ctx, deal)
+
 	return &types.MsgWithdrawResidueResponse{}, nil
 }
