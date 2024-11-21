@@ -47,7 +47,6 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Query subscriptions",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "provider"}},
 				},
-				// this line is used by ignite scaffolding # autocli/query
 			},
 		},
 		Tx: &autocliv1.ServiceCommandDescriptor{
@@ -100,7 +99,6 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Send a submit-progress tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "subscription_id"}, {ProtoField: "previous_vertices_hashes"}, {ProtoField: "obfuscated_vertices_hash"}},
 				},
-				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},
 	}
