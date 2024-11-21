@@ -1,7 +1,11 @@
 #!/bin/bash
-
-./scripts/build.sh
 ./scripts/clean.sh
+
+if [ -z "$(docker images -q topchain-node:latest 2> /dev/null)" ]; then
+    echo "Docker image not found, please run make container first"
+    exit 0
+fi
+
 
 if [ -z "$HOME" ]; then
     echo "HOME is not set, defaulting to ."

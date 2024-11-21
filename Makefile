@@ -1,6 +1,9 @@
 build:
 	go build -o ./build/topchaind ./cmd/topchaind/main.go
 
+container:
+	docker build -t topchain-node:latest .
+
 chain_name?=topchain
 home?=$(shell pwd)/build/$(chain_name)
 config-mock:
