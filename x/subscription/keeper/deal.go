@@ -90,14 +90,15 @@ func (k Keeper) CalculateBlockReward(ctx sdk.Context, deal types.Deal) int64 {
 }
 
 // Iterate over all deals and apply the given callback function
-func (k Keeper) IterateDeals(ctx sdk.Context, shouldBreak func(deal types.Deal) bool) {
+func (k Keeper) IterateDeals(ctx sdk.Context, shouldBreak func(deal types.Deal) (error, bool)) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	iterator := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DealKeyPrefix)).Iterator(nil, nil)
 	defer iterator.Close()
 	for ; iterator.Valid(); iterator.Next() {
 		var deal types.Deal
 		k.cdc.MustUnmarshal(iterator.Value(), &deal)
-		if shouldBreak(deal) {
+		err, stop := shouldBreak(deal)
+		if err != nil || stop {
 			break
 		}
 	}
