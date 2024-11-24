@@ -1,0 +1,64 @@
+run:
+  deadline: 1m
+  tests: false
+issues:
+  exclude-files:
+    - ".*\\.pb\\.go$"
+    - ".*\\.pb\\.gw\\.go$"
+    - ".*\\.gen\\.go$"
+    - "_test\\.go$"
+    - ".*doc\\.go$"
+
+linters-settings:
+  golint:
+    min-confidence: 0
+  maligned:
+    suggest-new: true
+  goconst:
+    min-len: 5
+    min-occurrences: 4
+  misspell:
+    locale: US
+  gci:
+    sections:
+      - standard
+      - default
+      - prefix(topchain)
+
+linters:
+  enable:
+    - asciicheck
+    - bodyclose
+    - copyloopvar
+    #- depguard
+    - dogsled
+    - errcheck
+    #- exhaustive    # nice to have
+    - gci
+    - gochecknoinits
+    #- gocognit      # nice to have
+    - goconst
+    - goconst
+    - gocritic
+    #- godot         # nice to have
+    #- goerr113      # nice to have
+    - gofmt
+    - gofumpt
+    - goimports
+    - revive
+    #- gomnd         # nice to have
+    - gomodguard
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+    - misspell
+    - nakedret
+    - noctx
+    #- nolintlint
+    - staticcheck
+    - typecheck
+    - unconvert
+    - unparam
+    - unused
+    - whitespace
