@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"topchain/utils"
 	"topchain/x/subscription/types"
 
 	"cosmossdk.io/store/prefix"
@@ -39,7 +40,8 @@ func (k Keeper) IsDealActive(ctx sdk.Context, deal types.Deal) bool {
 		if !found {
 			continue
 		}
-		if subscription.StartBlock <= uint64(ctx.BlockHeight()) && subscription.EndBlock >= uint64(ctx.BlockHeight()) {
+		currentEpoch := utils.ConvertBlockToEpoch(ctx.BlockHeight())
+		if subscription.StartEpoch <= currentEpoch && subscription.EndEpoch >= currentEpoch {
 			return true
 		}
 	}
@@ -54,7 +56,8 @@ func (k Keeper) GetAllActiveSubscriptions(ctx sdk.Context, deal types.Deal) map[
 		if !found {
 			continue
 		}
-		if subscription.StartBlock <= uint64(ctx.BlockHeight()) && subscription.EndBlock >= uint64(ctx.BlockHeight()) {
+		currentEpoch := utils.ConvertBlockToEpoch(ctx.BlockHeight())
+		if subscription.StartEpoch <= currentEpoch && subscription.EndEpoch >= currentEpoch {
 			subscriptions[subscriptionId] = subscription.Provider
 		}
 	}
@@ -77,16 +80,17 @@ func (k Keeper) IsDealUnavailable(status types.Deal_Status) bool {
 func (k Keeper) DealHasProvider(ctx sdk.Context, deal types.Deal, provider string) bool {
 	for _, subscriptionId := range deal.SubscriptionIds {
 		sub, _ := k.GetSubscription(ctx, subscriptionId)
-		if sub.Provider == provider && uint64(ctx.BlockHeight()) <= sub.EndBlock {
+		currentEpoch := utils.ConvertBlockToEpoch(ctx.BlockHeight())
+		if sub.Provider == provider && currentEpoch <= sub.EndEpoch {
 			return true
 		}
 	}
 	return false
 }
 
-func (k Keeper) CalculateBlockReward(ctx sdk.Context, deal types.Deal) int64 {
-	remainingBlocks := deal.EndBlock - uint64(ctx.BlockHeight())
-	return int64(deal.AvailableAmount) / int64(remainingBlocks)
+func (k Keeper) CalculateEpochReward(deal types.Deal) uint64 {
+	// divide the reward equally between the epochs
+	return deal.TotalAmount / deal.NumEpochs
 }
 
 // Iterate over all deals and apply the given callback function

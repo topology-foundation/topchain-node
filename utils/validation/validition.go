@@ -32,9 +32,16 @@ func ValidateAddress(address string) error {
 	return nil
 }
 
-func ValidateBlockRange(startBlock, endBlock uint64) error {
-	if startBlock >= endBlock {
-		return errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "start block must be less than end block")
+func ValidateEpochSize(epochSize uint64) error {
+	if epochSize == 0 {
+		return errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "epoch size must be greater than 0")
+	}
+	return nil
+}
+
+func ValidateNumEpochs(numEpochs uint64) error {
+	if numEpochs == 0 {
+		return errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "num epochs must be greater than 0")
 	}
 	return nil
 }

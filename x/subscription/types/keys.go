@@ -10,14 +10,17 @@ const (
 	// MemStoreKey defines the in-memory store key
 	MemStoreKey = "mem_subscription"
 
-	DealKeyPrefix                 = "Deal/value"
-	DealRequesterKeyPrefix        = "Deal/Requester/value"
-	SubscriptionKeyPrefix         = "Subscription/value"
-	SubscriptionProviderKeyPrefix = "Subscription/Provider/value"
-	ProgressKeyPrefix             = "Progress/value"
-	ProgressObfuscatedKeyPrefix   = "Progress/Obfuscated/value"
-	ProgressSizeKeyPrefix         = "Progress/Size/value"
-	HashSubmissionBlockKeyPrefix  = "HashSubmissionBlock/value"
+	DealKeyPrefix                            = "Deal/value"
+	DealRequesterKeyPrefix                   = "Deal/Requester/value"
+	SubscriptionKeyPrefix                    = "Subscription/value"
+	SubscriptionProviderKeyPrefix            = "Subscription/Provider/value"
+	SubscriptionProviderLastClaimedKeyPrefix = "Subscription/Provider/Claim/value"
+	ProgressKeyPrefix                        = "Progress/value"
+	ProgressObfuscatedKeyPrefix              = "Progress/Obfuscated/value"
+	ProgressSizeKeyPrefix                    = "Progress/Size/value"
+	HashSubmissionBlockKeyPrefix             = "HashSubmissionBlock/value"
+	ProgressDealKeyPrefix                    = "Progress/Deal/value"
+	ProgressBlocksProviderKeyPrefix          = "Progress/Provider/value"
 )
 
 var ParamsKey = []byte("p_subscription")
@@ -42,4 +45,16 @@ func GetProgressSizeStoreKey(subscription string) []byte {
 
 func GetHashSubmissionBlockStoreKey(provider string) []byte {
 	return KeyPrefix(HashSubmissionBlockKeyPrefix + "/" + provider)
+}
+
+func GetProgressDealStoreKey(deal string) []byte {
+	return KeyPrefix(ProgressDealKeyPrefix + "/" + deal)
+}
+
+func GetProgressBlocksProviderKey(provider string) []byte {
+	return KeyPrefix(ProgressBlocksProviderKeyPrefix + "/" + provider)
+}
+
+func GetSubscriptionProviderLastClaimedKey(provider string) []byte {
+	return KeyPrefix(SubscriptionProviderLastClaimedKeyPrefix + "/" + provider)
 }

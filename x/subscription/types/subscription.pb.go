@@ -26,8 +26,8 @@ type Subscription struct {
 	Id         string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	DealId     string `protobuf:"bytes,2,opt,name=deal_id,json=dealId,proto3" json:"deal_id,omitempty"`
 	Provider   string `protobuf:"bytes,3,opt,name=provider,proto3" json:"provider,omitempty"`
-	StartBlock uint64 `protobuf:"varint,4,opt,name=start_block,json=startBlock,proto3" json:"start_block,omitempty"`
-	EndBlock   uint64 `protobuf:"varint,5,opt,name=end_block,json=endBlock,proto3" json:"end_block,omitempty"`
+	StartEpoch uint64 `protobuf:"varint,4,opt,name=start_epoch,json=startEpoch,proto3" json:"start_epoch,omitempty"`
+	EndEpoch   uint64 `protobuf:"varint,5,opt,name=end_epoch,json=endEpoch,proto3" json:"end_epoch,omitempty"`
 }
 
 func (m *Subscription) Reset()         { *m = Subscription{} }
@@ -84,16 +84,16 @@ func (m *Subscription) GetProvider() string {
 	return ""
 }
 
-func (m *Subscription) GetStartBlock() uint64 {
+func (m *Subscription) GetStartEpoch() uint64 {
 	if m != nil {
-		return m.StartBlock
+		return m.StartEpoch
 	}
 	return 0
 }
 
-func (m *Subscription) GetEndBlock() uint64 {
+func (m *Subscription) GetEndEpoch() uint64 {
 	if m != nil {
-		return m.EndBlock
+		return m.EndEpoch
 	}
 	return 0
 }
@@ -115,13 +115,13 @@ var fileDescriptor_f6aa30eaaa7d0617 = []byte{
 	0x60, 0xd4, 0xe0, 0x0c, 0x62, 0xca, 0x4c, 0x11, 0x12, 0xe7, 0x62, 0x4f, 0x49, 0x4d, 0xcc, 0x89,
 	0xcf, 0x4c, 0x91, 0x60, 0x02, 0x0b, 0xb2, 0x81, 0xb8, 0x9e, 0x29, 0x42, 0x52, 0x5c, 0x1c, 0x05,
 	0x45, 0xf9, 0x65, 0x99, 0x29, 0xa9, 0x45, 0x12, 0xcc, 0x60, 0x19, 0x38, 0x5f, 0x48, 0x9e, 0x8b,
-	0xbb, 0xb8, 0x24, 0xb1, 0xa8, 0x24, 0x3e, 0x29, 0x27, 0x3f, 0x39, 0x5b, 0x82, 0x45, 0x81, 0x51,
-	0x83, 0x25, 0x88, 0x0b, 0x2c, 0xe4, 0x04, 0x12, 0x11, 0x92, 0xe6, 0xe2, 0x4c, 0xcd, 0x4b, 0x81,
+	0xbb, 0xb8, 0x24, 0xb1, 0xa8, 0x24, 0x3e, 0xb5, 0x20, 0x3f, 0x39, 0x43, 0x82, 0x45, 0x81, 0x51,
+	0x83, 0x25, 0x88, 0x0b, 0x2c, 0xe4, 0x0a, 0x12, 0x11, 0x92, 0xe6, 0xe2, 0x4c, 0xcd, 0x4b, 0x81,
 	0x4a, 0xb3, 0x82, 0xa5, 0x39, 0x52, 0xf3, 0x52, 0xc0, 0x92, 0x4e, 0xe6, 0x27, 0x1e, 0xc9, 0x31,
 	0x5e, 0x78, 0x24, 0xc7, 0xf8, 0xe0, 0x91, 0x1c, 0xe3, 0x84, 0xc7, 0x72, 0x0c, 0x17, 0x1e, 0xcb,
 	0x31, 0xdc, 0x78, 0x2c, 0xc7, 0x10, 0x25, 0x0b, 0xf7, 0x6e, 0x05, 0xaa, 0x87, 0x4b, 0x2a, 0x0b,
-	0x52, 0x8b, 0x93, 0xd8, 0xc0, 0x5e, 0x35, 0x06, 0x04, 0x00, 0x00, 0xff, 0xff, 0xbe, 0x33, 0x98,
-	0x06, 0x16, 0x01, 0x00, 0x00,
+	0x52, 0x8b, 0x93, 0xd8, 0xc0, 0x5e, 0x35, 0x06, 0x04, 0x00, 0x00, 0xff, 0xff, 0x4f, 0xa0, 0xaa,
+	0x1a, 0x16, 0x01, 0x00, 0x00,
 }
 
 func (m *Subscription) Marshal() (dAtA []byte, err error) {
@@ -144,13 +144,13 @@ func (m *Subscription) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.EndBlock != 0 {
-		i = encodeVarintSubscription(dAtA, i, uint64(m.EndBlock))
+	if m.EndEpoch != 0 {
+		i = encodeVarintSubscription(dAtA, i, uint64(m.EndEpoch))
 		i--
 		dAtA[i] = 0x28
 	}
-	if m.StartBlock != 0 {
-		i = encodeVarintSubscription(dAtA, i, uint64(m.StartBlock))
+	if m.StartEpoch != 0 {
+		i = encodeVarintSubscription(dAtA, i, uint64(m.StartEpoch))
 		i--
 		dAtA[i] = 0x20
 	}
@@ -207,11 +207,11 @@ func (m *Subscription) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovSubscription(uint64(l))
 	}
-	if m.StartBlock != 0 {
-		n += 1 + sovSubscription(uint64(m.StartBlock))
+	if m.StartEpoch != 0 {
+		n += 1 + sovSubscription(uint64(m.StartEpoch))
 	}
-	if m.EndBlock != 0 {
-		n += 1 + sovSubscription(uint64(m.EndBlock))
+	if m.EndEpoch != 0 {
+		n += 1 + sovSubscription(uint64(m.EndEpoch))
 	}
 	return n
 }
@@ -349,9 +349,9 @@ func (m *Subscription) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 4:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field StartBlock", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field StartEpoch", wireType)
 			}
-			m.StartBlock = 0
+			m.StartEpoch = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowSubscription
@@ -361,16 +361,16 @@ func (m *Subscription) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.StartBlock |= uint64(b&0x7F) << shift
+				m.StartEpoch |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
 		case 5:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field EndBlock", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field EndEpoch", wireType)
 			}
-			m.EndBlock = 0
+			m.EndEpoch = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowSubscription
@@ -380,7 +380,7 @@ func (m *Subscription) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.EndBlock |= uint64(b&0x7F) << shift
+				m.EndEpoch |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}

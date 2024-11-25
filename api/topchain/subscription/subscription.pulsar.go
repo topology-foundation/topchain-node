@@ -17,8 +17,8 @@ var (
 	fd_Subscription_id          protoreflect.FieldDescriptor
 	fd_Subscription_deal_id     protoreflect.FieldDescriptor
 	fd_Subscription_provider    protoreflect.FieldDescriptor
-	fd_Subscription_start_block protoreflect.FieldDescriptor
-	fd_Subscription_end_block   protoreflect.FieldDescriptor
+	fd_Subscription_start_epoch protoreflect.FieldDescriptor
+	fd_Subscription_end_epoch   protoreflect.FieldDescriptor
 )
 
 func init() {
@@ -27,8 +27,8 @@ func init() {
 	fd_Subscription_id = md_Subscription.Fields().ByName("id")
 	fd_Subscription_deal_id = md_Subscription.Fields().ByName("deal_id")
 	fd_Subscription_provider = md_Subscription.Fields().ByName("provider")
-	fd_Subscription_start_block = md_Subscription.Fields().ByName("start_block")
-	fd_Subscription_end_block = md_Subscription.Fields().ByName("end_block")
+	fd_Subscription_start_epoch = md_Subscription.Fields().ByName("start_epoch")
+	fd_Subscription_end_epoch = md_Subscription.Fields().ByName("end_epoch")
 }
 
 var _ protoreflect.Message = (*fastReflection_Subscription)(nil)
@@ -114,15 +114,15 @@ func (x *fastReflection_Subscription) Range(f func(protoreflect.FieldDescriptor,
 			return
 		}
 	}
-	if x.StartBlock != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.StartBlock)
-		if !f(fd_Subscription_start_block, value) {
+	if x.StartEpoch != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.StartEpoch)
+		if !f(fd_Subscription_start_epoch, value) {
 			return
 		}
 	}
-	if x.EndBlock != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.EndBlock)
-		if !f(fd_Subscription_end_block, value) {
+	if x.EndEpoch != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.EndEpoch)
+		if !f(fd_Subscription_end_epoch, value) {
 			return
 		}
 	}
@@ -147,10 +147,10 @@ func (x *fastReflection_Subscription) Has(fd protoreflect.FieldDescriptor) bool 
 		return x.DealId != ""
 	case "topchain.subscription.Subscription.provider":
 		return x.Provider != ""
-	case "topchain.subscription.Subscription.start_block":
-		return x.StartBlock != uint64(0)
-	case "topchain.subscription.Subscription.end_block":
-		return x.EndBlock != uint64(0)
+	case "topchain.subscription.Subscription.start_epoch":
+		return x.StartEpoch != uint64(0)
+	case "topchain.subscription.Subscription.end_epoch":
+		return x.EndEpoch != uint64(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.Subscription"))
@@ -173,10 +173,10 @@ func (x *fastReflection_Subscription) Clear(fd protoreflect.FieldDescriptor) {
 		x.DealId = ""
 	case "topchain.subscription.Subscription.provider":
 		x.Provider = ""
-	case "topchain.subscription.Subscription.start_block":
-		x.StartBlock = uint64(0)
-	case "topchain.subscription.Subscription.end_block":
-		x.EndBlock = uint64(0)
+	case "topchain.subscription.Subscription.start_epoch":
+		x.StartEpoch = uint64(0)
+	case "topchain.subscription.Subscription.end_epoch":
+		x.EndEpoch = uint64(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.Subscription"))
@@ -202,11 +202,11 @@ func (x *fastReflection_Subscription) Get(descriptor protoreflect.FieldDescripto
 	case "topchain.subscription.Subscription.provider":
 		value := x.Provider
 		return protoreflect.ValueOfString(value)
-	case "topchain.subscription.Subscription.start_block":
-		value := x.StartBlock
+	case "topchain.subscription.Subscription.start_epoch":
+		value := x.StartEpoch
 		return protoreflect.ValueOfUint64(value)
-	case "topchain.subscription.Subscription.end_block":
-		value := x.EndBlock
+	case "topchain.subscription.Subscription.end_epoch":
+		value := x.EndEpoch
 		return protoreflect.ValueOfUint64(value)
 	default:
 		if descriptor.IsExtension() {
@@ -234,10 +234,10 @@ func (x *fastReflection_Subscription) Set(fd protoreflect.FieldDescriptor, value
 		x.DealId = value.Interface().(string)
 	case "topchain.subscription.Subscription.provider":
 		x.Provider = value.Interface().(string)
-	case "topchain.subscription.Subscription.start_block":
-		x.StartBlock = value.Uint()
-	case "topchain.subscription.Subscription.end_block":
-		x.EndBlock = value.Uint()
+	case "topchain.subscription.Subscription.start_epoch":
+		x.StartEpoch = value.Uint()
+	case "topchain.subscription.Subscription.end_epoch":
+		x.EndEpoch = value.Uint()
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.Subscription"))
@@ -264,10 +264,10 @@ func (x *fastReflection_Subscription) Mutable(fd protoreflect.FieldDescriptor) p
 		panic(fmt.Errorf("field deal_id of message topchain.subscription.Subscription is not mutable"))
 	case "topchain.subscription.Subscription.provider":
 		panic(fmt.Errorf("field provider of message topchain.subscription.Subscription is not mutable"))
-	case "topchain.subscription.Subscription.start_block":
-		panic(fmt.Errorf("field start_block of message topchain.subscription.Subscription is not mutable"))
-	case "topchain.subscription.Subscription.end_block":
-		panic(fmt.Errorf("field end_block of message topchain.subscription.Subscription is not mutable"))
+	case "topchain.subscription.Subscription.start_epoch":
+		panic(fmt.Errorf("field start_epoch of message topchain.subscription.Subscription is not mutable"))
+	case "topchain.subscription.Subscription.end_epoch":
+		panic(fmt.Errorf("field end_epoch of message topchain.subscription.Subscription is not mutable"))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: topchain.subscription.Subscription"))
@@ -287,9 +287,9 @@ func (x *fastReflection_Subscription) NewField(fd protoreflect.FieldDescriptor) 
 		return protoreflect.ValueOfString("")
 	case "topchain.subscription.Subscription.provider":
 		return protoreflect.ValueOfString("")
-	case "topchain.subscription.Subscription.start_block":
+	case "topchain.subscription.Subscription.start_epoch":
 		return protoreflect.ValueOfUint64(uint64(0))
-	case "topchain.subscription.Subscription.end_block":
+	case "topchain.subscription.Subscription.end_epoch":
 		return protoreflect.ValueOfUint64(uint64(0))
 	default:
 		if fd.IsExtension() {
@@ -372,11 +372,11 @@ func (x *fastReflection_Subscription) ProtoMethods() *protoiface.Methods {
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
-		if x.StartBlock != 0 {
-			n += 1 + runtime.Sov(uint64(x.StartBlock))
+		if x.StartEpoch != 0 {
+			n += 1 + runtime.Sov(uint64(x.StartEpoch))
 		}
-		if x.EndBlock != 0 {
-			n += 1 + runtime.Sov(uint64(x.EndBlock))
+		if x.EndEpoch != 0 {
+			n += 1 + runtime.Sov(uint64(x.EndEpoch))
 		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
@@ -407,13 +407,13 @@ func (x *fastReflection_Subscription) ProtoMethods() *protoiface.Methods {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
 		}
-		if x.EndBlock != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.EndBlock))
+		if x.EndEpoch != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.EndEpoch))
 			i--
 			dAtA[i] = 0x28
 		}
-		if x.StartBlock != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.StartBlock))
+		if x.StartEpoch != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.StartEpoch))
 			i--
 			dAtA[i] = 0x20
 		}
@@ -585,9 +585,9 @@ func (x *fastReflection_Subscription) ProtoMethods() *protoiface.Methods {
 				iNdEx = postIndex
 			case 4:
 				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field StartBlock", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field StartEpoch", wireType)
 				}
-				x.StartBlock = 0
+				x.StartEpoch = 0
 				for shift := uint(0); ; shift += 7 {
 					if shift >= 64 {
 						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
@@ -597,16 +597,16 @@ func (x *fastReflection_Subscription) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					x.StartBlock |= uint64(b&0x7F) << shift
+					x.StartEpoch |= uint64(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
 				}
 			case 5:
 				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field EndBlock", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field EndEpoch", wireType)
 				}
-				x.EndBlock = 0
+				x.EndEpoch = 0
 				for shift := uint(0); ; shift += 7 {
 					if shift >= 64 {
 						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
@@ -616,7 +616,7 @@ func (x *fastReflection_Subscription) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					x.EndBlock |= uint64(b&0x7F) << shift
+					x.EndEpoch |= uint64(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
@@ -677,8 +677,8 @@ type Subscription struct {
 	Id         string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	DealId     string `protobuf:"bytes,2,opt,name=deal_id,json=dealId,proto3" json:"deal_id,omitempty"`
 	Provider   string `protobuf:"bytes,3,opt,name=provider,proto3" json:"provider,omitempty"`
-	StartBlock uint64 `protobuf:"varint,4,opt,name=start_block,json=startBlock,proto3" json:"start_block,omitempty"`
-	EndBlock   uint64 `protobuf:"varint,5,opt,name=end_block,json=endBlock,proto3" json:"end_block,omitempty"`
+	StartEpoch uint64 `protobuf:"varint,4,opt,name=start_epoch,json=startEpoch,proto3" json:"start_epoch,omitempty"`
+	EndEpoch   uint64 `protobuf:"varint,5,opt,name=end_epoch,json=endEpoch,proto3" json:"end_epoch,omitempty"`
 }
 
 func (x *Subscription) Reset() {
@@ -722,16 +722,16 @@ func (x *Subscription) GetProvider() string {
 	return ""
 }
 
-func (x *Subscription) GetStartBlock() uint64 {
+func (x *Subscription) GetStartEpoch() uint64 {
 	if x != nil {
-		return x.StartBlock
+		return x.StartEpoch
 	}
 	return 0
 }
 
-func (x *Subscription) GetEndBlock() uint64 {
+func (x *Subscription) GetEndEpoch() uint64 {
 	if x != nil {
-		return x.EndBlock
+		return x.EndEpoch
 	}
 	return 0
 }
@@ -749,10 +749,10 @@ var file_topchain_subscription_subscription_proto_rawDesc = []byte{
 	0x01, 0x28, 0x09, 0x52, 0x06, 0x64, 0x65, 0x61, 0x6c, 0x49, 0x64, 0x12, 0x1a, 0x0a, 0x08, 0x70,
 	0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70,
 	0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x12, 0x1f, 0x0a, 0x0b, 0x73, 0x74, 0x61, 0x72, 0x74,
-	0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0a, 0x73, 0x74,
-	0x61, 0x72, 0x74, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x12, 0x1b, 0x0a, 0x09, 0x65, 0x6e, 0x64, 0x5f,
-	0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x05, 0x20, 0x01, 0x28, 0x04, 0x52, 0x08, 0x65, 0x6e, 0x64,
-	0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x42, 0xc7, 0x01, 0x0a, 0x19, 0x63, 0x6f, 0x6d, 0x2e, 0x74, 0x6f,
+	0x5f, 0x65, 0x70, 0x6f, 0x63, 0x68, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0a, 0x73, 0x74,
+	0x61, 0x72, 0x74, 0x45, 0x70, 0x6f, 0x63, 0x68, 0x12, 0x1b, 0x0a, 0x09, 0x65, 0x6e, 0x64, 0x5f,
+	0x65, 0x70, 0x6f, 0x63, 0x68, 0x18, 0x05, 0x20, 0x01, 0x28, 0x04, 0x52, 0x08, 0x65, 0x6e, 0x64,
+	0x45, 0x70, 0x6f, 0x63, 0x68, 0x42, 0xc7, 0x01, 0x0a, 0x19, 0x63, 0x6f, 0x6d, 0x2e, 0x74, 0x6f,
 	0x70, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74,
 	0x69, 0x6f, 0x6e, 0x42, 0x11, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
 	0x6e, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x22, 0x74, 0x6f, 0x70, 0x63, 0x68, 0x61,

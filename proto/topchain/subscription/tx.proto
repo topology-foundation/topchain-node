@@ -25,6 +25,8 @@ service Msg {
   rpc JoinDeal            (MsgJoinDeal            ) returns (MsgJoinDealResponse            );
   rpc LeaveDeal           (MsgLeaveDeal           ) returns (MsgLeaveDealResponse           );
   rpc SubmitProgress      (MsgSubmitProgress      ) returns (MsgSubmitProgressResponse      );
+  rpc claimRewards        (MsgClaimRewards        ) returns (MsgClaimRewardsResponse        );
+  rpc withdrawResidue     (MsgWithdrawResidue     ) returns (MsgWithdrawResidueResponse     );
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
@@ -50,8 +52,9 @@ message MsgCreateDeal {
   string cro_id    = 2;
   uint64 amount  = 3;
   uint64 start_block = 4;
-  uint64 end_block = 5;
-  repeated string initial_frontier = 6;
+  uint64 epoch_size = 5;
+  uint64 num_epochs = 6;
+  repeated string initial_frontier = 7;
 }
 
 message MsgCreateDealResponse {
@@ -73,7 +76,8 @@ message MsgUpdateDeal {
   // these fields should be optional, errors with pulsar
   uint64 amount  = 3;
   uint64 start_block = 4;
-  uint64 end_block = 5;
+  uint64 epoch_size = 5;
+  uint64 num_epochs = 6;
 }
 
 message MsgUpdateDealResponse {}
@@ -114,3 +118,19 @@ message MsgSubmitProgress {
 }
 
 message MsgSubmitProgressResponse {}
+
+message MsgClaimRewards {
+  option (cosmos.msg.v1.signer) = "provider";
+  string provider = 1;
+  string subscription_id = 2;
+}
+
+message MsgClaimRewardsResponse {}
+
+message MsgWithdrawResidue {
+  option (cosmos.msg.v1.signer) = "requester";
+  string requester = 1;
+  string deal_id   = 2;
+}
+
+message MsgWithdrawResidueResponse {}

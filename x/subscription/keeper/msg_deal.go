@@ -6,6 +6,7 @@ import (
 	"math"
 
 	topTypes "topchain/types"
+	"topchain/utils"
 	"topchain/utils/validation"
 	"topchain/x/subscription/types"
 
@@ -17,7 +18,10 @@ import (
 )
 
 func validateMsgCreateDeal(msg *types.MsgCreateDeal) error {
-	if err := validation.ValidateBlockRange(msg.StartBlock, msg.EndBlock); err != nil {
+	if err := validation.ValidateEpochSize(msg.EpochSize); err != nil {
+		return err
+	}
+	if err := validation.ValidateNumEpochs(msg.NumEpochs); err != nil {
 		return err
 	}
 	if err := validation.ValidatePositiveAmount(msg.Amount); err != nil {
@@ -50,7 +54,8 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 		TotalAmount:     msg.Amount,
 		AvailableAmount: msg.Amount,
 		StartBlock:      msg.StartBlock,
-		EndBlock:        msg.EndBlock,
+		EpochSize:       msg.EpochSize,
+		NumEpochs:       msg.NumEpochs,
 		InitialFrontier: msg.InitialFrontier,
 	}
 
@@ -108,7 +113,7 @@ func (k msgServer) CancelDeal(goCtx context.Context, msg *types.MsgCancelDeal) (
 			if !found {
 				return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "SHOULD NOT HAPPEN: subscription with id "+subscriptionId+" not found")
 			}
-			subscription.EndBlock = uint64(ctx.BlockHeight())
+			subscription.EndEpoch = utils.ConvertBlockToEpoch(ctx.BlockHeight())
 			k.SetSubscription(ctx, subscription)
 		}
 		// return the remaining amount to the requester
@@ -118,41 +123,23 @@ func (k msgServer) CancelDeal(goCtx context.Context, msg *types.MsgCancelDeal) (
 	return &types.MsgCancelDealResponse{}, nil
 }
 
-func validateMsgUpdateDeal(msg *types.MsgUpdateDeal) error {
-	if err := validation.ValidateNonEmptyString(msg.DealId); err != nil {
-		return err
-	}
-	if err := validation.ValidateAddress(msg.Requester); err != nil {
-		return err
-	}
-	if err := validation.ValidateBlockRange(msg.StartBlock, msg.EndBlock); err != nil {
-		return err
-	}
-	if err := validation.ValidatePositiveAmount(msg.Amount); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (*types.MsgUpdateDealResponse, error) {
-	err := validateMsgUpdateDeal(msg)
-	if err != nil {
-		return nil, err
+	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	deal, found := k.GetDeal(ctx, msg.DealId)
+	if !found {
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id "+msg.DealId+" not found")
 	}
 	requester, err := sdk.AccAddressFromBech32(msg.Requester)
 	if err != nil {
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
 	}
-	ctx := sdk.UnwrapSDKContext(goCtx)
-	deal, found := k.GetDeal(ctx, msg.DealId)
-	if !found {
-		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id "+msg.DealId+" not found")
-	}
 	if msg.Requester != deal.Requester {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the requester can update the deal")
 	}
-	// Amount, StartBlock, and EndBlock are optional arguments an default to 0 if not provided
-	if ctx.BlockHeight() < int64(deal.StartBlock) {
+	// Amount, StartEpoch, and EndEpoch are optional arguments an default to 0 if not provided
+	currentBlock := uint64(ctx.BlockHeight())
+	if currentBlock < deal.StartBlock {
 		if msg.Amount != 0 {
 			if msg.Amount < deal.TotalAmount {
 				amountToReturn := deal.TotalAmount - msg.Amount
@@ -168,16 +155,10 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 			deal.AvailableAmount = msg.Amount
 		}
 		if msg.StartBlock != 0 {
-			if int64(msg.StartBlock) < ctx.BlockHeight() {
-				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "start block must be greater than current block height")
+			if msg.StartBlock < currentBlock {
+				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "start block must be greater than current block")
 			}
 			deal.StartBlock = msg.StartBlock
-		}
-		if msg.EndBlock != 0 {
-			if int64(msg.EndBlock) < ctx.BlockHeight() {
-				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "end block must be greater than current block height")
-			}
-			deal.EndBlock = msg.EndBlock
 		}
 	} else {
 		if msg.Amount != 0 {
@@ -199,11 +180,24 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 		if msg.StartBlock != 0 {
 			return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot update start block after deal has started")
 		}
-		if msg.EndBlock != 0 {
-			if int64(msg.EndBlock) < ctx.BlockHeight() {
-				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "end block must be greater than current block height")
+		if msg.NumEpochs != 0 {
+			if deal.StartBlock+msg.NumEpochs*deal.EpochSize < currentBlock {
+				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot update num epochs to a value that results in an end block earlier than the current block")
 			}
-			deal.EndBlock = msg.EndBlock
+			deal.NumEpochs = msg.NumEpochs
+		}
+		if msg.EpochSize != 0 {
+			if deal.StartBlock+deal.NumEpochs*msg.EpochSize < currentBlock {
+				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot update epoch size to a value that results in an end block earlier than the current block")
+			}
+			deal.EpochSize = msg.EpochSize
+		}
+		if msg.EpochSize != 0 && msg.NumEpochs != 0 {
+			if deal.StartBlock+msg.NumEpochs*msg.EpochSize < currentBlock {
+				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot update epoch size and num epoch to values that results in an end block earlier than the current block")
+			}
+			deal.EpochSize = msg.EpochSize
+			deal.NumEpochs = msg.NumEpochs
 		}
 	}
 
@@ -303,20 +297,25 @@ func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*typ
 	}
 
 	id := uuid.NewString()
-	var subscriptionStartBlock uint64
-	if deal.StartBlock < uint64(ctx.BlockHeight()) {
-		subscriptionStartBlock = uint64(ctx.BlockHeight())
+	var subscriptionStartEpoch uint64
+	currentBlock := uint64(ctx.BlockHeight())
+
+	currentEpoch := (currentBlock - deal.StartBlock + 1) / deal.EpochSize
+
+	if deal.StartBlock < currentBlock {
+		subscriptionStartEpoch = currentEpoch
 		deal.Status = types.Deal_ACTIVE
 	} else {
-		subscriptionStartBlock = deal.StartBlock
+		// start from the first epoch
+		subscriptionStartEpoch = 0
 	}
 
 	subscription := types.Subscription{
 		Id:         id,
 		DealId:     msg.DealId,
 		Provider:   msg.Provider,
-		StartBlock: subscriptionStartBlock,
-		EndBlock:   deal.EndBlock,
+		StartEpoch: subscriptionStartEpoch,
+		EndEpoch:   (deal.EpochSize*deal.NumEpochs + 1) / deal.EpochSize,
 	}
 	k.SetSubscription(ctx, subscription)
 	deal.SubscriptionIds = append(deal.SubscriptionIds, subscription.Id)
@@ -355,7 +354,7 @@ func (k msgServer) LeaveDeal(goCtx context.Context, msg *types.MsgLeaveDeal) (*t
 		}
 		if subscription.Provider == msg.Provider {
 			isSubscribed = true
-			subscription.EndBlock = uint64(ctx.BlockHeight())
+			subscription.EndEpoch = utils.ConvertBlockToEpoch((ctx.BlockHeight()))
 			k.SetSubscription(ctx, subscription)
 		}
 	}
