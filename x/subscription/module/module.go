@@ -158,24 +158,24 @@ func (am AppModule) BeginBlock(_ context.Context) error {
 // The end block implementation is optional.
 func (am AppModule) EndBlock(goCtx context.Context) error {
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	am.keeper.IterateDeals(ctx, func(deal types.Deal) (error, bool) {
+	am.keeper.IterateDeals(ctx, func(deal types.Deal) (bool, error) {
 		// deal status updates
 		// return false to callback to continue iteration
 		switch deal.Status {
 		case types.Deal_EXPIRED:
-			return nil, false
+			return false, nil
 		case types.Deal_CANCELLED:
-			return nil, false
+			return false, nil
 		case types.Deal_SCHEDULED:
 			if uint64(ctx.BlockHeight()) < deal.StartBlock {
-				return nil, false
+				return false, nil
 			}
 
 			if am.keeper.IsDealActive(ctx, deal) {
 				deal.Status = types.Deal_ACTIVE
-				err, updatedDeal := am.PayActiveProvidersPerBlock(ctx, deal)
+				updatedDeal, err := am.PayActiveProvidersPerBlock(ctx, deal)
 				if err != nil {
-					return err, true
+					return true, err
 				}
 				deal = updatedDeal			
 			} else {
@@ -187,7 +187,7 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 				// return the remaining amount to the requester
 				err := am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
 				if err != nil {
-					return err, true
+					return true, err
 				}
 			}
 		case types.Deal_ACTIVE:
@@ -196,12 +196,12 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 				// return the remaining amount to the requester
 				err := am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
 				if err != nil {
-					return err, true
+					return true, err
 				}
 			} else {
-				err, updatedDeal := am.PayActiveProvidersPerBlock(ctx, deal)
+				updatedDeal, err := am.PayActiveProvidersPerBlock(ctx, deal)
 				if err != nil {
-					return err, true
+					return true, err
 				}
 				deal = updatedDeal
 			}
@@ -211,20 +211,20 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 				// return the remaining amount to the requester
 				err := am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
 				if err != nil {
-					return err, true
+					return true, err
 				}
 			}
 		default:
-			return nil, false
+			return false, nil
 		}
 
 		am.keeper.SetDeal(ctx, deal)
-		return nil, false
+		return false, nil
 	})
 	return nil
 }
 
-func (am AppModule) PayActiveProvidersPerBlock(ctx sdk.Context, deal types.Deal) (error, types.Deal) {
+func (am AppModule) PayActiveProvidersPerBlock(ctx sdk.Context, deal types.Deal) (types.Deal, error) {
 	activeSubscriptions := am.keeper.GetAllActiveSubscriptions(ctx, deal)
 	blockReward := am.keeper.CalculateBlockReward(ctx, deal)
 	currentBlock := ctx.BlockHeight()
@@ -246,13 +246,13 @@ func (am AppModule) PayActiveProvidersPerBlock(ctx sdk.Context, deal types.Deal)
 		reward := int64(float64(blockReward) * float64(providerProgress[activeSubscriptions[subscription]]) / float64(totalProgress))
 		err := am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(provider), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, reward)))
 		if err != nil {
-			return err, deal
+			return deal, err
 		}
 		totalRewardSent += reward
 	}
 
 	deal.AvailableAmount -= uint64(totalRewardSent)
-	return nil, deal
+	return deal, nil
 }
 
 // IsOnePerModuleType implements the depinject.OnePerModuleType interface.
