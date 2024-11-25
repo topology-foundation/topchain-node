@@ -18,7 +18,10 @@ import (
 )
 
 func validateMsgCreateDeal(msg *types.MsgCreateDeal) error {
-	if err := validation.ValidateEpochRange(msg.StartEpoch, msg.EndEpoch); err != nil {
+	if err := validation.ValidateEpochSize(msg.EpochSize); err != nil {
+		return err
+	}
+	if err := validation.ValidateNumEpochs(msg.NumEpochs); err != nil {
 		return err
 	}
 	if err := validation.ValidatePositiveAmount(msg.Amount); err != nil {
@@ -50,8 +53,9 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 		Status:          types.Deal_SCHEDULED,
 		TotalAmount:     msg.Amount,
 		AvailableAmount: msg.Amount,
-		StartEpoch:      msg.StartEpoch,
-		EndEpoch:        msg.EndEpoch,
+		StartBlock:      msg.StartBlock,
+		EpochSize:       msg.EpochSize,
+		NumEpochs:       msg.NumEpochs,
 		InitialFrontier: msg.InitialFrontier,
 	}
 
@@ -134,8 +138,8 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the requester can update the deal")
 	}
 	// Amount, StartEpoch, and EndEpoch are optional arguments an default to 0 if not provided
-	currentEpoch := utils.ConvertBlockToEpoch(ctx.BlockHeight())
-	if currentEpoch < deal.StartEpoch {
+	currentBlock := uint64(ctx.BlockHeight())
+	if currentBlock < deal.StartBlock {
 		if msg.Amount != 0 {
 			if msg.Amount < deal.TotalAmount {
 				amountToReturn := deal.TotalAmount - msg.Amount
@@ -150,17 +154,11 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 			deal.TotalAmount = msg.Amount
 			deal.AvailableAmount = msg.Amount
 		}
-		if msg.StartEpoch != 0 {
-			if msg.StartEpoch < currentEpoch {
-				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "start epoch must be greater than current epoch")
+		if msg.StartBlock != 0 {
+			if msg.StartBlock < currentBlock {
+				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "start block must be greater than current block")
 			}
-			deal.StartEpoch = msg.StartEpoch
-		}
-		if msg.EndEpoch != 0 {
-			if msg.EndEpoch < currentEpoch {
-				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "end epoch must be greater than current epoch")
-			}
-			deal.EndEpoch = msg.EndEpoch
+			deal.StartBlock = msg.StartBlock
 		}
 	} else {
 		if msg.Amount != 0 {
@@ -179,14 +177,27 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 			deal.TotalAmount = msg.Amount
 			deal.AvailableAmount += amountToDeposit
 		}
-		if msg.StartEpoch != 0 {
-			return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot update start epoch after deal has started")
+		if msg.StartBlock != 0 {
+			return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot update start block after deal has started")
 		}
-		if msg.EndEpoch != 0 {
-			if msg.EndEpoch < currentEpoch {
-				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "end epoch must be greater than current epoch")
+		if msg.NumEpochs != 0 {
+			if deal.StartBlock+msg.NumEpochs*deal.EpochSize < currentBlock {
+				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot update num epochs to a value that results in an end block earlier than the current block")
 			}
-			deal.EndEpoch = msg.EndEpoch
+			deal.NumEpochs = msg.NumEpochs
+		}
+		if msg.EpochSize != 0 {
+			if deal.StartBlock+deal.NumEpochs*msg.EpochSize < currentBlock {
+				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot update epoch size to a value that results in an end block earlier than the current block")
+			}
+			deal.EpochSize = msg.EpochSize
+		}
+		if msg.EpochSize != 0 && msg.NumEpochs != 0 {
+			if deal.StartBlock+msg.NumEpochs*msg.EpochSize < currentBlock {
+				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot update epoch size and num epoch to values that results in an end block earlier than the current block")
+			}
+			deal.EpochSize = msg.EpochSize
+			deal.NumEpochs = msg.NumEpochs
 		}
 	}
 
@@ -287,12 +298,16 @@ func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*typ
 
 	id := uuid.NewString()
 	var subscriptionStartEpoch uint64
-	currentEpoch := utils.ConvertBlockToEpoch(ctx.BlockHeight())
-	if deal.StartEpoch < currentEpoch {
+	currentBlock := uint64(ctx.BlockHeight())
+
+	currentEpoch := (currentBlock - deal.StartBlock + 1) / deal.EpochSize
+
+	if deal.StartBlock < currentBlock {
 		subscriptionStartEpoch = currentEpoch
 		deal.Status = types.Deal_ACTIVE
 	} else {
-		subscriptionStartEpoch = deal.StartEpoch
+		// start from the first epoch
+		subscriptionStartEpoch = 0
 	}
 
 	subscription := types.Subscription{
@@ -300,7 +315,7 @@ func (k msgServer) JoinDeal(goCtx context.Context, msg *types.MsgJoinDeal) (*typ
 		DealId:     msg.DealId,
 		Provider:   msg.Provider,
 		StartEpoch: subscriptionStartEpoch,
-		EndEpoch:   deal.EndEpoch,
+		EndEpoch:   (deal.EpochSize*deal.NumEpochs + 1) / deal.EpochSize,
 	}
 	k.SetSubscription(ctx, subscription)
 	deal.SubscriptionIds = append(deal.SubscriptionIds, subscription.Id)

@@ -16,7 +16,7 @@ func TestGetSetDeal(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a deal
-	deal := types.Deal{Id: "12345", CroId: "alicecro", Requester: Alice, Status: types.Deal_SCHEDULED, AvailableAmount: 1000, TotalAmount: 100, StartEpoch: 10, EndEpoch: 20}
+	deal := types.Deal{Id: "12345", CroId: "alicecro", Requester: Alice, Status: types.Deal_SCHEDULED, AvailableAmount: 1000, TotalAmount: 100, NumEpochs: 10, EpochSize: 20}
 	k.SetDeal(ctx, deal)
 
 	dealResponse, found := k.GetDeal(ctx, deal.Id)
@@ -34,7 +34,7 @@ func TestDealActive(t *testing.T) {
 	sub := types.Subscription{Id: "123", DealId: "12345", Provider: "provider1", StartEpoch: 10, EndEpoch: 15}
 	k.SetSubscription(ctx, sub)
 	// Create a deal
-	deal := types.Deal{Id: "12345", CroId: "alicecro", Requester: Alice, Status: types.Deal_UNDEFINED, AvailableAmount: 1000, TotalAmount: 100, StartEpoch: 10, EndEpoch: 20, SubscriptionIds: []string{"123"}}
+	deal := types.Deal{Id: "12345", CroId: "alicecro", Requester: Alice, Status: types.Deal_UNDEFINED, AvailableAmount: 1000, TotalAmount: 100, NumEpochs: 10, EpochSize: 20, SubscriptionIds: []string{"123"}}
 	k.SetDeal(ctx, deal)
 
 	// The deal must be inactive at epoch number 0
@@ -66,7 +66,7 @@ func TestGetAllActiveProviders(t *testing.T) {
 	sub := types.Subscription{Id: "123", DealId: "12345", Provider: "provider1", StartEpoch: 10, EndEpoch: 15}
 	k.SetSubscription(ctx, sub)
 	// Create a deal
-	deal := types.Deal{Id: "12345", CroId: "alicecro", Requester: Alice, Status: types.Deal_UNDEFINED, AvailableAmount: 1000, TotalAmount: 100, StartEpoch: 10, EndEpoch: 20, SubscriptionIds: []string{"123"}}
+	deal := types.Deal{Id: "12345", CroId: "alicecro", Requester: Alice, Status: types.Deal_UNDEFINED, AvailableAmount: 1000, TotalAmount: 100, NumEpochs: 10, EpochSize: 20, SubscriptionIds: []string{"123"}}
 	k.SetDeal(ctx, deal)
 
 	activeSubs := k.GetAllActiveSubscriptions(ctx, deal)
@@ -113,7 +113,7 @@ func TestDealHasProvider(t *testing.T) {
 	sub := types.Subscription{Id: "123", DealId: "12345", Provider: "provider1", StartEpoch: 10, EndEpoch: 15}
 	k.SetSubscription(ctx, sub)
 	// Create a deal
-	deal := types.Deal{Id: "12345", CroId: "alicecro", Requester: Alice, Status: types.Deal_UNDEFINED, AvailableAmount: 1000, TotalAmount: 100, StartEpoch: 10, EndEpoch: 20, SubscriptionIds: []string{"123"}}
+	deal := types.Deal{Id: "12345", CroId: "alicecro", Requester: Alice, Status: types.Deal_UNDEFINED, AvailableAmount: 1000, TotalAmount: 100, NumEpochs: 10, EpochSize: 20, SubscriptionIds: []string{"123"}}
 	k.SetDeal(ctx, deal)
 
 	hasProvider := k.DealHasProvider(ctx, deal, "provider1")

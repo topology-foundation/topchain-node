@@ -32,9 +32,16 @@ func ValidateAddress(address string) error {
 	return nil
 }
 
-func ValidateEpochRange(startEpoch, endEpoch uint64) error {
-	if startEpoch >= endEpoch {
-		return errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "start epoch must be less than end epoch")
+func ValidateEpochSize(epochSize uint64) error {
+	if epochSize == 0 {
+		return errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "epoch size must be greater than 0")
+	}
+	return nil
+}
+
+func ValidateNumEpochs(numEpochs uint64) error {
+	if numEpochs == 0 {
+		return errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "num epochs must be greater than 0")
 	}
 	return nil
 }

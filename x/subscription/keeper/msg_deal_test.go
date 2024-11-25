@@ -16,7 +16,7 @@ func TestMsgServerCreateDealMsg(t *testing.T) {
 	require.NotNil(t, ctx)
 	require.NotEmpty(t, k)
 
-	response, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, StartEpoch: 10, EndEpoch: 20})
+	response, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, NumEpochs: 10, EpochSize: 20})
 	require.NoError(t, err)
 
 	require.NotEmpty(t, response)
@@ -31,7 +31,7 @@ func TestMsgServerCreateDealScheduled(t *testing.T) {
 	require.NotNil(t, ctx)
 	require.NotEmpty(t, k)
 
-	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, StartEpoch: 10, EndEpoch: 20}
+	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, NumEpochs: 10, EpochSize: 20}
 
 	response, err := ms.CreateDeal(ctx, &createDeal)
 	require.NoError(t, err)
@@ -41,7 +41,7 @@ func TestMsgServerCreateDealScheduled(t *testing.T) {
 
 	require.EqualValues(t, response.DealId, deal.Id)
 
-	require.EqualValues(t, createDeal, types.MsgCreateDeal{Requester: deal.Requester, CroId: deal.CroId, Amount: deal.TotalAmount, StartEpoch: deal.StartEpoch, EndEpoch: deal.EndEpoch})
+	require.EqualValues(t, createDeal, types.MsgCreateDeal{Requester: deal.Requester, CroId: deal.CroId, Amount: deal.TotalAmount, NumEpochs: deal.NumEpochs, EpochSize: deal.EpochSize})
 
 	require.Equal(t, deal.Status, types.Deal_SCHEDULED)
 
@@ -54,7 +54,7 @@ func TestMsgServerCreateDealInitializedStatus(t *testing.T) {
 	require.NotNil(t, ctx)
 	require.NotEmpty(t, k)
 
-	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, StartEpoch: 10, EndEpoch: 20}
+	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, NumEpochs: 10, EpochSize: 20}
 	response, err := ms.CreateDeal(ctx, &createDeal)
 	require.NoError(t, err)
 
@@ -79,7 +79,7 @@ func TestMsgServerCancelDealCorrectRequester(t *testing.T) {
 	require.NotNil(t, ctx)
 	require.NotEmpty(t, k)
 
-	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, StartEpoch: 10, EndEpoch: 20}
+	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, NumEpochs: 10, EpochSize: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
 	require.NoError(t, err)
 
@@ -108,7 +108,7 @@ func TestMsgServerCancelDealIncorrectRequester(t *testing.T) {
 	require.NotNil(t, ctx)
 	require.NotEmpty(t, k)
 
-	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, StartEpoch: 10, EndEpoch: 20}
+	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, NumEpochs: 10, EpochSize: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
 	require.NoError(t, err)
 
@@ -131,17 +131,17 @@ func TestMsgServerUpdateScheduledDealCorrectStartEpochMsg(t *testing.T) {
 	require.NotNil(t, ctx)
 	require.NotEmpty(t, k)
 
-	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, StartEpoch: 10, EndEpoch: 20})
+	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, NumEpochs: 10, EpochSize: 20})
 	require.NoError(t, err)
 
-	updateDeal := types.MsgUpdateDeal{Requester: Alice, DealId: createResponse.DealId, StartEpoch: 11}
+	updateDeal := types.MsgUpdateDeal{Requester: Alice, DealId: createResponse.DealId, NumEpochs: 11}
 	_, err = ms.UpdateDeal(ctx, &updateDeal)
 	require.NoError(t, err)
 
 	deal, found := k.GetDeal(ctx, createResponse.DealId)
 
 	require.True(t, found)
-	require.EqualValues(t, deal.StartEpoch, 11)
+	require.EqualValues(t, deal.NumEpochs, 11)
 }
 
 func TestMsgServerUpdateScheduledDealIncorrectStartEpochMsg(t *testing.T) {
@@ -150,13 +150,13 @@ func TestMsgServerUpdateScheduledDealIncorrectStartEpochMsg(t *testing.T) {
 	require.NotNil(t, ctx)
 	require.NotEmpty(t, k)
 
-	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, StartEpoch: 10, EndEpoch: 20})
+	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, NumEpochs: 10, EpochSize: 20})
 	require.NoError(t, err)
 
 	// Jump to epoch 9
 	ctx = MockBlockHeight(ctx, am, 9*utils.EPOCH_SIZE)
 
-	updateDeal := types.MsgUpdateDeal{Requester: Alice, DealId: createResponse.DealId, StartEpoch: 7}
+	updateDeal := types.MsgUpdateDeal{Requester: Alice, DealId: createResponse.DealId, NumEpochs: 7}
 	_, err = ms.UpdateDeal(ctx, &updateDeal)
 
 	require.NotNil(t, err)
@@ -168,13 +168,13 @@ func TestMsgServerUpdateInitiatedDealIncorrectStartEpochMsg(t *testing.T) {
 	require.NotNil(t, ctx)
 	require.NotEmpty(t, k)
 
-	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, StartEpoch: 10, EndEpoch: 20})
+	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, NumEpochs: 10, EpochSize: 20})
 	require.NoError(t, err)
 
 	// Jump to epoch 12
 	ctx = MockBlockHeight(ctx, am, 12*utils.EPOCH_SIZE)
 
-	updateDeal := types.MsgUpdateDeal{Requester: Alice, DealId: createResponse.DealId, StartEpoch: 7}
+	updateDeal := types.MsgUpdateDeal{Requester: Alice, DealId: createResponse.DealId, NumEpochs: 7}
 	_, err = ms.UpdateDeal(ctx, &updateDeal)
 
 	// It should return an error because the StartEpoch can't be updated once the deal is initiated.
@@ -187,7 +187,7 @@ func TestMsgServerUpdateScheduledDealIncrementAmountMsg(t *testing.T) {
 	require.NotNil(t, ctx)
 	require.NotEmpty(t, k)
 
-	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, StartEpoch: 10, EndEpoch: 20})
+	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, NumEpochs: 10, EpochSize: 20})
 	require.NoError(t, err)
 
 	updateDeal := types.MsgUpdateDeal{Requester: Alice, DealId: createResponse.DealId, Amount: 12000}
@@ -205,7 +205,7 @@ func TestMsgServerUpdateScheduledDealDecrementAmountMsg(t *testing.T) {
 	require.NotNil(t, ctx)
 	require.NotEmpty(t, k)
 
-	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, StartEpoch: 10, EndEpoch: 20})
+	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, NumEpochs: 10, EpochSize: 20})
 	require.NoError(t, err)
 
 	_, err = ms.UpdateDeal(ctx, &types.MsgUpdateDeal{Requester: Alice, DealId: createResponse.DealId, Amount: 5000})
@@ -221,7 +221,7 @@ func TestMsgServerUpdateScheduledDealDecrementTotalAmountMsg(t *testing.T) {
 	require.NotNil(t, ctx)
 	require.NotEmpty(t, k)
 
-	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, StartEpoch: 10, EndEpoch: 20})
+	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, NumEpochs: 10, EpochSize: 20})
 	require.NoError(t, err)
 
 	_, err = ms.UpdateDeal(ctx, &types.MsgUpdateDeal{Requester: Alice, DealId: createResponse.DealId, Amount: 0})
@@ -239,7 +239,7 @@ func TestMsgServerUpdateInitiatedDealIncrementAmountMsg(t *testing.T) {
 	require.NotNil(t, ctx)
 	require.NotEmpty(t, k)
 
-	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, StartEpoch: 10, EndEpoch: 20})
+	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, NumEpochs: 10, EpochSize: 20})
 	require.NoError(t, err)
 
 	// Jump to epoch 12 to initiate the deal
@@ -259,7 +259,7 @@ func TestMsgServerUpdateInitiatedDealDecrementAmountMsg(t *testing.T) {
 	require.NotNil(t, ctx)
 	require.NotEmpty(t, k)
 
-	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, StartEpoch: 10, EndEpoch: 20})
+	createResponse, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, NumEpochs: 10, EpochSize: 20})
 	require.NoError(t, err)
 
 	// Jump to epoch 12 to initiate the deal
@@ -278,7 +278,7 @@ func TestMsgServerJoinDealBeforeInitiationMsg(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a new deal
-	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartEpoch: 10, EndEpoch: 20}
+	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, NumEpochs: 10, EpochSize: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
 	require.NoError(t, err)
 
@@ -319,7 +319,7 @@ func TestMsgServerJoinInitiatedDealMsg(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a new deal
-	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartEpoch: 10, EndEpoch: 20}
+	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, NumEpochs: 10, EpochSize: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
 	require.NoError(t, err)
 
@@ -364,7 +364,7 @@ func TestMsgServerJoinCancelledDealMsg(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a new deal
-	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartEpoch: 10, EndEpoch: 20}
+	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, NumEpochs: 10, EpochSize: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
 	require.NoError(t, err)
 
@@ -398,7 +398,7 @@ func TestMsgServerJoinSameDealMoreThanOnceMsg(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a new deal
-	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartEpoch: 10, EndEpoch: 20}
+	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, NumEpochs: 10, EpochSize: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
 	require.NoError(t, err)
 
@@ -425,7 +425,7 @@ func TestMsgServerIncrementDealAmount(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a new deal
-	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartEpoch: 10, EndEpoch: 20}
+	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, NumEpochs: 10, EpochSize: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
 	require.NoError(t, err)
 
@@ -446,7 +446,7 @@ func TestMsgServerIncrementDealAmountIncorrectRequester(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a new deal
-	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartEpoch: 10, EndEpoch: 20}
+	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, NumEpochs: 10, EpochSize: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
 	require.NoError(t, err)
 
@@ -467,7 +467,7 @@ func TestMsgServerIncrementCancelledDealAmount(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a new deal
-	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartEpoch: 10, EndEpoch: 20}
+	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, NumEpochs: 10, EpochSize: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
 	require.NoError(t, err)
 
@@ -493,7 +493,7 @@ func TestMsgServerIncrementExpiredDealAmount(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a new deal
-	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartEpoch: 10, EndEpoch: 20}
+	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, NumEpochs: 10, EpochSize: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
 	require.NoError(t, err)
 
@@ -519,7 +519,7 @@ func TestMsgServerLeaveJoinedDealMsg(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a new deal
-	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartEpoch: 10, EndEpoch: 20}
+	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, NumEpochs: 10, EpochSize: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
 	require.NoError(t, err)
 
@@ -547,7 +547,7 @@ func TestMsgServerLeaveNotJoinedDealMsg(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a new deal
-	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartEpoch: 10, EndEpoch: 20}
+	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, NumEpochs: 10, EpochSize: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
 	require.NoError(t, err)
 
@@ -569,7 +569,7 @@ func TestMsgServerJoinLeaveJoinDeallMsg(t *testing.T) {
 	require.NotEmpty(t, k)
 
 	// Create a new deal
-	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, StartEpoch: 10, EndEpoch: 20}
+	createDeal := types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 1000, NumEpochs: 10, EpochSize: 20}
 	createResponse, err := ms.CreateDeal(ctx, &createDeal)
 	require.NoError(t, err)
 

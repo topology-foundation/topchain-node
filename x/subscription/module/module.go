@@ -22,7 +22,6 @@ import (
 	// this line is used by starport scaffolding # 1
 
 	modulev1 "topchain/api/topchain/subscription/module"
-	"topchain/utils"
 	"topchain/x/subscription/keeper"
 	"topchain/x/subscription/types"
 )
@@ -161,14 +160,15 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 	am.keeper.IterateDeals(ctx, func(deal types.Deal) bool {
 		// deal status updates
 		// return false to callback to continue iteration
-		currentEpoch := utils.ConvertBlockToEpoch(ctx.BlockHeight())
+		currentBlock := uint64(ctx.BlockHeight())
+		endBlock := deal.StartBlock + deal.NumEpochs*deal.EpochSize
 		switch deal.Status {
 		case types.Deal_EXPIRED:
 			return false
 		case types.Deal_CANCELLED:
 			return false
 		case types.Deal_SCHEDULED:
-			if currentEpoch < deal.StartEpoch {
+			if currentBlock < deal.StartBlock {
 				return false
 			}
 
@@ -178,16 +178,16 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 				deal.Status = types.Deal_INITIALIZED
 			}
 		case types.Deal_INITIALIZED:
-			if currentEpoch > deal.EndEpoch {
+			if currentBlock > endBlock {
 				deal.Status = types.Deal_EXPIRED
 			}
 		case types.Deal_ACTIVE:
-			if currentEpoch > deal.EndEpoch {
+			if currentBlock > endBlock {
 				deal.Status = types.Deal_EXPIRED
 			} else {
 			}
 		case types.Deal_INACTIVE:
-			if currentEpoch > deal.EndEpoch {
+			if currentBlock > endBlock {
 				deal.Status = types.Deal_EXPIRED
 			}
 		default:

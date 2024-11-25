@@ -20,7 +20,7 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 	provider := msg.Provider
 	subscriptionId := msg.SubscriptionId
 	obfuscatedVerticesHash := msg.ObfuscatedVerticesHash
-	currentEpoch := utils.ConvertBlockToEpoch(ctx.BlockHeight())
+	currentBlock := uint64(ctx.BlockHeight())
 	submittedHashes := msg.PreviousVerticesHashes
 
 	subscription, found := k.GetSubscription(ctx, subscriptionId)
@@ -30,6 +30,9 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 	if subscription.Provider != provider {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the provider can submit progress")
 	}
+
+	deal, found := k.GetDeal(ctx, subscription.DealId)
+	currentEpoch := (currentBlock - deal.StartBlock + 1) / deal.EpochSize
 
 	// this is the first obfuscated progress batch submission
 	if len(submittedHashes) == 0 {
@@ -100,7 +103,7 @@ func (k msgServer) ClaimRewards(goCtx context.Context, msg *types.MsgClaimReward
 
 	provider := msg.Provider
 	subscriptionId := msg.SubscriptionId
-	currentEpoch := utils.ConvertBlockToEpoch(ctx.BlockHeight())
+	currentBlock := uint64(ctx.BlockHeight())
 	challengeWindow := utils.ConvertBlockToEpoch(challengeKeeper.ChallengePeriod)
 	reward := int64(0)
 
@@ -118,28 +121,22 @@ func (k msgServer) ClaimRewards(goCtx context.Context, msg *types.MsgClaimReward
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the provider can claim reward")
 	}
 
-	if currentEpoch > deal.EndEpoch+utils.DEAL_EXPIRY_CLAIM_WINDOW {
-		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "reward claim period for deal with deal_id"+deal.Id+"ended")
-	}
-
 	lastClaimedEpoch, found := k.GetProviderLastRewardClaimedEpoch(ctx, provider, subscriptionId)
 	// if the provider is claiming for the first time, `found` is false. In this case, start checking for
-	// rewards from the subscription startBlock.
+	// rewards from the subscription startEpoch.
 	if !found {
-		lastClaimedEpoch = subscription.StartEpoch - 1
+		lastClaimedEpoch = subscription.StartEpoch
 	}
-
-	if currentEpoch < lastClaimedEpoch+challengeWindow {
+	// since challegeWindow is a global variable in terms of blocks, convert everything to blocks.
+	if currentBlock < (deal.StartBlock+lastClaimedEpoch*deal.EpochSize)+challengeWindow {
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "wait until challenge period elapses before claiming")
 	}
-
 	providerProgressEpochs, found := k.GetProgressEpochsProvider(ctx, provider, subscriptionId)
 	if !found {
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot claim reward without submitting progress")
 	}
-
 	// loop until the most recent block that has elapsed the challenge window.
-	lastEligibleEpoch := min(currentEpoch-challengeWindow, subscription.EndEpoch)
+	lastEligibleEpoch := min((currentBlock-challengeWindow+1)/deal.EpochSize, subscription.EndEpoch)
 	for epoch := lastClaimedEpoch + 1; epoch <= lastEligibleEpoch; epoch++ {
 		// only compute rewards for blocks that the provider submitted progress
 		if providerProgressEpochs.Has(epoch) {
@@ -170,7 +167,7 @@ func (k msgServer) ClaimRewards(goCtx context.Context, msg *types.MsgClaimReward
 
 func (k msgServer) WithdrawResidue(goCtx context.Context, msg *types.MsgWithdrawResidue) (*types.MsgWithdrawResidueResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	currentEpoch := utils.ConvertBlockToEpoch(ctx.BlockHeight())
+	currentBlock := uint64(ctx.BlockHeight())
 
 	deal, found := k.GetDeal(ctx, msg.DealId)
 	if !found {
@@ -179,7 +176,7 @@ func (k msgServer) WithdrawResidue(goCtx context.Context, msg *types.MsgWithdraw
 	if msg.Requester != deal.Requester {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the requester can cancel the deal")
 	}
-	if currentEpoch < deal.EndEpoch+utils.DEAL_EXPIRY_CLAIM_WINDOW {
+	if currentBlock < (deal.StartBlock+deal.EpochSize*deal.NumEpochs)+utils.DEAL_EXPIRY_CLAIM_WINDOW {
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidHeight, "requester can withdraw the reward residue only after the deal expiry claim window is elasped")
 	}
 	residueAmount := deal.AvailableAmount

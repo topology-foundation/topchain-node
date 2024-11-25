@@ -25,7 +25,7 @@ func TestSubmitProgress(t *testing.T) {
 	require.NotNil(t, ms)
 	require.NotNil(t, ctx)
 
-	response, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, StartEpoch: 10, EndEpoch: 200})
+	response, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, NumEpochs: 10, EpochSize: 200})
 	require.NoError(t, err)
 
 	dealId := response.DealId
@@ -67,7 +67,7 @@ func TestSubmitProgressWithIncorrectObfuscatedHash(t *testing.T) {
 	require.NotNil(t, ms)
 	require.NotNil(t, ctx)
 
-	response, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, StartEpoch: 10, EndEpoch: 20})
+	response, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, NumEpochs: 10, EpochSize: 20})
 	require.NoError(t, err)
 
 	dealId := response.DealId
@@ -110,7 +110,7 @@ func TestSubmitProgressAfterEpochDeadline(t *testing.T) {
 	require.NotNil(t, ms)
 	require.NotNil(t, ctx)
 
-	response, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, StartEpoch: 10, EndEpoch: 25})
+	response, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, NumEpochs: 10, EpochSize: 25})
 	require.NoError(t, err)
 
 	dealId := response.DealId
@@ -152,7 +152,7 @@ func TestClaimRewardsSingleProvider(t *testing.T) {
 	require.NotNil(t, ms)
 	require.NotNil(t, ctx)
 
-	response, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, StartEpoch: 10, EndEpoch: 20})
+	response, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, NumEpochs: 10, EpochSize: 20})
 	require.NoError(t, err)
 
 	dealId := response.DealId
@@ -208,7 +208,7 @@ func TestClaimRewardsDoubleProviders(t *testing.T) {
 	require.NotNil(t, ms)
 	require.NotNil(t, ctx)
 
-	response, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, StartEpoch: 10, EndEpoch: 20})
+	response, err := ms.CreateDeal(ctx, &types.MsgCreateDeal{Requester: Alice, CroId: "alicecro", Amount: 10000, NumEpochs: 10, EpochSize: 20})
 	require.NoError(t, err)
 
 	dealId := response.DealId
