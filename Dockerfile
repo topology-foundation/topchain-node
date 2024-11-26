@@ -1,12 +1,11 @@
-FROM golang:1.23
+FROM golang:1.23 as build
 
-WORKDIR /topchain-node
+WORKDIR /topchain-build
 COPY . .
-
 RUN go mod tidy
-RUN go build cmd/topchaind/main.go && \
-	mv main /usr/local/bin/topchaind
+RUN go build -o topchaind ./cmd/topchaind
 
-RUN chmod +x /topchain-node/entrypoint.sh
+FROM ubuntu:latest as runtime
+COPY --from=build /topchain-build/topchaind /usr/local/bin/topchaind
 
-ENTRYPOINT ["/bin/bash", "/topchain-node/entrypoint.sh"]
+ENTRYPOINT ["topchaind"]
