@@ -49,7 +49,10 @@ func (k msgServer) Challenge(goCtx context.Context, msg *types.MsgChallenge) (*t
 
 	id := uuid.NewString()
 	buf := &bytes.Buffer{}
-	gob.NewEncoder(buf).Encode(hashes)
+	err = gob.NewEncoder(buf).Encode(hashes)
+	if err != nil {
+		return nil, errorsmod.Wrap(err, "failed to encode challenged hashes")
+	}
 
 	k.SetChallenge(ctx, types.Challenge{
 		Id:               id,
@@ -78,7 +81,10 @@ func (k msgServer) SubmitProof(goCtx context.Context, msg *types.MsgSubmitProof)
 
 	buf := bytes.NewBuffer(challenge.ChallengedHashes)
 	var challengedHashes sTypes.Set[string]
-	gob.NewDecoder(buf).Decode(&challengedHashes)
+	err := gob.NewDecoder(buf).Decode(&challengedHashes)
+	if err != nil {
+		return nil, errorsmod.Wrap(err, "failed to decode challenged hashes")
+	}
 
 	for _, vertex := range msg.Vertices {
 		if challengedHashes.Has(vertex.Hash) {
@@ -104,7 +110,11 @@ func (k msgServer) SubmitProof(goCtx context.Context, msg *types.MsgSubmitProof)
 
 	challenge.LastActive = uint64(ctx.BlockHeight())
 	buf = &bytes.Buffer{}
-	gob.NewEncoder(buf).Encode(challengedHashes)
+	err = gob.NewEncoder(buf).Encode(challengedHashes)
+	if err != nil {
+		return nil, errorsmod.Wrap(err, "failed to encode challenged hashes")
+	}
+
 	challenge.ChallengedHashes = buf.Bytes()
 
 	k.SetChallenge(ctx, challenge)
@@ -138,7 +148,10 @@ func (k msgServer) RequestDependencies(goCtx context.Context, msg *types.MsgRequ
 
 	buf := bytes.NewBuffer(challenge.ChallengedHashes)
 	var challengedHashes sTypes.Set[string]
-	gob.NewDecoder(buf).Decode(&challengedHashes)
+	err = gob.NewDecoder(buf).Decode(&challengedHashes)
+	if err != nil {
+		return nil, errorsmod.Wrap(err, "failed to decode challenged hashes")
+	}
 
 	currentBlock := ctx.BlockHeight()
 	for _, hash := range msg.VerticesHashes {
@@ -157,7 +170,11 @@ func (k msgServer) RequestDependencies(goCtx context.Context, msg *types.MsgRequ
 	challenge.Amount += uint64(fee)
 
 	buf = &bytes.Buffer{}
-	gob.NewEncoder(buf).Encode(challengedHashes)
+	err = gob.NewEncoder(buf).Encode(challengedHashes)
+	if err != nil {
+		return nil, errorsmod.Wrap(err, "failed to encode challenged hashes")
+	}
+
 	challenge.ChallengedHashes = buf.Bytes()
 
 	k.SetChallenge(ctx, challenge)
