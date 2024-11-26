@@ -202,13 +202,19 @@ func (k msgServer) SettleChallenge(goCtx context.Context, msg *types.MsgSettleCh
 		return nil, errorsmod.Wrap(err, "failed to decode challenged hashes")
 	}
 
-	coins := sdk.NewCoins(sdk.NewInt64Coin("top", int64(challenge.Amount)))
+	coins := sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(challenge.Amount)))
 	if len(challengedHashes) == 0 {
 		// all hashes were verified - send coins to provider, remove challenge
-		k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Provider), coins)
+		err := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Provider), coins)
+		if err != nil {
+			return nil, errorsmod.Wrap(err, "failed to send coins to provider")
+		}
 	} else {
 		// some hashes were not verified - send coins to challenger
-		k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Challenger), coins)
+		err := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Challenger), coins)
+		if err != nil {
+			return nil, errorsmod.Wrap(err, "failed to send coins to challenger")
+		}
 	}
 	k.RemoveChallenge(ctx, challenge.Id)
 

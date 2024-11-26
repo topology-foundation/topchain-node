@@ -3,7 +3,6 @@ package app_test
 import (
 	"encoding/json"
 	"flag"
-	"fmt"
 	"math/rand"
 	"os"
 	"runtime/debug"
@@ -160,12 +159,12 @@ func TestAppImportExport(t *testing.T) {
 		simtestutil.PrintStats(db)
 	}
 
-	fmt.Printf("exporting genesis...\n")
+	t.Logf("exporting genesis...")
 
 	exported, err := bApp.ExportAppStateAndValidators(false, []string{}, []string{})
 	require.NoError(t, err)
 
-	fmt.Printf("importing genesis...\n")
+	t.Logf("importing genesis...")
 
 	newDB, newDir, _, _, err := simtestutil.SetupSimulation(config, "leveldb-app-sim-2", "Simulation-2", simcli.FlagVerboseValue, simcli.FlagEnabledValue)
 	require.NoError(t, err, "simulation setup failed")
@@ -197,7 +196,7 @@ func TestAppImportExport(t *testing.T) {
 	require.NoError(t, err)
 	err = newApp.StoreConsensusParams(ctxB, exported.ConsensusParams)
 	require.NoError(t, err)
-	fmt.Printf("comparing stores...\n")
+	t.Logf("comparing stores")
 
 	// skip certain prefixes
 	skipPrefixes := map[string][][]byte{
@@ -232,7 +231,7 @@ func TestAppImportExport(t *testing.T) {
 		failedKVAs, failedKVBs := simtestutil.DiffKVStores(storeA, storeB, skipPrefixes[keyName])
 		require.Equal(t, len(failedKVAs), len(failedKVBs), "unequal sets of key-values to compare %s", keyName)
 
-		fmt.Printf("compared %d different key/value pairs between %s and %s\n", len(failedKVAs), appKeyA, appKeyB)
+		t.Logf("compared %d different key/value pairs between %s and %s", len(failedKVAs), appKeyA, appKeyB)
 
 		require.Equal(t, 0, len(failedKVAs), simtestutil.GetSimulationLog(keyName, bApp.SimulationManager().StoreDecoders, failedKVAs, failedKVBs))
 	}
@@ -284,16 +283,16 @@ func TestAppSimulationAfterImport(t *testing.T) {
 	}
 
 	if stopEarly {
-		fmt.Println("can't export or import a zero-validator genesis, exiting test...")
+		t.Logf("can't export or import a zero-validator genesis, exiting test...")
 		return
 	}
 
-	fmt.Printf("exporting genesis...\n")
+	t.Logf("exporting genesis...")
 
 	exported, err := bApp.ExportAppStateAndValidators(true, []string{}, []string{})
 	require.NoError(t, err)
 
-	fmt.Printf("importing genesis...\n")
+	t.Logf("importing genesis...")
 
 	newDB, newDir, _, _, err := simtestutil.SetupSimulation(config, "leveldb-app-sim-2", "Simulation-2", simcli.FlagVerboseValue, simcli.FlagEnabledValue)
 	require.NoError(t, err, "simulation setup failed")
@@ -368,7 +367,7 @@ func TestAppStateDeterminism(t *testing.T) {
 		if config.Seed == simcli.DefaultSeedValue {
 			config.Seed = rand.Int63()
 		}
-		fmt.Println("config.Seed: ", config.Seed)
+		t.Logf("running simulation; seed %d: %d/%d", config.Seed, i+1, numSeeds)
 
 		for j := 0; j < numTimesToRunPerSeed; j++ {
 			var logger log.Logger
@@ -390,8 +389,8 @@ func TestAppStateDeterminism(t *testing.T) {
 			)
 			require.NoError(t, err)
 
-			fmt.Printf(
-				"running non-determinism simulation; seed %d: %d/%d, attempt: %d/%d\n",
+			t.Logf(
+				"running deterministic simulation; seed %d: %d/%d, attempt: %d/%d\n",
 				config.Seed, i+1, numSeeds, j+1, numTimesToRunPerSeed,
 			)
 

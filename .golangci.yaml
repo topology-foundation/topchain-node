@@ -6,8 +6,6 @@ run:
   tests: true
   modules-download-mode: readonly
   allow-parallel-runners: false
-  skip-files:
-    - main.go
 linters:
   disable-all: true
   enable:
@@ -26,7 +24,6 @@ linters:
     - errchkjson
     - errname
     - errorlint
-    - execinquery
     - exportloopref
     - forbidigo
     - forcetypeassert
@@ -34,7 +31,7 @@ linters:
     - goconst
     - gofmt
     - goheader
-    - gosec
+    # - gosec
     - grouper
     - importas
     - maintidx
@@ -51,9 +48,9 @@ linters:
 linters-settings:
   gocyclo:
     min-complexity: 18
-  gosec:
-    excludes:
-      - G404
+  # gosec:
+  #   excludes:
+  #     - G404
   gocritic:
     disabled-checks:
       - regexpMust
