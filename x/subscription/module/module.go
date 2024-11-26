@@ -221,10 +221,7 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 		am.keeper.SetDeal(ctx, deal)
 		return false, nil
 	})
-	if err != nil {
-		return err
-	}
-	return nil
+	return err
 }
 
 func (am AppModule) PayActiveProvidersPerBlock(ctx sdk.Context, deal types.Deal) (types.Deal, error) {
