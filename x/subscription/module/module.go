@@ -25,6 +25,8 @@ import (
 	topTypes "topchain/types"
 	"topchain/x/subscription/keeper"
 	"topchain/x/subscription/types"
+
+	errorsmod "cosmossdk.io/errors"
 )
 
 var (
@@ -158,6 +160,7 @@ func (am AppModule) BeginBlock(_ context.Context) error {
 // The end block implementation is optional.
 func (am AppModule) EndBlock(goCtx context.Context) error {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+	var global_err error
 	am.keeper.IterateDeals(ctx, func(deal types.Deal) (bool, error) {
 		// deal status updates
 		// return false to callback to continue iteration
@@ -175,6 +178,7 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 				deal.Status = types.Deal_ACTIVE
 				updatedDeal, err := am.PayActiveProvidersPerBlock(ctx, deal)
 				if err != nil {
+					global_err = errorsmod.Wrap(global_err, err.Error())
 					return true, err
 				}
 				deal = updatedDeal			
@@ -187,6 +191,7 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 				// return the remaining amount to the requester
 				err := am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
 				if err != nil {
+					global_err = errorsmod.Wrap(global_err, err.Error())
 					return true, err
 				}
 			}
@@ -196,11 +201,13 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 				// return the remaining amount to the requester
 				err := am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
 				if err != nil {
+					global_err = errorsmod.Wrap(global_err, err.Error())
 					return true, err
 				}
 			} else {
 				updatedDeal, err := am.PayActiveProvidersPerBlock(ctx, deal)
 				if err != nil {
+					global_err = errorsmod.Wrap(global_err, err.Error())
 					return true, err
 				}
 				deal = updatedDeal
@@ -211,6 +218,7 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 				// return the remaining amount to the requester
 				err := am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
 				if err != nil {
+					global_err = errorsmod.Wrap(global_err, err.Error())
 					return true, err
 				}
 			}
@@ -221,6 +229,9 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 		am.keeper.SetDeal(ctx, deal)
 		return false, nil
 	})
+	if global_err != nil {
+		return global_err
+	}
 	return nil
 }
 
