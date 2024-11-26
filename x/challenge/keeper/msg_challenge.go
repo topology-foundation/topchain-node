@@ -197,7 +197,10 @@ func (k msgServer) SettleChallenge(goCtx context.Context, msg *types.MsgSettleCh
 
 	buf := bytes.NewBuffer(challenge.ChallengedHashes)
 	var challengedHashes sTypes.Set[string]
-	gob.NewDecoder(buf).Decode(&challengedHashes)
+	err := gob.NewDecoder(buf).Decode(&challengedHashes)
+	if err != nil {
+		return nil, errorsmod.Wrap(err, "failed to decode challenged hashes")
+	}
 
 	coins := sdk.NewCoins(sdk.NewInt64Coin("top", int64(challenge.Amount)))
 	if len(challengedHashes) == 0 {
