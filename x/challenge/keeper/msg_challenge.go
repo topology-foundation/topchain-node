@@ -182,7 +182,7 @@ func (k msgServer) SettleChallenge(goCtx context.Context, msg *types.MsgSettleCh
 	var challengedHashes sTypes.Set[string]
 	gob.NewDecoder(buf).Decode(&challengedHashes)
 
-	coins := sdk.NewCoins(sdk.NewInt64Coin("top", int64(challenge.Amount)))
+	coins := sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(challenge.Amount)))
 	if len(challengedHashes) == 0 {
 		// all hashes were verified - send coins to provider, remove challenge
 		err := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Provider), coins)

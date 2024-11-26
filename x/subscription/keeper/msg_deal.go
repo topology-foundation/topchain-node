@@ -98,7 +98,7 @@ func (k msgServer) CancelDeal(goCtx context.Context, msg *types.MsgCancelDeal) (
 		k.SetDeal(ctx, deal)
 		// return the remaining amount to the requester
 		err := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
-		if err != nil {
+	if err != nil {
 			return nil, errorsmod.Wrap(err, "failed to send coins to module account")
 		}
 		return &types.MsgCancelDealResponse{}, nil
