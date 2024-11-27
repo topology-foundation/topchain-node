@@ -41,9 +41,9 @@ echo "ALICE: $ALICE"
 echo "BOB: $BOB"
 
 # https://tutorials.cosmos.network/hands-on-exercise/4-run-in-prod/1-run-prod-docker.html#genesis
-run_command_in_docker val-alice genesis add-genesis-account $ALICE 100000000000stake,10000000000utop
+run_command_in_docker val-alice genesis add-genesis-account $ALICE 100000000000stake,10000000000umandu
 mv "$HOME/mandu-devnet/val-alice/config/genesis.json" "$HOME/mandu-devnet/val-bob/config/genesis.json"
-run_command_in_docker val-bob genesis add-genesis-account $BOB 100000000000stake,10000000000utop
+run_command_in_docker val-bob genesis add-genesis-account $BOB 100000000000stake,10000000000umandu
 echo "12345678" | run_command_in_docker val-bob genesis gentx bob 1000000stake --chain-id mandu --keyring-backend file --keyring-dir /root/.mandu/keys --account-number 0 --sequence 0 --gas 100000 --gas-prices 0.025stake
 mv "$HOME/mandu-devnet/val-bob/config/genesis.json" "$HOME/mandu-devnet/val-alice/config/genesis.json"
 echo "12345678" | run_command_in_docker val-alice genesis gentx alice 1000000stake --chain-id mandu --keyring-backend file --keyring-dir /root/.mandu/keys --account-number 0 --sequence 0 --gas 100000 --gas-prices 0.025stake

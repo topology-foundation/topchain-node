@@ -22,7 +22,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	topTypes "mandu/types"
+	manduTypes "mandu/types"
 	"mandu/x/challenge/keeper"
 	challenge "mandu/x/challenge/module"
 	"mandu/x/challenge/types"
@@ -60,7 +60,7 @@ func MockChallengeKeeper(t testing.TB) (keeper.Keeper, sdk.Context, challenge.Ap
 	module := authtypes.NewModuleAddress(types.ModuleName)
 	// stakingAccount := authtypes.NewModuleAddress(stakingtypes.ModuleName)
 
-	var maccPerms = map[string][]string{
+	maccPerms := map[string][]string{
 		authtypes.FeeCollectorName: nil,
 		// ... other module accounts ...
 		types.ModuleName:    {authtypes.Minter, authtypes.Burner},
@@ -104,8 +104,8 @@ func MockBlockHeight(ctx sdk.Context, am challenge.AppModule, height int64) sdk.
 }
 
 func MockFundAccounts(bankKeeper BankKeeper, ctx sdk.Context) error {
-	totalMint := sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, 10000000000))
-	amounts := sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, 1000000000))
+	totalMint := sdk.NewCoins(sdk.NewInt64Coin(manduTypes.TokenDenom, 10000000000))
+	amounts := sdk.NewCoins(sdk.NewInt64Coin(manduTypes.TokenDenom, 1000000000))
 	if err := bankKeeper.MintCoins(ctx, types.ModuleName, totalMint); err != nil {
 		return err
 	}

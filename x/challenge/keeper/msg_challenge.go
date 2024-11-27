@@ -3,19 +3,18 @@ package keeper
 import (
 	"bytes"
 	"context"
+	"crypto/sha256"
 	"encoding/gob"
 	"encoding/json"
 	"fmt"
 
-	topTypes "mandu/types"
+	manduTypes "mandu/types"
 	"mandu/x/challenge/types"
 	sTypes "mandu/x/subscription/types"
 
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-
-	"crypto/sha256"
 
 	"github.com/google/uuid"
 )
@@ -42,7 +41,7 @@ func (k msgServer) Challenge(goCtx context.Context, msg *types.MsgChallenge) (*t
 	}
 
 	totalChallengePrice := k.PricePerVertexChallenge(ctx, msg.Challenger, msg.ProviderId) * int64(len(msg.VerticesHashes))
-	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, totalChallengePrice)))
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin(manduTypes.TokenDenom, totalChallengePrice)))
 	if err != nil {
 		return nil, errorsmod.Wrap(err, "failed to send coins to module account")
 	}
@@ -131,7 +130,7 @@ func (k msgServer) RequestDependencies(goCtx context.Context, msg *types.MsgRequ
 	}
 
 	fee := k.PricePerVertexChallenge(ctx, msg.Challenger, challenge.Provider) * int64(len(msg.VerticesHashes))
-	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, fee)))
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin(manduTypes.TokenDenom, fee)))
 	if err != nil {
 		return nil, errorsmod.Wrap(err, "failed to send coins to module account")
 	}
@@ -182,7 +181,7 @@ func (k msgServer) SettleChallenge(goCtx context.Context, msg *types.MsgSettleCh
 	var challengedHashes sTypes.Set[string]
 	gob.NewDecoder(buf).Decode(&challengedHashes)
 
-	coins := sdk.NewCoins(sdk.NewInt64Coin("top", int64(challenge.Amount)))
+	coins := sdk.NewCoins(sdk.NewInt64Coin(manduTypes.TokenDenom, int64(challenge.Amount)))
 	if len(challengedHashes) == 0 {
 		// all hashes were verified - send coins to provider, remove challenge
 		k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Provider), coins)
