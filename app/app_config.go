@@ -101,7 +101,6 @@ var (
 		// chain modules
 		subscriptionmoduletypes.ModuleName,
 		challengemoduletypes.ModuleName,
-		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 
 	// During begin block slashing happens after distr.BeginBlocker so that
@@ -127,7 +126,6 @@ var (
 		// chain modules
 		subscriptionmoduletypes.ModuleName,
 		challengemoduletypes.ModuleName,
-		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	}
 
 	endBlockers = []string{
@@ -147,12 +145,10 @@ var (
 		// chain modules
 		subscriptionmoduletypes.ModuleName,
 		challengemoduletypes.ModuleName,
-		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
 
 	preBlockers = []string{
 		upgradetypes.ModuleName,
-		// this line is used by starport scaffolding # stargate/app/preBlockers
 	}
 
 	// module account permissions
@@ -167,7 +163,6 @@ var (
 		{Account: ibctransfertypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner}},
 		{Account: ibcfeetypes.ModuleName},
 		{Account: icatypes.ModuleName},
-		// this line is used by starport scaffolding # stargate/app/maccPerms
 		{Account: subscriptionmoduletypes.ModuleName},
 	}
 
@@ -311,7 +306,6 @@ var (
 				Name:   challengemoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&challengemodulev1.Module{}),
 			},
-			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},
 	})
 )

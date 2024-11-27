@@ -28,8 +28,6 @@ const (
 	opWeightMsgCancelSubscription = "op_weight_msg_cancel_subscription"
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgCancelSubscription int = 100
-
-	// this line is used by starport scaffolding # simapp/module/const
 )
 
 // GenerateGenesisState creates a randomized GenState of the module.
@@ -40,7 +38,6 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 	}
 	subscriptionGenesis := types.GenesisState{
 		Params: types.DefaultParams(),
-		// this line is used by starport scaffolding # simapp/module/genesisState
 	}
 	simState.GenState[types.ModuleName] = simState.Cdc.MustMarshalJSON(&subscriptionGenesis)
 }
@@ -57,7 +54,5 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 
 // ProposalMsgs returns msgs used for governance proposals for simulations.
 func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.WeightedProposalMsg {
-	return []simtypes.WeightedProposalMsg{
-		// this line is used by starport scaffolding # simapp/module/OpMsg
-	}
+	return []simtypes.WeightedProposalMsg{}
 }

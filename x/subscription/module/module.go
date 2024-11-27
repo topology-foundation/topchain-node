@@ -19,8 +19,6 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 
-	// this line is used by starport scaffolding # 1
-
 	modulev1 "mandu/api/mandu/subscription/module"
 	topTypes "mandu/types"
 	"mandu/x/subscription/keeper"

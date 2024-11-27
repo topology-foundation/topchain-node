@@ -135,7 +135,6 @@ type App struct {
 
 	SubscriptionKeeper subscriptionmodulekeeper.Keeper
 	ChallengeKeeper    challengemodulekeeper.Keeper
-	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
 	sm *module.SimulationManager
@@ -153,11 +152,9 @@ func init() {
 // getGovProposalHandlers return the chain proposal handlers.
 func getGovProposalHandlers() []govclient.ProposalHandler {
 	var govProposalHandlers []govclient.ProposalHandler
-	// this line is used by starport scaffolding # stargate/app/govProposalHandlers
 
 	govProposalHandlers = append(govProposalHandlers,
 		paramsclient.ProposalHandler,
-		// this line is used by starport scaffolding # stargate/app/govProposalHandler
 	)
 
 	return govProposalHandlers
@@ -174,7 +171,6 @@ func AppConfig() depinject.Config {
 			map[string]module.AppModuleBasic{
 				genutiltypes.ModuleName: genutil.NewAppModuleBasic(genutiltypes.DefaultMessageValidator),
 				govtypes.ModuleName:     gov.NewAppModuleBasic(getGovProposalHandlers()),
-				// this line is used by starport scaffolding # stargate/appConfig/moduleBasic
 			},
 		),
 	)
@@ -240,7 +236,6 @@ func New(
 		&app.CircuitBreakerKeeper,
 		&app.SubscriptionKeeper,
 		&app.ChallengeKeeper,
-		// this line is used by starport scaffolding # stargate/app/keeperDefinition
 	); err != nil {
 		panic(err)
 	}
