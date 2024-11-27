@@ -20,9 +20,9 @@ import (
 
 	// this line is used by starport scaffolding # 1
 
-	modulev1 "topchain/api/topchain/challenge/module"
-	"topchain/x/challenge/keeper"
-	"topchain/x/challenge/types"
+	modulev1 "mandu/api/mandu/challenge/module"
+	"mandu/x/challenge/keeper"
+	"mandu/x/challenge/types"
 )
 
 var (

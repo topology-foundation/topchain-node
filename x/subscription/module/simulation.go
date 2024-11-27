@@ -8,8 +8,8 @@ import (
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
 
-	subscriptionsimulation "topchain/x/subscription/simulation"
-	"topchain/x/subscription/types"
+	subscriptionsimulation "mandu/x/subscription/simulation"
+	"mandu/x/subscription/types"
 )
 
 // avoid unused import issue

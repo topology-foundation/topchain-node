@@ -3,9 +3,9 @@ package keeper_test
 import (
 	"testing"
 
-	"topchain/x/subscription/keeper"
-	subscription "topchain/x/subscription/module"
-	"topchain/x/subscription/types"
+	"mandu/x/subscription/keeper"
+	subscription "mandu/x/subscription/module"
+	"mandu/x/subscription/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"

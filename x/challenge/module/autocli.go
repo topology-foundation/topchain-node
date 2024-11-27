@@ -3,7 +3,7 @@ package challenge
 import (
 	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
 
-	modulev1 "topchain/api/topchain/challenge"
+	modulev1 "mandu/api/mandu/challenge"
 )
 
 // AutoCLIOptions implements the autocli.HasAutoCLIConfig interface.

@@ -3,7 +3,7 @@ package keeper_test
 import (
 	"testing"
 
-	"topchain/x/subscription/types"
+	"mandu/x/subscription/types"
 
 	"github.com/stretchr/testify/require"
 	"golang.org/x/crypto/sha3"
@@ -58,7 +58,6 @@ func TestSubmitProgress(t *testing.T) {
 
 	// There should not be any error
 	require.NoError(t, err)
-
 }
 
 func TestSubmitProgressWithIncorrectObfuscatedHash(t *testing.T) {
@@ -101,7 +100,6 @@ func TestSubmitProgressWithIncorrectObfuscatedHash(t *testing.T) {
 
 	// There should be an error because you submitted the wrong vertices hashes
 	require.Error(t, err)
-
 }
 
 func TestSubmitProgressAfterEpochDeadline(t *testing.T) {

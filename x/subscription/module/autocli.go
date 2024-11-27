@@ -3,7 +3,7 @@ package subscription
 import (
 	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
 
-	modulev1 "topchain/api/topchain/subscription"
+	modulev1 "mandu/api/mandu/subscription"
 )
 
 // AutoCLIOptions implements the autocli.HasAutoCLIConfig interface.

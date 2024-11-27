@@ -22,10 +22,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	topTypes "topchain/types"
-	"topchain/x/challenge/keeper"
-	challenge "topchain/x/challenge/module"
-	"topchain/x/challenge/types"
+	topTypes "mandu/types"
+	"mandu/x/challenge/keeper"
+	challenge "mandu/x/challenge/module"
+	"mandu/x/challenge/types"
 )
 
 const (

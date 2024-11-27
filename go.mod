@@ -1,4 +1,4 @@
-module topchain
+module mandu
 
 go 1.23
 

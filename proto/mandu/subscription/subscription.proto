@@ -1,0 +1,12 @@
+syntax = "proto3";
+package mandu.subscription;
+
+option go_package = "mandu/x/subscription/types";
+
+message Subscription {
+  string id = 1;
+  string deal_id = 2;
+  string provider = 3;
+  uint64 start_block = 4;
+  uint64 end_block = 5;
+}

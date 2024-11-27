@@ -3,8 +3,8 @@ package challenge
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"topchain/x/challenge/keeper"
-	"topchain/x/challenge/types"
+	"mandu/x/challenge/keeper"
+	"mandu/x/challenge/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.

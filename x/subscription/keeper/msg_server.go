@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"topchain/x/subscription/types"
+	"mandu/x/subscription/types"
 )
 
 type msgServer struct {

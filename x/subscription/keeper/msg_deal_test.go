@@ -3,7 +3,7 @@ package keeper_test
 import (
 	"testing"
 
-	"topchain/x/subscription/types"
+	"mandu/x/subscription/types"
 
 	"github.com/stretchr/testify/require"
 )

@@ -75,17 +75,9 @@ import (
 	ibctransferkeeper "github.com/cosmos/ibc-go/v8/modules/apps/transfer/keeper"
 	ibckeeper "github.com/cosmos/ibc-go/v8/modules/core/keeper"
 
-	subscriptionmodulekeeper "topchain/x/subscription/keeper"
-
-	challengemodulekeeper "topchain/x/challenge/keeper"
-	// this line is used by starport scaffolding # stargate/app/moduleImport
-
-	"topchain/docs"
-)
-
-const (
-	AccountAddressPrefix = "cosmos"
-	Name                 = "topchain"
+	mandutypes "mandu/types"
+	challengemodulekeeper "mandu/x/challenge/keeper"
+	subscriptionmodulekeeper "mandu/x/subscription/keeper"
 )
 
 // DefaultNodeHome default home directories for the application daemon
@@ -151,8 +143,8 @@ type App struct {
 
 func init() {
 	var err error
-	clienthelpers.EnvPrefix = Name
-	DefaultNodeHome, err = clienthelpers.GetNodeHomeDirectory("." + Name)
+	clienthelpers.EnvPrefix = mandutypes.AppName
+	DefaultNodeHome, err = clienthelpers.GetNodeHomeDirectory("." + mandutypes.AppName)
 	if err != nil {
 		panic(err)
 	}
@@ -390,9 +382,6 @@ func (app *App) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig
 	if err := server.RegisterSwaggerAPI(apiSvr.ClientCtx, apiSvr.Router, apiConfig.Swagger); err != nil {
 		panic(err)
 	}
-
-	// register app's OpenAPI routes.
-	docs.RegisterOpenAPIService(Name, apiSvr.Router)
 }
 
 // GetMaccPerms returns a copy of the module account permissions

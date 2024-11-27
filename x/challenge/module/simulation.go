@@ -8,8 +8,8 @@ import (
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
 
-	challengesimulation "topchain/x/challenge/simulation"
-	"topchain/x/challenge/types"
+	challengesimulation "mandu/x/challenge/simulation"
+	"mandu/x/challenge/types"
 )
 
 // avoid unused import issue

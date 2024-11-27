@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"topchain/x/subscription/types"
+	"mandu/x/subscription/types"
 
 	query "github.com/cosmos/cosmos-sdk/types/query"
 )

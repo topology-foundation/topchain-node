@@ -1,34 +1,34 @@
 version: "3.7"
 
 networks:
-  topchain:
+  mandu:
 
 services:
   val-alice:
     command: start
     container_name: val-alice
-    image: topchain-node
+    image: mandu-node
     volumes:
-      - ${HOME}/topchain-devnet/val-alice:/root/.topchain
+      - ${HOME}/mandu-devnet/val-alice:/root/.mandu
     networks:
-      - topchain
+      - mandu
 
   val-bob:
     command: start
     container_name: val-bob
-    image: topchain-node
+    image: mandu-node
     volumes:
-      - ${HOME}/topchain-devnet/val-bob:/root/.topchain
+      - ${HOME}/mandu-devnet/val-bob:/root/.mandu
     networks:
-      - topchain
+      - mandu
 
   node-carol:
     command: start
     container_name: node-carol
-    image: topchain-node
+    image: mandu-node
     volumes:
-      - ${HOME}/topchain-devnet/node-carol:/root/.topchain
+      - ${HOME}/mandu-devnet/node-carol:/root/.mandu
     ports:
       - 0.0.0.0:26657:26657
     networks:
-      - topchain
+      - mandu

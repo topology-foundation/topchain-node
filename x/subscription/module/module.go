@@ -21,10 +21,10 @@ import (
 
 	// this line is used by starport scaffolding # 1
 
-	modulev1 "topchain/api/topchain/subscription/module"
-	topTypes "topchain/types"
-	"topchain/x/subscription/keeper"
-	"topchain/x/subscription/types"
+	modulev1 "mandu/api/mandu/subscription/module"
+	topTypes "mandu/types"
+	"mandu/x/subscription/keeper"
+	"mandu/x/subscription/types"
 )
 
 var (

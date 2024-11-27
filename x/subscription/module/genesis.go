@@ -1,8 +1,8 @@
 package subscription
 
 import (
-	"topchain/x/subscription/keeper"
-	"topchain/x/subscription/types"
+	"mandu/x/subscription/keeper"
+	"mandu/x/subscription/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

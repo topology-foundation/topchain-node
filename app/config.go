@@ -1,18 +1,22 @@
 package app
 
-import sdk "github.com/cosmos/cosmos-sdk/types"
+import (
+	mandutypes "mandu/types"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+)
 
 func init() {
 	// Set prefixes
-	accountPubKeyPrefix := AccountAddressPrefix + "pub"
-	validatorAddressPrefix := AccountAddressPrefix + "valoper"
-	validatorPubKeyPrefix := AccountAddressPrefix + "valoperpub"
-	consNodeAddressPrefix := AccountAddressPrefix + "valcons"
-	consNodePubKeyPrefix := AccountAddressPrefix + "valconspub"
+	accountPubKeyPrefix := mandutypes.AccountAddressPrefix + "pub"
+	validatorAddressPrefix := mandutypes.AccountAddressPrefix + "valoper"
+	validatorPubKeyPrefix := mandutypes.AccountAddressPrefix + "valoperpub"
+	consNodeAddressPrefix := mandutypes.AccountAddressPrefix + "valcons"
+	consNodePubKeyPrefix := mandutypes.AccountAddressPrefix + "valconspub"
 
 	// Set and seal config
 	config := sdk.GetConfig()
-	config.SetBech32PrefixForAccount(AccountAddressPrefix, accountPubKeyPrefix)
+	config.SetBech32PrefixForAccount(mandutypes.AccountAddressPrefix, accountPubKeyPrefix)
 	config.SetBech32PrefixForValidator(validatorAddressPrefix, validatorPubKeyPrefix)
 	config.SetBech32PrefixForConsensusNode(consNodeAddressPrefix, consNodePubKeyPrefix)
 	config.Seal()

@@ -32,11 +32,11 @@ import (
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/require"
 
-	"topchain/app"
+	"mandu/app"
 )
 
 const (
-	SimAppChainID = "topchain-simapp"
+	SimAppChainID = "mandu-simapp"
 )
 
 var FlagEnableStreamingValue bool

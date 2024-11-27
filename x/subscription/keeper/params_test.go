@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"topchain/x/subscription/types"
+	"mandu/x/subscription/types"
 )
 
 func TestGetParams(t *testing.T) {
