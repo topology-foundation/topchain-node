@@ -16,17 +16,15 @@ permissions:
 
 jobs:
   golangci:
-    name: Lint
+    name: lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-go@v4
         with:
           go-version: '1.23.1'
+          cache: false
       - uses: actions/checkout@v3
-      - name: Install dependencies
-        run: go mod tidy
-      - name: Run golangci-lint
+      - name: golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:
           version: v1.62.0
-          args: --verbose --timeout 5m
