@@ -43,6 +43,8 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 		return nil, err
 	}
 
+	rewardPerEpoch := msg.Amount / msg.NumEpochs
+
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	id := uuid.NewString()
 	deal := types.Deal{
@@ -56,6 +58,7 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 		StartBlock:      msg.StartBlock,
 		EpochSize:       msg.EpochSize,
 		NumEpochs:       msg.NumEpochs,
+		RewardPerEpoch:  rewardPerEpoch,
 		InitialFrontier: msg.InitialFrontier,
 	}
 
@@ -113,7 +116,7 @@ func (k msgServer) CancelDeal(goCtx context.Context, msg *types.MsgCancelDeal) (
 			if !found {
 				return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "SHOULD NOT HAPPEN: subscription with id "+subscriptionId+" not found")
 			}
-			subscription.EndEpoch = utils.ConvertBlockToEpoch(ctx.BlockHeight())
+			subscription.EndEpoch = utils.ConvertBlockToEpoch(uint64(ctx.BlockHeight())-deal.StartBlock, deal.EpochSize)
 			k.SetSubscription(ctx, subscription)
 		}
 		// return the remaining amount to the requester
@@ -137,8 +140,9 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 	if msg.Requester != deal.Requester {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the requester can update the deal")
 	}
-	// Amount, StartEpoch, and EndEpoch are optional arguments an default to 0 if not provided
+	// Amount, StartBlock, and NumEpochs are optional arguments an default to 0 if not provided
 	currentBlock := uint64(ctx.BlockHeight())
+	currentEpoch := utils.ConvertBlockToEpoch(currentBlock-deal.StartBlock, deal.EpochSize)
 	if currentBlock < deal.StartBlock {
 		if msg.Amount != 0 {
 			if msg.Amount < deal.TotalAmount {
@@ -160,12 +164,17 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 			}
 			deal.StartBlock = msg.StartBlock
 		}
+		if msg.NumEpochs != 0 {
+			deal.NumEpochs = msg.NumEpochs
+		}
+		deal.RewardPerEpoch = deal.TotalAmount / deal.NumEpochs
 	} else {
+		amountToDeposit := uint64(0)
 		if msg.Amount != 0 {
 			if msg.Amount < deal.TotalAmount {
 				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "amount must be greater than initial amount")
 			}
-			amountToDeposit := msg.Amount - deal.TotalAmount
+			amountToDeposit = msg.Amount - deal.TotalAmount
 			requester, err := sdk.AccAddressFromBech32(msg.Requester)
 			if err != nil {
 				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
@@ -181,24 +190,13 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 			return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot update start block after deal has started")
 		}
 		if msg.NumEpochs != 0 {
-			if deal.StartBlock+msg.NumEpochs*deal.EpochSize < currentBlock {
-				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot update num epochs to a value that results in an end block earlier than the current block")
+			if msg.NumEpochs <= currentEpoch {
+				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot update num epochs to a value less than or equal to the current epoch")
 			}
 			deal.NumEpochs = msg.NumEpochs
 		}
-		if msg.EpochSize != 0 {
-			if deal.StartBlock+deal.NumEpochs*msg.EpochSize < currentBlock {
-				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot update epoch size to a value that results in an end block earlier than the current block")
-			}
-			deal.EpochSize = msg.EpochSize
-		}
-		if msg.EpochSize != 0 && msg.NumEpochs != 0 {
-			if deal.StartBlock+msg.NumEpochs*msg.EpochSize < currentBlock {
-				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot update epoch size and num epoch to values that results in an end block earlier than the current block")
-			}
-			deal.EpochSize = msg.EpochSize
-			deal.NumEpochs = msg.NumEpochs
-		}
+		// the reward amount topup only applies to epochs >= currentEpoch
+		deal.RewardPerEpoch = deal.RewardPerEpoch + amountToDeposit/(deal.NumEpochs-currentEpoch+1)
 	}
 
 	k.SetDeal(ctx, deal)
@@ -233,6 +231,7 @@ func (k msgServer) IncrementDealAmount(goCtx context.Context, msg *types.MsgIncr
 	if !found {
 		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, "deal with id "+msg.DealId+" not found")
 	}
+	currentEpoch := utils.ConvertBlockToEpoch(uint64(ctx.BlockHeight())-deal.StartBlock, deal.EpochSize)
 	if msg.Requester != deal.Requester {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the requester can increment the deal amount")
 	}
@@ -247,6 +246,9 @@ func (k msgServer) IncrementDealAmount(goCtx context.Context, msg *types.MsgIncr
 	}
 	deal.TotalAmount += msg.Amount
 	deal.AvailableAmount += msg.Amount
+
+	// the reward amount topup only applies to epochs >= currentEpoch
+	deal.RewardPerEpoch = deal.RewardPerEpoch + msg.Amount/(deal.NumEpochs-currentEpoch+1)
 
 	k.SetDeal(ctx, deal)
 	return &types.MsgIncrementDealAmountResponse{}, nil
@@ -354,7 +356,7 @@ func (k msgServer) LeaveDeal(goCtx context.Context, msg *types.MsgLeaveDeal) (*t
 		}
 		if subscription.Provider == msg.Provider {
 			isSubscribed = true
-			subscription.EndEpoch = utils.ConvertBlockToEpoch((ctx.BlockHeight()))
+			subscription.EndEpoch = utils.ConvertBlockToEpoch(uint64(ctx.BlockHeight())-deal.StartBlock, deal.EpochSize)
 			k.SetSubscription(ctx, subscription)
 		}
 	}

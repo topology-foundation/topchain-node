@@ -23,7 +23,13 @@ type ProgressTuple struct {
 
 type ProgressDeal struct {
 	Total    uint64
+	Reward   ProgressRewardCache
 	Progress []ProgressTuple
+}
+
+type ProgressRewardCache struct {
+	Epoch  uint64
+	Reward uint64
 }
 
 const EPOCH_SIZE = 10
@@ -78,11 +84,11 @@ func (k Keeper) GetObfuscatedProgress(ctx sdk.Context, subscription string) (dat
 	return data, true
 }
 
-func (k Keeper) SetProgressSize(ctx sdk.Context, subscription string, epoch uint64, size int) {
+func (k Keeper) SetProgressSize(ctx sdk.Context, subscription string, epoch uint64, size uint64) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.GetProgressSizeStoreKey(subscription))
 
-	store.Set(sdk.Uint64ToBigEndian(epoch), sdk.Uint64ToBigEndian(uint64(size)))
+	store.Set(sdk.Uint64ToBigEndian(epoch), sdk.Uint64ToBigEndian(size))
 }
 
 func (k Keeper) GetProgressSize(ctx sdk.Context, subscription string, epoch uint64) (size int, found bool) {
@@ -97,28 +103,9 @@ func (k Keeper) GetProgressSize(ctx sdk.Context, subscription string, epoch uint
 	return int(sdk.BigEndianToUint64(sizeBytes)), true
 }
 
-func (k Keeper) AddProgressDealAtEpoch(ctx sdk.Context, deal string, provider string, epoch uint64, size uint64) {
+func (k Keeper) SetProgressDealAtEpoch(ctx sdk.Context, deal string, epoch uint64, progressDeal ProgressDeal) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.GetProgressDealStoreKey(deal))
-
-	var progressDeal ProgressDeal
-	// Fetch the progressDeal from the store or create a new if it doesn't exist.
-	if progressBytes := store.Get(sdk.Uint64ToBigEndian(epoch)); progressBytes == nil {
-		progressDeal = ProgressDeal{
-			Total:    0,
-			Progress: []ProgressTuple{},
-		}
-	} else {
-		buf := bytes.NewBuffer(progressBytes)
-		gob.NewDecoder(buf).Decode(&progressDeal)
-	}
-
-	newProgress := ProgressTuple{
-		Provider: provider,
-		Size:     size,
-	}
-	progressDeal.Progress = append(progressDeal.Progress, newProgress)
-	progressDeal.Total += size
 
 	buf := &bytes.Buffer{}
 	gob.NewEncoder(buf).Encode(progressDeal)

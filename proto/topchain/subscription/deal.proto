@@ -24,5 +24,6 @@ message Deal {
   uint64 start_block = 8;
   uint64 epoch_size = 9;
   uint64 num_epochs = 10;
-  repeated string initial_frontier = 11;
+  uint64 reward_per_epoch = 11;
+  repeated string initial_frontier = 12;
 }

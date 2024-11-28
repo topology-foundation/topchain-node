@@ -31,8 +31,12 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the provider can submit progress")
 	}
 
-	deal, found := k.GetDeal(ctx, subscription.DealId)
+	deal, _ := k.GetDeal(ctx, subscription.DealId)
 	currentEpoch := (currentBlock - deal.StartBlock + 1) / deal.EpochSize
+
+	if subscription.EndEpoch <= currentEpoch {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot submit progress to an expired subscription")
+	}
 
 	// this is the first obfuscated progress batch submission
 	if len(submittedHashes) == 0 {
@@ -47,6 +51,17 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 		return nil, errorsmod.Wrap(err, "vertices hashes / obfuscated data validation failed")
 	}
 
+	progressDeal, found := k.GetProgressDealAtEpoch(ctx, subscription.DealId, currentEpoch)
+	if !found {
+		progressDeal = ProgressDeal{}
+	}
+
+	// the reward allocated for the previous epoch must be deducted from the deal.AvailableAmount
+	if progressDeal.Reward.Epoch < currentEpoch {
+		deal.AvailableAmount -= progressDeal.Reward.Reward
+	}
+	k.SetDeal(ctx, deal)
+
 	progress, found := k.GetProgress(ctx, subscriptionId)
 	if !found {
 		hashesSet := types.SetFrom(submittedHashes...)
@@ -55,7 +70,9 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 		}
 		k.SetProgress(ctx, subscriptionId, hashesSet)
 
-		k.AddProgressDealAtEpoch(ctx, subscription.DealId, provider, currentEpoch, uint64(len(hashesSet)))
+		progressSize := uint64(len(hashesSet))
+		progressDeal = getUpdatedProgressDeal(progressDeal, provider, progressSize, deal.RewardPerEpoch, currentEpoch)
+		k.SetProgressDealAtEpoch(ctx, subscription.DealId, currentEpoch, progressDeal)
 		k.AddProgressEpochsProvider(ctx, provider, subscriptionId, currentEpoch)
 		return &types.MsgSubmitProgressResponse{}, nil
 	}
@@ -71,14 +88,27 @@ func (k msgServer) SubmitProgress(goCtx context.Context, msg *types.MsgSubmitPro
 	// Add the new obfuscated progress hash to the obfuscated progress hash set
 	k.SetObfuscatedProgress(ctx, subscriptionId, currentEpoch, obfuscatedVerticesHash)
 
-	progressSize := len(progress) - initialProgressSize
+	progressSize := uint64(len(progress) - initialProgressSize)
 
 	k.SetProgress(ctx, subscriptionId, progress)
-	k.AddProgressDealAtEpoch(ctx, subscription.DealId, provider, currentEpoch, uint64(progressSize))
+
+	progressDeal = getUpdatedProgressDeal(progressDeal, provider, progressSize, deal.RewardPerEpoch, currentEpoch)
+	k.SetProgressDealAtEpoch(ctx, subscription.DealId, currentEpoch, progressDeal)
 	k.AddProgressEpochsProvider(ctx, provider, subscriptionId, currentEpoch)
-	k.SetProgressSize(ctx, subscriptionId, currentEpoch, progressSize)
 
 	return &types.MsgSubmitProgressResponse{}, nil
+}
+
+func getUpdatedProgressDeal(progressDeal ProgressDeal, provider string, size, reward, epoch uint64) ProgressDeal {
+	newProgress := ProgressTuple{
+		Provider: provider,
+		Size:     size,
+	}
+	progressDeal.Progress = append(progressDeal.Progress, newProgress)
+	progressDeal.Total += size
+	progressDeal.Reward = ProgressRewardCache{Reward: reward, Epoch: epoch}
+
+	return progressDeal
 }
 
 func validateObfuscatedProgress(obfuscatedProgressData ObfuscatedProgressData, submittedHashes []string, provider string, epochNumber uint64) error {
@@ -104,7 +134,7 @@ func (k msgServer) ClaimRewards(goCtx context.Context, msg *types.MsgClaimReward
 	provider := msg.Provider
 	subscriptionId := msg.SubscriptionId
 	currentBlock := uint64(ctx.BlockHeight())
-	challengeWindow := utils.ConvertBlockToEpoch(challengeKeeper.ChallengePeriod)
+	challengeWindow := uint64(challengeKeeper.ChallengePeriod)
 	reward := int64(0)
 
 	subscription, found := k.GetSubscription(ctx, subscriptionId)
@@ -136,7 +166,7 @@ func (k msgServer) ClaimRewards(goCtx context.Context, msg *types.MsgClaimReward
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot claim reward without submitting progress")
 	}
 	// loop until the most recent block that has elapsed the challenge window.
-	lastEligibleEpoch := min((currentBlock-challengeWindow+1)/deal.EpochSize, subscription.EndEpoch)
+	lastEligibleEpoch := min(utils.ConvertBlockToEpoch(currentBlock-challengeWindow-deal.StartBlock, deal.EpochSize), subscription.EndEpoch)
 	for epoch := lastClaimedEpoch + 1; epoch <= lastEligibleEpoch; epoch++ {
 		// only compute rewards for blocks that the provider submitted progress
 		if providerProgressEpochs.Has(epoch) {
@@ -145,7 +175,7 @@ func (k msgServer) ClaimRewards(goCtx context.Context, msg *types.MsgClaimReward
 			if !found {
 				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "this should not happen!")
 			}
-			epochReward := k.CalculateEpochReward(deal)
+			epochReward := progressDeal.Reward.Reward
 			for _, progress := range progressDeal.Progress {
 				if progress.Provider == provider {
 					reward += int64(float64(epochReward) * float64(progress.Size) / float64(progressDeal.Total))
@@ -159,9 +189,7 @@ func (k msgServer) ClaimRewards(goCtx context.Context, msg *types.MsgClaimReward
 	k.SetProgressEpochsProvider(ctx, providerProgressEpochs, provider, subscriptionId)
 	// send payout
 	k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(provider), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(reward))))
-	deal.AvailableAmount -= uint64(reward)
 
-	k.SetDeal(ctx, deal)
 	return &types.MsgClaimRewardsResponse{}, nil
 }
 

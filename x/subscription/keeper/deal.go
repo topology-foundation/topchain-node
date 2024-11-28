@@ -40,7 +40,7 @@ func (k Keeper) IsDealActive(ctx sdk.Context, deal types.Deal) bool {
 		if !found {
 			continue
 		}
-		currentEpoch := utils.ConvertBlockToEpoch(ctx.BlockHeight())
+		currentEpoch := utils.ConvertBlockToEpoch(uint64(ctx.BlockHeight())-deal.StartBlock, deal.EpochSize)
 		if subscription.StartEpoch <= currentEpoch && subscription.EndEpoch >= currentEpoch {
 			return true
 		}
@@ -56,7 +56,7 @@ func (k Keeper) GetAllActiveSubscriptions(ctx sdk.Context, deal types.Deal) map[
 		if !found {
 			continue
 		}
-		currentEpoch := utils.ConvertBlockToEpoch(ctx.BlockHeight())
+		currentEpoch := utils.ConvertBlockToEpoch(uint64(ctx.BlockHeight())-deal.StartBlock, deal.EpochSize)
 		if subscription.StartEpoch <= currentEpoch && subscription.EndEpoch >= currentEpoch {
 			subscriptions[subscriptionId] = subscription.Provider
 		}
@@ -80,7 +80,7 @@ func (k Keeper) IsDealUnavailable(status types.Deal_Status) bool {
 func (k Keeper) DealHasProvider(ctx sdk.Context, deal types.Deal, provider string) bool {
 	for _, subscriptionId := range deal.SubscriptionIds {
 		sub, _ := k.GetSubscription(ctx, subscriptionId)
-		currentEpoch := utils.ConvertBlockToEpoch(ctx.BlockHeight())
+		currentEpoch := utils.ConvertBlockToEpoch(uint64(ctx.BlockHeight())-deal.StartBlock, deal.EpochSize)
 		if sub.Provider == provider && currentEpoch <= sub.EndEpoch {
 			return true
 		}
