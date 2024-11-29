@@ -17,3 +17,24 @@ config-mock:
 
 docker-build:
 	docker build -t mandu-node:latest .
+
+
+## proto-all: Format, lint and generate code from proto files using buf.
+proto-all: proto-format proto-lint proto-gen format
+
+## proto-gen: Run buf generate.
+proto-gen:
+	@echo Generating code from proto...
+	@sh scripts/protocgen.sh
+
+## proto-format: Run buf format and update files with invalid proto format>
+proto-format:
+	@echo Formatting proto files...
+	@buf format --write
+
+## proto-lint: Run buf lint.
+proto-lint:
+	@echo Linting proto files...
+	@buf lint
+
+.PHONY: proto-all proto-gen proto-format proto-lint

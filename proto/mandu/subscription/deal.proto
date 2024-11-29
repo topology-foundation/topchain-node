@@ -7,11 +7,11 @@ message Deal {
   enum Status {
     UNDEFINED = 0;
     SCHEDULED = 1;
-	INITIALIZED = 2;
-	ACTIVE = 3;
-	INACTIVE = 4;
-	CANCELLED = 5;
-	EXPIRED = 6;
+    INITIALIZED = 2;
+    ACTIVE = 3;
+    INACTIVE = 4;
+    CANCELLED = 5;
+    EXPIRED = 6;
   }
 
   string id = 1;
