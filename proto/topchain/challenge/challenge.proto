@@ -7,7 +7,8 @@ message Challenge {
     string id = 1;
     string challenger = 2;
     string provider = 3;
-    uint64 amount = 4;
-    uint64 last_active = 5;
-    bytes challenged_hashes = 6;
+    string deal_id = 4;
+    uint64 amount = 5;
+    uint64 last_active = 6;
+    bytes challenged_hashes = 7;
 }

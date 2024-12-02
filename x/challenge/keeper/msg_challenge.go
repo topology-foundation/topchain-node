@@ -8,7 +8,9 @@ import (
 	"fmt"
 
 	topTypes "topchain/types"
+	utils "topchain/utils"
 	"topchain/x/challenge/types"
+	sKeeper "topchain/x/subscription/keeper"
 	sTypes "topchain/x/subscription/types"
 
 	errorsmod "cosmossdk.io/errors"
@@ -27,17 +29,22 @@ func (k msgServer) Challenge(goCtx context.Context, msg *types.MsgChallenge) (*t
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid challenger address")
 	}
 
-	currentBlock := ctx.BlockHeight()
-	var hashes sTypes.Set[string]
+	currentBlock := uint64(ctx.BlockHeight())
+	var hashes sTypes.Set[ChallengeHash]
+	deal, found := k.GetDeal(ctx, msg.DealId)
+	if !found {
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("Deal %s not found", msg.DealId))
+	}
 
 	for _, hash := range msg.VerticesHashes {
-		block, found := k.GetHashSubmissionBlock(ctx, msg.ProviderId, hash)
+		epoch, found := k.GetHashSubmissionEpoch(ctx, msg.ProviderId, hash)
+		block := deal.StartBlock + deal.EpochSize*epoch
 		if !found {
 			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("hash %s not found", hash))
 		} else if currentBlock-block > ChallengePeriod {
 			return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, fmt.Sprintf("hash %s was submitted more than %d blocks ago", hash, ChallengePeriod))
 		} else {
-			hashes.Add(hash)
+			hashes.Add(ChallengeHash{Hash: hash, Epoch: epoch})
 		}
 	}
 
@@ -136,13 +143,19 @@ func (k msgServer) RequestDependencies(goCtx context.Context, msg *types.MsgRequ
 		return nil, errorsmod.Wrap(err, "failed to send coins to module account")
 	}
 
+	deal, found := k.GetDeal(ctx, challenge.DealId)
+	if !found {
+		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("Deal %s not found", challenge.DealId))
+	}
+
 	buf := bytes.NewBuffer(challenge.ChallengedHashes)
 	var challengedHashes sTypes.Set[string]
 	gob.NewDecoder(buf).Decode(&challengedHashes)
 
-	currentBlock := ctx.BlockHeight()
+	currentBlock := uint64(ctx.BlockHeight())
 	for _, hash := range msg.VerticesHashes {
-		block, found := k.GetHashSubmissionBlock(ctx, challenge.Provider, hash)
+		epoch, found := k.GetHashSubmissionEpoch(ctx, challenge.Provider, hash)
+		block := deal.StartBlock + deal.EpochSize*epoch
 		if !found {
 			return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("hash %s not found", hash))
 		}
@@ -179,18 +192,60 @@ func (k msgServer) SettleChallenge(goCtx context.Context, msg *types.MsgSettleCh
 	}
 
 	buf := bytes.NewBuffer(challenge.ChallengedHashes)
-	var challengedHashes sTypes.Set[string]
+	var challengedHashes sTypes.Set[ChallengeHash]
 	gob.NewDecoder(buf).Decode(&challengedHashes)
+
+	deal, _ := k.GetDeal(ctx, challenge.DealId)
 
 	coins := sdk.NewCoins(sdk.NewInt64Coin("top", int64(challenge.Amount)))
 	if len(challengedHashes) == 0 {
 		// all hashes were verified - send coins to provider, remove challenge
 		k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Provider), coins)
 	} else {
-		// some hashes were not verified - send coins to challenger
-		k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(challenge.Challenger), coins)
+		// remove the provider's progress for each of the epochs where challenge failed
+		rewardConfiscated := uint64(0)
+		var failedEpochs sTypes.Set[uint64]
+		for challengedHash := range challengedHashes {
+
+			if failedEpochs.Has(challengedHash.Epoch) {
+				// this epoch was already processed
+				continue
+			}
+			progressDeal, found := k.GetProgressDealAtEpoch(ctx, challenge.DealId, challengedHash.Epoch)
+			if !found {
+				return nil, errorsmod.Wrap(sdkerrors.ErrNotFound, "this should not happen")
+			}
+			isEpochRugged := updateProgressDeal(&progressDeal, challenge.Provider)
+			if isEpochRugged {
+				rewardConfiscated += deal.RewardPerEpoch
+			}
+			failedEpochs.Add(challengedHash.Epoch)
+			// update the progressDeal
+			k.SetProgressDealAtEpoch(ctx, challenge.DealId, challengedHash.Epoch, progressDeal)
+		}
+		// the confiscated reward goes back to the available reward pool
+		deal.AvailableAmount += rewardConfiscated
+		// reward per epoch is incremented for all the remaining epochs
+		currentEpoch := utils.ConvertBlockToEpoch(uint64(ctx.BlockHeight())-deal.StartBlock, deal.EpochSize)
+		deal.RewardPerEpoch += rewardConfiscated / (deal.NumEpochs - currentEpoch + 1)
+		k.SetDeal(ctx, deal)
 	}
 	k.RemoveChallenge(ctx, challenge.Id)
 
 	return &types.MsgSettleChallengeResponse{}, nil
+}
+
+func updateProgressDeal(progressDeal *sKeeper.ProgressDeal, provider string) bool {
+	amount := uint64(0)
+
+	for _, progress := range progressDeal.Progress {
+		if progress.Provider == provider {
+			amount = progress.Size
+			progress.Size = 0
+			break
+		}
+	}
+	progressDeal.Total -= amount
+
+	return progressDeal.Total == 0
 }

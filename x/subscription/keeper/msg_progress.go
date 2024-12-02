@@ -5,7 +5,7 @@ import (
 
 	topTypes "topchain/types"
 	"topchain/utils"
-	challengeKeeper "topchain/x/challenge/keeper"
+
 	"topchain/x/subscription/types"
 
 	errorsmod "cosmossdk.io/errors"
@@ -134,7 +134,7 @@ func (k msgServer) ClaimRewards(goCtx context.Context, msg *types.MsgClaimReward
 	provider := msg.Provider
 	subscriptionId := msg.SubscriptionId
 	currentBlock := uint64(ctx.BlockHeight())
-	challengeWindow := uint64(challengeKeeper.ChallengePeriod)
+	challengeWindow := uint64(topTypes.ChallengePeriod)
 	reward := int64(0)
 
 	subscription, found := k.GetSubscription(ctx, subscriptionId)
@@ -204,8 +204,8 @@ func (k msgServer) WithdrawResidue(goCtx context.Context, msg *types.MsgWithdraw
 	if msg.Requester != deal.Requester {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "only the requester can cancel the deal")
 	}
-	if currentBlock < (deal.StartBlock+deal.EpochSize*deal.NumEpochs)+utils.DEAL_EXPIRY_CLAIM_WINDOW {
-		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidHeight, "requester can withdraw the reward residue only after the deal expiry claim window is elasped")
+	if currentBlock < deal.NumEpochs*deal.EpochSize+uint64(topTypes.ChallengePeriod) {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidHeight, "requester can withdraw the reward residue only after the deal's last epoch's challenge period is elasped")
 	}
 	residueAmount := deal.AvailableAmount
 	if residueAmount == 0 {

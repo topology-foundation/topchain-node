@@ -49,7 +49,8 @@ message MsgChallenge {
   option (cosmos.msg.v1.signer) = "challenger";
   string challenger = 1;
   string provider_id = 2;
-  repeated string vertices_hashes = 3; 
+  string deal_id = 3;
+  repeated string vertices_hashes = 4; 
 }
 
 message MsgChallengeResponse {

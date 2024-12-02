@@ -1,7 +1,10 @@
 package keeper
 
 import (
+	"bytes"
+	"encoding/gob"
 	"topchain/x/challenge/types"
+	sKeeper "topchain/x/subscription/keeper"
 	sTypes "topchain/x/subscription/types"
 
 	"cosmossdk.io/store/prefix"
@@ -13,6 +16,11 @@ const (
 	ChallengePeriod  = 100
 	InactivityPeriod = 100
 )
+
+type ChallengeHash struct {
+	Hash  string
+	Epoch uint64
+}
 
 func (k Keeper) SetChallenge(ctx sdk.Context, challenge types.Challenge) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
@@ -42,16 +50,60 @@ func (k Keeper) RemoveChallenge(ctx sdk.Context, challengeId string) {
 	store.Delete([]byte(challengeId))
 }
 
-func (k Keeper) GetHashSubmissionBlock(ctx sdk.Context, provider string, hash string) (block int64, found bool) {
+func (k Keeper) GetHashSubmissionEpoch(ctx sdk.Context, provider string, hash string) (block uint64, found bool) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, sTypes.GetHashSubmissionBlockStoreKey(provider))
 
-	blockBytes := store.Get([]byte(hash))
-	if blockBytes == nil {
+	epochBytes := store.Get([]byte(hash))
+	if epochBytes == nil {
 		return block, false
 	}
+	return sdk.BigEndianToUint64(epochBytes), true
+}
+func (k Keeper) SetDeal(ctx sdk.Context, deal sTypes.Deal) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(sTypes.DealKeyPrefix))
 
-	return int64(sdk.BigEndianToUint64(blockBytes)), true
+	appendedValue := k.cdc.MustMarshal(&deal)
+	store.Set([]byte(deal.Id), appendedValue)
+
+	providerStore := prefix.NewStore(storeAdapter, sTypes.GetRequesterStoreKey(deal.Requester))
+	providerStore.Set([]byte(deal.Id), []byte{})
+}
+
+func (k Keeper) GetDeal(ctx sdk.Context, dealId string) (deal sTypes.Deal, found bool) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(sTypes.DealKeyPrefix))
+	dealBytes := store.Get([]byte(dealId))
+	if dealBytes == nil {
+		return deal, false
+	}
+	k.cdc.MustUnmarshal(dealBytes, &deal)
+	return deal, true
+}
+
+func (k Keeper) GetProgressDealAtEpoch(ctx sdk.Context, deal string, epoch uint64) (sKeeper.ProgressDeal, bool) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, sTypes.GetProgressDealStoreKey(deal))
+	// Retrieve the progress deal data for the specified block
+	progressBytes := store.Get(sdk.Uint64ToBigEndian(epoch))
+	if progressBytes == nil {
+		return sKeeper.ProgressDeal{}, false
+	}
+	// Decode the retrieved bytes into a ProgressDeal struct
+	var progressDeal sKeeper.ProgressDeal
+	buf := bytes.NewBuffer(progressBytes)
+	gob.NewDecoder(buf).Decode(&progressDeal)
+	return progressDeal, true
+}
+
+func (k Keeper) SetProgressDealAtEpoch(ctx sdk.Context, deal string, epoch uint64, progressDeal sKeeper.ProgressDeal) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, sTypes.GetProgressDealStoreKey(deal))
+
+	buf := &bytes.Buffer{}
+	gob.NewEncoder(buf).Encode(progressDeal)
+	store.Set(sdk.Uint64ToBigEndian(epoch), buf.Bytes())
 }
 
 // Iterate over all challenges and apply the given callback function

@@ -115,13 +115,11 @@ func (k Keeper) SetProgressDealAtEpoch(ctx sdk.Context, deal string, epoch uint6
 func (k Keeper) GetProgressDealAtEpoch(ctx sdk.Context, deal string, epoch uint64) (ProgressDeal, bool) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.GetProgressDealStoreKey(deal))
-
 	// Retrieve the progress deal data for the specified block
 	progressBytes := store.Get(sdk.Uint64ToBigEndian(epoch))
 	if progressBytes == nil {
 		return ProgressDeal{}, false
 	}
-
 	// Decode the retrieved bytes into a ProgressDeal struct
 	var progressDeal ProgressDeal
 	buf := bytes.NewBuffer(progressBytes)
