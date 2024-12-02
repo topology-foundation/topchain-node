@@ -390,7 +390,7 @@ func TestAppStateDeterminism(t *testing.T) {
 			require.NoError(t, err)
 
 			t.Logf(
-				"running deterministic simulation; seed %d: %d/%d, attempt: %d/%d\n",
+				"running non-deterministic simulation; seed %d: %d/%d, attempt: %d/%d\n",
 				config.Seed, i+1, numSeeds, j+1, numTimesToRunPerSeed,
 			)
 
