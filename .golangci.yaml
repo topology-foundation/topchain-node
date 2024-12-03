@@ -1,0 +1,98 @@
+# Copyright 2024 tonindexer/anton (https://github.com/tonindexer/anton)
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+run:
+  go: '1.23.1'
+  concurrency: 4
+  timeout: 5m
+  issues-exit-code: 2
+  tests: true
+  modules-download-mode: readonly
+  allow-parallel-runners: false
+linters:
+  disable-all: true
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - asciicheck
+    - asciicheck
+    - bidichk
+    - decorder
+    - dupl
+    - durationcheck
+    - errchkjson
+    - errname
+    - errorlint
+    - exportloopref
+    - forbidigo
+    - forcetypeassert
+    - goimports
+    - goconst
+    - gofmt
+    - goheader
+    # - gosec
+    - grouper
+    - importas
+    - maintidx
+    - makezero
+    - misspell
+    - nakedret
+    - nestif
+    - nilnil
+    - nolintlint
+    - predeclared
+    - promlinter
+    - unconvert
+    - whitespace
+linters-settings:
+  gocyclo:
+    min-complexity: 18
+  # gosec:
+  #   excludes:
+  #     - G404
+  gocritic:
+    disabled-checks:
+      - regexpMust
+      - commentedOutCode
+      - docStub
+    enabled-tags:
+      - diagnostic
+      - style
+      - performance
+      - experimental
+      - opinionated
+    settings:
+      captLocal:
+        paramsOnly: false
+      elseif:
+        skipBalanced: false
+      nestingReduce:
+        bodyWidth: 4
+      rangeValCopy:
+        sizeThreshold: 64
+        skipTestFuncs: false
+      tooManyResultsChecker:
+        maxResults: 100
+      truncateCmp:
+        skipArchDependent: false
+      underef:
+        skipRecvDeref: false
+      unnamedResult:
+        checkExported: true
+      hugeParam:
+        sizeThreshold: 64
