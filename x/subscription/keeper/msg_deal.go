@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"fmt"
 	"math"
 
 	topTypes "topchain/types"
@@ -35,7 +34,6 @@ func validateMsgCreateDeal(msg *types.MsgCreateDeal) error {
 func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (*types.MsgCreateDealResponse, error) {
 	err := validateMsgCreateDeal(msg)
 	if err != nil {
-		fmt.Println("error in validateMsgCreateDeal", err)
 		return nil, err
 	}
 
