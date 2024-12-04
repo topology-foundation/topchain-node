@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  test-setup:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,7 +18,38 @@ jobs:
           go-version: '1.23.1'
       - name: Install dependencies
         run: go mod tidy
+      - name: Upload Go environment
+        uses: actions/upload-artifact@v4
+        with:
+          name: Go-env-1.23.1
+          path: ~/.cache/go-build
+
+
+  test-build:
+    runs-on: ubuntu-latest
+    needs: test-setup
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download Go environment
+        uses: actions/download-artifact@v4
+        with:
+          name: Go-env-1.23.1
+          path: ~/.cache/go-build
       - name: Build
         run: make build
+      
+
+  test-testcases:
+    runs-on: ubuntu-latest
+    needs: test-setup
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download Go environment
+        uses: actions/download-artifact@v4
+        with:
+          name: Go-env-1.23.1
+          path: ~/.cache/go-build
       - name: Run Go Test Cases
         run: go test ./...
