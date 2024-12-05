@@ -1,6 +1,6 @@
 module mandu
 
-go 1.23
+go 1.23.1
 
 replace (
 	// fix upstream GHSA-h395-qcrw-5vmq vulnerability.

@@ -175,7 +175,7 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 				if err != nil {
 					return true, err
 				}
-				deal = updatedDeal
+				deal = *updatedDeal
 			} else {
 				deal.Status = types.Deal_INITIALIZED
 			}
@@ -201,7 +201,7 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 				if err != nil {
 					return true, err
 				}
-				deal = updatedDeal
+				deal = *updatedDeal
 			}
 		case types.Deal_INACTIVE:
 			if uint64(ctx.BlockHeight()) > deal.EndBlock {
@@ -222,7 +222,7 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 	return err
 }
 
-func (am AppModule) PayActiveProvidersPerBlock(ctx sdk.Context, deal types.Deal) (types.Deal, error) {
+func (am AppModule) PayActiveProvidersPerBlock(ctx sdk.Context, deal types.Deal) (*types.Deal, error) {
 	activeSubscriptions := am.keeper.GetAllActiveSubscriptions(ctx, deal)
 	blockReward := am.keeper.CalculateBlockReward(ctx, deal)
 	currentBlock := ctx.BlockHeight()
@@ -244,13 +244,13 @@ func (am AppModule) PayActiveProvidersPerBlock(ctx sdk.Context, deal types.Deal)
 		reward := int64(float64(blockReward) * float64(providerProgress[activeSubscriptions[subscription]]) / float64(totalProgress))
 		err := am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(provider), sdk.NewCoins(sdk.NewInt64Coin(manduTypes.TokenDenom, reward)))
 		if err != nil {
-			return deal, err
+			return nil, err
 		}
 		totalRewardSent += reward
 	}
 
 	deal.AvailableAmount -= uint64(totalRewardSent)
-	return deal, nil
+	return &deal, nil
 }
 
 // IsOnePerModuleType implements the depinject.OnePerModuleType interface.

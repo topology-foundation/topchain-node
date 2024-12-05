@@ -9,7 +9,7 @@ build:
 clean:
 	rm -rf ./build
 
-config-mock:
+config-devnet:
 	rm -rf $(home)
 	./build/$(bin) init $(chain_name) --home $(home)
 	./build/$(bin) keys add alice --home $(home)
@@ -17,6 +17,9 @@ config-mock:
 	./build/$(bin) config set app minimum-gas-prices 0mandu --home $(home)
 	./build/$(bin) genesis gentx alice 100000000stake --home $(home)
 	./build/$(bin) genesis collect-gentxs --home $(home)
+
+run-devnet:
+	./build/$(bin) start --home $(home)
 
 docker-build:
 	docker build -t mandu-node:latest .
