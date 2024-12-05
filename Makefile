@@ -24,6 +24,9 @@ run-devnet:
 docker-build:
 	docker build -t mandu-node:latest .
 
+lint:
+	golangci-lint run
+
 proto-all: proto-format proto-lint proto-gen
 
 proto-gen:
