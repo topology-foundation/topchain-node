@@ -31,15 +31,12 @@ service Query {
     option (google.api.http).get = "/mandu/subscription/deals/{requester}";
   }
 
-  rpc Subscription(QuerySubscriptionRequest)
-      returns (QuerySubscriptionResponse) {
+  rpc Subscription(QuerySubscriptionRequest) returns (QuerySubscriptionResponse) {
     option (google.api.http).get = "/mandu/subscription/subscription/{id}";
   }
 
-  rpc Subscriptions(QuerySubscriptionsRequest)
-      returns (QuerySubscriptionsResponse) {
-    option (google.api.http).get =
-        "/mandu/subscription/subscriptions/{provider}";
+  rpc Subscriptions(QuerySubscriptionsRequest) returns (QuerySubscriptionsResponse) {
+    option (google.api.http).get = "/mandu/subscription/subscriptions/{provider}";
   }
 }
 
@@ -49,19 +46,27 @@ message QueryParamsRequest {}
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
   // params holds all the parameters of this module.
-  Params params = 1
-      [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
 }
 
-message QueryDealRequest { string id = 1; }
+message QueryDealRequest {
+  string id = 1;
+}
 
 message QueryDealResponse {
-  mandu.subscription.Deal deal = 1 [ (gogoproto.nullable) = false ];
+  mandu.subscription.Deal deal = 1 [(gogoproto.nullable) = false];
 }
 
-message QueryDealStatusRequest { string id = 1; }
+message QueryDealStatusRequest {
+  string id = 1;
+}
 
-message QueryDealStatusResponse { mandu.subscription.Deal.Status status = 1; }
+message QueryDealStatusResponse {
+  mandu.subscription.Deal.Status status = 1;
+}
 
 message QueryDealsRequest {
   string requester = 1;
@@ -69,15 +74,16 @@ message QueryDealsRequest {
 }
 
 message QueryDealsResponse {
-  repeated mandu.subscription.Deal deals = 1 [ (gogoproto.nullable) = false ];
+  repeated mandu.subscription.Deal deals = 1 [(gogoproto.nullable) = false];
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QuerySubscriptionRequest { string id = 1; }
+message QuerySubscriptionRequest {
+  string id = 1;
+}
 
 message QuerySubscriptionResponse {
-  mandu.subscription.Subscription subscription = 1
-      [ (gogoproto.nullable) = false ];
+  mandu.subscription.Subscription subscription = 1 [(gogoproto.nullable) = false];
 }
 
 message QuerySubscriptionsRequest {
@@ -86,7 +92,6 @@ message QuerySubscriptionsRequest {
 }
 
 message QuerySubscriptionsResponse {
-  repeated mandu.subscription.Subscription subscriptions = 1
-      [ (gogoproto.nullable) = false ];
+  repeated mandu.subscription.Subscription subscriptions = 1 [(gogoproto.nullable) = false];
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }

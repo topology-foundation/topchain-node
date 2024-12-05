@@ -21,8 +21,7 @@ service Msg {
   rpc CreateDeal(MsgCreateDeal) returns (MsgCreateDealResponse);
   rpc CancelDeal(MsgCancelDeal) returns (MsgCancelDealResponse);
   rpc UpdateDeal(MsgUpdateDeal) returns (MsgUpdateDealResponse);
-  rpc IncrementDealAmount(MsgIncrementDealAmount)
-      returns (MsgIncrementDealAmountResponse);
+  rpc IncrementDealAmount(MsgIncrementDealAmount) returns (MsgIncrementDealAmountResponse);
   rpc JoinDeal(MsgJoinDeal) returns (MsgJoinDealResponse);
   rpc LeaveDeal(MsgLeaveDeal) returns (MsgLeaveDealResponse);
   rpc SubmitProgress(MsgSubmitProgress) returns (MsgSubmitProgressResponse);
@@ -35,13 +34,15 @@ message MsgUpdateParams {
 
   // authority is the address that controls the module (defaults to x/gov unless
   // overwritten).
-  string authority = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
+  string authority = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
 
   // params defines the module parameters to update.
 
   // NOTE: All parameters must be supplied.
-  Params params = 2
-      [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
+  Params params = 2 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
 }
 
 // MsgUpdateParamsResponse defines the response structure for executing a
@@ -58,7 +59,9 @@ message MsgCreateDeal {
   repeated string initial_frontier = 6;
 }
 
-message MsgCreateDealResponse { string deal_id = 1; }
+message MsgCreateDealResponse {
+  string deal_id = 1;
+}
 
 message MsgCancelDeal {
   option (cosmos.msg.v1.signer) = "requester";
@@ -95,7 +98,9 @@ message MsgJoinDeal {
   string deal_id = 2;
 }
 
-message MsgJoinDealResponse { string subscription_id = 1; }
+message MsgJoinDealResponse {
+  string subscription_id = 1;
+}
 
 message MsgLeaveDeal {
   option (cosmos.msg.v1.signer) = "provider";

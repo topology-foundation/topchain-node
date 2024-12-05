@@ -18,8 +18,7 @@ service Query {
   }
 
   rpc Proof(QueryProofRequest) returns (QueryProofResponse) {
-    option (google.api.http).get =
-        "/mandu/challenge/proof/{challenge_id}/{hash}";
+    option (google.api.http).get = "/mandu/challenge/proof/{challenge_id}/{hash}";
   }
 
   rpc Proofs(QueryProofsRequest) returns (QueryProofsResponse) {
@@ -33,8 +32,10 @@ message QueryParamsRequest {}
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
   // params holds all the parameters of this module.
-  Params params = 1
-      [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
 }
 
 message QueryProofRequest {
@@ -43,7 +44,7 @@ message QueryProofRequest {
 }
 
 message QueryProofResponse {
-  mandu.challenge.Vertex vertex = 1 [ (gogoproto.nullable) = false ];
+  mandu.challenge.Vertex vertex = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryProofsRequest {
@@ -52,6 +53,6 @@ message QueryProofsRequest {
 }
 
 message QueryProofsResponse {
-  repeated mandu.challenge.Vertex vertices = 1 [ (gogoproto.nullable) = false ];
+  repeated mandu.challenge.Vertex vertices = 1 [(gogoproto.nullable) = false];
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }

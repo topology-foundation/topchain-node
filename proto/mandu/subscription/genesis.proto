@@ -10,6 +10,8 @@ option go_package = "mandu/x/subscription/types";
 // GenesisState defines the subscription module's genesis state.
 message GenesisState {
   // params defines all the parameters of the module.
-  Params params = 1
-      [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
 }
