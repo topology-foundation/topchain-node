@@ -1,14 +1,44 @@
-build:
-	go build -o ./build/topchaind ./cmd/topchaind/main.go
-
-container:
-	docker build -t topchain-node:latest .
-
-chain_name?=topchain
+bin?=mandud
+chain_name?=mandu
 home?=$(shell pwd)/build/$(chain_name)
-config-mock:
-	./build/topchaind init $(chain_name) --home $(home)
-	./build/topchaind genesis add-genesis-account alice 100000000stake --home $(home)
-	./build/topchaind config set app minimum-gas-prices 0top --home $(home)
-	./build/topchaind genesis gentx alice 100000000stake --home $(home)
-	./build/topchaind genesis collect-gentxs --home $(home)
+
+.PHONY: build clean
+build:
+	go build -o ./build/$(bin) ./cmd/mandud/main.go
+
+clean:
+	rm -rf ./build
+
+config-devnet:
+	rm -rf $(home)
+	./build/$(bin) init $(chain_name) --home $(home)
+	./build/$(bin) keys add alice --home $(home)
+	./build/$(bin) genesis add-genesis-account alice 100000000stake --home $(home)
+	./build/$(bin) config set app minimum-gas-prices 0mandu --home $(home)
+	./build/$(bin) genesis gentx alice 100000000stake --home $(home)
+	./build/$(bin) genesis collect-gentxs --home $(home)
+
+run-devnet:
+	./build/$(bin) start --home $(home)
+
+docker-build:
+	docker build -t mandu-node:latest .
+
+lint:
+	golangci-lint run
+
+proto-all: proto-format proto-lint proto-gen
+
+proto-gen:
+	@echo Generating code from proto...
+	@sh scripts/protocgen.sh
+
+proto-format:
+	@echo Formatting proto files...
+	@buf format --write
+
+proto-lint:
+	@echo Linting proto files...
+	@buf lint
+
+.PHONY: proto-all proto-gen proto-format proto-lint

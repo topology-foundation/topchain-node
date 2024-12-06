@@ -4,9 +4,9 @@ import (
 	"context"
 	"math"
 
-	topTypes "topchain/types"
-	"topchain/utils/validation"
-	"topchain/x/subscription/types"
+	manduTypes "mandu/types"
+	"mandu/utils/validation"
+	"mandu/x/subscription/types"
 
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -57,7 +57,7 @@ func (k msgServer) CreateDeal(goCtx context.Context, msg *types.MsgCreateDeal) (
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
 	}
 
-	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(msg.Amount))))
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin(manduTypes.TokenDenom, int64(msg.Amount))))
 	if err != nil {
 		return nil, errorsmod.Wrap(err, "failed to send coins to module account")
 	}
@@ -95,8 +95,8 @@ func (k msgServer) CancelDeal(goCtx context.Context, msg *types.MsgCancelDeal) (
 		deal.Status = types.Deal_CANCELLED
 		k.SetDeal(ctx, deal)
 		// return the remaining amount to the requester
-		err := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
-	if err != nil {
+		err := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(manduTypes.TokenDenom, int64(deal.AvailableAmount))))
+		if err != nil {
 			return nil, errorsmod.Wrap(err, "failed to send coins to module account")
 		}
 		return &types.MsgCancelDealResponse{}, nil
@@ -113,7 +113,7 @@ func (k msgServer) CancelDeal(goCtx context.Context, msg *types.MsgCancelDeal) (
 			k.SetSubscription(ctx, subscription)
 		}
 		// return the remaining amount to the requester
-		err := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
+		err := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(manduTypes.TokenDenom, int64(deal.AvailableAmount))))
 		if err != nil {
 			return nil, errorsmod.Wrap(err, "failed to send coins to module account")
 		}
@@ -160,13 +160,13 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 		if msg.Amount != 0 {
 			if msg.Amount < deal.TotalAmount {
 				amountToReturn := deal.TotalAmount - msg.Amount
-				err := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, requester, sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(amountToReturn))))
-				if (err != nil) {
+				err := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, requester, sdk.NewCoins(sdk.NewInt64Coin(manduTypes.TokenDenom, int64(amountToReturn))))
+				if err != nil {
 					return nil, errorsmod.Wrap(err, "failed to send coins to module account")
 				}
 			} else if msg.Amount > deal.TotalAmount {
 				amountToDeposit := msg.Amount - deal.TotalAmount
-				sdkError := k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(amountToDeposit))))
+				sdkError := k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin(manduTypes.TokenDenom, int64(amountToDeposit))))
 				if sdkError != nil {
 					return nil, errorsmod.Wrap(sdkError, "failed to send coins to module account")
 				}
@@ -196,7 +196,7 @@ func (k msgServer) UpdateDeal(goCtx context.Context, msg *types.MsgUpdateDeal) (
 			if err != nil {
 				return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid requester address")
 			}
-			sdkError := k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(amountToDeposit))))
+			sdkError := k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin(manduTypes.TokenDenom, int64(amountToDeposit))))
 			if sdkError != nil {
 				return nil, errorsmod.Wrap(sdkError, "failed to send coins to module account")
 			}
@@ -254,7 +254,7 @@ func (k msgServer) IncrementDealAmount(goCtx context.Context, msg *types.MsgIncr
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidRequest, "cannot topup the expired deal with id "+msg.DealId)
 	}
 
-	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(msg.Amount))))
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, requester, types.ModuleName, sdk.NewCoins(sdk.NewInt64Coin(manduTypes.TokenDenom, int64(msg.Amount))))
 	if err != nil {
 		return nil, errorsmod.Wrap(err, "failed to send coins to module account")
 	}

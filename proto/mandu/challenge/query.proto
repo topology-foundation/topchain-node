@@ -1,0 +1,58 @@
+syntax = "proto3";
+package mandu.challenge;
+
+import "amino/amino.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "mandu/challenge/params.proto";
+import "mandu/challenge/vertex.proto";
+
+option go_package = "mandu/x/challenge/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/mandu/challenge/params";
+  }
+
+  rpc Proof(QueryProofRequest) returns (QueryProofResponse) {
+    option (google.api.http).get = "/mandu/challenge/proof/{challenge_id}/{hash}";
+  }
+
+  rpc Proofs(QueryProofsRequest) returns (QueryProofsResponse) {
+    option (google.api.http).get = "/mandu/challenge/proofs/{challenge_id}";
+  }
+}
+
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
+
+message QueryProofRequest {
+  string challenge_id = 1;
+  string hash = 2;
+}
+
+message QueryProofResponse {
+  mandu.challenge.Vertex vertex = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryProofsRequest {
+  string challenge_id = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QueryProofsResponse {
+  repeated mandu.challenge.Vertex vertices = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}

@@ -3,13 +3,12 @@ package keeper_test
 import (
 	"testing"
 
-	"topchain/x/subscription/types"
+	"mandu/x/subscription/types"
 
 	"github.com/stretchr/testify/require"
 )
 
 func TestMsgServerCreateDealMsg(t *testing.T) {
-
 	k, ms, ctx, _ := setupMsgServer(t)
 	require.NotNil(t, ms)
 	require.NotNil(t, ctx)
@@ -20,11 +19,9 @@ func TestMsgServerCreateDealMsg(t *testing.T) {
 
 	require.NotEmpty(t, response)
 	require.NotEmpty(t, response.DealId)
-
 }
 
 func TestMsgServerCreateDealScheduled(t *testing.T) {
-
 	k, ms, ctx, _ := setupMsgServer(t)
 	require.NotNil(t, ms)
 	require.NotNil(t, ctx)
@@ -43,11 +40,9 @@ func TestMsgServerCreateDealScheduled(t *testing.T) {
 	require.EqualValues(t, createDeal, types.MsgCreateDeal{Requester: deal.Requester, CroId: deal.CroId, Amount: deal.TotalAmount, StartBlock: deal.StartBlock, EndBlock: deal.EndBlock})
 
 	require.Equal(t, deal.Status, types.Deal_SCHEDULED)
-
 }
 
 func TestMsgServerCreateDealInitializedStatus(t *testing.T) {
-
 	k, ms, ctx, am := setupMsgServer(t)
 	require.NotNil(t, ms)
 	require.NotNil(t, ctx)
@@ -68,11 +63,9 @@ func TestMsgServerCreateDealInitializedStatus(t *testing.T) {
 	deal, _ = k.GetDeal(ctx, response.DealId)
 
 	require.Equal(t, deal.Status, types.Deal_INITIALIZED)
-
 }
 
 func TestMsgServerCancelDealCorrectRequester(t *testing.T) {
-
 	k, ms, ctx, _ := setupMsgServer(t)
 	require.NotNil(t, ms)
 	require.NotNil(t, ctx)
@@ -97,11 +90,9 @@ func TestMsgServerCancelDealCorrectRequester(t *testing.T) {
 		t.Fatalf("Deal not found")
 	}
 	require.EqualValues(t, deal.Status, types.Deal_CANCELLED)
-
 }
 
 func TestMsgServerCancelDealIncorrectRequester(t *testing.T) {
-
 	k, ms, ctx, _ := setupMsgServer(t)
 	require.NotNil(t, ms)
 	require.NotNil(t, ctx)
@@ -214,6 +205,7 @@ func TestMsgServerUpdateScheduledDealDecrementAmountMsg(t *testing.T) {
 	require.True(t, found)
 	require.EqualValues(t, deal.TotalAmount, 5000)
 }
+
 func TestMsgServerUpdateScheduledDealDecrementTotalAmountMsg(t *testing.T) {
 	k, ms, ctx, _ := setupMsgServer(t)
 	require.NotNil(t, ms)
@@ -307,7 +299,6 @@ func TestMsgServerJoinDealBeforeInitiationMsg(t *testing.T) {
 	// Assert that the last id in deal's subscriptionIds' is sub's id
 	require.EqualValues(t, deal.SubscriptionIds[len(deal.SubscriptionIds)-1], sub.Id)
 	require.EqualValues(t, dealId, sub.DealId)
-
 }
 
 func TestMsgServerJoinInitiatedDealMsg(t *testing.T) {
@@ -413,7 +404,6 @@ func TestMsgServerJoinSameDealMoreThanOnceMsg(t *testing.T) {
 
 	// It is disallowed to join a deal already subscribed to
 	require.NotNil(t, err)
-
 }
 
 func TestMsgServerIncrementDealAmount(t *testing.T) {
@@ -430,7 +420,7 @@ func TestMsgServerIncrementDealAmount(t *testing.T) {
 
 	dealId := createResponse.DealId
 
-	// topop the deal amount
+	// topup the deal amount
 	incrementDeal := types.MsgIncrementDealAmount{Requester: Alice, DealId: dealId, Amount: 1000}
 	_, err = ms.IncrementDealAmount(ctx, &incrementDeal)
 
@@ -451,7 +441,7 @@ func TestMsgServerIncrementDealAmountIncorrectRequester(t *testing.T) {
 
 	dealId := createResponse.DealId
 
-	// topop the deal amount
+	// topup the deal amount
 	incrementDeal := types.MsgIncrementDealAmount{Requester: Bob, DealId: dealId, Amount: 1000}
 	_, err = ms.IncrementDealAmount(ctx, &incrementDeal)
 
@@ -477,7 +467,7 @@ func TestMsgServerIncrementCancelledDealAmount(t *testing.T) {
 	_, err = ms.CancelDeal(ctx, &cancelDeal)
 	require.NoError(t, err)
 
-	// topop the deal amount
+	// topup the deal amount
 	incrementDeal := types.MsgIncrementDealAmount{Requester: Alice, DealId: dealId, Amount: 1000}
 	_, err = ms.IncrementDealAmount(ctx, &incrementDeal)
 
@@ -503,7 +493,7 @@ func TestMsgServerIncrementExpiredDealAmount(t *testing.T) {
 	// Jump to block 25 to expire the deal
 	ctx = MockBlockHeight(ctx, am, 25)
 
-	// topop the deal amount
+	// topup the deal amount
 	incrementDeal := types.MsgIncrementDealAmount{Requester: Alice, DealId: dealId, Amount: 1000}
 	_, err = ms.IncrementDealAmount(ctx, &incrementDeal)
 
@@ -535,7 +525,6 @@ func TestMsgServerLeaveJoinedDealMsg(t *testing.T) {
 	_, err = ms.LeaveDeal(ctx, &leaveDeal)
 
 	require.NoError(t, err)
-
 }
 
 func TestMsgServerLeaveNotJoinedDealMsg(t *testing.T) {
@@ -558,7 +547,6 @@ func TestMsgServerLeaveNotJoinedDealMsg(t *testing.T) {
 
 	// It should error because you can't leave a deal you did not join
 	require.NotNil(t, err)
-
 }
 
 func TestMsgServerJoinLeaveJoinDeallMsg(t *testing.T) {

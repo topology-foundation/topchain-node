@@ -6,7 +6,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	"topchain/x/subscription/types"
+	"mandu/x/subscription/types"
 )
 
 func TestMsgUpdateParams(t *testing.T) {

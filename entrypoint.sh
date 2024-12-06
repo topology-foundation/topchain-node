@@ -1,2 +1,2 @@
 #!/bin/bash
-exec topchaind "$@"
+exec mandud "$@"

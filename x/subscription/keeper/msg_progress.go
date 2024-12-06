@@ -3,7 +3,7 @@ package keeper
 import (
 	"context"
 
-	"topchain/x/subscription/types"
+	"mandu/x/subscription/types"
 
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"

@@ -23,10 +23,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	topTypes "topchain/types"
-	"topchain/x/subscription/keeper"
-	subscription "topchain/x/subscription/module"
-	"topchain/x/subscription/types"
+	manduTypes "mandu/types"
+	"mandu/x/subscription/keeper"
+	subscription "mandu/x/subscription/module"
+	"mandu/x/subscription/types"
 )
 
 const (
@@ -53,7 +53,7 @@ func MockSubscriptionKeeper(t testing.TB) (keeper.Keeper, sdk.Context, subscript
 	module := authtypes.NewModuleAddress(types.ModuleName)
 	// stakingAccount := authtypes.NewModuleAddress(stakingtypes.ModuleName)
 
-	var maccPerms = map[string][]string{
+	maccPerms := map[string][]string{
 		authtypes.FeeCollectorName: nil,
 		// ... other module accounts ...
 		types.ModuleName:               {authtypes.Minter, authtypes.Burner},
@@ -102,8 +102,8 @@ func MockBlockHeight(ctx sdk.Context, am subscription.AppModule, height int64) s
 }
 
 func MockFundAccounts(bankKeeper bankkeeper.Keeper, ctx sdk.Context) error {
-	totalMint := sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, 10000000000))
-	amounts := sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, 1000000000))
+	totalMint := sdk.NewCoins(sdk.NewInt64Coin(manduTypes.TokenDenom, 10000000000))
+	amounts := sdk.NewCoins(sdk.NewInt64Coin(manduTypes.TokenDenom, 1000000000))
 	if err := bankKeeper.MintCoins(ctx, types.ModuleName, totalMint); err != nil {
 		return err
 	}

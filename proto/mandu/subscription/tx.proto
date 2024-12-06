@@ -1,0 +1,121 @@
+syntax = "proto3";
+
+package mandu.subscription;
+
+import "amino/amino.proto";
+import "cosmos/msg/v1/msg.proto";
+import "cosmos_proto/cosmos.proto";
+import "gogoproto/gogo.proto";
+import "mandu/subscription/params.proto";
+
+option go_package = "mandu/x/subscription/types";
+
+// Msg defines the Msg service.
+service Msg {
+  option (cosmos.msg.v1.service) = true;
+
+  // UpdateParams defines a (governance) operation for updating the module
+  // parameters. The authority defaults to the x/gov module account.
+  rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
+
+  rpc CreateDeal(MsgCreateDeal) returns (MsgCreateDealResponse);
+  rpc CancelDeal(MsgCancelDeal) returns (MsgCancelDealResponse);
+  rpc UpdateDeal(MsgUpdateDeal) returns (MsgUpdateDealResponse);
+  rpc IncrementDealAmount(MsgIncrementDealAmount) returns (MsgIncrementDealAmountResponse);
+  rpc JoinDeal(MsgJoinDeal) returns (MsgJoinDealResponse);
+  rpc LeaveDeal(MsgLeaveDeal) returns (MsgLeaveDealResponse);
+  rpc SubmitProgress(MsgSubmitProgress) returns (MsgSubmitProgressResponse);
+}
+
+// MsgUpdateParams is the Msg/UpdateParams request type.
+message MsgUpdateParams {
+  option (cosmos.msg.v1.signer) = "authority";
+  option (amino.name) = "mandu/x/subscription/MsgUpdateParams";
+
+  // authority is the address that controls the module (defaults to x/gov unless
+  // overwritten).
+  string authority = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+
+  // params defines the module parameters to update.
+
+  // NOTE: All parameters must be supplied.
+  Params params = 2 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
+
+// MsgUpdateParamsResponse defines the response structure for executing a
+// MsgUpdateParams message.
+message MsgUpdateParamsResponse {}
+
+message MsgCreateDeal {
+  option (cosmos.msg.v1.signer) = "requester";
+  string requester = 1;
+  string cro_id = 2;
+  uint64 amount = 3;
+  uint64 start_block = 4;
+  uint64 end_block = 5;
+  repeated string initial_frontier = 6;
+}
+
+message MsgCreateDealResponse {
+  string deal_id = 1;
+}
+
+message MsgCancelDeal {
+  option (cosmos.msg.v1.signer) = "requester";
+  string requester = 1;
+  string deal_id = 2;
+}
+
+message MsgCancelDealResponse {}
+
+message MsgUpdateDeal {
+  option (cosmos.msg.v1.signer) = "requester";
+  string requester = 1;
+  string deal_id = 2;
+  // these fields should be optional, errors with pulsar
+  uint64 amount = 3;
+  uint64 start_block = 4;
+  uint64 end_block = 5;
+}
+
+message MsgUpdateDealResponse {}
+
+message MsgIncrementDealAmount {
+  option (cosmos.msg.v1.signer) = "requester";
+  string requester = 1;
+  string deal_id = 2;
+  uint64 amount = 3;
+}
+
+message MsgIncrementDealAmountResponse {}
+
+message MsgJoinDeal {
+  option (cosmos.msg.v1.signer) = "provider";
+  string provider = 1;
+  string deal_id = 2;
+}
+
+message MsgJoinDealResponse {
+  string subscription_id = 1;
+}
+
+message MsgLeaveDeal {
+  option (cosmos.msg.v1.signer) = "provider";
+  string provider = 1;
+  string deal_id = 2;
+}
+
+message MsgLeaveDealResponse {}
+
+message MsgSubmitProgress {
+  option (cosmos.msg.v1.signer) = "provider";
+  string provider = 1;
+  string subscription_id = 2;
+  repeated string previous_vertices_hashes = 3;
+  string obfuscated_vertices_hash = 4;
+}
+
+message MsgSubmitProgressResponse {}

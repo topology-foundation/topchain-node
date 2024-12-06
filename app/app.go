@@ -75,17 +75,9 @@ import (
 	ibctransferkeeper "github.com/cosmos/ibc-go/v8/modules/apps/transfer/keeper"
 	ibckeeper "github.com/cosmos/ibc-go/v8/modules/core/keeper"
 
-	subscriptionmodulekeeper "topchain/x/subscription/keeper"
-
-	challengemodulekeeper "topchain/x/challenge/keeper"
-	// this line is used by starport scaffolding # stargate/app/moduleImport
-
-	"topchain/docs"
-)
-
-const (
-	AccountAddressPrefix = "cosmos"
-	Name                 = "topchain"
+	mandutypes "mandu/types"
+	challengemodulekeeper "mandu/x/challenge/keeper"
+	subscriptionmodulekeeper "mandu/x/subscription/keeper"
 )
 
 // DefaultNodeHome default home directories for the application daemon
@@ -143,7 +135,6 @@ type App struct {
 
 	SubscriptionKeeper subscriptionmodulekeeper.Keeper
 	ChallengeKeeper    challengemodulekeeper.Keeper
-	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
 	sm *module.SimulationManager
@@ -151,8 +142,8 @@ type App struct {
 
 func init() {
 	var err error
-	clienthelpers.EnvPrefix = Name
-	DefaultNodeHome, err = clienthelpers.GetNodeHomeDirectory("." + Name)
+	clienthelpers.EnvPrefix = mandutypes.AppName
+	DefaultNodeHome, err = clienthelpers.GetNodeHomeDirectory("." + mandutypes.AppName)
 	if err != nil {
 		panic(err)
 	}
@@ -161,11 +152,9 @@ func init() {
 // getGovProposalHandlers return the chain proposal handlers.
 func getGovProposalHandlers() []govclient.ProposalHandler {
 	var govProposalHandlers []govclient.ProposalHandler
-	// this line is used by starport scaffolding # stargate/app/govProposalHandlers
 
 	govProposalHandlers = append(govProposalHandlers,
 		paramsclient.ProposalHandler,
-		// this line is used by starport scaffolding # stargate/app/govProposalHandler
 	)
 
 	return govProposalHandlers
@@ -182,7 +171,6 @@ func AppConfig() depinject.Config {
 			map[string]module.AppModuleBasic{
 				genutiltypes.ModuleName: genutil.NewAppModuleBasic(genutiltypes.DefaultMessageValidator),
 				govtypes.ModuleName:     gov.NewAppModuleBasic(getGovProposalHandlers()),
-				// this line is used by starport scaffolding # stargate/appConfig/moduleBasic
 			},
 		),
 	)
@@ -248,7 +236,6 @@ func New(
 		&app.CircuitBreakerKeeper,
 		&app.SubscriptionKeeper,
 		&app.ChallengeKeeper,
-		// this line is used by starport scaffolding # stargate/app/keeperDefinition
 	); err != nil {
 		panic(err)
 	}
@@ -390,9 +377,6 @@ func (app *App) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig
 	if err := server.RegisterSwaggerAPI(apiSvr.ClientCtx, apiSvr.Router, apiConfig.Swagger); err != nil {
 		panic(err)
 	}
-
-	// register app's OpenAPI routes.
-	docs.RegisterOpenAPIService(Name, apiSvr.Router)
 }
 
 // GetMaccPerms returns a copy of the module account permissions

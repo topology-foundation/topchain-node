@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package mandu.subscription;
+
+import "amino/amino.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "mandu/subscription/deal.proto";
+import "mandu/subscription/params.proto";
+import "mandu/subscription/subscription.proto";
+
+option go_package = "mandu/x/subscription/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/mandu/subscription/params";
+  }
+
+  rpc Deal(QueryDealRequest) returns (QueryDealResponse) {
+    option (google.api.http).get = "/mandu/subscription/deal/{id}";
+  }
+
+  rpc DealStatus(QueryDealStatusRequest) returns (QueryDealStatusResponse) {
+    option (google.api.http).get = "/mandu/subscription/deal_status/{id}";
+  }
+
+  rpc Deals(QueryDealsRequest) returns (QueryDealsResponse) {
+    option (google.api.http).get = "/mandu/subscription/deals/{requester}";
+  }
+
+  rpc Subscription(QuerySubscriptionRequest) returns (QuerySubscriptionResponse) {
+    option (google.api.http).get = "/mandu/subscription/subscription/{id}";
+  }
+
+  rpc Subscriptions(QuerySubscriptionsRequest) returns (QuerySubscriptionsResponse) {
+    option (google.api.http).get = "/mandu/subscription/subscriptions/{provider}";
+  }
+}
+
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
+
+message QueryDealRequest {
+  string id = 1;
+}
+
+message QueryDealResponse {
+  mandu.subscription.Deal deal = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryDealStatusRequest {
+  string id = 1;
+}
+
+message QueryDealStatusResponse {
+  mandu.subscription.Deal.Status status = 1;
+}
+
+message QueryDealsRequest {
+  string requester = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QueryDealsResponse {
+  repeated mandu.subscription.Deal deals = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QuerySubscriptionRequest {
+  string id = 1;
+}
+
+message QuerySubscriptionResponse {
+  mandu.subscription.Subscription subscription = 1 [(gogoproto.nullable) = false];
+}
+
+message QuerySubscriptionsRequest {
+  string provider = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QuerySubscriptionsResponse {
+  repeated mandu.subscription.Subscription subscriptions = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}

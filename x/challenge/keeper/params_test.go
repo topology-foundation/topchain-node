@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"topchain/x/challenge/types"
+	"mandu/x/challenge/types"
 )
 
 func TestGetParams(t *testing.T) {

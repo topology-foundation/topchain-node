@@ -1,0 +1,13 @@
+syntax = "proto3";
+package mandu.subscription;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "mandu/x/subscription/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "mandu/x/subscription/Params";
+  option (gogoproto.equal) = true;
+}

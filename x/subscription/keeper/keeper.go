@@ -8,7 +8,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"topchain/x/subscription/types"
+	"mandu/x/subscription/types"
 )
 
 type (

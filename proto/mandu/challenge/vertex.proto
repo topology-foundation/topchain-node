@@ -1,0 +1,18 @@
+syntax = "proto3";
+package mandu.challenge;
+
+import "google/protobuf/struct.proto";
+
+option go_package = "mandu/x/challenge/types";
+
+message Vertex {
+  message Operation {
+    string type = 1;
+    google.protobuf.Value value = 2;
+  }
+
+  string hash = 1;
+  string node_id = 2;
+  Operation operation = 3;
+  repeated string dependencies = 4;
+}

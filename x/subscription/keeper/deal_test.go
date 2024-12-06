@@ -3,7 +3,7 @@ package keeper_test
 import (
 	"testing"
 
-	"topchain/x/subscription/types"
+	"mandu/x/subscription/types"
 
 	"github.com/stretchr/testify/require"
 )
@@ -52,7 +52,6 @@ func TestDealActive(t *testing.T) {
 	// The deal must be inactive at block number 18
 	isActive = k.IsDealActive(ctx, deal)
 	require.False(t, isActive)
-
 }
 
 func TestGetAllActiveProviders(t *testing.T) {
@@ -85,7 +84,6 @@ func TestGetAllActiveProviders(t *testing.T) {
 	activeSubs = k.GetAllActiveSubscriptions(ctx, deal)
 	// there shouldn't be an active subs at block 18
 	require.True(t, len(activeSubs) == 0)
-
 }
 
 func TestIsDealUnavailable(t *testing.T) {
@@ -99,7 +97,6 @@ func TestIsDealUnavailable(t *testing.T) {
 	require.False(t, k.IsDealUnavailable(types.Deal_INITIALIZED))
 	require.True(t, k.IsDealUnavailable(types.Deal_CANCELLED))
 	require.True(t, k.IsDealUnavailable(types.Deal_EXPIRED))
-
 }
 
 func TestDealHasProvider(t *testing.T) {

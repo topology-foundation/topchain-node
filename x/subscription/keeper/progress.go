@@ -3,7 +3,7 @@ package keeper
 import (
 	"bytes"
 	"encoding/gob"
-	"topchain/x/subscription/types"
+	"mandu/x/subscription/types"
 
 	"cosmossdk.io/store/prefix"
 	"github.com/cosmos/cosmos-sdk/runtime"

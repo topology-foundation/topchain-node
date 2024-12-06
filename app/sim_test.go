@@ -31,11 +31,12 @@ import (
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/require"
 
-	"topchain/app"
+	"mandu/app"
+	mandutypes "mandu/types"
 )
 
 const (
-	SimAppChainID = "topchain-simapp"
+	SimAppChainID = "mandu-simapp"
 )
 
 var FlagEnableStreamingValue bool
@@ -59,8 +60,6 @@ func interBlockCacheOpt() func(*baseapp.BaseApp) {
 }
 
 // BenchmarkSimulation run the chain simulation
-// Running using starport command:
-// `ignite chain simulate -v --numBlocks 200 --blockSize 50`
 // Running as go benchmark test:
 // `go test -benchmem -run=^$ -bench ^BenchmarkSimulation ./app -NumBlocks=200 -BlockSize 50 -Commit=true -Verbose=true -Enabled=true`
 func BenchmarkSimulation(b *testing.B) {
@@ -89,7 +88,7 @@ func BenchmarkSimulation(b *testing.B) {
 
 	bApp, err := app.New(logger, db, nil, true, appOptions, fauxMerkleModeOpt, baseapp.SetChainID(SimAppChainID))
 	require.NoError(b, err)
-	require.Equal(b, app.Name, bApp.Name())
+	require.Equal(b, mandutypes.AppName, bApp.Name())
 
 	// run randomized simulation
 	_, simParams, simErr := simulation.SimulateFromSeed(
@@ -135,7 +134,7 @@ func TestAppImportExport(t *testing.T) {
 
 	bApp, err := app.New(logger, db, nil, true, appOptions, fauxMerkleModeOpt, baseapp.SetChainID(SimAppChainID))
 	require.NoError(t, err)
-	require.Equal(t, app.Name, bApp.Name())
+	require.Equal(t, mandutypes.AppName, bApp.Name())
 
 	// Run randomized simulation
 	_, simParams, simErr := simulation.SimulateFromSeed(
@@ -176,7 +175,7 @@ func TestAppImportExport(t *testing.T) {
 
 	newApp, err := app.New(log.NewNopLogger(), newDB, nil, true, appOptions, fauxMerkleModeOpt, baseapp.SetChainID(SimAppChainID))
 	require.NoError(t, err)
-	require.Equal(t, app.Name, newApp.Name())
+	require.Equal(t, mandutypes.AppName, newApp.Name())
 
 	var genesisState app.GenesisState
 	err = json.Unmarshal(exported.AppState, &genesisState)
@@ -258,7 +257,7 @@ func TestAppSimulationAfterImport(t *testing.T) {
 
 	bApp, err := app.New(logger, db, nil, true, appOptions, fauxMerkleModeOpt, baseapp.SetChainID(SimAppChainID))
 	require.NoError(t, err)
-	require.Equal(t, app.Name, bApp.Name())
+	require.Equal(t, mandutypes.AppName, bApp.Name())
 
 	// Run randomized simulation
 	stopEarly, simParams, simErr := simulation.SimulateFromSeed(
@@ -304,7 +303,7 @@ func TestAppSimulationAfterImport(t *testing.T) {
 
 	newApp, err := app.New(log.NewNopLogger(), newDB, nil, true, appOptions, fauxMerkleModeOpt, baseapp.SetChainID(SimAppChainID))
 	require.NoError(t, err)
-	require.Equal(t, app.Name, newApp.Name())
+	require.Equal(t, mandutypes.AppName, newApp.Name())
 
 	_, err = newApp.InitChain(&abci.RequestInitChain{
 		AppStateBytes: exported.AppState,

@@ -19,12 +19,10 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 
-	// this line is used by starport scaffolding # 1
-
-	modulev1 "topchain/api/topchain/subscription/module"
-	topTypes "topchain/types"
-	"topchain/x/subscription/keeper"
-	"topchain/x/subscription/types"
+	modulev1 "mandu/api/mandu/subscription/module"
+	manduTypes "mandu/types"
+	"mandu/x/subscription/keeper"
+	"mandu/x/subscription/types"
 )
 
 var (
@@ -177,7 +175,7 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 				if err != nil {
 					return true, err
 				}
-				deal = updatedDeal			
+				deal = *updatedDeal
 			} else {
 				deal.Status = types.Deal_INITIALIZED
 			}
@@ -185,7 +183,7 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 			if uint64(ctx.BlockHeight()) > deal.EndBlock {
 				deal.Status = types.Deal_EXPIRED
 				// return the remaining amount to the requester
-				err := am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
+				err := am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(manduTypes.TokenDenom, int64(deal.AvailableAmount))))
 				if err != nil {
 					return true, err
 				}
@@ -194,7 +192,7 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 			if uint64(ctx.BlockHeight()) > deal.EndBlock {
 				deal.Status = types.Deal_EXPIRED
 				// return the remaining amount to the requester
-				err := am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
+				err := am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(manduTypes.TokenDenom, int64(deal.AvailableAmount))))
 				if err != nil {
 					return true, err
 				}
@@ -203,13 +201,13 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 				if err != nil {
 					return true, err
 				}
-				deal = updatedDeal
+				deal = *updatedDeal
 			}
 		case types.Deal_INACTIVE:
 			if uint64(ctx.BlockHeight()) > deal.EndBlock {
 				deal.Status = types.Deal_EXPIRED
 				// return the remaining amount to the requester
-				err := am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, int64(deal.AvailableAmount))))
+				err := am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(deal.Requester), sdk.NewCoins(sdk.NewInt64Coin(manduTypes.TokenDenom, int64(deal.AvailableAmount))))
 				if err != nil {
 					return true, err
 				}
@@ -224,7 +222,7 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 	return err
 }
 
-func (am AppModule) PayActiveProvidersPerBlock(ctx sdk.Context, deal types.Deal) (types.Deal, error) {
+func (am AppModule) PayActiveProvidersPerBlock(ctx sdk.Context, deal types.Deal) (*types.Deal, error) {
 	activeSubscriptions := am.keeper.GetAllActiveSubscriptions(ctx, deal)
 	blockReward := am.keeper.CalculateBlockReward(ctx, deal)
 	currentBlock := ctx.BlockHeight()
@@ -244,15 +242,15 @@ func (am AppModule) PayActiveProvidersPerBlock(ctx sdk.Context, deal types.Deal)
 	for subscription, provider := range activeSubscriptions {
 		// reward based on the progress size
 		reward := int64(float64(blockReward) * float64(providerProgress[activeSubscriptions[subscription]]) / float64(totalProgress))
-		err := am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(provider), sdk.NewCoins(sdk.NewInt64Coin(topTypes.TokenDenom, reward)))
+		err := am.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sdk.AccAddress(provider), sdk.NewCoins(sdk.NewInt64Coin(manduTypes.TokenDenom, reward)))
 		if err != nil {
-			return types.Deal{}, err
+			return nil, err
 		}
 		totalRewardSent += reward
 	}
 
 	deal.AvailableAmount -= uint64(totalRewardSent)
-	return deal, nil
+	return &deal, nil
 }
 
 // IsOnePerModuleType implements the depinject.OnePerModuleType interface.
@@ -297,12 +295,6 @@ func ProvideModule(in ModuleInputs) ModuleOutputs {
 	authority := authtypes.NewModuleAddress(govtypes.ModuleName)
 	if in.Config.Authority != "" {
 		authority = authtypes.NewModuleAddressOrBech32Address(in.Config.Authority)
-	}
-
-	_, err := types.SetupRpcClient()
-	if err != nil {
-		in.Logger.Error("failed to setup rpc client", "error", err)
-		panic(err)
 	}
 
 	moduleAddress := authtypes.NewModuleAddress(types.ModuleName)

@@ -3,7 +3,7 @@ package keeper_test
 import (
 	"testing"
 
-	"topchain/x/subscription/types"
+	"mandu/x/subscription/types"
 
 	qtypes "github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/stretchr/testify/require"
@@ -43,7 +43,6 @@ func TestQueryDealStatus(t *testing.T) {
 	require.Nil(t, err)
 
 	require.EqualValues(t, queryStatusResponse.Status, types.Deal_SCHEDULED)
-
 }
 
 func TestQueryDeals(t *testing.T) {

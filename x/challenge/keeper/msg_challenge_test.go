@@ -3,7 +3,7 @@ package keeper_test
 import (
 	"testing"
 
-	"topchain/x/challenge/types"
+	"mandu/x/challenge/types"
 
 	"github.com/stretchr/testify/require"
 )

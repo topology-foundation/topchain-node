@@ -5,7 +5,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/runtime"
 
-	"topchain/x/challenge/types"
+	"mandu/x/challenge/types"
 )
 
 // GetParams get all parameters as types.Params

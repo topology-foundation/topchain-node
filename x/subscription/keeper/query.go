@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"topchain/x/subscription/types"
+	"mandu/x/subscription/types"
 )
 
 var _ types.QueryServer = Keeper{}

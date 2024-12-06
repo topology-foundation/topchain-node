@@ -3,13 +3,13 @@ package app
 import (
 	"time"
 
-	subscriptionmodulev1 "topchain/api/topchain/subscription/module"
-	_ "topchain/x/subscription/module" // import for side-effects
-	subscriptionmoduletypes "topchain/x/subscription/types"
+	subscriptionmodulev1 "mandu/api/mandu/subscription/module"
+	_ "mandu/x/subscription/module" // import for side-effects
+	subscriptionmoduletypes "mandu/x/subscription/types"
 
-	challengemodulev1 "topchain/api/topchain/challenge/module"
-	_ "topchain/x/challenge/module" // import for side-effects
-	challengemoduletypes "topchain/x/challenge/types"
+	challengemodulev1 "mandu/api/mandu/challenge/module"
+	_ "mandu/x/challenge/module" // import for side-effects
+	challengemoduletypes "mandu/x/challenge/types"
 
 	runtimev1alpha1 "cosmossdk.io/api/cosmos/app/runtime/v1alpha1"
 	appv1alpha1 "cosmossdk.io/api/cosmos/app/v1alpha1"
@@ -61,7 +61,8 @@ import (
 	ibctransfertypes "github.com/cosmos/ibc-go/v8/modules/apps/transfer/types"
 	ibcexported "github.com/cosmos/ibc-go/v8/modules/core/exported"
 	"google.golang.org/protobuf/types/known/durationpb"
-	// this line is used by starport scaffolding # stargate/app/moduleImport
+
+	mandutypes "mandu/types"
 )
 
 var (
@@ -100,7 +101,6 @@ var (
 		// chain modules
 		subscriptionmoduletypes.ModuleName,
 		challengemoduletypes.ModuleName,
-		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 
 	// During begin block slashing happens after distr.BeginBlocker so that
@@ -126,7 +126,6 @@ var (
 		// chain modules
 		subscriptionmoduletypes.ModuleName,
 		challengemoduletypes.ModuleName,
-		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	}
 
 	endBlockers = []string{
@@ -146,12 +145,10 @@ var (
 		// chain modules
 		subscriptionmoduletypes.ModuleName,
 		challengemoduletypes.ModuleName,
-		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
 
 	preBlockers = []string{
 		upgradetypes.ModuleName,
-		// this line is used by starport scaffolding # stargate/app/preBlockers
 	}
 
 	// module account permissions
@@ -166,7 +163,6 @@ var (
 		{Account: ibctransfertypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner}},
 		{Account: ibcfeetypes.ModuleName},
 		{Account: icatypes.ModuleName},
-		// this line is used by starport scaffolding # stargate/app/maccPerms
 		{Account: subscriptionmoduletypes.ModuleName},
 	}
 
@@ -188,7 +184,7 @@ var (
 			{
 				Name: runtime.ModuleName,
 				Config: appconfig.WrapAny(&runtimev1alpha1.Module{
-					AppName:       Name,
+					AppName:       mandutypes.AppName,
 					PreBlockers:   preBlockers,
 					BeginBlockers: beginBlockers,
 					EndBlockers:   endBlockers,
@@ -209,7 +205,7 @@ var (
 			{
 				Name: authtypes.ModuleName,
 				Config: appconfig.WrapAny(&authmodulev1.Module{
-					Bech32Prefix:             AccountAddressPrefix,
+					Bech32Prefix:             mandutypes.AccountAddressPrefix,
 					ModuleAccountPermissions: moduleAccPerms,
 					// By default modules authority is the governance module. This is configurable with the following:
 					// Authority: "group", // A custom module authority can be set using a module name
@@ -235,8 +231,8 @@ var (
 				Config: appconfig.WrapAny(&stakingmodulev1.Module{
 					// NOTE: specifying a prefix is only necessary when using bech32 addresses
 					// If not specfied, the auth Bech32Prefix appended with "valoper" and "valcons" is used by default
-					Bech32PrefixValidator: AccountAddressPrefix + sdk.PrefixValidator + sdk.PrefixOperator,
-					Bech32PrefixConsensus: AccountAddressPrefix + sdk.PrefixValidator + sdk.PrefixConsensus,
+					Bech32PrefixValidator: mandutypes.AccountAddressPrefix + sdk.PrefixValidator + sdk.PrefixOperator,
+					Bech32PrefixConsensus: mandutypes.AccountAddressPrefix + sdk.PrefixValidator + sdk.PrefixConsensus,
 				}),
 			},
 			{
@@ -310,7 +306,6 @@ var (
 				Name:   challengemoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&challengemodulev1.Module{}),
 			},
-			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},
 	})
 )

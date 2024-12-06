@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"topchain/x/challenge/types"
+	"mandu/x/challenge/types"
 
 	"cosmossdk.io/store/prefix"
 	"github.com/cosmos/cosmos-sdk/runtime"

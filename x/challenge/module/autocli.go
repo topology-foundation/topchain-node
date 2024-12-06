@@ -3,7 +3,7 @@ package challenge
 import (
 	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
 
-	modulev1 "topchain/api/topchain/challenge"
+	modulev1 "mandu/api/mandu/challenge"
 )
 
 // AutoCLIOptions implements the autocli.HasAutoCLIConfig interface.
@@ -29,7 +29,6 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Query proofs",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "challenge_id"}},
 				},
-				// this line is used by ignite scaffolding # autocli/query
 			},
 		},
 		Tx: &autocliv1.ServiceCommandDescriptor{
@@ -64,7 +63,6 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Send a settle-challenge tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "challenge_id"}},
 				},
-				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},
 	}
