@@ -17,15 +17,8 @@ jobs:
       - name: Detect Go Cache Paths
         id: cache-paths
         run: |
-          echo "go-build=$(go env GOCACHE)" >> $GITHUB_ENV
-          echo "go-mod=$(go env GOMODCACHE)" >> $GITHUB_ENV
-          echo "::set-output name=go-build::$(go env GOCACHE)"
-          echo "::set-output name=go-mod::$(go env GOMODCACHE)"
-      - uses: actions/checkout@v4
-      - name: Setup Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.23.1'
+          echo "go-build=$(go env GOCACHE)" >> $GITHUB_OUTPUT
+          echo "go-mod=$(go env GOMODCACHE)" >> $GITHUB_OUTPUT
 
   build:
     runs-on: ubuntu-latest
