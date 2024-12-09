@@ -7,11 +7,13 @@ import (
 	"cosmossdk.io/store/prefix"
 	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	utils "topchain/utils"
 )
 
 const (
-	ChallengePeriod  = 100
-	InactivityPeriod = 100
+	ChallengePeriod int64 = 100
+	InactivityPeriod int64 = 100
 )
 
 func (k Keeper) SetChallenge(ctx sdk.Context, challenge types.Challenge) {
@@ -51,7 +53,7 @@ func (k Keeper) GetHashSubmissionBlock(ctx sdk.Context, provider string, hash st
 		return block, false
 	}
 
-	return int64(sdk.BigEndianToUint64(blockBytes)), true
+	return utils.ByteArrayToInt(blockBytes), true
 }
 
 // Iterate over all challenges and apply the given callback function
@@ -73,5 +75,5 @@ func (k Keeper) PricePerVertexChallenge(ctx sdk.Context, challenger_address stri
 }
 
 func (k Keeper) isChallengeExpired(ctx sdk.Context, challenge types.Challenge) bool {
-	return challenge.LastActive+InactivityPeriod >= uint64(ctx.BlockHeight())
+	return challenge.LastActive + InactivityPeriod >= ctx.BlockHeight()
 }

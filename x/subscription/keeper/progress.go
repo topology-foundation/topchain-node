@@ -3,6 +3,7 @@ package keeper
 import (
 	"bytes"
 	"encoding/gob"
+	"topchain/utils"
 	"topchain/x/subscription/types"
 
 	"cosmossdk.io/store/prefix"
@@ -72,26 +73,26 @@ func (k Keeper) SetProgressSize(ctx sdk.Context, subscription string, block int6
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.GetProgressSizeStoreKey(subscription))
 
-	store.Set(sdk.Uint64ToBigEndian(uint64(block)), sdk.Uint64ToBigEndian(uint64(size)))
+	store.Set(utils.Int64ToByteArray(block), utils.Int64ToByteArray(int64(size)))
 }
 
 func (k Keeper) GetProgressSize(ctx sdk.Context, subscription string, block int64) (size int, found bool) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.GetProgressSizeStoreKey(subscription))
 
-	sizeBytes := store.Get(sdk.Uint64ToBigEndian(uint64(block)))
+	sizeBytes := store.Get(utils.Int64ToByteArray(block))
 	if sizeBytes == nil {
 		return size, false
 	}
 
-	return int(sdk.BigEndianToUint64(sizeBytes)), true
+	return int(utils.ByteArrayToInt(sizeBytes)), true
 }
 
 func (k Keeper) SetHashSubmissionBlock(ctx sdk.Context, provider string, hash string, block int64) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.GetHashSubmissionBlockStoreKey(provider))
 
-	store.Set([]byte(hash), sdk.Uint64ToBigEndian(uint64(block)))
+	store.Set([]byte(hash), utils.Int64ToByteArray(block))
 }
 
 func (k Keeper) GetHashSubmissionBlock(ctx sdk.Context, provider string, hash string) (block int64, found bool) {
@@ -103,5 +104,5 @@ func (k Keeper) GetHashSubmissionBlock(ctx sdk.Context, provider string, hash st
 		return block, false
 	}
 
-	return int64(sdk.BigEndianToUint64(blockBytes)), true
+	return int64(utils.ByteArrayToInt(blockBytes)), true
 }

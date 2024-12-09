@@ -26,8 +26,8 @@ type Challenge struct {
 	Id               string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Challenger       string `protobuf:"bytes,2,opt,name=challenger,proto3" json:"challenger,omitempty"`
 	Provider         string `protobuf:"bytes,3,opt,name=provider,proto3" json:"provider,omitempty"`
-	Amount           uint64 `protobuf:"varint,4,opt,name=amount,proto3" json:"amount,omitempty"`
-	LastActive       uint64 `protobuf:"varint,5,opt,name=last_active,json=lastActive,proto3" json:"last_active,omitempty"`
+	Amount           int64 `protobuf:"varint,4,opt,name=amount,proto3" json:"amount,omitempty"`
+	LastActive       int64 `protobuf:"varint,5,opt,name=last_active,json=lastActive,proto3" json:"last_active,omitempty"`
 	ChallengedHashes []byte `protobuf:"bytes,6,opt,name=challenged_hashes,json=challengedHashes,proto3" json:"challenged_hashes,omitempty"`
 }
 

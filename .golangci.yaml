@@ -45,7 +45,7 @@ linters:
     - goconst
     - gofmt
     - goheader
-    # - gosec
+    - gosec
     - grouper
     - importas
     - maintidx
@@ -62,9 +62,9 @@ linters:
 linters-settings:
   gocyclo:
     min-complexity: 18
-  # gosec:
-  #   excludes:
-  #     - G404
+  gosec:
+    excludes:
+      - G404
   gocritic:
     disabled-checks:
       - regexpMust
